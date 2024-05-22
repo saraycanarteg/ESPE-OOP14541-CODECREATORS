@@ -1,0 +1,1 @@
+The project aims to streamline and organize tax processes carried out by Cyber Planeta. This program will focus on a registry of taxpayers' information required for each process (names, emails, IDs, etc.), a search engine, a delivery calendar, among other functionalities.

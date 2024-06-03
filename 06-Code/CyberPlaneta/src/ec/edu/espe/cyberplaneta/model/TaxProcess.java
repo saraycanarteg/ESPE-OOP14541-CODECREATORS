@@ -1,11 +1,14 @@
 
 package ec.edu.espe.cyberplaneta.model;
 
+import java.util.Date;
+
 /**
  *
  * @author Code Creators, DCCO-ESPE
  */
 public class TaxProcess {
+
     private float price;
     private String typeOfProcess;
     private int numberOfDocumentation;
@@ -16,12 +19,14 @@ public class TaxProcess {
         this.numberOfDocumentation = numberOfDocumentation;
     }
 
+    public static void AddDateCalendar(Date calendar) {
+
+    }
+
     @Override
     public String toString() {
         return "TaxProcess{" + "price=" + price + ", typeOfProcess=" + typeOfProcess + ", numberOfDocumentation=" + numberOfDocumentation + '}';
     }
-    
-    
 
     /**
      * @return the price
@@ -64,7 +69,5 @@ public class TaxProcess {
     public void setNumberOfDocumentation(int numberOfDocumentation) {
         this.numberOfDocumentation = numberOfDocumentation;
     }
-    
-    
-    
+
 }

@@ -6,19 +6,20 @@ package ec.edu.espe.cyberplaneta.model;
  * @author Code Creators,DCCO-ESPE
  */
 public class TaxPayer {
+
     private int id;
     private String email;
     private String name;
     private String password;
     private boolean accountingDocumentation;
-    
-    public TaxPayer(int id, String email,String name,String password,boolean accountingDocumentation) {
+
+    public TaxPayer(int id, String email, String name, String password, boolean accountingDocumentation) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.accountingDocumentation = accountingDocumentation;
-                 
+
     }
 
     @Override
@@ -97,4 +98,3 @@ public class TaxPayer {
     }
 
 }
-

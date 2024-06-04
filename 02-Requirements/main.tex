@@ -99,7 +99,7 @@ Cyber Planeta System is expected to provide the following benefits:
     \item Increase security and reliability in the management of tax information.
     \item Improve data management and search.    
 \end{itemize}
-\\
+
 
 \textbf{Objectives and Goals}
 
@@ -166,42 +166,37 @@ This document is structured into the following sections:
 \section{General Description}
 \label{sec:orgc1c4017}
 
-En esta sección se describen todos aquellos factores que afectan al
-producto y a sus requisitos. No se describen los requisitos, sino su
-contexto. Esto permitirá definir con detalle los requisitos en la
-sección 3, haciendo que sean más fáciles de entender.
-
-Normalmente, esta sección consta de las siguientes subsecciones:
-Perspectiva del producto, funciones del producto, características de
-los usuarios, restricciones, factores que se asumen y futuros
-requisitos.
+CyberPlanet is a comprehensive tax processes management system designed to streamline operations, enhance profitability, and deliver exceptional customer service. Its user-friendly interface and robust features cater to the needs of Guillermo Cañarte (Cyber Planeta owner).
 
 
-\subsection{Perspectiva del producto}
+\subsection{Product Perspective}
 \label{sec:org24980a8}
 
-Esta subsección debe relacionar el futuro sistema (producto
-software) con otros productos. Si el producto es totalmente
-independiente de otros productos, también debe especificarse
-aquí. Si la ERS define un producto que es parte de un sistema mayor,
-esta subsección relacionará los requisitos del sistema mayor con la
-funcionalidad del producto mayor y el producto aquí descripto. Se
-recomienda utilizar diagramas de bloques.
+The Cyber Planeta System is an independent product that does not require integration with other systems. It is a self-contained software solution that provides a comprehensive suite of features for managing tax processes data.
 
 
-\subsection{Funciones del producto}
+\subsection{Product Functions}
 \label{sec:orgaf51da6}
 
-En esta subsección de la ERS se mostrará un resumen, a grandes
-rasgos, de las funciones del futuro sistema, por ejemplo, en una ERS
-para un programa de contabilidad, esta subsección mostrará que el
-sistema soportará el mantenimiento de cuentas, mostrará el estado de
-las cuentas y facilitará la facturación, sin mencionar el enorme
-detalle que cada una de estas funciones requiere.
-
-Las funciones deberán mostrarse de forma organizada, y pueden
-utilizarse gráficos, siempre y cuando dichos gráficos reflejen las
-relaciones entre funciones y no el diseño del sistema.
+Cyber Planeta streamlines tax payer's management and will focus in functionalities as: \begin{itemize}
+\item \textbf{Tax Payer Management:}
+\begin{itemize}
+\item Add, edit, and delete tax payer profiles.
+\item Attach individual documentation (e.g., scanned sales notes) to tax payer profiles.
+\item Search by 9th RUC digit for easy identification of tax declaration day.
+\end{itemize}
+\item \textbf{Tax Declaration Management:}
+\begin{itemize}
+\item Display tax declarations in a convenient calendar format.
+\item Organize tax services with a customizable schedule for process deliveries.
+\end{itemize}
+\item \textbf{Cost Calculation:}
+\begin{itemize}
+\item Empower the cyber owner to calculate the cost of each process.
+\item Determine the base fee based on the process type.
+\item Factor in additional costs based on process duration, documentation volume, and other relevant factors.
+\end{itemize}
+\end{itemize}
 
 
 \subsection{User characteristics}
@@ -239,7 +234,7 @@ The system assumes that the user will have all the taxpayer's data such as: id, 
 \subsection{Future requirements}
 \label{sec:org33cfcdb}
 
-a future requirement is for the system to send notifications about tax processes to the cell phone, in order to have a reminder and greater control over the process of each taxpayer.   
+A future requirement is for the system to send notifications about tax processes to the cell phone, in order to have a reminder and greater control over the process of each taxpayer.   
 
 
 \section{Requisitos específicos}
@@ -490,36 +485,76 @@ The following are the design constraints that may affect the development of the 
     \item The application must be able to provide online help and support for users.
 \end{itemize}
 
-\subsection{Atributos del sistema}
+\subsection{System attributes}
 \label{sec:orgd0babc0}
 
-Se detallarán los atributos de calidad (las "ilities") del
-sistema. Fiablidad, manteniblidad, portabilidad, y muy importante,
-la seguridad. Deberá especificarse qué tipos de usuarios están
-autorizados, o no, a realizar ciertas tareas, y cómo se
-implementarán los mecanismos de seguridad (por ejemplo, por medio de
-un \emph{login} y una \emph{password}).
+\textbf{Reliability}    
+\begin{itemize}
+    \item The system must be able to function properly for an extended period of time without errors or failures.
+    \item The system must be able to recover quickly from a failure or error.
+    \item The system must be able to provide a consistent and accurate response to user requests.
+\end{itemize}
 
+\textbf{Maintainability}    
+\begin{itemize}
+    \item The system must be easy to maintain and update.
+    \item The system must be able to be modified or updated without affecting its operation.
+    \item The system must be able to be scaled to adapt to changes in demand or user requirements.
+\end{itemize}
 
-\subsection{Otros requisitos}
+\textbf{Portability}    
+\begin{itemize}
+    \item The system must be able to function in different environments and platforms.
+    \item The system must be able to be executed on different operating systems and devices.
+    \item The system must be able to be accessed from different locations and devices.
+\end{itemize}
+
+\textbf{Security}    
+\begin{itemize}
+    \item The system must be able to protect the confidentiality, integrity, and availability of data.
+    \item The system must be able to authenticate and authorize users to access data and functionalities.
+    \item The system must be able to detect and prevent common security attacks, such as SQL injections and cross-site scripting (XSS).
+\end{itemize}
+
+\textbf{Access Security}    
+\begin{itemize}
+    \item Authorized users will be those who have a valid account and have been successfully authenticated.
+    \item Unauthorized users will not be able to access the data and functionalities of the system.
+    \item Users will have different levels of access depending on their role and responsibilities.
+\end{itemize}
+
+\textbf{Security Mechanisms}    
+\begin{itemize}
+    \item \textbf{Authentication:}A username and password-based authentication system will be used.
+    \item \textbf{Authorization:} A role and permission-based authorization system will be used.
+    \item \textbf{Encryption:} A secure encryption algorithm will be used to protect data in transit and at rest.
+    \item \textbf{Firewall:} A firewall will be used to protect the system from external attacks.
+    \item \textbf{Monitoring:} The system will be continuously monitored to detect and prevent security attacks.
+\end{itemize}
+
+\textbf{Security Mechanisms}    
+\begin{itemize}
+    \item \textbf{Administrators:}will have full access to the system and will be able to perform any task.
+    \item \textbf{Registered users: } will have access to the system's functionalities and will be able to perform specific tasks according to their role.
+    \item \textbf{Guest users:} will have limited access to the system and will be able to perform specific tasks according to their role.
+\end{itemize}
+
+\subsection{"Other requirements}
 \label{sec:org31d2978}
 
-Cualquier otro requisito que no encaje en otra sección.
+N/A
 
 \newpage
 
 
-\section{Apéndices}
+\section{Appendix}
 \label{sec:org75cea03}
 
-Puede contener todo tipo de información relevante para la ERS pero
-que, propiamente, no forme parte de la ERS. Por ejemplo:
+Appendices can contain all kinds of information relevant to the ERS but that does not, strictly speaking, form part of the ERS. For example:
 
 \begin{enumerate}
-\item Formatos de entrada/salida de datos, por pantalla o en listados.
-
-\item Resultados de análisis de costes.
-
-\item Restricciones acerca del lenguaje de programación.
+\item Data input/output formats, on screen or in listings.
+\item Cost analysis results.
+\item "Programming language restrictions.
 \end{enumerate}
 \end{document}

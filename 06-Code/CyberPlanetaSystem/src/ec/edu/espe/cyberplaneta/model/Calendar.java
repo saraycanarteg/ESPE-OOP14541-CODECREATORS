@@ -22,7 +22,7 @@ public class Calendar {
 
     @Override
     public String toString() {
-        return "Calendar{" + "deliveryDate=" + deliveryDate + ", startDate=" + startDate + '}';
+        return startDate + "," + deliveryDate;
     }
     
 

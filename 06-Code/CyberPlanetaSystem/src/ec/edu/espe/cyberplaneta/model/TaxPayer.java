@@ -7,13 +7,13 @@ package ec.edu.espe.cyberplaneta.model;
  */
 public class TaxPayer {
 
-    private int id;
+    private String id;
     private String email;
     private String name;
     private String password;
     private boolean accountingDocumentation;
 
-    public TaxPayer(int id, String email, String name, String password, boolean accountingDocumentation) {
+    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -24,20 +24,20 @@ public class TaxPayer {
 
     @Override
     public String toString() {
-        return "TaxPayer{" + "id=" + id + ", email=" + email + ", name=" + name + ", password=" + password + ", accountingDocumentation=" + accountingDocumentation + '}';
+        return id + "," + email + "," + name + "," + password + "," + accountingDocumentation;
     }
 
     /**
      * @return the id
      */
-    public int getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

@@ -53,40 +53,37 @@ In summary, the main objective of the software to be developed is to provide an 
 \subsection{Purpose}
 \label{sec:org434c3ef}
 
-The purpose of the software for a cyber business that performs tax and IVA declaration processes is to provide an efficient and secure tool for the owner of this business to be able to:
+The purpose of the software project is to create a program to handle tax returns more efficiently. The program will provide an organized and secure tool for the owner of this business to be able to:
 \begin{itemize}
-\item \textbf{Register and update customers' personal and tax data:}  allowing them to register their personal and tax data easily and quickly, and update it when necessary.
+\item \textbf{Register and update customers' personal and tax data:}  The main user will be able to add, update, search and delete tax payers with their own information (RUC, password, email, and others).
 
-\item \textbf{File periodic tax returns:} allowing to file periodic tax returns electronically, reducing waiting times and tax filing errors.
+\item \textbf{Receive personalized notifications:} Provide personalized notifications about tax payment deadlines and upcoming due dates, so that Cyber Planeta plans and manages the tax processes to be carried out effectively by a classfication agenda and calendar.
 
-\item \textbf{Receive personalized notifications:} providing personalized notifications about tax payment deadlines and upcoming due dates, so they can plan and manage their tax obligations effectively.
+\item \textbf{Calculate fees for services rendered:} 
+The program will help the tax preparer calculate their fees for services rendered. This will include factors such as the type of return, the number of invoices, and any additional costs.
 
-\item \textbf{Consult prices established for the collection of activities:} allowing them to consult the prices established for the collection of the activities to be performed, in a transparent and clear way, that is, if other employees have access to the software they will be able to obtain everything in an agile way.
-\item \textbf{Comply with legal and regulatory requirements:} ensuring that the cyber complies with legal and regulatory requirements established by the tax authority, and that customer information is secure and reliable.
 \end{itemize}
 
 
 \subsection{System Scope}
 \label{sec:org12e44a1}
 
-\textbf{Definition}
+ \textbf{Definition }
+ \\“Cyber Planeta System” will be the name of the upcoming tax and VAT filing manager system. \\
 
-The name “CYBER PLANETA SOFTWARE” is proposed for the future cyber tax and IVA filing system.
-\\
-
-\textbf{Functionalities}
-\\
-CYBER PLANETA SOFTWARE is a system that will allow the electronic filing of taxes and IVA, receive personalized notifications and consult established prices. The system will perform the following functions:
+\textbf{Functionalities }
+\\The software empowers Cyber Planeta to streamline tax and VAT filing processes for their clients. The key functionalities will be:
 \begin{itemize}
-    \item Registration of clients and updating of personal and fiscal data.
-    \item Electronic filing of periodic tax returns
-    \item Sending personalized notifications about tax payment deadlines and upcoming due dates.
-    \item Consultation of prices established for the collection of activities.
+    \item Manage Tax Payer's data (edit, delete, add).
+    \item Send automated datelines notifications.
+    \item Calculate fees for services rendered.
+    \item Display search results according to the ninth RUC digit.
+    \item Show deadlines in calendar.
 \end{itemize}
 
 \textbf{Limitations}
 \\
-CYBER PLANETA SOFTWARE will not perform the following functions:
+Cyber Planeta System will not perform the following functions:
 \begin{itemize}
     \item It will not be an accounting or financial management system.
      \item It will not allow electronic payments
@@ -95,27 +92,57 @@ CYBER PLANETA SOFTWARE will not perform the following functions:
 
 \textbf{Benefits}
 \\
-CYBER PLANETA SOFTWARE is expected to provide the following benefits:
+Cyber Planeta System is expected to provide the following benefits:
 \begin{itemize}
-    \item Increased efficiency and speed in tax and IVA filing.
-    \item Improved accuracy and consistency of tax information.
-    \item Increased security and reliability in the management of tax information.
-    \item Improved customer experience by offering an easy-to-use and accessible tool.    
+    \item Increase efficiency and speed in tax and VAT filing.
+    \item Improve accuracy and consistency of tax information.
+    \item Increase security and reliability in the management of tax information.
+    \item Improve data management and search.    
 \end{itemize}
 \\
+
 \textbf{Objectives and Goals}
 
-The objectives and goals of CYBER PLANETA SOFTWARE are:
+The objectives and goals of Cyber Planeta System are:
 \begin{itemize}
     \item Reduce tax and IVA filing time by 50 \%.
     \item Increase customer satisfaction by 80 \%.
-    \item Reduce tax and IVA filing errors by 90 \%.
-    
+    \item Reduce tax and IVA filing errors by 90 \%.    
 \end{itemize}
 
-\textbf{References}
-\\
-CYBER PLANETA SOFTWARE is based on the following higher level documents:
+\subsection{Definitions, Acronyms and Abbreviations}
+\label{sec:orgb158e36}
+\begin{itemize}
+    \item \textbf{registerTaxPayer:} the process of registering a taxpayer through the program.
+    \item \textbf{searchTaxPayer:} the process of searching a taxpayer through the program.
+    \item \textbf{deleteTaxPayer:} the process of delete a taxpayer through the program.
+    \item \textbf{classificateTaxPayer:} the taxpayer will be classified through the program.
+    \item \textbf{calculateTaxProcessCost:} the cost to be charged to the taxpayer was calculated.
+    \item \textbf{price:} Calculate the tax owed by a taxpayer.
+    \item \textbf{typeofProcess:} process to be carried out for the taxpayer.
+    \item \textbf{numberOfDocumentation:} where the taxpayer can be identified.
+    \item \textbf{addDateCalendar:} the day when the declaration must be filed is added.
+    \item \textbf{id:} taxpayer identification number or also known as NUI.
+    \item \textbf{email:} email of taxpayer
+    \item \textbf{name:} taxpayer´s as identification
+    \item \textbf{password:}
+    \item \textbf{accountingDocumentation:}
+    \item \textbf{deliveryDate:}
+    \item \textbf{startDate:}
+    \item \textbf{sendNotification:}
+    \item \textbf{numberOfFile:}
+    \item \textbf{saveScannedFile:}
+    \item \textbf{processid:}
+    \item \textbf{processName:}
+    \item \textbf{taxRate:}
+\end{itemize}
+
+
+
+\subsection{Referencias}
+\label{sec:org62711e0}
+
+Cyber Planeta System is based on the following higher level documents:
 \begin{itemize}
     \item Global system requirements specification document.
     \item Cyber Information Security Policy
@@ -123,28 +150,21 @@ CYBER PLANETA SOFTWARE is based on the following higher level documents:
 \end{itemize}
 
 
-\subsection{Definiciones, Acrónimos y Abreviaturas}
-\label{sec:orgb158e36}
-
-En esta subsección se definirán todos los términos, acrónimos y
-abreviaturas utilizadas en la ERS.
-
-
-\subsection{Referencias}
-\label{sec:org62711e0}
-
-En esta subsección se mostrará una lista completa de todos los
-documentos referenciados en la ERS
-
-
-\subsection{Visión general del documento}
+\subsection{Document Overview}
 \label{sec:orgdaca22c}
+This document is structured into the following sections:
 
-Esta subsección describe brevemente los contenidos y la organización
-del resto de la ERS.
+\begin{itemize}
+  \item \textbf{Introduction:} Presents the purpose, scope, definitions, references, and overview of the document.
+  \item \textbf{General Description:} Describes the general characteristics of the "Cyber Planeta System".
+  \item \textbf{Functional Requirements:} Details the specific functionalities and behaviors of the system.
+  \item \textbf{Non-Functional Requirements:} Defines the non-functional characteristics of the system, such as performance, security, and usability.
+  \item \textbf{Glossary:} Provides detailed definitions of technical terms used in the document.
+  \item \textbf{Annexes:} Includes additional information, such as data flow diagrams and use cases.
+\end{itemize}
 
 
-\section{Descripción general del documento}
+\section{General Description}
 \label{sec:orgc1c4017}
 
 En esta sección se describen todos aquellos factores que afectan al

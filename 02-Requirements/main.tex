@@ -129,14 +129,13 @@ The objectives and goals of Cyber Planeta System are:
     \item \textbf{accountingDocumentation:} here the taxpayer's invoices and withholdings will be added.
     \item \textbf{deliveryDate:}deadline for filing the tax return.
     \item \textbf{startDate:} start date for filing the tax return.
-    \item \textbf{sendNotification:}
-    \item \textbf{numberOfFile:}
-    \item \textbf{saveScannedFile:}
-    \item \textbf{processid:}
-    \item \textbf{processName:}
-    \item \textbf{taxRate:}
+    \item \textbf{sendNotification:} notifications will be sent days before the deadline so that processes do not accumulate.
+    \item \textbf{numberOfFile:} "taxpayer's file number.
+    \item \textbf{saveScannedFile:} as a backup for the business owner and also the customer.
+    \item \textbf{processid:} the process to be carried out will be registered according to your identification.
+    \item \textbf{processName:} each process will have its own name.
+    \item \textbf{taxRate:} tax value
 \end{itemize}
-
 
 
 \subsection{References}
@@ -217,27 +216,14 @@ The product user keeps the accounting of natural persons and some companies, bot
 These are some limitations for the development of the program
 
 \begin{itemize}
-\item Data format compatibility.
+\item No data connection to SRI.
 
 \item Do not store redundant information.
 
-\item Interfaces con otras aplicaciones.
 
-\item Operaciones paralelas.
+\item Multiplatform system.
 
-\item Funciones de auditoría
 
-\item Funciones de control.
-
-\item Lenguaje(s) de programación
-
-\item Protocolos de comunicación.
-
-\item Requisitos de habilidad.
-
-\item Criticalidad de la aplicación.
-
-\item Consideraciones acerca de la seguridad.
 \end{itemize}
 
 
@@ -406,18 +392,48 @@ conveniente. Deberá, eso sí, justificarse el porqué de tal elección.
 
 
 
-\subsection{Requisitos de rendimiento}
+\subsection{Performance Requirements}
 \label{sec:org94bc543}
 
-Se detallarán los requisitos relacionados con la carga que se espera
-tenga que soportar el sistema. Por ejemplo, el número de terminales,
-el número esperado de usuarios simultaneamente conectados, número de
-transacciones por segundo que deberá soportar el sistema, etc.
-  También, si es necesario, se especificarpán los requisitos de
-datos, es decir, aquellos requisitos que afecten a la información
-que se guardará en la base de datos. Por ejemplo, la frecuencia de
-uso, las capacidades de acceso y la cantidad de registros que se
-espera almacenar (decenas, cientos, miles o millones).
+The following are the performance requirements for the Cyber Planeta system:\\
+\\
+\textbf{System Load:}
+
+\begin{itemize}
+    \item \textbf{Number of terminals:} 50 concurrent terminals
+    \item \textbf{Number of simultaneously connected users: }200 users
+    \item \textbf{Transactions per second: }10 transactions per second
+    \item \textbf{Response time:} 2 seconds maximum for each transaction
+\end{itemize}
+\\
+\textbf{Data Requirements:}
+\begin{itemize}
+    \item \textbf{Usage frequency:} High usage frequency during tax and taxes declaration periods.
+    \item \textbf{Access capabilities:} Simultaneous access to the database for multiple users.
+    \item \textbf{Number of records:} It is expected to store a minimum of 10,000 tax declaration records and a maximum of 50,000 records
+    \item \textbf{Database size:} The database is expected to be at least 100 GB in size and up to 500 GB
+    \item \textbf{Read and write speed:} A read and write speed of at least 100 MB/s is required    
+\end{itemize}
+\textbf{Storage Requirements:}
+\begin{itemize}
+    \item \textbf {Storage space:} A minimum of 500 GB of storage space is required for the database and attachments.
+    \item \textbf {Storage type:} Hard disk or SSD storage with fast access speed is required.
+\end{itemize}
+
+\textbf{Network Requirements:}
+\begin{itemize}
+     \item \textbf {Bandwidth:} At least 100 Mbps of bandwidth is required to ensure fast and secure communication.
+     \item \textbf {Connectivity:}  Stable and secure connectivity is required through network protocols.
+\end{itemize}
+\textbf{Security Requirements:}
+\begin{itemize}
+    \item \textbf {Authentication:} Secure authentication is required for system users and administrators.
+    \item \textbf {Authorization:} Secure authorization is required to access system data and functionalities.
+    \item \textbf {Data integrity:} Data must be stored and transmitted securely and confidentially
+\end{itemize}
+
+It is important to note that these requirements may vary depending on the specific needs of the system and its users, so it is important to test and adjust the system to ensure optimal performance.
+
 
 
 \subsection{Restricciones de diseño}

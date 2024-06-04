@@ -207,7 +207,7 @@ relaciones entre funciones y no el diseño del sistema.
 \subsection{User characteristics}
 \label{sec:orga40b0ee}
 
-The product user keeps the accounting of natural persons and some companies, both those that are obliged to keep accounting and those that are not. They have access to the SRI's electronic information and must manage access codes and the RUC. The user has a basic knowledge of tax processes and of managing both electronic information and physical documentation, such as sales notes. 
+The user of the product keeps the accounting of individuals and some companies, both those that are obliged to keep accounting and those that are not. He/she has access to the SRI's electronic information and must manage the access codes and the RUC. The user has basic knowledge of tax processes and the handling of both electronic information and physical documentation, such as sales notes. The user also has knowledge about the management for the dates of delivery according to the last number of the RUC. 
 
 
 \subsection{Restrictions}
@@ -220,8 +220,11 @@ These are some limitations for the development of the program
 
 \item Do not store redundant information.
 
+\item Multi-platform system.
 
-\item Multiplatform system.
+\item Do not store information indefinitely.
+
+\item It does not have to be a complex system.
 
 
 \end{itemize}
@@ -230,21 +233,13 @@ These are some limitations for the development of the program
 \subsection{Assumptions and dependencies}
 \label{sec:org0ae23fe}
 
-Esta subsección de la ERS describirá aquellos factores que, si
-cambian, pueden afectar a los requisitos. Por ejemplo, los
-requisitos pueden presuponer una cierta organización de ciertas
-unidades de la empresa, o pueden presuponer que  el sistema correrá
-sobre cierto sistema operativo. Si cambian dichos detalles en la
-organización de la empresa, o si cambian ciertos detalles técnicos,
-como el sistema operativo, puede ser necesario revisar y cambiar los
-requisitos. 
+The system assumes that the user will have all the taxpayer's data such as: id, email, name, password, and if he/she delivers physical documents, if any of this data is not obtained, the system will fail, as well as the date. Also the system assumes that the user will always have a computer and a database always available for information storage.
 
 
-\subsection{Requisitos futuros}
+\subsection{Future requirements}
 \label{sec:org33cfcdb}
 
-Esta subsección esbozará futuras mejoras al sistema, que podrán
-anlizarse e implementarse en el futuro.   
+a future requirement is for the system to send notifications about tax processes to the cell phone, in order to have a reminder and greater control over the process of each taxpayer.   
 
 
 \section{Requisitos específicos}
@@ -436,14 +431,64 @@ It is important to note that these requirements may vary depending on the specif
 
 
 
-\subsection{Restricciones de diseño}
+\subsection{Design Constraints}
 \label{sec:org49fe900}
 
+The following are the design constraints that may affect the development of the Cyber Planeta system:
 
-Todo aquello que restrinja las decisiones relativas al diseño de la
-aplicación: Restricciones de otros estándares, limitaciones del
-hardware, etc.
+\textbf{Standards Constraints}
+\begin{itemize}
+    \item Compliance with current tax regulations
+    \item Compliance with cybersecurity information security standards
+    \item Compliance with accessibility standards for people with disabilities
+\end{itemize}
 
+\textbf{Hardware Limitations}
+\begin{itemize}
+    \item The application must be compatible with the cybersecurity computer equipment, which has the following characteristics:
+    \begin{itemize}
+        \item \textbf{Processor:} Intel Core i5 or higher
+        \item \textbf{RAM memory:} 8 GB or higher
+        \item \textbf{Operating System:} Windows 10 or higher
+        \item \textbf{Connectivity:} Wi-Fi or Ethernet
+    \end{itemize}
+    
+    \item The application must be able to function in network environments with low connection speed
+\end{itemize}
+
+\textbf{Software Limitations}
+\begin{itemize}
+    \item The application must be compatible with the following web browsers:
+    \begin{itemize}
+        \item Google Chrome
+    \end{itemize}
+    
+    \item The application must be able to work with different versions of the aforementioned web browsers.
+    \item The application must be compatible with the following mobile operating systems:
+    \begin{itemize}
+        \item Android 8.0 or higher
+    \end{itemize}
+\end{itemize}
+   
+\textbf{Integration Constraints}    
+\begin{itemize}
+    \item The application must be able to integrate with the cybersecurity's existing tax management systems.
+    \item The application must be able to integrate with the cybersecurity's electronic payment systems.
+\end{itemize}
+
+\textbf{Security Constraints}    
+\begin{itemize}
+    \item The application must comply with cybersecurity information security standards, including user authentication and authorization.
+    \item The application must be able to encrypt sensitive and confidential data.
+    \item The application must be able to detect and prevent common security attacks, such as SQL injections and cross-site scripting (XSS).
+\end{itemize}
+
+\textbf{Usability Constraints}    
+\begin{itemize}
+    \item The application must be easy to use and accessible to cybersecurity users.
+    \item The application must be able to provide an intuitive and user-friendly experience.
+    \item The application must be able to provide online help and support for users.
+\end{itemize}
 
 \subsection{Atributos del sistema}
 \label{sec:orgd0babc0}

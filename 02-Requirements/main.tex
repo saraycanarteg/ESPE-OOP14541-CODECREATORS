@@ -1,0 +1,579 @@
+% Created 2020-04-24 vie 23:03
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt,a4paper, twosite]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[left=2.00cm, right=2.50cm, top=2.50cm, bottom=2.00cm]{geometry}
+\usepackage{fancyhdr}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[LO]{\emph{\uppercase{\leftmark}}}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{1.0pt}
+\pagestyle{fancy}
+\date{}
+\title{CODE CREATORS}
+\hypersetup{
+ pdfauthor={},
+ pdftitle={CODE CREATORS},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.2 (Org mode 9.1.9)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+\label{sec:org60390fa}
+
+The purpose of this document is to define the software requirements for a cyber that performs tax and IVA declaration processes. The purpose of this system is to provide an efficient and secure tool to the cyber clients where they will be registered and their tax returns will be done in a simple and fast way.
+
+The software will allow them to update their personal and fiscal data, as well as to present personalized notifications about tax payment deadlines and upcoming due dates. In addition, it will have a specific section for the management of prices established for the collection of the activities to be carried out, which will allow clients to have a clear and transparent view of the costs associated with each service.
+
+With this system, the cyber will be able to offer its customers a more personalized and efficient experience, reducing waiting times and errors in tax reporting. In addition, the system will enable the cyber company to comply with the legal and regulatory requirements established by the tax authority, ensuring the security and reliability of customer information.
+
+In summary, the main objective of the software to be developed is to provide an efficient and secure tool for tax and IVA returns, meeting the client's requirements and offering a personalized and transparent user experience.
+
+
+
+\subsection{Purpose}
+\label{sec:org434c3ef}
+
+The purpose of the software project is to create a program to handle tax returns more efficiently. The program will provide an organized and secure tool for the owner of this business to be able to:
+\begin{itemize}
+\item \textbf{Register and update customers' personal and tax data:}  The main user will be able to add, update, search and delete tax payers with their own information (RUC, password, email, and others).
+
+\item \textbf{Receive personalized notifications:} Provide personalized notifications about tax payment deadlines and upcoming due dates, so that Cyber Planeta plans and manages the tax processes to be carried out effectively by a classfication agenda and calendar.
+
+\item \textbf{Calculate fees for services rendered:} 
+The program will help the tax preparer calculate their fees for services rendered. This will include factors such as the type of return, the number of invoices, and any additional costs.
+
+\end{itemize}
+
+
+\subsection{System Scope}
+\label{sec:org12e44a1}
+
+ \textbf{Definition }
+ \\“Cyber Planeta System” will be the name of the upcoming tax and VAT filing manager system. \\
+
+\textbf{Functionalities }
+\\The software empowers Cyber Planeta to streamline tax and VAT filing processes for their clients. The key functionalities will be:
+\begin{itemize}
+    \item Manage Tax Payer's data (edit, delete, add).
+    \item Send automated datelines notifications.
+    \item Calculate fees for services rendered.
+    \item Display search results according to the ninth RUC digit.
+    \item Show deadlines in calendar.
+\end{itemize}
+
+\textbf{Limitations}
+\\
+Cyber Planeta System will not perform the following functions:
+\begin{itemize}
+    \item It will not be an accounting or financial management system.
+     \item It will not allow electronic payments
+     \item It will not be a general tax information query system.
+\end{itemize}
+
+\textbf{Benefits}
+\\
+Cyber Planeta System is expected to provide the following benefits:
+\begin{itemize}
+    \item Increase efficiency and speed in tax and VAT filing.
+    \item Improve accuracy and consistency of tax information.
+    \item Increase security and reliability in the management of tax information.
+    \item Improve data management and search.    
+\end{itemize}
+
+
+\textbf{Objectives and Goals}
+
+The objectives and goals of Cyber Planeta System are:
+\begin{itemize}
+    \item Reduce tax and IVA filing time by 50 \%.
+    \item Increase customer satisfaction by 80 \%.
+    \item Reduce tax and IVA filing errors by 90 \%.    
+\end{itemize}
+
+\subsection{Definitions, Acronyms and Abbreviations}
+\label{sec:orgb158e36}
+\begin{itemize}
+    \item \textbf{registerTaxPayer:} the process of registering a taxpayer through the program.
+    \item \textbf{searchTaxPayer:} the process of searching a taxpayer through the program.
+    \item \textbf{deleteTaxPayer:} the process of delete a taxpayer through the program.
+    \item \textbf{classificateTaxPayer:} the taxpayer will be classified through the program.
+    \item \textbf{calculateTaxProcessCost:} the cost to be charged to the taxpayer was calculated.
+    \item \textbf{price:} Calculate the tax owed by a taxpayer.
+    \item \textbf{typeofProcess:} process to be carried out for the taxpayer.
+    \item \textbf{numberOfDocumentation:} where the taxpayer can be identified.
+    \item \textbf{addDateCalendar:} the day when the declaration must be filed is added.
+    \item \textbf{id:} taxpayer identification number or also known as NUI.
+    \item \textbf{email:} email of taxpayer.
+    \item \textbf{name:} taxpayer´s as identification.
+    \item \textbf{password:} t is a secret word or phrase that is used to verify the identity of a user and grant them access to a resource, such as a computer system.
+    \item \textbf{accountingDocumentation:} here the taxpayer's invoices and withholdings will be added.
+    \item \textbf{deliveryDate:}deadline for filing the tax return.
+    \item \textbf{startDate:} start date for filing the tax return.
+    \item \textbf{sendNotification:} notifications will be sent days before the deadline so that processes do not accumulate.
+    \item \textbf{numberOfFile:} "taxpayer's file number.
+    \item \textbf{saveScannedFile:} as a backup for the business owner and also the customer.
+    \item \textbf{processid:} the process to be carried out will be registered according to your identification.
+    \item \textbf{processName:} each process will have its own name.
+    \item \textbf{taxRate:} tax value
+\end{itemize}
+
+
+\subsection{References}
+\label{sec:org62711e0}
+
+Cyber Planeta System is based on the following higher level documents:
+\begin{itemize}
+    \item Global system requirements specification document.
+    \item Cyber Information Security Policy
+    \item Current tax rules and regulations
+\end{itemize}
+
+
+\subsection{Document Overview}
+\label{sec:orgdaca22c}
+This document is structured into the following sections:
+
+\begin{itemize}
+  \item \textbf{Introduction:} Presents the purpose, scope, definitions, references, and overview of the document.
+  \item \textbf{General Description:} Describes the general characteristics of the "Cyber Planeta System".
+  \item \textbf{Functional Requirements:} Details the specific functionalities and behaviors of the system.
+  \item \textbf{Non-Functional Requirements:} Defines the non-functional characteristics of the system, such as performance, security, and usability.
+  \item \textbf{Glossary:} Provides detailed definitions of technical terms used in the document.
+  \item \textbf{Annexes:} Includes additional information, such as data flow diagrams and use cases.
+\end{itemize}
+
+
+\section{General Description}
+\label{sec:orgc1c4017}
+
+CyberPlanet is a comprehensive tax processes management system designed to streamline operations, enhance profitability, and deliver exceptional customer service. Its user-friendly interface and robust features cater to the needs of Guillermo Cañarte (Cyber Planeta owner).
+
+
+\subsection{Product Perspective}
+\label{sec:org24980a8}
+
+The Cyber Planeta System is an independent product that does not require integration with other systems. It is a self-contained software solution that provides a comprehensive suite of features for managing tax processes data.
+
+
+\subsection{Product Functions}
+\label{sec:orgaf51da6}
+
+Cyber Planeta streamlines tax payer's management and will focus in functionalities as: \begin{itemize}
+\item \textbf{Tax Payer Management:}
+\begin{itemize}
+\item Add, edit, and delete tax payer profiles.
+\item Attach individual documentation (e.g., scanned sales notes) to tax payer profiles.
+\item Search by 9th RUC digit for easy identification of tax declaration day.
+\end{itemize}
+\item \textbf{Tax Declaration Management:}
+\begin{itemize}
+\item Display tax declarations in a convenient calendar format.
+\item Organize tax services with a customizable schedule for process deliveries.
+\end{itemize}
+\item \textbf{Cost Calculation:}
+\begin{itemize}
+\item Empower the cyber owner to calculate the cost of each process.
+\item Determine the base fee based on the process type.
+\item Factor in additional costs based on process duration, documentation volume, and other relevant factors.
+\end{itemize}
+\end{itemize}
+
+
+\subsection{User characteristics}
+\label{sec:orga40b0ee}
+
+The user of the product keeps the accounting of individuals and some companies, both those that are obliged to keep accounting and those that are not. He/she has access to the SRI's electronic information and must manage the access codes and the RUC. The user has basic knowledge of tax processes and the handling of both electronic information and physical documentation, such as sales notes. The user also has knowledge about the management for the dates of delivery according to the last number of the RUC. 
+
+
+\subsection{Restrictions}
+\label{sec:org5ca5790}
+
+These are some limitations for the development of the program
+
+\begin{itemize}
+\item No data connection to SRI.
+
+\item Do not store redundant information.
+
+\item Multi-platform system.
+
+\item Do not store information indefinitely.
+
+\item It does not have to be a complex system.
+
+
+\end{itemize}
+
+
+\subsection{Assumptions and dependencies}
+\label{sec:org0ae23fe}
+
+The system assumes that the user will have all the taxpayer's data such as: id, email, name, password, and if he/she delivers physical documents, if any of this data is not obtained, the system will fail, as well as the date. Also the system assumes that the user will always have a computer and a database always available for information storage.
+
+
+\subsection{Future requirements}
+\label{sec:org33cfcdb}
+
+A future requirement is for the system to send notifications about tax processes to the cell phone, in order to have a reminder and greater control over the process of each taxpayer.   
+
+
+\section{Specific requirements}
+\label{sec:org40573d1}
+
+This document outlines the system requirements for an cyberg program specializing in tax returns. The program aims to facilitate the organization of the premises and the completion of tax procedures for customers.
+
+\begin{itemize}
+\item
+\textbf {Customer data collection}
+The system must have a form for customers to enter their personal data, such as name, address, ID number, RUC, type of procedure they want to perform, etc. 
+The data entered by customers must be stored securely and confidentially. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Integration with the SRI platform}
+The system must be able to connect to the SRI platform to carry out tax declarations automatically. 
+The system must be compatible with the latest versions of the SRI platform. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Fare calculation}
+The system must be able to calculate the price of the service based on the type of procedure and the number of declarations to be made. 
+A tiered pricing system should be implemented to offer discounts to customers who perform multiple procedures.
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Search by RUC}
+The system must have a search system that allows customers to find their previous declarations by RUC. 
+The search must be fast and efficient. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Appointment calendar}
+The system must have a calendar where appointments can be scheduled for customers. 
+The calendar must allow viewing available and occupied appointments. 
+The system must send email or SMS notifications to customers to remind them of their appointments. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Group system}
+The system could implement a group system to organize customers according to the type of procedure they want to perform. 
+This would facilitate care and allow for more personalized service. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Notifications}
+The system must send email or SMS notifications to customers to inform them of the status of their procedures. 
+Notifications should be clear and concise. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Report generation}
+The system could generate personalized reports for customers with information about their tax declarations, such as filing dates, amounts paid, etc. 
+Reports should be exportable to different formats, such as PDF or Excel. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Automatic updates}
+The system must be updated automatically to ensure that the latest version of the SRI platform is always being used and that the latest tax regulations are complied with. 
+Updates should be downloaded and installed transparently for users. 
+\end{itemize}
+
+\begin{itemize}
+\item
+\textbf {Technical support}
+The system must have a technical support system to help customers with any problems they may have using it,
+Technical support must be available by phone, email or online chat. 
+\end{itemize}
+
+
+
+
+
+
+\subsection{External Interfaces}
+\label{sec:orgfd5391f}
+
+The menu must be accessible from any screen the search bar must support searches by customer name and RUC.\\
+
+\textbf {Intake Form}
+
+\begin{itemize}
+\item Text fields for name, RUC, and document number.
+\item Dropdown list for the type of process.
+\item Calendar to select the processing date.
+\item Automatically calculated price field.\\
+\end{itemize}
+
+\textbf {Interface with Other Systems}
+
+\begin{itemize}
+\item Integration must be secure and compliant with legal regulations.
+\item Information obtained must be updated in real time or at defined regular intervals.
+\end{itemize}
+
+\subsection{Functions}
+\label{sec:org307bb59}
+
+The functions required for Cyber Planeta System are:\\
+
+\textbf{Taxpayer:}\\
+Taxpayers are the users who will request the cyber center's services. Each Taxpayer has attributes such as name, RUC, process type, processing date, price, and number of documents.Taxpayers are the users who will request the cyber center's services. Each Taxpayer has attributes such as name, RUC, process type, processing date, price, and number of documents.
+\begin{itemize}
+\item \textbf {Add Taxpayer:}
+The system must allow the entry of data for new clients, Name, RUC, process type, processing date, price, number of documents, Registration confirmation.
+\end{itemize}
+\begin{itemize}
+\item \textbf {Update Taxpayer:}
+The system must allow the modification of the data of an existing client, Name, RUC, process type, processing date, price, number of documents, Update confirmation.
+\end{itemize}
+
+\begin{itemize}
+\item \textbf {Delete Taxpayer:}
+The system must allow the deletion of a client from the system, Client ID, Deletion confirmation.
+\end{itemize}
+
+\begin{itemize}
+\item \textbf {Search Taxpayer:}
+The system must allow the search for clients by name or RUC, List of matching clients. 
+\end{itemize}
+
+\textbf{Calendar:}\\
+The processing calendar organizes the dates on which the processes must be carried out, based on the client's RUC.
+\begin{itemize}
+\item \textbf {Assign Processing Date:}
+The system must assign a processing date based on the client's RUC, Processing date.Processing date.
+\end{itemize}
+\begin{itemize}
+\item \textbf {Show Calendar:}
+The system must display a calendar with the dates of the scheduled processes, Calendar view.
+\end{itemize}
+\begin{itemize}
+\item \textbf {Send Reminders:}
+The system must send reminders to clients about upcoming processes, Processing date, client's contact information, Email or SMS notifications.
+\end{itemize}
+
+\textbf{Taxprocess:}\\
+Tax and service processing refers to the specific actions carried out to manage taxes and other services requested by customers. This encompasses a series of well-defined steps that ensure the timely and efficient handling of tax filings, service requests, and other related procedures.
+\begin{itemize}
+\item \textbf {Select Process:}
+The system must allow the selection of the type of process to be followed for each client, Details of the selected process.
+\end{itemize}
+\begin{itemize}
+\item \textbf {Calculate Price:}
+The system must calculate and display the price of the selected process for each client, Process price.
+\end{itemize}
+\begin{itemize}
+\item \textbf {Generate Processing Report:}
+The system must generate reports of the processes carried out within a specified date range, Date range, Report in PDF or Excel format.
+\end{itemize}
+
+
+
+
+
+
+
+\subsection{Performance Requirements}
+\label{sec:org94bc543}
+
+The following are the performance requirements for the Cyber Planeta system:\\
+\\
+\textbf{System Load:}
+
+\begin{itemize}
+    \item \textbf{Number of terminals:} 50 concurrent terminals
+    \item \textbf{Number of simultaneously connected users: }200 users
+    \item \textbf{Transactions per second: }10 transactions per second
+    \item \textbf{Response time:} 2 seconds maximum for each transaction
+\end{itemize}
+\\
+\textbf{Data Requirements:}
+\begin{itemize}
+    \item \textbf{Usage frequency:} High usage frequency during tax and taxes declaration periods.
+    \item \textbf{Access capabilities:} Simultaneous access to the database for multiple users.
+    \item \textbf{Number of records:} It is expected to store a minimum of 10,000 tax declaration records and a maximum of 50,000 records
+    \item \textbf{Database size:} The database is expected to be at least 100 GB in size and up to 500 GB
+    \item \textbf{Read and write speed:} A read and write speed of at least 100 MB/s is required    
+\end{itemize}
+\textbf{Storage Requirements:}
+\begin{itemize}
+    \item \textbf {Storage space:} A minimum of 500 GB of storage space is required for the database and attachments.
+    \item \textbf {Storage type:} Hard disk or SSD storage with fast access speed is required.
+\end{itemize}
+
+\textbf{Network Requirements:}
+\begin{itemize}
+     \item \textbf {Bandwidth:} At least 100 Mbps of bandwidth is required to ensure fast and secure communication.
+     \item \textbf {Connectivity:}  Stable and secure connectivity is required through network protocols.
+\end{itemize}
+\textbf{Security Requirements:}
+\begin{itemize}
+    \item \textbf {Authentication:} Secure authentication is required for system users and administrators.
+    \item \textbf {Authorization:} Secure authorization is required to access system data and functionalities.
+    \item \textbf {Data integrity:} Data must be stored and transmitted securely and confidentially
+\end{itemize}
+
+It is important to note that these requirements may vary depending on the specific needs of the system and its users, so it is important to test and adjust the system to ensure optimal performance.
+
+
+
+\subsection{Design Constraints}
+\label{sec:org49fe900}
+
+The following are the design constraints that may affect the development of the Cyber Planeta system:
+
+\textbf{Standards Constraints}
+\begin{itemize}
+    \item Compliance with current tax regulations
+    \item Compliance with cybersecurity information security standards
+    \item Compliance with accessibility standards for people with disabilities
+\end{itemize}
+
+\textbf{Hardware Limitations}
+\begin{itemize}
+    \item The application must be compatible with the cybersecurity computer equipment, which has the following characteristics:
+    \begin{itemize}
+        \item \textbf{Processor:} Intel Core i5 or higher
+        \item \textbf{RAM memory:} 8 GB or higher
+        \item \textbf{Operating System:} Windows 10 or higher
+        \item \textbf{Connectivity:} Wi-Fi or Ethernet
+    \end{itemize}
+    
+    \item The application must be able to function in network environments with low connection speed
+\end{itemize}
+
+\textbf{Software Limitations}
+\begin{itemize}
+    \item The application must be compatible with the following web browsers:
+    \begin{itemize}
+        \item Google Chrome
+    \end{itemize}
+    
+    \item The application must be able to work with different versions of the aforementioned web browsers.
+    \item The application must be compatible with the following mobile operating systems:
+    \begin{itemize}
+        \item Android 8.0 or higher
+    \end{itemize}
+\end{itemize}
+   
+\textbf{Integration Constraints}    
+\begin{itemize}
+    \item The application must be able to integrate with the cybersecurity's existing tax management systems.
+    \item The application must be able to integrate with the cybersecurity's electronic payment systems.
+\end{itemize}
+
+\textbf{Security Constraints}    
+\begin{itemize}
+    \item The application must comply with cybersecurity information security standards, including user authentication and authorization.
+    \item The application must be able to encrypt sensitive and confidential data.
+    \item The application must be able to detect and prevent common security attacks, such as SQL injections and cross-site scripting (XSS).
+\end{itemize}
+
+\textbf{Usability Constraints}    
+\begin{itemize}
+    \item The application must be easy to use and accessible to cybersecurity users.
+    \item The application must be able to provide an intuitive and user-friendly experience.
+    \item The application must be able to provide online help and support for users.
+\end{itemize}
+
+\subsection{System attributes}
+\label{sec:orgd0babc0}
+
+\textbf{Reliability}    
+\begin{itemize}
+    \item The system must be able to function properly for an extended period of time without errors or failures.
+    \item The system must be able to recover quickly from a failure or error.
+    \item The system must be able to provide a consistent and accurate response to user requests.
+\end{itemize}
+
+\textbf{Maintainability}    
+\begin{itemize}
+    \item The system must be easy to maintain and update.
+    \item The system must be able to be modified or updated without affecting its operation.
+    \item The system must be able to be scaled to adapt to changes in demand or user requirements.
+\end{itemize}
+
+\textbf{Portability}    
+\begin{itemize}
+    \item The system must be able to function in different environments and platforms.
+    \item The system must be able to be executed on different operating systems and devices.
+    \item The system must be able to be accessed from different locations and devices.
+\end{itemize}
+
+\textbf{Security}    
+\begin{itemize}
+    \item The system must be able to protect the confidentiality, integrity, and availability of data.
+    \item The system must be able to authenticate and authorize users to access data and functionalities.
+    \item The system must be able to detect and prevent common security attacks, such as SQL injections and cross-site scripting (XSS).
+\end{itemize}
+
+\textbf{Access Security}    
+\begin{itemize}
+    \item Authorized users will be those who have a valid account and have been successfully authenticated.
+    \item Unauthorized users will not be able to access the data and functionalities of the system.
+    \item Users will have different levels of access depending on their role and responsibilities.
+\end{itemize}
+
+\textbf{Security Mechanisms}    
+\begin{itemize}
+    \item \textbf{Authentication:}A username and password-based authentication system will be used.
+    \item \textbf{Authorization:} A role and permission-based authorization system will be used.
+    \item \textbf{Encryption:} A secure encryption algorithm will be used to protect data in transit and at rest.
+    \item \textbf{Firewall:} A firewall will be used to protect the system from external attacks.
+    \item \textbf{Monitoring:} The system will be continuously monitored to detect and prevent security attacks.
+\end{itemize}
+
+\textbf{Security Mechanisms}    
+\begin{itemize}
+    \item \textbf{Administrators:}will have full access to the system and will be able to perform any task.
+    \item \textbf{Registered users: } will have access to the system's functionalities and will be able to perform specific tasks according to their role.
+    \item \textbf{Guest users:} will have limited access to the system and will be able to perform specific tasks according to their role.
+\end{itemize}
+
+\subsection{"Other requirements}
+\label{sec:org31d2978}
+
+N/A
+
+\newpage
+
+
+\section{Appendix}
+\label{sec:org75cea03}
+
+Appendices can contain all kinds of information relevant to the ERS but that does not, strictly speaking, form part of the ERS. For example:
+
+\begin{enumerate}
+\item Data input/output formats, on screen or in listings.
+\item Cost analysis results.
+\item "Programming language restrictions.
+\end{enumerate}
+\end{document}

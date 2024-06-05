@@ -2,7 +2,7 @@
 package ec.edu.espe.cyberplaneta.view;
 
 import java.util.Scanner;
-import ec.edu.espe.cyberplaneta.controller.SystemAdministrator;
+import utils.SystemAdministrator;
 import java.io.IOException;
 import java.text.ParseException;
 

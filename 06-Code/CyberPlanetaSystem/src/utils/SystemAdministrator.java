@@ -1,5 +1,5 @@
 
-package ec.edu.espe.cyberplaneta.controller;
+package utils;
 
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.io.BufferedWriter;

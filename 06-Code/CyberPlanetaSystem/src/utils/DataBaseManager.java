@@ -1,11 +1,11 @@
 
-package ec.edu.espe.cyberplaneta.controller;
+package utils;
 
 /**
  *
  * @author Code Creators, DCCO-ESPE
  */
-public class DateBaseManager {
+public class DataBaseManager {
 
     public static void SaveData() {
 

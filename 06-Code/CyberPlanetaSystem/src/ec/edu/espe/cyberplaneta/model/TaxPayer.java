@@ -1,6 +1,9 @@
 
 package ec.edu.espe.cyberplaneta.model;
 
+import com.google.gson.Gson;
+import java.util.Date;
+
 /**
  *
  * @author Code Creators,DCCO-ESPE
@@ -24,9 +27,10 @@ public class TaxPayer {
 
     @Override
     public String toString() {
-        return id + "," + email + "," + name + "," + password + "," + accountingDocumentation;
+        return  id + "," + email + "," + name + "," + password + "," + accountingDocumentation;
     }
 
+   
     /**
      * @return the id
      */

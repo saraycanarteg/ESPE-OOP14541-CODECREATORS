@@ -14,7 +14,6 @@ public class MainMenu {
     }
         private static void showMainMenu (){
             Scanner scanner = new Scanner(System.in);
-        System.out.println("Cyber Planeta System V 0.0.5");
 
         int menuOption;
         System.out.println("MENU DE OPCIONES");
@@ -27,7 +26,6 @@ public class MainMenu {
         switch (menuOption) {
             case 1:
             SystemAdministrator.AddNewTaxPayer();
-            System.out.println("111");
             break;
             case 2: 
             SystemAdministrator.AddNewTaxPayer();

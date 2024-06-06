@@ -43,11 +43,10 @@ public class DataBaseManager {
             System.out.println("Error al leer el archivo.");
         }
 
-        
         return lineas;
     }
 
-    public static void RemoveData(String fileName, int idEdit) {
+    public static void RemoveData(String fileName, long idEdit) {
         fileName = fileName + ".json";
         String separator = ",";
         List<String> lineas = ReadData(fileName, separator);
@@ -57,11 +56,11 @@ public class DataBaseManager {
             return;
         }
 
-        int numero;
+        long numero;
         List<String> newLineas = new ArrayList<>();
         for (String linea : lineas) {
             String[] values = linea.split(separator);
-            numero = Integer.parseInt(values[0].split(":")[1]);
+            numero = Long.parseLong(values[0].split(":")[1]);
             if (numero != idEdit) {
                 newLineas.add(linea);
             }
@@ -80,39 +79,37 @@ public class DataBaseManager {
         }
     }
 
- 
     public static String UpdateData(String data, String field, String newValue) {
-    
-          Gson gson = new Gson();
-          try {
-            TaxPayer taxpayer = gson.fromJson(data, TaxPayer.class); 
-            
+
+        Gson gson = new Gson();
+        try {
+            TaxPayer taxpayer = gson.fromJson(data, TaxPayer.class);
+
             switch (field) {
-              case "id": 
-                System.out.println("Error: ID cannot be edited.");
-                return data; 
-              case "email":
-                taxpayer.setEmail(newValue);
-                break;
-              case "name":
-                taxpayer.setName(newValue);
-                break;
-              case "password":
-                taxpayer.setPassword(newValue);
-                break;
-              default:
-                System.out.println("Error: Invalid field name: " + field);
-                return data; 
+                case "id":
+                    System.out.println("Error: ID cannot be edited.");
+                    return data;
+                case "email":
+                    taxpayer.setEmail(newValue);
+                    break;
+                case "name":
+                    taxpayer.setName(newValue);
+                    break;
+                case "password":
+                    taxpayer.setPassword(newValue);
+                    break;
+                default:
+                    System.out.println("Error: Invalid field name: " + field);
+                    return data;
             }
 
             String updatedData = gson.toJson(taxpayer);
             return updatedData;
-          } catch (JsonSyntaxException e) { 
+        } catch (JsonSyntaxException e) {
             System.out.println("Error updating data: " + e.getMessage());
-            return data; 
-          }
+            return data;
+        }
     }
-
 
     public static String findData(String fileName, String wordSearch) {
         fileName = fileName + ".json";
@@ -120,12 +117,27 @@ public class DataBaseManager {
             String line;
             while ((line = bufferedReader.readLine()) != null) {
                 if (line.contains(wordSearch)) {
+
                     return line;
                 }
             }
         } catch (IOException e) {
         }
         return "";
+    }
+
+    public static TaxPayer findTaxPayerById(String fileName, String idTaxPayer) {
+        String taxpayerData = DataBaseManager.findData(fileName, idTaxPayer);
+        if (!taxpayerData.isEmpty()) {
+            Gson gson = new Gson();
+            return gson.fromJson(taxpayerData, TaxPayer.class);
+        }
+        return null;
+    }
+
+    public static void updateTaxPayer(TaxPayer taxPayer, String fileName) {
+        String taxpayerData = taxPayer.toString();
+        DataBaseManager.UpdateData(fileName, "", taxpayerData);
     }
 
 }

@@ -2,7 +2,7 @@
 package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
-import java.util.Date;
+
 
 /**
  *
@@ -10,13 +10,13 @@ import java.util.Date;
  */
 public class TaxPayer {
 
-    private String id;
+    private long id;
     private String email;
     private String name;
     private String password;
     private boolean accountingDocumentation;
 
-    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation) {
+    public TaxPayer(long id, String email, String name, String password, boolean accountingDocumentation) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -35,14 +35,14 @@ public class TaxPayer {
     /**
      * @return the id
      */
-    public String getId() {
+    public long getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

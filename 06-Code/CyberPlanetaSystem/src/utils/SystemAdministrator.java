@@ -32,6 +32,7 @@ public class SystemAdministrator {
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
             int menuOption = scanner.nextInt();
+            ClearScreen.clearScreen();
 
             switch (menuOption) {
                 case 1:
@@ -237,13 +238,14 @@ public class SystemAdministrator {
         Scanner scanner = new Scanner(System.in);
         ClearScreen.clearScreen();
         System.out.printf("%40s\n", "===============================================");
-        System.out.printf("%40s\n", "Asignación proceso -> contribuyente");
+        System.out.printf("%40s\n", "Asignacion proceso -> contribuyente");
         System.out.printf("%40s\n", "===============================================");
         System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
         String idTaxPayer = scanner.nextLine();
 
   
         PriceList.displayPriceArray();
+        System.out.println();
 
         boolean addAnotherProcess;
         do {
@@ -275,6 +277,7 @@ public class SystemAdministrator {
                 System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
                 addAnotherProcess = true; 
             }
+            ClearScreen.clearScreen();
         } while (addAnotherProcess);
     }
 

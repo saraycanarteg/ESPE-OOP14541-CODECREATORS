@@ -3,7 +3,6 @@ package ec.edu.espe.cyberplaneta.view;
 
 import java.io.IOException;
 import java.text.ParseException;
-import utils.ClearScreen;
 
 /**
  *

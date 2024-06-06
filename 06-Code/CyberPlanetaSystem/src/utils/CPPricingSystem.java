@@ -54,6 +54,7 @@ public class CPPricingSystem {
        
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
                 selectedProcess.getProcessName(), id, totalPrice);
+        
        
     }
 

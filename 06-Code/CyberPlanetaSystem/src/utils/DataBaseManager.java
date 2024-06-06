@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DataBaseManager {
     
-    public static void SaveData(String data, String fileName) {
+     public static void SaveData(String data, String fileName) {
         fileName = fileName + ".json";
         try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(data);
@@ -28,7 +28,7 @@ public class DataBaseManager {
         }
     }
 
-    public static List<String> ReadData(String fileName, String separator) {
+   public static List<String> ReadData(String fileName, String separator) {
         List<String> lineas = new ArrayList<>();
 
         try {
@@ -78,39 +78,24 @@ public class DataBaseManager {
         }
     }
 
-    public static String UpdateData(String data, String field, String newValue) {
+    public static void UpdateData(String fileName, String wordSearch, String newData) {
+        fileName=fileName+".json";
 
-        Gson gson = new Gson();
-        try {
-            TaxPayer taxpayer = gson.fromJson(data, TaxPayer.class);
-
-            switch (field) {
-                case "id":
-                    System.out.println("Error: ID cannot be edited.");
-                    return data;
-                case "email":
-                    taxpayer.setEmail(newValue);
-                    break;
-                case "name":
-                    taxpayer.setName(newValue);
-                    break;
-                case "password":
-                    taxpayer.setPassword(newValue);
-                    break;
-                default:
-                    System.out.println("Error: Invalid field name: " + field);
-                    return data;
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(wordSearch)) {
+                    line = line.replace(wordSearch, newData);
+                }  
+                SaveData(line, fileName); 
             }
-
-            String updatedData = gson.toJson(taxpayer);
-            return updatedData;
-        } catch (JsonSyntaxException e) {
-            System.out.println("Error updating data: " + e.getMessage());
-            return data;
+           
+        } catch (IOException e) {
         }
     }
 
-    public static String findData(String fileName, String wordSearch) {
+
+     public static String findData(String fileName, String wordSearch) {
         fileName = fileName + ".json";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
             String line;

@@ -56,24 +56,23 @@ public class SystemAdministrator {
         }
     }
 
-    private static void addNewTaxPayer() {
+   private static void addNewTaxPayer() {
 
         String idTaxPayer = "";
         String addAnotherTaxPayer;
         String deliveryDate = "";
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-       
-        ClearScreen.clearScreen();
+
         do {
-            System.out.printf("%40s\n", "===============================================");
-            System.out.printf("%40s\n", "Ingrese Datos del Nuevo Contribuyente");
-            System.out.printf("%40s\n", "===============================================");   
+
             do {
                 System.out.print("\nID: ");
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
-            
+
+            long numberId = Long.parseLong(idTaxPayer);
+
             System.out.print("Email: ");
             String emailTaxPayer = scanner.nextLine();
 
@@ -95,7 +94,7 @@ public class SystemAdministrator {
 
             Calendar calendar = new Calendar(deliveryDate, startDate.toString());
 
-            TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
+            TaxPayer taxPayer = new TaxPayer(numberId, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
 
             String taxPayerData = taxPayer.toString() + calendar.toString();
 
@@ -110,70 +109,17 @@ public class SystemAdministrator {
         DataBaseManager.SaveData(taxpayer, "TaxPayerData");
     }
 
-    private static void editTaxPayer() {
+  private static void editTaxPayer() {
         Scanner scanner = new Scanner(System.in);
-        Gson gson = new Gson();
-
-        // 1. Solicitar ID del contribuyente
-        System.out.print("Ingrese el ID del contribuyente a editar: ");
-        String idTaxPayer = scanner.nextLine();
-
-        // 2. Buscar contribuyente
-        String taxpayerData = DataBaseManager.findData("TaxPayerData", idTaxPayer);
-        if (taxpayerData.isEmpty()) {
-            System.out.println("No se encontró el contribuyente con el ID: " + idTaxPayer);
-            return;
-        }
-
-        // 3. Presentar menú de edición
-        System.out.println("\n¿Qué desea editar?");
-        System.out.println("1. ID");
-        System.out.println("2. Email");
-        System.out.println("3. Nombre");
-        System.out.println("4. Contraseña");
-        System.out.print("Opción: ");
-        int editOption = scanner.nextInt();
-
-        // 4. Modificar dato seleccionado
-        TaxPayer taxPayer = gson.fromJson(taxpayerData, TaxPayer.class);
-        switch (editOption) {
-            case 1:
-                System.out.print("Nuevo ID: ");
-                taxPayer.setId(scanner.nextLine());
-                break;
-            case 2:
-                System.out.print("Nuevo email: ");
-                taxPayer.setEmail(scanner.nextLine());
-                break;
-            case 3:
-                System.out.print("Nuevo nombre: ");
-                taxPayer.setName(scanner.nextLine());
-                break;
-            case 4:
-                System.out.print("Nueva contraseña: ");
-                taxPayer.setPassword(scanner.nextLine());
-                break;
-            default:
-                System.out.println("Opción inválida.");
-                return;
-        }
-
-        // 5. Actualizar archivo JSON
-        String updatedTaxpayerData = taxPayer.toString();
-        DataBaseManager.UpdateData("TaxPayerData", idTaxPayer, updatedTaxpayerData);
-
-        // 6. Mensaje de confirmación
-        System.out.println("Información del contribuyente actualizada correctamente.");
+        System.out.print("Ingrese el dato que desea editar: ");
+        String wordSearch = scanner.next();
+        System.out.print("Ingrese el nuevo dato: ");
+        String newData = scanner.next();
+        
+        DataBaseManager.UpdateData("TaxPayerData", wordSearch, newData);
     }
 
-    private static boolean isValidJson(String json) {
-        try {
-            new Gson().fromJson(json, Object.class);
-            return true;
-        } catch (JsonSyntaxException e) {
-            return false;
-        }
-    }
+    
 
     private static void editTaxpayerDetails(String taxpayerData) {
         Scanner scanner = new Scanner(System.in);

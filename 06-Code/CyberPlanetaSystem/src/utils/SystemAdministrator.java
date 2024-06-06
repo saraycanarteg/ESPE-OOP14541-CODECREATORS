@@ -1,11 +1,9 @@
 
-package ec.edu.espe.cyberplaneta.controller;
+package utils;
 
+import com.google.gson.Gson;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,8 +24,7 @@ public class SystemAdministrator {
         Date startDate = new Date();
         Calendar calendar = new Calendar(startDate, startDate);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        System.out.println("Cyber Planeta System V0.0.05");
-
+        
         do {
 
             do {
@@ -63,8 +60,9 @@ public class SystemAdministrator {
             } while (deliveryDate == "error");
 
             TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
-            String taxPayerData = taxPayer.toString() + "," + calendar.toString();
-            RegisterTaxPayer(taxPayerData);
+            String taxPayerData = taxPayer.toString()+calendar.toString();
+            Gson gson = new Gson();
+            RegisterTaxPayer(gson.toJson(taxPayerData));
             System.out.print("Do you want to add another Tax Payer? (y/n): ");
             addAnotherTaxPayer = scanner.next();
 
@@ -72,17 +70,7 @@ public class SystemAdministrator {
     }
 
     public static void RegisterTaxPayer(String taxpayer) {
-
-        String fileName = "TaxPayerData.csv";
-
-        try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-
-            bufferedWriter.write(taxpayer);
-            bufferedWriter.newLine();
-
-        } catch (IOException e) {
-            System.err.println("Error to the file: " + e.getMessage());
-        }
+        DataBaseManager.SaveData(taxpayer, "TaxPayerData");
     }
 
     public static void SearchTaxPayer(int taxPayerId) {

@@ -1,6 +1,7 @@
 
 package ec.edu.espe.cyberplaneta.model;
 
+import com.google.gson.Gson;
 import java.util.Date;
 
 /**
@@ -22,10 +23,11 @@ public class Calendar {
 
     @Override
     public String toString() {
-        return startDate + "," + deliveryDate;
+        return  deliveryDate +","+ startDate;
     }
-    
 
+
+     
     /**
      * @return the deliveryDate
      */

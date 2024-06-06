@@ -18,6 +18,7 @@ import java.util.Scanner;
 public class SystemAdministrator {
 
     public static void printSystemAdminMenu() {
+        ClearScreen.clearScreen();
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("============================================================================");
@@ -61,16 +62,17 @@ public class SystemAdministrator {
         String deliveryDate = "";
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-
+       
+        ClearScreen.clearScreen();
         do {
-
+            System.out.printf("%40s\n", "===============================================");
+            System.out.printf("%40s\n", "Ingrese Datos del Nuevo Contribuyente");
+            System.out.printf("%40s\n", "===============================================");   
             do {
                 System.out.print("\nID: ");
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
-
             
-
             System.out.print("Email: ");
             String emailTaxPayer = scanner.nextLine();
 
@@ -233,12 +235,14 @@ public class SystemAdministrator {
     }
     private static void addNewTaxProcess() {
         Scanner scanner = new Scanner(System.in);
-        
+        ClearScreen.clearScreen();
+        System.out.printf("%40s\n", "===============================================");
+        System.out.printf("%40s\n", "Asignación proceso -> contribuyente");
+        System.out.printf("%40s\n", "===============================================");
         System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
         String idTaxPayer = scanner.nextLine();
 
-       
-        System.out.println("Arreglo de PriceList:");
+  
         PriceList.displayPriceArray();
 
         boolean addAnotherProcess;

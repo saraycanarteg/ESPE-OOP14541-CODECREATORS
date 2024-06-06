@@ -11,6 +11,7 @@ public class CPPricingSystem {
     
 
     public static void CalculateTaxProcessCost() {
+         
         Scanner scanner = new Scanner(System.in);
         System.out.printf("%40s\n", "===============================================");
         System.out.printf("%40s\n", "Sistema de Precios Cyber Planeta");
@@ -53,6 +54,7 @@ public class CPPricingSystem {
        
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
                 selectedProcess.getProcessName(), id, totalPrice);
+       
     }
 
   

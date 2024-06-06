@@ -16,7 +16,7 @@ import java.util.List;
  * @author Code Creators, DCCO-ESPE
  */
 public class DataBaseManager {
-
+    
     public static void SaveData(String data, String fileName) {
         fileName = fileName + ".json";
         try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
@@ -148,6 +148,5 @@ public class DataBaseManager {
             System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
-
-
+   
 }

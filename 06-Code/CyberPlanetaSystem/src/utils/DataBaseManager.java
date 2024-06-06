@@ -25,8 +25,8 @@ public class DataBaseManager {
             System.err.println("Error writing to the file: " + e.getMessage());
         }
     }
-    
-     public static List<String> ReadData(String fileName, String separator) {
+
+    public static List<String> ReadData(String fileName, String separator) {
         List<String> lineas = new ArrayList<>();
 
         try {
@@ -40,6 +40,7 @@ public class DataBaseManager {
             System.out.println("Error al leer el archivo.");
         }
 
+        
         return lineas;
     }
 
@@ -76,7 +77,6 @@ public class DataBaseManager {
         }
     }
 
-
     public static void UpdateData(String fileName, String wordSearch, String newData) {
         fileName = fileName + ".json";
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
@@ -106,5 +106,4 @@ public class DataBaseManager {
         return "";
     }
 
- 
 }

@@ -1,10 +1,10 @@
-
 package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import ec.edu.espe.cyberplaneta.model.Calendar;
+import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
@@ -43,7 +43,7 @@ public class SystemAdministrator {
                     deleteTaxPayer();
                     break;
                 case 4:
-                    //addNewTaxProcess();
+                    addNewTaxProcess();
                     break;
                 case 5:
                     System.out.println("Exiting...");
@@ -69,7 +69,7 @@ public class SystemAdministrator {
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
 
-            long numberId = Long.parseLong(idTaxPayer);
+            
 
             System.out.print("Email: ");
             String emailTaxPayer = scanner.nextLine();
@@ -92,7 +92,7 @@ public class SystemAdministrator {
 
             Calendar calendar = new Calendar(deliveryDate, startDate.toString());
 
-            TaxPayer taxPayer = new TaxPayer(numberId, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
+            TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
 
             String taxPayerData = taxPayer.toString() + calendar.toString();
 
@@ -136,7 +136,7 @@ public class SystemAdministrator {
         switch (editOption) {
             case 1:
                 System.out.print("Nuevo ID: ");
-                taxPayer.setId(scanner.nextLong());
+                taxPayer.setId(scanner.nextLine());
                 break;
             case 2:
                 System.out.print("Nuevo email: ");
@@ -230,6 +230,48 @@ public class SystemAdministrator {
         long id = scanner.nextLong();
 
         DataBaseManager.RemoveData("TaxPayerData", id);
+    }
+    private static void addNewTaxProcess() {
+        Scanner scanner = new Scanner(System.in);
+        
+        System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
+        String idTaxPayer = scanner.nextLine();
+
+       
+        System.out.println("Arreglo de PriceList:");
+        PriceList.displayPriceArray();
+
+        boolean addAnotherProcess;
+        do {
+            System.out.print("Ingrese el ID del proceso a agregar: ");
+            int processId = scanner.nextInt();
+            scanner.nextLine(); 
+            
+            PriceList[] priceList = PriceList.getPriceListArray();
+            PriceList selectedProcess = null;
+            for (PriceList process : priceList) {
+                if (process.getProcessId() == processId) {
+                    selectedProcess = process;
+                    break;
+                }
+            }
+
+            if (selectedProcess != null) {
+                String processInfo = String.format("{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
+                        selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
+
+                DataBaseManager.saveTaxProcess(idTaxPayer, processInfo);
+
+                System.out.println("Proceso de impuestos agregado exitosamente.");
+
+                System.out.print("Desea agregar otro proceso? (s/n): ");
+                String response = scanner.nextLine();
+                addAnotherProcess = response.equalsIgnoreCase("s");
+            } else {
+                System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
+                addAnotherProcess = true; 
+            }
+        } while (addAnotherProcess);
     }
 
     //private static void deleteTaxPayer(int taxPayerId) {

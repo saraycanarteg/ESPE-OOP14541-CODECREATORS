@@ -10,19 +10,18 @@ import com.google.gson.Gson;
  */
 public class TaxPayer {
 
-    private long id;
+   private String id;
     private String email;
     private String name;
     private String password;
     private boolean accountingDocumentation;
 
-    public TaxPayer(long id, String email, String name, String password, boolean accountingDocumentation) {
+   public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.accountingDocumentation = accountingDocumentation;
-
     }
 
     @Override
@@ -35,14 +34,14 @@ public class TaxPayer {
     /**
      * @return the id
      */
-    public long getId() {
+    public String getId() {
         return id;
     }
 
     /**
      * @param id the id to set
      */
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

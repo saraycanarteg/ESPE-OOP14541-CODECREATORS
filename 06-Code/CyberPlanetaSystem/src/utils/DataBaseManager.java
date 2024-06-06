@@ -1,6 +1,9 @@
 
 package utils;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -77,20 +80,39 @@ public class DataBaseManager {
         }
     }
 
-    public static void UpdateData(String fileName, String wordSearch, String newData) {
-        fileName = fileName + ".json";
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains(wordSearch)) {
-                    line = line.replace(wordSearch, newData);
-                }
-                SaveData(line, fileName);
+ 
+    public static String UpdateData(String data, String field, String newValue) {
+    
+          Gson gson = new Gson();
+          try {
+            TaxPayer taxpayer = gson.fromJson(data, TaxPayer.class); 
+            
+            switch (field) {
+              case "id": 
+                System.out.println("Error: ID cannot be edited.");
+                return data; 
+              case "email":
+                taxpayer.setEmail(newValue);
+                break;
+              case "name":
+                taxpayer.setName(newValue);
+                break;
+              case "password":
+                taxpayer.setPassword(newValue);
+                break;
+              default:
+                System.out.println("Error: Invalid field name: " + field);
+                return data; 
             }
-        } catch (IOException e) {
-        }
 
+            String updatedData = gson.toJson(taxpayer);
+            return updatedData;
+          } catch (JsonSyntaxException e) { 
+            System.out.println("Error updating data: " + e.getMessage());
+            return data; 
+          }
     }
+
 
     public static String findData(String fileName, String wordSearch) {
         fileName = fileName + ".json";

@@ -25,14 +25,14 @@ public class MainMenu {
 
         switch (menuOption) {
             case 1:
-            SystemAdministrator.AddNewTaxPayer();
+            SystemAdministrator.printSystemAdminMenu();
             break;
             case 2: 
-            SystemAdministrator.AddNewTaxPayer();
+            
             System.out.println("111");
             break;
             case 3: 
-            SystemAdministrator.AddNewTaxPayer();
+            
             System.out.println("11521");
             break; 
         default:

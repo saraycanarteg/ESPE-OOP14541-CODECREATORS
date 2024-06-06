@@ -27,7 +27,8 @@ public class TaxPayer {
 
     @Override
     public String toString() {
-        return  id + "," + email + "," + name + "," + password + "," + accountingDocumentation;
+        Gson gson = new Gson();
+        return  gson.toJson(TaxPayer.this);
     }
 
    

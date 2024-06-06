@@ -3,6 +3,7 @@ package ec.edu.espe.cyberplaneta.view;
 
 import java.util.Scanner;
 import utils.SystemAdministrator;
+import utils.CPPricingSystem;
 
 /**
  *
@@ -27,16 +28,17 @@ public class MainMenu {
             case 1:
             SystemAdministrator.printSystemAdminMenu();
             break;
+            
             case 2: 
             
             System.out.println("111");
             break;
-            case 3: 
             
-            System.out.println("11521");
+            case 3: 
+            CPPricingSystem.CalculateTaxProcessCost();
             break; 
         default:
-            System.out.println(" pollito");
+            System.out.println("Opcion no valida");
             break;
 }
     }

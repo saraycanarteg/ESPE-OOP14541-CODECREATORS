@@ -20,13 +20,10 @@ public class Calendar {
      public static void SendNotification(){
         
     }
-
-    @Override
+  @Override
     public String toString() {
-        Gson gson = new Gson();
-        return  gson.toJson(Calendar.this);
+        return "{\"deliveryDate\":\"" + deliveryDate + "\",\"startDate\":\"" + startDate + "\"}";
     }
-
 
      
     /**

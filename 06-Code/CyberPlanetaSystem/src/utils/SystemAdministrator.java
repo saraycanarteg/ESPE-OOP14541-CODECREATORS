@@ -1,6 +1,7 @@
 package utils;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.stream.JsonReader;
 import ec.edu.espe.cyberplaneta.model.Calendar;
@@ -71,8 +72,6 @@ public class SystemAdministrator {
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
 
-            long numberId = Long.parseLong(idTaxPayer);
-
             System.out.print("Email: ");
             String emailTaxPayer = scanner.nextLine();
 
@@ -94,9 +93,12 @@ public class SystemAdministrator {
 
             Calendar calendar = new Calendar(deliveryDate, startDate.toString());
 
-            TaxPayer taxPayer = new TaxPayer(numberId, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
+            TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation, calendar);
 
-            String taxPayerData = taxPayer.toString() + calendar.toString();
+            Gson gson = new GsonBuilder()
+                    .registerTypeAdapter(TaxPayer.class, new TaxPayerSerializer())
+                    .create();
+            String taxPayerData = gson.toJson(taxPayer);
 
             registerTaxPayer(taxPayerData);
             System.out.print("Desea anadir otro contribuyente? (y/n): ");
@@ -109,74 +111,62 @@ public class SystemAdministrator {
         DataBaseManager.SaveData(taxpayer, "TaxPayerData");
     }
 
-  private static void editTaxPayer() {
+    private static void editTaxPayer() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el dato que desea editar: ");
-        String wordSearch = scanner.next();
-        System.out.print("Ingrese el nuevo dato: ");
-        String newData = scanner.next();
-        
-        DataBaseManager.UpdateData("TaxPayerData", wordSearch, newData);
-    }
 
-    
+        System.out.print("Enter the ID of the TaxPayer to edit: ");
+        String idTaxPayer = scanner.nextLine();
 
-    private static void editTaxpayerDetails(String taxpayerData) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("\n¿Qué desea editar?");
-        System.out.println("1. Email");
-        System.out.println("2. Nombre");
-        System.out.println("3. Contraseña");
-        System.out.print("Ingrese la opción: ");
-        int editOption = scanner.nextInt();
-        scanner.nextLine(); // Consumir la nueva línea sobrante
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
-        String updatedData = taxpayerData;
-        Gson gson = new Gson();
-
-        try {
-            JsonReader reader = new JsonReader(new StringReader(taxpayerData));
-            reader.setLenient(true);
-            TaxPayer taxpayer = gson.fromJson(reader, TaxPayer.class);
-
-            switch (editOption) {
-                case 1:
-                    System.out.print("Ingrese el nuevo email: ");
-                    String newEmail = scanner.nextLine();
-                    taxpayer.setEmail(newEmail);
-                    updatedData = gson.toJson(taxpayer);
-                    break;
-                case 2:
-                    System.out.print("Ingrese el nuevo nombre: ");
-                    String newName = scanner.nextLine();
-                    taxpayer.setName(newName);
-                    updatedData = gson.toJson(taxpayer);
-                    break;
-                case 3:
-                    System.out.print("Ingrese la nueva contraseña: ");
-                    String newPassword = scanner.nextLine();
-                    taxpayer.setPassword(newPassword);
-                    updatedData = gson.toJson(taxpayer);
-                    break;
-                default:
-                    System.out.println("Opción inválida.");
-            }
-        } catch (JsonSyntaxException e) {
-            System.out.println("Error al analizar los datos: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Error al actualizar los datos: " + e.getMessage());
+        if (taxPayer == null) {
+            System.out.println("TaxPayer not found.");
+            return;
         }
 
-        if (!updatedData.equals(taxpayerData)) {
-            DataBaseManager.UpdateData("TaxPayerData", taxpayerData, updatedData);
-            System.out.println("Contribuyente editado exitosamente.");
+        System.out.println("1. Editar Email");
+        System.out.println("2. Editar Nombre");
+        System.out.println("3. Editar Contrasena");
+        System.out.println("4. Editar Documentacion");
+        System.out.print("Opcion: ");
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (option) {
+            case 1:
+                System.out.print("Ingrese nuevo email: ");
+                String newEmail = scanner.nextLine();
+                taxPayer.setEmail(newEmail);
+                break;
+            case 2:
+                System.out.print("Ingrese nuevo nombre: ");
+                String newName = scanner.nextLine();
+                taxPayer.setName(newName);
+                break;
+            case 3:
+                System.out.print("Ingrese nueva contraseña: ");
+                String newPassword = scanner.nextLine();
+                taxPayer.setPassword(newPassword);
+                break;
+            case 4:
+                System.out.print("Ingrese nueva documentacion [true/false]: ");
+                boolean newAccountingDocumentation = scanner.nextBoolean();
+                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+                break;
+            default:
+                System.out.println("Invalid option.");
+                return;
         }
+
+        DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
+        System.out.println("TaxPayer information updated successfully.");
     }
+
 
     private static void deleteTaxPayer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("ID del contribuyente que va a eliminar: ");
-        long id = scanner.nextLong();
+        String id = scanner.nextLine();
 
         DataBaseManager.RemoveData("TaxPayerData", id);
     }
@@ -227,7 +217,5 @@ public class SystemAdministrator {
         } while (addAnotherProcess);
     }
 
-    //private static void deleteTaxPayer(int taxPayerId) {
-    //    DataBaseManager.RemoveData("TaxPayerData", taxPayerId);
-    //}
+
 }

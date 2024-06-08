@@ -45,38 +45,43 @@ public class DataBaseManager {
         return lineas;
     }
 
-    public static void RemoveData(String fileName, long idEdit) {
+    public static void RemoveData(String fileName, String idEdit) {
         fileName = fileName + ".json";
-        String separator = ",";
-        List<String> lineas = ReadData(fileName, separator);
+        List<String> lineas = ReadData(fileName, "");
 
         if (lineas.isEmpty()) {
             System.out.println("El archivo está vacío.");
             return;
         }
 
-        long numero;
         List<String> newLineas = new ArrayList<>();
         for (String linea : lineas) {
-            String[] values = linea.split(separator);
-            numero = Long.parseLong(values[0].split(":")[1]);
-            if (numero != idEdit) {
+            // Use Gson to parse the JSON and extract the id field
+            Gson gson = new Gson();
+            TaxPayer taxPayer;
+            try {
+                taxPayer = gson.fromJson(linea, TaxPayer.class);
+            } catch (JsonSyntaxException e) {
+                System.out.println("Error parsing JSON: " + e.getMessage());
+                continue;
+            }
+
+            if (!taxPayer.getId().equals(idEdit)) {
                 newLineas.add(linea);
             }
         }
 
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
             for (String l : newLineas) {
                 writer.write(l);
                 writer.newLine();
             }
-            writer.close();
             System.out.println("Datos eliminados correctamente.");
         } catch (IOException e) {
-            System.out.println("Error al escribir en el archivo.");
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
         }
-    }
+}
+
 
     public static void UpdateData(String fileName, String wordSearch, String newData) {
         fileName=fileName+".json";
@@ -121,9 +126,24 @@ public class DataBaseManager {
 
     public static void updateTaxPayer(TaxPayer taxPayer, String fileName) {
         String taxpayerData = taxPayer.toString();
-        DataBaseManager.UpdateData(fileName, "", taxpayerData);
+        List<String> lines = ReadData(fileName + ".json", ",");
+
+        for (int i = 0; i < lines.size(); i++) {
+            if (lines.get(i).contains(taxPayer.getId())) {
+                lines.set(i, taxpayerData);
+                break;
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".json"))) {
+            for (String line : lines) {
+                writer.write(line);
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
     }
-    
     public static void saveTaxProcess(String idTaxPayer, String processData) {
     String fileName = idTaxPayer + "_process.json";
         try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {

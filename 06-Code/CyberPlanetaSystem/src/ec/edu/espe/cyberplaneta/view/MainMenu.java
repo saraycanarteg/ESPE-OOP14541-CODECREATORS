@@ -29,14 +29,14 @@ public class MainMenu {
             break;
             case 2: 
             SystemAdministrator.AddNewTaxPayer();
-            System.out.println("111");
+            System.out.println("Contribuyente Agregado");
             break;
             case 3: 
             SystemAdministrator.AddNewTaxPayer();
-            System.out.println("11521");
+            System.out.println("Agendado");
             break; 
         default:
-            System.out.println(" pollito");
+            System.out.println("Precios");
             break;
 }
     }

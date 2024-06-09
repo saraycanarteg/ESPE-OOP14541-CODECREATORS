@@ -28,34 +28,34 @@ public class SystemAdministrator {
         do {
 
             do {
-                System.out.print("\nEnter the taxpayer Id: ");
+                System.out.print("\nIngrese el ID del contribuyente: ");
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
 
-            System.out.print("Enter the taxpayer's e-mail: ");
+            System.out.print("Email: ");
             String emailTaxPayer = scanner.nextLine();
 
-            System.out.print("Enter taxpayer name: ");
+            System.out.print("Nombre: ");
             String nameTaxPayer = scanner.nextLine();
 
-            System.out.print("Enter taxpayer password: ");
+            System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.nextLine();
 
-            System.out.print("The taxpayer provided documentation? [true/false]: ");
+            System.out.print("El contribuyente tiene informacion adicional? [true/false]: ");
             boolean accountingDocumentation = scanner.nextBoolean();
 
-            System.out.print("The start date of the tax process: ");
+            System.out.print("El contribuyente inicia su proceso al: ");
             System.out.println(startDate);
 
             do {
-                System.out.print("Enter the start date of the tax process [dd/MM/yyyy]: ");
+                System.out.print("El contribuyente inicia su proceso al: [dd/MM/yyyy]: ");
                 deliveryDate = scanner.next();
 
                 try {
                     calendar = new Calendar(formatter.parse(deliveryDate), startDate);
                 } catch (ParseException e) {
                     deliveryDate = "error";
-                    System.out.println("Invalid date format, use dd/MM/yyyy.");
+                    System.out.println("Formato invalido, usa dd/MM/yyyy.");
                 }
             } while (deliveryDate == "error");
 
@@ -63,7 +63,7 @@ public class SystemAdministrator {
             String taxPayerData = taxPayer.toString()+calendar.toString();
             Gson gson = new Gson();
             RegisterTaxPayer(gson.toJson(taxPayerData));
-            System.out.print("Do you want to add another Tax Payer? (y/n): ");
+            System.out.print("Agregar un nuevo contribuyente? (yes/no): ");
             addAnotherTaxPayer = scanner.next();
 
         } while (addAnotherTaxPayer.equalsIgnoreCase("y"));

@@ -1,8 +1,6 @@
-
 package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
-import java.util.Date;
 
 /**
  *
@@ -15,90 +13,78 @@ public class TaxPayer {
     private String name;
     private String password;
     private boolean accountingDocumentation;
+    private Calendar calendar;
 
-    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation) {
+    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation, Calendar calendar) {
         this.id = id;
         this.email = email;
         this.name = name;
         this.password = password;
         this.accountingDocumentation = accountingDocumentation;
+        this.calendar = (calendar != null) ? calendar : new Calendar("", "");
+    }
+    
+    public String getDeliveryDate() {
+        return (calendar != null && calendar.getDeliveryDate() != null) ? calendar.getDeliveryDate() : "No date";
+    }
 
+    public String getStartDate() {
+        return (calendar != null && calendar.getStartDate() != null) ? calendar.getStartDate() : "No date";
     }
 
     @Override
     public String toString() {
-        return  id + "," + email + "," + name + "," + password + "," + accountingDocumentation;
+        Gson gson = new Gson();
+        return gson.toJson(this);
     }
 
-   
-    /**
-     * @return the id
-     */
+    // Getters and Setters
+
     public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the accountingDocumentation
-     */
     public boolean isAccountingDocumentation() {
         return accountingDocumentation;
     }
 
-    /**
-     * @param accountingDocumentation the accountingDocumentation to set
-     */
     public void setAccountingDocumentation(boolean accountingDocumentation) {
         this.accountingDocumentation = accountingDocumentation;
     }
 
+    public Calendar getCalendar() {
+        return calendar;
+    }
+
+    public void setCalendar(Calendar calendar) {
+        this.calendar = calendar;
+    }
 }

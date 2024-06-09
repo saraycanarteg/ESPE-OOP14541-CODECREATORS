@@ -1,19 +1,26 @@
-
 package utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
+import ec.edu.espe.cyberplaneta.model.TaxPayer;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
  * @author Code Creators, DCCO-ESPE
  */
 public class DataBaseManager {
-
-    public static void SaveData(String data, String fileName) {
+    
+     public static void SaveData(String data, String fileName) {
         fileName = fileName + ".json";
-          try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+        try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(data);
             bufferedWriter.newLine();
 
@@ -22,20 +29,142 @@ public class DataBaseManager {
         }
     }
 
-    public static void RemoveData() {
+   public static List<String> ReadData(String fileName, String separator) {
+        List<String> lineas = new ArrayList<>();
 
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                lineas.add(linea);
+            }
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo.");
+        }
+
+        return lineas;
     }
 
-    public static void UpdateData() {
+    public static void RemoveData(String fileName, String idEdit) {
+        fileName = fileName + ".json";
+        List<String> lineas = ReadData(fileName, "");
 
+        if (lineas.isEmpty()) {
+            System.out.println("El archivo está vacío.");
+            return;
+        }
+
+        List<String> newLineas = new ArrayList<>();
+        for (String linea : lineas) {
+            // Use Gson to parse the JSON and extract the id field
+            Gson gson = new Gson();
+            TaxPayer taxPayer;
+            try {
+                taxPayer = gson.fromJson(linea, TaxPayer.class);
+            } catch (JsonSyntaxException e) {
+                System.out.println("Error parsing JSON: " + e.getMessage());
+                continue;
+            }
+
+            if (!taxPayer.getId().equals(idEdit)) {
+                newLineas.add(linea);
+            }
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            for (String l : newLineas) {
+                writer.write(l);
+                writer.newLine();
+            }
+            System.out.println("Datos eliminados correctamente.");
+        } catch (IOException e) {
+            System.out.println("Error al escribir en el archivo: " + e.getMessage());
+        }
+}
+
+
+    public static void UpdateData(String fileName, String wordSearch, String newData) {
+        fileName=fileName+".json";
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (line.contains(wordSearch)) {
+                    line = line.replace(wordSearch, newData);
+                }  
+                SaveData(line, fileName); 
+            }
+           
+        } catch (IOException e) {
+        }
     }
 
-    public static void findData() {
 
+     public static String findData(String fileName, String wordSearch) {
+        fileName = fileName + ".json";
+        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                if (line.contains(wordSearch)) {
+
+                    return line;
+                }
+            }
+        } catch (IOException e) {
+        }
+        return "";
     }
 
-    public static void ReadData() {
-
+    public static TaxPayer findTaxPayerById(String fileName, String idTaxPayer) {
+        String taxpayerData = DataBaseManager.findData(fileName, idTaxPayer);
+        if (!taxpayerData.isEmpty()) {
+            Gson gson = new Gson();
+            return gson.fromJson(taxpayerData, TaxPayer.class);
+        }
+        return null;
     }
 
+    public static void updateTaxPayer(TaxPayer taxPayer, String fileName) {
+    List<String> lines = ReadData(fileName + ".json", "");
+
+    for (int i = 0; i < lines.size(); i++) {
+        if (lines.get(i).contains(taxPayer.getId())) {
+            Gson gson = new GsonBuilder()
+                .registerTypeAdapter(TaxPayer.class, new TaxPayerSerializer())
+                .registerTypeAdapter(TaxPayer.class, new TaxPayerDeserializer())
+                .create();
+            TaxPayer existingTaxPayer = gson.fromJson(lines.get(i), TaxPayer.class);
+
+            existingTaxPayer.setEmail(taxPayer.getEmail());
+            existingTaxPayer.setName(taxPayer.getName());
+            existingTaxPayer.setPassword(taxPayer.getPassword());
+            existingTaxPayer.setAccountingDocumentation(taxPayer.isAccountingDocumentation());
+
+            String taxpayerData = gson.toJson(existingTaxPayer);
+            lines.set(i, taxpayerData);
+            break;
+        }
+    }
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".json"))) {
+        for (String line : lines) {
+            writer.write(line);
+            writer.newLine();
+        }
+    } catch (IOException e) {
+        System.err.println("Error writing to the file: " + e.getMessage());
+    }
+}
+
+    public static void saveTaxProcess(String idTaxPayer, String processData) {
+    String fileName = idTaxPayer + "_process.json";
+        try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
+            bufferedWriter.write(processData);
+            bufferedWriter.newLine();
+        } catch (IOException e) {
+            System.err.println("Error writing to the file: " + e.getMessage());
+        }
+    }
+   
 }

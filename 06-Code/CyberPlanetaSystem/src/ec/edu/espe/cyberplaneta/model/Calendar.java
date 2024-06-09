@@ -2,17 +2,17 @@
 package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
-import java.util.Date;
+
 
 /**
  *
  * @author  Code Creators, DCCO-ESPE
  */
 public class Calendar {
-    private Date deliveryDate;
-    private Date startDate;
+    private String deliveryDate;
+    private String startDate;
 
-    public Calendar(Date deliveryDate, Date startDate) {
+    public Calendar(String deliveryDate, String startDate) {
         this.deliveryDate = deliveryDate;
         this.startDate = startDate;
     }
@@ -20,39 +20,37 @@ public class Calendar {
      public static void SendNotification(){
         
     }
-
-    @Override
+  @Override
     public String toString() {
-        return  deliveryDate +","+ startDate;
+        return "{\"deliveryDate\":\"" + deliveryDate + "\",\"startDate\":\"" + startDate + "\"}";
     }
-
 
      
     /**
      * @return the deliveryDate
      */
-    public Date getDeliveryDate() {
+    public String getDeliveryDate() {
         return deliveryDate;
     }
 
     /**
      * @param deliveryDate the deliveryDate to set
      */
-    public void setDeliveryDate(Date deliveryDate) {
+    public void setDeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
 
     /**
      * @return the startDate
      */
-    public Date getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
     /**
      * @param startDate the startDate to set
      */
-    public void setStartDate(Date startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
     

@@ -2,7 +2,6 @@ package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
 
-
 /**
  *
  * @author Code Creators,DCCO-ESPE
@@ -22,105 +21,70 @@ public class TaxPayer {
         this.name = name;
         this.password = password;
         this.accountingDocumentation = accountingDocumentation;
-        this.calendar = calendar;
+        this.calendar = (calendar != null) ? calendar : new Calendar("", "");
     }
     
     public String getDeliveryDate() {
-        return getCalendar().getDeliveryDate();
+        return (calendar != null && calendar.getDeliveryDate() != null) ? calendar.getDeliveryDate() : "No date";
     }
 
     public String getStartDate() {
-        return getCalendar().getStartDate();
+        return (calendar != null && calendar.getStartDate() != null) ? calendar.getStartDate() : "No date";
     }
 
     @Override
     public String toString() {
         Gson gson = new Gson();
-        return  gson.toJson(TaxPayer.this);
+        return gson.toJson(this);
     }
 
-    /**
-     * @return the id
-     */
+    // Getters and Setters
+
     public String getId() {
         return id;
     }
 
-    /**
-     * @param id the id to set
-     */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     * @return the email
-     */
     public String getEmail() {
         return email;
     }
 
-    /**
-     * @param email the email to set
-     */
     public void setEmail(String email) {
         this.email = email;
     }
 
-    /**
-     * @return the name
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @param name the name to set
-     */
     public void setName(String name) {
         this.name = name;
     }
 
-    /**
-     * @return the password
-     */
     public String getPassword() {
         return password;
     }
 
-    /**
-     * @param password the password to set
-     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    /**
-     * @return the accountingDocumentation
-     */
     public boolean isAccountingDocumentation() {
         return accountingDocumentation;
     }
 
-    /**
-     * @param accountingDocumentation the accountingDocumentation to set
-     */
     public void setAccountingDocumentation(boolean accountingDocumentation) {
         this.accountingDocumentation = accountingDocumentation;
     }
 
-    /**
-     * @return the calendar
-     */
     public Calendar getCalendar() {
         return calendar;
     }
 
-    /**
-     * @param calendar the calendar to set
-     */
     public void setCalendar(Calendar calendar) {
         this.calendar = calendar;
     }
-   
 }

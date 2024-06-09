@@ -112,55 +112,55 @@ public class SystemAdministrator {
     }
 
     private static void editTaxPayer() {
-        Scanner scanner = new Scanner(System.in);
+    Scanner scanner = new Scanner(System.in);
 
-        System.out.print("Enter the ID of the TaxPayer to edit: ");
-        String idTaxPayer = scanner.nextLine();
+    System.out.print("Enter the ID of the TaxPayer to edit: ");
+    String idTaxPayer = scanner.nextLine();
 
-        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
+    TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
-        if (taxPayer == null) {
-            System.out.println("TaxPayer not found.");
-            return;
-        }
-
-        System.out.println("1. Editar Email");
-        System.out.println("2. Editar Nombre");
-        System.out.println("3. Editar Contrasena");
-        System.out.println("4. Editar Documentacion");
-        System.out.print("Opcion: ");
-        int option = scanner.nextInt();
-        scanner.nextLine(); // Consume newline
-
-        switch (option) {
-            case 1:
-                System.out.print("Ingrese nuevo email: ");
-                String newEmail = scanner.nextLine();
-                taxPayer.setEmail(newEmail);
-                break;
-            case 2:
-                System.out.print("Ingrese nuevo nombre: ");
-                String newName = scanner.nextLine();
-                taxPayer.setName(newName);
-                break;
-            case 3:
-                System.out.print("Ingrese nueva contraseña: ");
-                String newPassword = scanner.nextLine();
-                taxPayer.setPassword(newPassword);
-                break;
-            case 4:
-                System.out.print("Ingrese nueva documentacion [true/false]: ");
-                boolean newAccountingDocumentation = scanner.nextBoolean();
-                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
-                break;
-            default:
-                System.out.println("Invalid option.");
-                return;
-        }
-
-        DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
-        System.out.println("TaxPayer information updated successfully.");
+    if (taxPayer == null) {
+        System.out.println("TaxPayer not found.");
+        return;
     }
+
+    System.out.println("1. Editar Email");
+    System.out.println("2. Editar Nombre");
+    System.out.println("3. Editar Contrasena");
+    System.out.println("4. Editar Documentacion");
+    System.out.print("Opcion: ");
+    int option = scanner.nextInt();
+    scanner.nextLine(); // Consume newline
+
+    switch (option) {
+        case 1:
+            System.out.print("Ingrese nuevo email: ");
+            String newEmail = scanner.nextLine();
+            taxPayer.setEmail(newEmail);
+            break;
+        case 2:
+            System.out.print("Ingrese nuevo nombre: ");
+            String newName = scanner.nextLine();
+            taxPayer.setName(newName);
+            break;
+        case 3:
+            System.out.print("Ingrese nueva contraseña: ");
+            String newPassword = scanner.nextLine();
+            taxPayer.setPassword(newPassword);
+            break;
+        case 4:
+            System.out.print("Ingrese nueva documentacion [true/false]: ");
+            boolean newAccountingDocumentation = scanner.nextBoolean();
+            taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+            break;
+        default:
+            System.out.println("Invalid option.");
+            return;
+    }
+
+    DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
+    System.out.println("TaxPayer information updated successfully.");
+}
 
 
     private static void deleteTaxPayer() {

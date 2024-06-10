@@ -1,13 +1,11 @@
+
 package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Scanner;
@@ -49,15 +47,15 @@ public class SystemAdministrator {
                     addNewTaxProcess();
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Saliendo...");
                     return;
                 default:
-                    System.out.println("Invalid option. Please try again.");
+                    System.out.println("Opcion Invalida. Intente otra vez.");
             }
         }
     }
 
-   private static void addNewTaxPayer() {
+    private static void addNewTaxPayer() {
 
         String idTaxPayer = "";
         String addAnotherTaxPayer;
@@ -112,56 +110,55 @@ public class SystemAdministrator {
     }
 
     private static void editTaxPayer() {
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-    System.out.print("Enter the ID of the TaxPayer to edit: ");
-    String idTaxPayer = scanner.nextLine();
+        System.out.print("Ingrese el ID del Contribuyente a editar: ");
+        String idTaxPayer = scanner.nextLine();
 
-    TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
-    if (taxPayer == null) {
-        System.out.println("TaxPayer not found.");
-        return;
-    }
-
-    System.out.println("1. Editar Email");
-    System.out.println("2. Editar Nombre");
-    System.out.println("3. Editar Contrasena");
-    System.out.println("4. Editar Documentacion");
-    System.out.print("Opcion: ");
-    int option = scanner.nextInt();
-    scanner.nextLine(); // Consume newline
-
-    switch (option) {
-        case 1:
-            System.out.print("Ingrese nuevo email: ");
-            String newEmail = scanner.nextLine();
-            taxPayer.setEmail(newEmail);
-            break;
-        case 2:
-            System.out.print("Ingrese nuevo nombre: ");
-            String newName = scanner.nextLine();
-            taxPayer.setName(newName);
-            break;
-        case 3:
-            System.out.print("Ingrese nueva contraseña: ");
-            String newPassword = scanner.nextLine();
-            taxPayer.setPassword(newPassword);
-            break;
-        case 4:
-            System.out.print("Ingrese nueva documentacion [true/false]: ");
-            boolean newAccountingDocumentation = scanner.nextBoolean();
-            taxPayer.setAccountingDocumentation(newAccountingDocumentation);
-            break;
-        default:
-            System.out.println("Invalid option.");
+        if (taxPayer == null) {
+            System.out.println("Contribuyente no encontrado.");
             return;
+        }
+
+        System.out.println("1. Editar Email");
+        System.out.println("2. Editar Nombre");
+        System.out.println("3. Editar Contrasena");
+        System.out.println("4. Editar Documentacion");
+        System.out.print("Opcion: ");
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (option) {
+            case 1:
+                System.out.print("Ingrese nuevo email: ");
+                String newEmail = scanner.nextLine();
+                taxPayer.setEmail(newEmail);
+                break;
+            case 2:
+                System.out.print("Ingrese nuevo nombre: ");
+                String newName = scanner.nextLine();
+                taxPayer.setName(newName);
+                break;
+            case 3:
+                System.out.print("Ingrese nueva contraseña: ");
+                String newPassword = scanner.nextLine();
+                taxPayer.setPassword(newPassword);
+                break;
+            case 4:
+                System.out.print("Ingrese nueva documentacion [true/false]: ");
+                boolean newAccountingDocumentation = scanner.nextBoolean();
+                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+                break;
+            default:
+                System.out.println("Opcion Invalida.");
+                return;
+        }
+
+        DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
+        System.out.println("Información del Contribuyente actualizada exitosamente.");
     }
-
-    DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
-    System.out.println("TaxPayer information updated successfully.");
-}
-
 
     private static void deleteTaxPayer() {
         Scanner scanner = new Scanner(System.in);
@@ -170,6 +167,7 @@ public class SystemAdministrator {
 
         DataBaseManager.RemoveData("TaxPayerData", id);
     }
+
     private static void addNewTaxProcess() {
         Scanner scanner = new Scanner(System.in);
         ClearScreen.clearScreen();
@@ -179,7 +177,6 @@ public class SystemAdministrator {
         System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
         String idTaxPayer = scanner.nextLine();
 
-  
         PriceList.displayPriceArray();
         System.out.println();
 
@@ -187,8 +184,8 @@ public class SystemAdministrator {
         do {
             System.out.print("Ingrese el ID del proceso a agregar: ");
             int processId = scanner.nextInt();
-            scanner.nextLine(); 
-            
+            scanner.nextLine();
+
             PriceList[] priceList = PriceList.getPriceListArray();
             PriceList selectedProcess = null;
             for (PriceList process : priceList) {
@@ -211,11 +208,10 @@ public class SystemAdministrator {
                 addAnotherProcess = response.equalsIgnoreCase("s");
             } else {
                 System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
-                addAnotherProcess = true; 
+                addAnotherProcess = true;
             }
             ClearScreen.clearScreen();
         } while (addAnotherProcess);
     }
-
 
 }

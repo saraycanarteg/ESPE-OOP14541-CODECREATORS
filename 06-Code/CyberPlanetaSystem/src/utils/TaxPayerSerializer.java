@@ -1,3 +1,4 @@
+
 package utils;
 
 import com.google.gson.JsonElement;
@@ -9,6 +10,7 @@ import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.lang.reflect.Type;
 
 public class TaxPayerSerializer implements JsonSerializer<TaxPayer> {
+
     @Override
     public JsonElement serialize(TaxPayer taxPayer, Type type, JsonSerializationContext jsonSerializationContext) {
         JsonObject jsonObject = new JsonObject();

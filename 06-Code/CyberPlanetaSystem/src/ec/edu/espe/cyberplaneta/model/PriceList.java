@@ -1,8 +1,9 @@
+
 package ec.edu.espe.cyberplaneta.model;
 
 /**
  * Represents a price list item with process ID, name, price, and tax rate.
- * 
+ *
  * @autor Code Creators, DCCO-ESPE
  */
 public class PriceList {
@@ -45,9 +46,9 @@ public class PriceList {
 
     public static PriceList[] getPriceListArray() {
         return new PriceList[]{
-                new PriceList(1, "Declaracion de IVA", 3.0f, 0.15f),
-                new PriceList(2, "Devolucion Impuesto a la Renta", 3.5f, 0.15f),
-                new PriceList(3, "Anexo de Accionista", 5.0f, 0.15f)
+            new PriceList(1, "Declaracion de IVA", 3.0f, 0.15f),
+            new PriceList(2, "Devolucion Impuesto a la Renta", 3.5f, 0.15f),
+            new PriceList(3, "Anexo de Accionista", 5.0f, 0.15f)
         };
     }
 

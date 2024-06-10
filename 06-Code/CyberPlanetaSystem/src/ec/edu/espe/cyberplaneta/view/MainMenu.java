@@ -1,3 +1,4 @@
+
 package ec.edu.espe.cyberplaneta.view;
 
 import java.util.Scanner;
@@ -28,7 +29,7 @@ public class MainMenu {
             System.out.println("1. Contribuyente");
             System.out.println("2. Agenda de clasificacion");
             System.out.println("3. Sistema de precios");
-            System.out.println("4. Exit");
+            System.out.println("4. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
             menuOption = scanner.nextInt();
@@ -49,7 +50,7 @@ public class MainMenu {
                     break;
 
                 case 4:
-                   return;
+                    return;
                 default:
                     System.out.println("Opcion no valida");
                     break;

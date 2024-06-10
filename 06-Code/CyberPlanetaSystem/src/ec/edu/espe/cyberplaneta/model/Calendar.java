@@ -15,10 +15,6 @@ public class Calendar {
         this.startDate = startDate;
     }
 
-    public static void SendNotification() {
-
-    }
-
     @Override
     public String toString() {
         return "{\"deliveryDate\":\"" + deliveryDate + "\",\"startDate\":\"" + startDate + "\"}";

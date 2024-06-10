@@ -85,22 +85,6 @@ public class DataBaseManager {
         }
     }
 
-    public static void UpdateData(String fileName, String wordSearch, String newData) {
-        fileName = fileName + ".json";
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                if (line.contains(wordSearch)) {
-                    line = line.replace(wordSearch, newData);
-                }
-                SaveData(line, fileName);
-            }
-
-        } catch (IOException e) {
-        }
-    }
-
     public static String findData(String fileName, String wordSearch) {
         fileName = fileName + ".json";
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName))) {

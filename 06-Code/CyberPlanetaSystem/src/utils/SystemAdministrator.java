@@ -68,11 +68,7 @@ public class SystemAdministrator {
         do {
 
             do {
-<<<<<<< HEAD
-                System.out.print("\nIngrese el ID del contribuyente: ");
-=======
                 System.out.print("\nID: ");
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
 
@@ -85,31 +81,6 @@ public class SystemAdministrator {
             System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.nextLine();
 
-<<<<<<< HEAD
-            System.out.print("El contribuyente tiene informacion adicional? [true/false]: ");
-            boolean accountingDocumentation = scanner.nextBoolean();
-
-            System.out.print("El contribuyente inicia su proceso al: ");
-            System.out.println(startDate);
-
-            do {
-                System.out.print("El contribuyente inicia su proceso al: [dd/MM/yyyy]: ");
-                deliveryDate = scanner.next();
-
-                try {
-                    calendar = new Calendar(formatter.parse(deliveryDate), startDate);
-                } catch (ParseException e) {
-                    deliveryDate = "error";
-                    System.out.println("Formato invalido, usa dd/MM/yyyy.");
-                }
-            } while (deliveryDate == "error");
-
-            TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
-            String taxPayerData = taxPayer.toString()+calendar.toString();
-            Gson gson = new Gson();
-            RegisterTaxPayer(gson.toJson(taxPayerData));
-            System.out.print("Agregar un nuevo contribuyente? (yes/no): ");
-=======
             System.out.print("El contribuyente proporciono documentacion? [true/false]: ");
             boolean accountingDocumentation = scanner.nextBoolean();
 
@@ -131,7 +102,6 @@ public class SystemAdministrator {
 
             registerTaxPayer(taxPayerData);
             System.out.print("Desea anadir otro contribuyente? (y/n): ");
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
             addAnotherTaxPayer = scanner.next();
 
         } while (addAnotherTaxPayer.equalsIgnoreCase("y"));

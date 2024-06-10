@@ -33,24 +33,6 @@ public class MainMenu {
             System.out.println("Opcion:  ");
             menuOption = scanner.nextInt();
 
-<<<<<<< HEAD
-        switch (menuOption) {
-            case 1:
-            SystemAdministrator.AddNewTaxPayer();
-            break;
-            case 2: 
-            SystemAdministrator.AddNewTaxPayer();
-            System.out.println("Contribuyente Agregado");
-            break;
-            case 3: 
-            SystemAdministrator.AddNewTaxPayer();
-            System.out.println("Agendado");
-            break; 
-        default:
-            System.out.println("Precios");
-            break;
-}
-=======
             ClearScreen.clearScreen();
 
             switch (menuOption) {
@@ -73,7 +55,6 @@ public class MainMenu {
                     break;
             }
         }
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
     }
 
 }

@@ -1,6 +1,11 @@
 
 package utils;
 
+import ec.edu.espe.cyberplaneta.model.Calendar;
+import ec.edu.espe.cyberplaneta.model.TaxPayer;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,10 +36,10 @@ public class ClassificationAgenda {
                     searchNinethDigit();
                     break;
                 case 2:
-                    // editTaxPayer();
+                    sendNotification();
                     break;
                 case 3:
-                    System.out.println("Exiting...");
+                    System.out.println("Saliendo...");
                     return;
                 default:
                     System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
@@ -77,6 +82,30 @@ public class ClassificationAgenda {
             System.out.println("Contribuyentes encontrados con el noveno digito " + novenoDigito + ":");
             for (String resultado : resultados) {
                 System.out.println(resultado);
+            }
+        }
+    }
+
+    private static void sendNotification() {
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate currentDate = LocalDate.now();
+        System.out.print("Ingrese el ID del contribuyente a buscar: ");
+        String idTaxPayer = scanner.next();
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
+        Calendar calendar = DataBaseManager.findCalendarById("TaxPayerData", idTaxPayer);
+
+        LocalDate userDate = LocalDate.parse(calendar.getDeliveryDate(), formatter);
+        long remainingDays = ChronoUnit.DAYS.between(currentDate, userDate);
+
+        if (remainingDays > 0) {
+            System.out.println("\nEl la fecha de inicio del contibuyente " + taxPayer.getName() + " es " + calendar.getDeliveryDate()
+                    + " tienes " + remainingDays + " dias para la entrega\n");
+        } else {
+            if (remainingDays == 0) {
+                System.out.println("\nEl proceso se entrega hoy\n");
+            } else {
+                System.out.println("\nEl proceso ha sido entregado o esta retrasado en su entrega\n");
             }
         }
     }

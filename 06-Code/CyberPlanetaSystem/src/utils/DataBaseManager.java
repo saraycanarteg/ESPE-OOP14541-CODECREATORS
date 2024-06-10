@@ -4,6 +4,7 @@ package utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
+import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -120,6 +121,15 @@ public class DataBaseManager {
         if (!taxpayerData.isEmpty()) {
             Gson gson = new Gson();
             return gson.fromJson(taxpayerData, TaxPayer.class);
+        }
+        return null;
+    }
+
+    public static Calendar findCalendarById(String fileName, String idTaxPayer) {
+        String taxpayerData = DataBaseManager.findData(fileName, idTaxPayer);
+        if (!taxpayerData.isEmpty()) {
+            Gson gson = new Gson();
+            return gson.fromJson(taxpayerData, Calendar.class);
         }
         return null;
     }

@@ -1,5 +1,6 @@
 package ec.edu.espe.cyberplaneta.view;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import utils.SystemAdministrator;
 import utils.CPPricingSystem;
@@ -31,7 +32,39 @@ public class MainMenu {
             System.out.println("4. Exit");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
-            menuOption = scanner.nextInt();
+                    
+            try { // EXCE
+                menuOption = scanner.nextInt();
+                ClearScreen.clearScreen();
+                
+                 switch (menuOption) {
+                    case 1:
+                        SystemAdministrator.printSystemAdminMenu();
+                        break;
+
+                    case 2:
+                        ClassificationAgenda.printSystemAgendaMenu();
+                        break;
+
+                    case 3:
+                        CPPricingSystem.CalculateTaxProcessCost();
+                        break;
+
+                    case 4:
+                        return;
+
+                    default:
+                        System.out.println("Opcion no valida. Por favor, intente de nuevo.");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Entrada no valida. Por favor, ingrese un numero.");
+                scanner.nextLine(); // EXCE
+            } catch (Exception e) {
+                System.out.println("Ocurrio un error: " + e.getMessage());
+                e.printStackTrace(); // EXCE
+            }
+                
 
 <<<<<<< HEAD
         switch (menuOption) {

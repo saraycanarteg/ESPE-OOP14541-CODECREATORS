@@ -8,8 +8,10 @@ import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.io.StringReader;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -32,27 +34,32 @@ public class SystemAdministrator {
             System.out.println("5. Salir");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
-            int menuOption = scanner.nextInt();
-            ClearScreen.clearScreen();
+            try {  // EXCE
+                int menuOption = scanner.nextInt();
+                ClearScreen.clearScreen();
 
-            switch (menuOption) {
-                case 1:
-                    addNewTaxPayer();
-                    break;
-                case 2:
-                    editTaxPayer();
-                    break;
-                case 3:
-                    deleteTaxPayer();
-                    break;
-                case 4:
-                    addNewTaxProcess();
-                    break;
-                case 5:
-                    System.out.println("Exiting...");
-                    return;
-                default:
-                    System.out.println("Invalid option. Please try again.");
+                switch (menuOption) {
+                    case 1:
+                        addNewTaxPayer();
+                        break;
+                    case 2:
+                        editTaxPayer();
+                        break;
+                    case 3:
+                        deleteTaxPayer();
+                        break;
+                    case 4:
+                        addNewTaxProcess();
+                        break;
+                    case 5:
+                        System.out.println("Exiting...");
+                        return;
+                    default:
+                        System.out.println("Invalid option. Please try again.");
+                } 
+            }catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // EXCE
             }
         }
     }
@@ -159,6 +166,8 @@ public class SystemAdministrator {
     System.out.println("3. Editar Contrasena");
     System.out.println("4. Editar Documentacion");
     System.out.print("Opcion: ");
+    
+     try {        //excep
     int option = scanner.nextInt();
     scanner.nextLine(); // Consume newline
 
@@ -190,6 +199,9 @@ public class SystemAdministrator {
 
     DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
     System.out.println("TaxPayer information updated successfully.");
+    } catch (InputMismatchException e) {
+            System.out.println("Invalid input. Please enter a number.");
+            scanner.nextLine(); // Clear the invalid input EXCE
 }
 
 
@@ -215,6 +227,8 @@ public class SystemAdministrator {
 
         boolean addAnotherProcess;
         do {
+             try {
+       
             System.out.print("Ingrese el ID del proceso a agregar: ");
             int processId = scanner.nextInt();
             scanner.nextLine(); 
@@ -227,7 +241,7 @@ public class SystemAdministrator {
                     break;
                 }
             }
-
+        }
             if (selectedProcess != null) {
                 String processInfo = String.format("{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
                         selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
@@ -243,9 +257,13 @@ public class SystemAdministrator {
                 System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
                 addAnotherProcess = true; 
             }
-            ClearScreen.clearScreen();
-        } while (addAnotherProcess);
+            
+        } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Clear the invalid input
+                addAnotherProcess = true;
+        }
+                ClearScreen.clearScreen();
+       } while (addAnotherProcess);
     }
-
-
 }

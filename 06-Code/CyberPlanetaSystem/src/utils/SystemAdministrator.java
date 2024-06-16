@@ -1,14 +1,16 @@
+
 package utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.stream.JsonReader;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
+<<<<<<< HEAD
 import java.io.StringReader;
 import java.text.ParseException;
+=======
+>>>>>>> 8209c7cc0a4e69d023fd1fc4115598b435fe2a5d
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -38,6 +40,7 @@ public class SystemAdministrator {
                 int menuOption = scanner.nextInt();
                 ClearScreen.clearScreen();
 
+<<<<<<< HEAD
                 switch (menuOption) {
                     case 1:
                         addNewTaxPayer();
@@ -60,11 +63,31 @@ public class SystemAdministrator {
             }catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
                 scanner.nextLine(); // EXCE
+=======
+            switch (menuOption) {
+                case 1:
+                    addNewTaxPayer();
+                    break;
+                case 2:
+                    editTaxPayer();
+                    break;
+                case 3:
+                    deleteTaxPayer();
+                    break;
+                case 4:
+                    addNewTaxProcess();
+                    break;
+                case 5:
+                    System.out.println("Saliendo...");
+                    return;
+                default:
+                    System.out.println("Opcion Invalida. Intente otra vez.");
+>>>>>>> 8209c7cc0a4e69d023fd1fc4115598b435fe2a5d
             }
         }
     }
 
-   private static void addNewTaxPayer() {
+    private static void addNewTaxPayer() {
 
         String idTaxPayer = "";
         String addAnotherTaxPayer;
@@ -75,11 +98,7 @@ public class SystemAdministrator {
         do {
 
             do {
-<<<<<<< HEAD
-                System.out.print("\nIngrese el ID del contribuyente: ");
-=======
                 System.out.print("\nID: ");
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
                 idTaxPayer = scanner.nextLine();
             } while (idTaxPayer.length() != 12);
 
@@ -92,31 +111,6 @@ public class SystemAdministrator {
             System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.nextLine();
 
-<<<<<<< HEAD
-            System.out.print("El contribuyente tiene informacion adicional? [true/false]: ");
-            boolean accountingDocumentation = scanner.nextBoolean();
-
-            System.out.print("El contribuyente inicia su proceso al: ");
-            System.out.println(startDate);
-
-            do {
-                System.out.print("El contribuyente inicia su proceso al: [dd/MM/yyyy]: ");
-                deliveryDate = scanner.next();
-
-                try {
-                    calendar = new Calendar(formatter.parse(deliveryDate), startDate);
-                } catch (ParseException e) {
-                    deliveryDate = "error";
-                    System.out.println("Formato invalido, usa dd/MM/yyyy.");
-                }
-            } while (deliveryDate == "error");
-
-            TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation);
-            String taxPayerData = taxPayer.toString()+calendar.toString();
-            Gson gson = new Gson();
-            RegisterTaxPayer(gson.toJson(taxPayerData));
-            System.out.print("Agregar un nuevo contribuyente? (yes/no): ");
-=======
             System.out.print("El contribuyente proporciono documentacion? [true/false]: ");
             boolean accountingDocumentation = scanner.nextBoolean();
 
@@ -138,7 +132,6 @@ public class SystemAdministrator {
 
             registerTaxPayer(taxPayerData);
             System.out.print("Desea anadir otro contribuyente? (y/n): ");
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
             addAnotherTaxPayer = scanner.next();
 
         } while (addAnotherTaxPayer.equalsIgnoreCase("y"));
@@ -149,13 +142,14 @@ public class SystemAdministrator {
     }
 
     private static void editTaxPayer() {
-    Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
 
-    System.out.print("Enter the ID of the TaxPayer to edit: ");
-    String idTaxPayer = scanner.nextLine();
+        System.out.print("Ingrese el ID del Contribuyente a editar: ");
+        String idTaxPayer = scanner.nextLine();
 
-    TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
+<<<<<<< HEAD
     if (taxPayer == null) {
         System.out.println("TaxPayer not found.");
         return;
@@ -194,9 +188,52 @@ public class SystemAdministrator {
             break;
         default:
             System.out.println("Invalid option.");
+=======
+        if (taxPayer == null) {
+            System.out.println("Contribuyente no encontrado.");
+>>>>>>> 8209c7cc0a4e69d023fd1fc4115598b435fe2a5d
             return;
+        }
+
+        System.out.println("1. Editar Email");
+        System.out.println("2. Editar Nombre");
+        System.out.println("3. Editar Contrasena");
+        System.out.println("4. Editar Documentacion");
+        System.out.print("Opcion: ");
+        int option = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        switch (option) {
+            case 1:
+                System.out.print("Ingrese nuevo email: ");
+                String newEmail = scanner.nextLine();
+                taxPayer.setEmail(newEmail);
+                break;
+            case 2:
+                System.out.print("Ingrese nuevo nombre: ");
+                String newName = scanner.nextLine();
+                taxPayer.setName(newName);
+                break;
+            case 3:
+                System.out.print("Ingrese nueva contraseña: ");
+                String newPassword = scanner.nextLine();
+                taxPayer.setPassword(newPassword);
+                break;
+            case 4:
+                System.out.print("Ingrese nueva documentacion [true/false]: ");
+                boolean newAccountingDocumentation = scanner.nextBoolean();
+                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+                break;
+            default:
+                System.out.println("Opcion Invalida.");
+                return;
+        }
+
+        DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
+        System.out.println("Información del Contribuyente actualizada exitosamente.");
     }
 
+<<<<<<< HEAD
     DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
     System.out.println("TaxPayer information updated successfully.");
     } catch (InputMismatchException e) {
@@ -205,6 +242,8 @@ public class SystemAdministrator {
 }
 
 
+=======
+>>>>>>> 8209c7cc0a4e69d023fd1fc4115598b435fe2a5d
     private static void deleteTaxPayer() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("ID del contribuyente que va a eliminar: ");
@@ -212,6 +251,7 @@ public class SystemAdministrator {
 
         DataBaseManager.RemoveData("TaxPayerData", id);
     }
+
     private static void addNewTaxProcess() {
         Scanner scanner = new Scanner(System.in);
         ClearScreen.clearScreen();
@@ -221,7 +261,6 @@ public class SystemAdministrator {
         System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
         String idTaxPayer = scanner.nextLine();
 
-  
         PriceList.displayPriceArray();
         System.out.println();
 
@@ -231,8 +270,8 @@ public class SystemAdministrator {
        
             System.out.print("Ingrese el ID del proceso a agregar: ");
             int processId = scanner.nextInt();
-            scanner.nextLine(); 
-            
+            scanner.nextLine();
+
             PriceList[] priceList = PriceList.getPriceListArray();
             PriceList selectedProcess = null;
             for (PriceList process : priceList) {
@@ -255,7 +294,7 @@ public class SystemAdministrator {
                 addAnotherProcess = response.equalsIgnoreCase("s");
             } else {
                 System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
-                addAnotherProcess = true; 
+                addAnotherProcess = true;
             }
             
         } catch (InputMismatchException e) {
@@ -266,4 +305,8 @@ public class SystemAdministrator {
                 ClearScreen.clearScreen();
        } while (addAnotherProcess);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 8209c7cc0a4e69d023fd1fc4115598b435fe2a5d
 }

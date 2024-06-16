@@ -1,3 +1,4 @@
+
 package ec.edu.espe.cyberplaneta.view;
 
 import java.util.InputMismatchException;
@@ -29,7 +30,7 @@ public class MainMenu {
             System.out.println("1. Contribuyente");
             System.out.println("2. Agenda de clasificacion");
             System.out.println("3. Sistema de precios");
-            System.out.println("4. Exit");
+            System.out.println("4. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
                     
@@ -66,24 +67,6 @@ public class MainMenu {
             }
                 
 
-<<<<<<< HEAD
-        switch (menuOption) {
-            case 1:
-            SystemAdministrator.AddNewTaxPayer();
-            break;
-            case 2: 
-            SystemAdministrator.AddNewTaxPayer();
-            System.out.println("Contribuyente Agregado");
-            break;
-            case 3: 
-            SystemAdministrator.AddNewTaxPayer();
-            System.out.println("Agendado");
-            break; 
-        default:
-            System.out.println("Precios");
-            break;
-}
-=======
             ClearScreen.clearScreen();
 
             switch (menuOption) {
@@ -100,13 +83,12 @@ public class MainMenu {
                     break;
 
                 case 4:
-                   return;
+                    return;
                 default:
                     System.out.println("Opcion no valida");
                     break;
             }
         }
->>>>>>> cf6ace5c4604649156f23029559dee786a4e5e90
     }
 
 }

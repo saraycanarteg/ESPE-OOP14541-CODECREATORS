@@ -1,3 +1,4 @@
+
 package utils;
 
 import com.google.gson.JsonDeserializationContext;
@@ -11,6 +12,7 @@ import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.lang.reflect.Type;
 
 public class TaxPayerDeserializer implements JsonDeserializer<TaxPayer> {
+
     @Override
     public TaxPayer deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         JsonObject jsonObject = json.getAsJsonObject();

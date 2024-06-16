@@ -19,10 +19,6 @@ public class TaxProcess {
         this.numberOfDocumentation = numberOfDocumentation;
     }
 
-    public static void AddDateCalendar(Date calendar) {
-
-    }
-
     @Override
     public String toString() {
         return "TaxProcess{" + "price=" + price + ", typeOfProcess=" + typeOfProcess + ", numberOfDocumentation=" + numberOfDocumentation + '}';

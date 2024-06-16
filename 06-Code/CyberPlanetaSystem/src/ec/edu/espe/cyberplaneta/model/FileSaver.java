@@ -6,9 +6,10 @@ package ec.edu.espe.cyberplaneta.model;
  * @author Code Creators,DCCO-ESPE
  */
 public class FileSaver {
+
     private int numberOfFile;
-    
-    public FileSaver(int numberOfFile){
+
+    public FileSaver(int numberOfFile) {
         this.numberOfFile = numberOfFile;
     }
 
@@ -30,6 +31,5 @@ public class FileSaver {
     public void setNumberOfFile(int numberOfFile) {
         this.numberOfFile = numberOfFile;
     }
-    
-}
 
+}

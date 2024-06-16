@@ -1,14 +1,12 @@
 
 package ec.edu.espe.cyberplaneta.model;
 
-import com.google.gson.Gson;
-
-
 /**
  *
- * @author  Code Creators, DCCO-ESPE
+ * @author Code Creators, DCCO-ESPE
  */
 public class Calendar {
+
     private String deliveryDate;
     private String startDate;
 
@@ -16,16 +14,12 @@ public class Calendar {
         this.deliveryDate = deliveryDate;
         this.startDate = startDate;
     }
-    
-     public static void SendNotification(){
-        
-    }
-  @Override
+
+    @Override
     public String toString() {
         return "{\"deliveryDate\":\"" + deliveryDate + "\",\"startDate\":\"" + startDate + "\"}";
     }
 
-     
     /**
      * @return the deliveryDate
      */
@@ -53,6 +47,5 @@ public class Calendar {
     public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
-    
-    
+
 }

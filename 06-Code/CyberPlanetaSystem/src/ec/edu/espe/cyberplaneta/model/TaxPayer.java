@@ -1,3 +1,4 @@
+
 package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
@@ -23,7 +24,7 @@ public class TaxPayer {
         this.accountingDocumentation = accountingDocumentation;
         this.calendar = (calendar != null) ? calendar : new Calendar("", "");
     }
-    
+
     public String getDeliveryDate() {
         return (calendar != null && calendar.getDeliveryDate() != null) ? calendar.getDeliveryDate() : "No date";
     }
@@ -39,7 +40,6 @@ public class TaxPayer {
     }
 
     // Getters and Setters
-
     public String getId() {
         return id;
     }

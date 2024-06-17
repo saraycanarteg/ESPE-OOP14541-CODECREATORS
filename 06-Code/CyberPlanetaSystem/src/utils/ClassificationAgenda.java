@@ -25,7 +25,7 @@ public class ClassificationAgenda {
             System.out.println("============================================================================");
             System.out.println("1. Mostrar los contribuyentes por el noveno digito");
             System.out.println("2. Mostrar notificaciones pendientes");
-            System.out.println("3. salir de Menu de Administrador de Agenda");
+            System.out.println("3. Salir");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
             try {

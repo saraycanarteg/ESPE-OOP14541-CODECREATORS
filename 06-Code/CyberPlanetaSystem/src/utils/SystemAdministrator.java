@@ -127,41 +127,57 @@ public class SystemAdministrator {
 
     private static void editTaxPayer() {
         Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Ingrese el ID del Contribuyente a editar: ");
-        String idTaxPayer = scanner.nextLine();
+        int option = 0;
+        String idTaxPayer = "";
+        
+         do {
+            System.out.print("Ingrese el ID del Contribuyente a editar: ");
+           idTaxPayer = scanner.nextLine();
+        } while (idTaxPayer.length() != 13);
 
         TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
         if (taxPayer == null) {
-            System.out.println("TaxPayer not found.");
+            System.out.println("\nEl contribuyente no existe\n");
             return;
         }
+        while (true) {
+            System.out.println("1. Editar Email");
+            System.out.println("2. Editar Nombre");
+            System.out.println("3. Editar Contrasena");
+            System.out.println("4. Editar Documentacion");
+            System.out.println("5. Salir");
+            System.out.print("Opcion: ");
 
-        System.out.println("1. Editar Email");
-        System.out.println("2. Editar Nombre");
-        System.out.println("3. Editar Contrasena");
-        System.out.println("4. Editar Documentacion");
-        System.out.print("Opcion: ");
+            try {
+                option = scanner.nextInt();
 
-        try {        //excep
-            int option = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
-
+                if (option < 1 || option > 5) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
+                }
+            } catch (InputMismatchException e) {
+                ClearScreen.clearScreen();
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 5.");
+                scanner.next();
+                continue;
+            }
+            ClearScreen.clearScreen();
             switch (option) {
                 case 1:
                     System.out.print("Ingrese nuevo email: ");
-                    String newEmail = scanner.nextLine();
+                    String newEmail = scanner.next();
                     taxPayer.setEmail(newEmail);
                     break;
                 case 2:
                     System.out.print("Ingrese nuevo nombre: ");
-                    String newName = scanner.nextLine();
+                    String newName = scanner.next();
                     taxPayer.setName(newName);
                     break;
                 case 3:
                     System.out.print("Ingrese nueva contraseña: ");
-                    String newPassword = scanner.nextLine();
+                    String newPassword = scanner.next();
                     taxPayer.setPassword(newPassword);
                     break;
                 case 4:
@@ -169,58 +185,13 @@ public class SystemAdministrator {
                     boolean newAccountingDocumentation = scanner.nextBoolean();
                     taxPayer.setAccountingDocumentation(newAccountingDocumentation);
                     break;
+                case 5:
+                    return;
                 default:
                     System.out.println("Invalid option.");
-
-                    if (taxPayer == null) {
-                        System.out.println("Contribuyente no encontrado.");
-
-                        return;
-                    }
-
-                    System.out.println("1. Editar Email");
-                    System.out.println("2. Editar Nombre");
-                    System.out.println("3. Editar Contrasena");
-                    System.out.println("4. Editar Documentacion");
-                    System.out.print("Opcion: ");
-                    option = scanner.nextInt();
-                    scanner.nextLine(); // Consume newline
-
-                    switch (option) {
-                        case 1:
-                            System.out.print("Ingrese nuevo email: ");
-                            newEmail = scanner.nextLine();
-                            taxPayer.setEmail(newEmail);
-                            break;
-                        case 2:
-                            System.out.print("Ingrese nuevo nombre: ");
-                            newName = scanner.nextLine();
-                            taxPayer.setName(newName);
-                            break;
-                        case 3:
-                            System.out.print("Ingrese nueva contraseña: ");
-                            newPassword = scanner.nextLine();
-                            taxPayer.setPassword(newPassword);
-                            break;
-                        case 4:
-                            System.out.print("Ingrese nueva documentacion [true/false]: ");
-                            newAccountingDocumentation = scanner.nextBoolean();
-                            taxPayer.setAccountingDocumentation(newAccountingDocumentation);
-                            break;
-                        default:
-                            System.out.println("Opcion Invalida.");
-                            return;
-                    }
-
-                    DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
-                    System.out.println("Información del Contribuyente actualizada exitosamente.");
             }
-
             DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
-            System.out.println("TaxPayer information updated successfully.");
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid input. Please enter a number.");
-            scanner.nextLine(); // Clear the invalid input EXCE
+            System.out.println("Información del Contribuyente actualizada exitosamente.");
         }
     }
 

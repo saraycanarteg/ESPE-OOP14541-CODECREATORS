@@ -1,4 +1,3 @@
-
 package utils;
 
 import com.google.gson.Gson;
@@ -19,6 +18,7 @@ public class SystemAdministrator {
 
     public static void printSystemAdminMenu() {
         ClearScreen.clearScreen();
+        int menuOption = 0;
         Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("============================================================================");
@@ -31,53 +31,42 @@ public class SystemAdministrator {
             System.out.println("5. Salir");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
-            try {  // EXCE
-                int menuOption = scanner.nextInt();
-                ClearScreen.clearScreen();
 
-                switch (menuOption) {
-                    case 1:
-                        addNewTaxPayer();
-                        break;
-                    case 2:
-                        editTaxPayer();
-                        break;
-                    case 3:
-                        deleteTaxPayer();
-                        break;
-                    case 4:
-                        addNewTaxProcess();
-                        break;
-                    case 5:
-                        System.out.println("Exiting...");
-                        return;
-                    default:
-                        System.out.println("Invalid option. Please try again.");
+            try {
+                menuOption = scanner.nextInt();
+
+                if (menuOption < 1 || menuOption > 5) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                int menuOption = scanner.nextInt();
+                ClearScreen.clearScreen();
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 5.");
+                scanner.next();
+                continue;
+            }
 
-                switch (menuOption) {
-                    case 1:
-                        addNewTaxPayer();
-                        break;
-                    case 2:
-                        editTaxPayer();
-                        break;
-                    case 3:
-                        deleteTaxPayer();
-                        break;
-                    case 4:
-                        addNewTaxProcess();
-                        break;
-                    case 5:
-                        System.out.println("Saliendo...");
-                        return;
-                    default:
-                        System.out.println("Opcion Invalida. Intente otra vez.");
+            ClearScreen.clearScreen();
+            switch (menuOption) {
+                case 1:
+                    addNewTaxPayer();
+                    break;
+                case 2:
+                    editTaxPayer();
+                    break;
+                case 3:
+                    deleteTaxPayer();
+                    break;
+                case 4:
+                    addNewTaxProcess();
+                    break;
+                case 5:
+                    System.out.println("Exiting...");
+                    return;
+                default:
+                    System.out.println("Opcion Invalida. Intente otra vez.");
 
-                }
             }
         }
     }

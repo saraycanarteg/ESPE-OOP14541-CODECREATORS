@@ -1,4 +1,3 @@
-
 package utils;
 
 import ec.edu.espe.cyberplaneta.model.Calendar;
@@ -8,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 
 /**
@@ -18,8 +18,8 @@ public class ClassificationAgenda {
 
     public static void printSystemAgendaMenu() {
         Scanner scanner = new Scanner(System.in);
+        int menuOption = 0;
         while (true) {
-
             System.out.println("============================================================================");
             System.out.printf("%40s\n", "Menu de Administrador de Agenda:");
             System.out.println("============================================================================");
@@ -28,9 +28,22 @@ public class ClassificationAgenda {
             System.out.println("3. salir de Menu de Administrador de Agenda");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
-            int menuOption = scanner.nextInt();
-            ClearScreen.clearScreen();
+            try {
+                menuOption = scanner.nextInt();
 
+                if (menuOption < 1 || menuOption > 3) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
+                }
+            } catch (InputMismatchException e) {
+                ClearScreen.clearScreen();
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
+                scanner.next();
+                continue;
+            }
+
+            ClearScreen.clearScreen();
             switch (menuOption) {
                 case 1:
                     searchNinethDigit();
@@ -71,8 +84,7 @@ public class ClassificationAgenda {
                     resultados.add(taxpayer);
                 }
             } catch (Exception e) {
-                System.out.println("Error al procesar la línea: " + taxpayer);
-                e.printStackTrace();
+                System.out.println("Error no se encontro el archivo");
             }
         }
 
@@ -88,12 +100,17 @@ public class ClassificationAgenda {
 
     private static void sendNotification() {
         Scanner scanner = new Scanner(System.in);
+        String idTaxPayer = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate currentDate = LocalDate.now();
-        System.out.print("Ingrese el ID del contribuyente a buscar: ");
-        String idTaxPayer = scanner.next();
+
+        do {
+            System.out.print("Ingrese el ID del contribuyente a buscar: ");
+            idTaxPayer = scanner.next();
+        } while (idTaxPayer.length() != 13);
+
         TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
-        if (taxPayer==null){
+        if (taxPayer == null) {
             System.out.println("\nEl contribuyente no existe\n");
             return;
         }

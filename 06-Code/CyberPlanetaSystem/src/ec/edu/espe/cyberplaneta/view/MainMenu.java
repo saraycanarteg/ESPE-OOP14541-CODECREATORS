@@ -1,4 +1,3 @@
-
 package ec.edu.espe.cyberplaneta.view;
 
 import java.util.InputMismatchException;
@@ -21,7 +20,7 @@ public class MainMenu {
 
     private static void showMainMenu() {
         Scanner scanner = new Scanner(System.in);
-        int menuOption=0;
+        int menuOption = 0;
         while (true) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Cyber Planeta System v.0.0.15");
@@ -33,12 +32,23 @@ public class MainMenu {
             System.out.println("4. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
-                    
-            try { 
+
+            try {
                 menuOption = scanner.nextInt();
+
+                if (menuOption < 1 || menuOption > 4) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
+                }
+            } catch (InputMismatchException e) {
                 ClearScreen.clearScreen();
-                
-                 switch (menuOption) {
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 4.");
+                scanner.next();
+                continue;
+            }
+                ClearScreen.clearScreen();
+                switch (menuOption) {
                     case 1:
                         SystemAdministrator.printSystemAdminMenu();
                         break;
@@ -58,37 +68,7 @@ public class MainMenu {
                         System.out.println("Opcion no valida. Por favor, intente de nuevo.");
                         break;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Entrada no valida. Por favor, ingrese un numero.");
-                scanner.nextLine(); // EXCE
-            } catch (Exception e) {
-                System.out.println("Ocurrio un error: " + e.getMessage());
-                e.printStackTrace(); // EXCE
-            }
-                
 
-            ClearScreen.clearScreen();
-
-            switch (menuOption) {
-                case 1:
-                    SystemAdministrator.printSystemAdminMenu();
-                    break;
-
-                case 2:
-                    ClassificationAgenda.printSystemAgendaMenu();
-                    break;
-
-                case 3:
-                    CPPricingSystem.CalculateTaxProcessCost();
-                    break;
-
-                case 4:
-                    return;
-                default:
-                    System.out.println("Opcion no valida");
-                    break;
-            }
         }
     }
-
 }

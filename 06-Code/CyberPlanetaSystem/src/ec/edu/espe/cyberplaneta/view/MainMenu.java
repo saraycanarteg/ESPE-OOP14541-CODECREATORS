@@ -21,7 +21,7 @@ public class MainMenu {
 
     private static void showMainMenu() {
         Scanner scanner = new Scanner(System.in);
-        int menuOption;
+        int menuOption=0;
         while (true) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Cyber Planeta System v.0.0.15");
@@ -34,7 +34,7 @@ public class MainMenu {
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
                     
-            try { // EXCE
+            try { 
                 menuOption = scanner.nextInt();
                 ClearScreen.clearScreen();
                 

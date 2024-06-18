@@ -159,136 +159,172 @@ public class SystemAdministrator {
     }
 
     private static void editTaxPayer() {
-        Scanner scanner = new Scanner(System.in);
-        int option = 0;
-        String idTaxPayer = "";
+    Scanner scanner = new Scanner(System.in);
+    int option = 0;
+    String idTaxPayer = "";
 
-        do {
-            System.out.print("Ingrese el ID del Contribuyente a editar: ");
-            idTaxPayer = scanner.nextLine();
-        } while (idTaxPayer.length() != 13);
+    do {
+        System.out.print("Ingrese el ID del Contribuyente a editar: ");
+        idTaxPayer = scanner.nextLine();
+    } while (idTaxPayer.length() != 13);
 
-        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
+    TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
 
-        if (taxPayer == null) {
-            System.out.println("\nEl contribuyente no existe\n");
-            return;
-        }
-        while (true) {
-            System.out.println("1. Editar Email");
-            System.out.println("2. Editar Nombre");
-            System.out.println("3. Editar Contrasena");
-            System.out.println("4. Editar Documentacion");
-            System.out.println("5. Salir");
-            System.out.print("Opcion: ");
+    if (taxPayer == null) {
+        System.out.println("\nEl contribuyente no existe\n");
+        return;
+    }
 
-            try {
-                option = scanner.nextInt();
+    while (true) {
+        System.out.println("1. Editar Email");
+        System.out.println("2. Editar Nombre");
+        System.out.println("3. Editar Contrasena");
+        System.out.println("4. Editar Documentacion");
+        System.out.println("5. Salir");
+        System.out.print("Opcion: ");
 
-                if (option < 1 || option > 5) {
-                    ClearScreen.clearScreen();
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
+        try {
+            option = scanner.nextInt();
+            scanner.nextLine(); // Consume the newline
+
+            if (option < 1 || option > 5) {
                 ClearScreen.clearScreen();
-                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 5.");
-                scanner.next();
+                System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
                 continue;
             }
+        } catch (InputMismatchException e) {
             ClearScreen.clearScreen();
-            switch (option) {
-                case 1:
-                    System.out.print("Ingrese nuevo email: ");
-                    String newEmail = scanner.next();
-                    taxPayer.setEmail(newEmail);
-                    break;
-                case 2:
-                    System.out.print("Ingrese nuevo nombre: ");
-                    String newName = scanner.next();
-                    taxPayer.setName(newName);
-                    break;
-                case 3:
-                    System.out.print("Ingrese nueva contraseña: ");
-                    String newPassword = scanner.next();
-                    taxPayer.setPassword(newPassword);
-                    break;
-                case 4:
-                    System.out.print("Ingrese nueva documentacion [true/false]: ");
-                    boolean newAccountingDocumentation = scanner.nextBoolean();
-                    taxPayer.setAccountingDocumentation(newAccountingDocumentation);
-                    break;
-                case 5:
-                    return;
-                default:
-                    System.out.println("Invalid option.");
-            }
-            DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
-            System.out.println("Información del Contribuyente actualizada exitosamente.");
+            System.out.println("Entrada invalida. Por favor, ingrese un numero del 1 al 5.");
+            scanner.next();
+            continue;
         }
+
+        ClearScreen.clearScreen();
+        switch (option) {
+            case 1:
+                String newEmail;
+                do {
+                    System.out.print("Ingrese nuevo email: ");
+                    newEmail = scanner.nextLine();
+                    if (!newEmail.contains("@")) {
+                        System.out.println("Email invalido. Debe contener '@'.");
+                    }
+                } while (!newEmail.contains("@"));
+                taxPayer.setEmail(newEmail);
+                break;
+            case 2:
+                String newName;
+                do {
+                    System.out.print("Ingrese nuevo nombre: ");
+                    newName = scanner.nextLine();
+                    if (!newName.matches("[a-zA-Z\\s]+")) {
+                        System.out.println("Nombre invalido. Solo debe contener letras y espacios.");
+                    }
+                } while (!newName.matches("[a-zA-Z\\s]+"));
+                taxPayer.setName(newName);
+                break;
+            case 3:
+                System.out.print("Ingrese nueva contraseña: ");
+                String newPassword = scanner.nextLine();
+                taxPayer.setPassword(newPassword);
+                break;
+            case 4:
+                boolean newAccountingDocumentation = false;
+                boolean validInput = false;
+                do {
+                    System.out.print("Ingrese nueva documentacion [true/false]: ");
+                    String documentationInput = scanner.nextLine().trim().toLowerCase();
+                    if (documentationInput.equals("true") || documentationInput.equals("false")) {
+                        newAccountingDocumentation = Boolean.parseBoolean(documentationInput);
+                        validInput = true;
+                    } else {
+                        System.out.println("Entrada invalida. Por favor, ingrese 'true' o 'false'.");
+                    }
+                } while (!validInput);
+                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+                break;
+            case 5:
+                return;
+            default:
+                System.out.println("Opcion Invalida. Intente otra vez.");
+        }
+
+        DataBaseManager.updateTaxPayer(taxPayer, "TaxPayerData");
+        System.out.println("Informacion del Contribuyente actualizada exitosamente.");
     }
+}
 
     private static void deleteTaxPayer() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("ID del contribuyente que va a eliminar: ");
-        String id = scanner.nextLine();
+    Scanner scanner = new Scanner(System.in);
+    String id;
+    do {
+        System.out.print("ID del contribuyente que va a eliminar (13 digitos): ");
+        id = scanner.nextLine();
+        if (id.length() != 13) {
+            System.out.println("ID invalido. Debe contener exactamente 13 digitos.");
+        }
+    } while (id.length() != 13);
 
-        DataBaseManager.RemoveData("TaxPayerData", id);
-    }
+    DataBaseManager.RemoveData("TaxPayerData", id);
+}
 
     private static void addNewTaxProcess() {
-        Scanner scanner = new Scanner(System.in);
-        ClearScreen.clearScreen();
-        System.out.printf("%40s\n", "===============================================");
-        System.out.printf("%40s\n", "Asignacion proceso -> contribuyente");
-        System.out.printf("%40s\n", "===============================================");
-        System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
-        String idTaxPayer = scanner.nextLine();
+    Scanner scanner = new Scanner(System.in);
+    ClearScreen.clearScreen();
+    System.out.printf("%40s\n", "===============================================");
+    System.out.printf("%40s\n", "Asignacion proceso -> contribuyente");
+    System.out.printf("%40s\n", "===============================================");
+    
+    String idTaxPayer;
+    do {
+        System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso (13 digitos): ");
+        idTaxPayer = scanner.nextLine();
+        if (idTaxPayer.length() != 13) {
+            System.out.println("ID invalido. Debe contener exactamente 13 digitos.");
+        }
+    } while (idTaxPayer.length() != 13);
 
-        PriceList.displayPriceArray();
-        System.out.println();
+    PriceList.displayPriceArray();
+    System.out.println();
 
-        boolean addAnotherProcess;
-        do {
-            try {
+    boolean addAnotherProcess;
+    do {
+        try {
+            System.out.print("Ingrese el ID del proceso a agregar: ");
+            int processId = scanner.nextInt();
+            scanner.nextLine();
 
-                System.out.print("Ingrese el ID del proceso a agregar: ");
-                int processId = scanner.nextInt();
-                scanner.nextLine();
-
-                PriceList[] priceList = PriceList.getPriceListArray();
-                PriceList selectedProcess = null;
-                for (PriceList process : priceList) {
-                    if (process.getProcessId() == processId) {
-                        selectedProcess = process;
-                        break;
-                    }
+            PriceList[] priceList = PriceList.getPriceListArray();
+            PriceList selectedProcess = null;
+            for (PriceList process : priceList) {
+                if (process.getProcessId() == processId) {
+                    selectedProcess = process;
+                    break;
                 }
+            }
 
-                if (selectedProcess != null) {
-                    String processInfo = String.format(Locale.US, "{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
-                            selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
+            if (selectedProcess != null) {
+                String processInfo = String.format(Locale.US, "{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
+                        selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
 
+                DataBaseManager.SaveData(processInfo, idTaxPayer + "_process");
 
-                    DataBaseManager.SaveData(processInfo,idTaxPayer + "_process");
+                System.out.println("Proceso de impuestos agregado exitosamente.");
 
-                    System.out.println("Proceso de impuestos agregado exitosamente.");
-
-                    System.out.print("Desea agregar otro proceso? (s/n): ");
-                    String response = scanner.nextLine();
-                    addAnotherProcess = response.equalsIgnoreCase("s");
-                } else {
-                    System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
-                    addAnotherProcess = true;
-                }
-
-
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); 
+                System.out.print("Desea agregar otro proceso? (s/n): ");
+                String response = scanner.nextLine();
+                addAnotherProcess = response.equalsIgnoreCase("s");
+            } else {
+                System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
                 addAnotherProcess = true;
             }
-            ClearScreen.clearScreen();
-        } while (addAnotherProcess);
-    }
+
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada invalida. Por favor, ingrese un número.");
+            scanner.nextLine(); 
+            addAnotherProcess = true;
+        }
+        ClearScreen.clearScreen();
+    } while (addAnotherProcess);
+}
 }

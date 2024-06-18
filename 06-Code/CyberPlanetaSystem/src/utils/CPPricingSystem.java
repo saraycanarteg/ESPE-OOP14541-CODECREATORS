@@ -1,22 +1,70 @@
 package utils;
 
 import ec.edu.espe.cyberplaneta.model.PriceList;
+import ec.edu.espe.cyberplaneta.model.TaxProcess;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.InputMismatchException;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
 
-/**
- *
- * @autor Code Creators, DCCO-ESPE
- */
 public class CPPricingSystem {
 
+    private static List<TaxProcess> processedItems = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+    private static final String JSON_FILE = "Incomes.json";
+
+    public static void printCPPricingSystemMenu() {
+        loadProcessedItemsFromJson(); // Cargar datos del archivo JSON al inicio
+
+        while (true) {
+            System.out.printf("%40s\n", "===============================================");
+            System.out.printf("%40s\n", "Sistema de Precios Cyber Planeta");
+            System.out.printf("%40s\n", "===============================================");
+            System.out.println("MENU DE OPCIONES");
+            System.out.println("1. Calcular costo de un proceso");
+            System.out.println("2. Revisar ingresos totales");
+            System.out.println("3. Salir");
+            System.out.printf("%40s\n", "===============================================");
+            System.out.print("Opcion: ");
+
+            int option = scanner.nextInt();
+            switch (option) {
+                case 1:
+                    calculateMultipleProcesses();
+                    break;
+                case 2:
+                    printProcessedItems();
+                    break;
+                case 3:
+                    System.out.println("Saliendo del sistema...");
+                    return;
+                default:
+                    System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        }
+    }
+
+    public static void calculateMultipleProcesses() {
+        boolean continuar = true;
+        while (continuar) {
+            CalculateTaxProcessCost();
+
+            String respuesta;
+            do {
+                System.out.print("¿Desea calcular otro proceso? (si/no): ");
+                respuesta = scanner.next().toLowerCase();
+            } while (!respuesta.equals("si") && !respuesta.equals("no"));
+
+            if (respuesta.equals("no")) {
+                continuar = false;
+            }
+        }
+    }
+
     public static void CalculateTaxProcessCost() {
-
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("%40s\n", "===============================================");
-        System.out.printf("%40s\n", "Sistema de Precios Cyber Planeta");
-        System.out.printf("%40s\n", "===============================================");
-
         PriceList.displayPriceArray();
 
         PriceList selectedProcess = null;
@@ -32,7 +80,7 @@ public class CPPricingSystem {
                     }
                 } catch (InputMismatchException e) {
                     System.out.println("Opcion invalida, ingrese un numero del 1-5.");
-                    scanner.next(); // Clear invalid input
+                    scanner.next();
                 }
             }
 
@@ -47,7 +95,7 @@ public class CPPricingSystem {
 
             if (selectedProcess == null) {
                 System.out.println("ID no encontrado. Por favor, intente de nuevo.");
-                id = -1; 
+                id = -1;
             }
         }
 
@@ -61,7 +109,7 @@ public class CPPricingSystem {
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Opcion invalida, la cantidad de documentacion debe ser un entero positivo.");
-                scanner.next(); 
+                scanner.next();
             }
         }
 
@@ -72,10 +120,41 @@ public class CPPricingSystem {
         float tax = totalPriceWithoutTax * 0.15f;
         float totalPrice = totalPriceWithoutTax + tax;
 
+        TaxProcess processedItem = new TaxProcess(selectedProcess.getProcessId(), selectedProcess.getProcessName(), basePrice, tax, totalPrice);
+        processedItems.add(processedItem);
+
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
                 selectedProcess.getProcessName(), id, totalPrice);
 
+        // Convertir a JSON y guardar en archivo
+        Gson gson = new Gson();
+        String jsonData = gson.toJson(processedItem);
+        DataBaseManager.SaveData(jsonData, JSON_FILE);
     }
 
-}
+    public static void printProcessedItems() {
+        System.out.println("\nTabla de Ingresos:");
 
+        System.out.println("====================================================================================================================");
+        System.out.printf("%-5s %-50s %-25s %-20s %-20s\n", "ID", "Nombre del Proceso", "Precio Base ($)", "Impuesto (%)", "Total($)");
+        System.out.println("====================================================================================================================");
+
+        float totalIncome = 0;
+
+        for (TaxProcess item : processedItems) {
+            System.out.printf("%-5s %-50s %-25.2f %-20.2f %-20.2f\n",
+                    item.getId(), item.getName(), item.getBasePrice(), item.getTax(), item.getTotal());
+            totalIncome += item.getTotal();
+        }
+
+        System.out.printf("\nLos ingresos totales son: $%.2f\n", totalIncome);
+    }
+
+    private static void loadProcessedItemsFromJson() {
+        List<String> jsonData = DataBaseManager.ReadData(JSON_FILE, "");
+
+        Gson gson = new Gson();
+        Type type = new TypeToken<List<TaxProcess>>() {}.getType();
+        processedItems = gson.fromJson(jsonData.toString(), type);
+    }
+}

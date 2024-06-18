@@ -1,7 +1,5 @@
-
 package ec.edu.espe.cyberplaneta.model;
 
-import java.util.Date;
 
 /**
  *
@@ -9,61 +7,88 @@ import java.util.Date;
  */
 public class TaxProcess {
 
-    private float price;
-    private String typeOfProcess;
-    private int numberOfDocumentation;
+        public int id;
+        public String name;
+        public float basePrice;
+        public float tax;
+        public float total;
 
-    public TaxProcess(float price, String typeOfProcess, int numberOfDocumentation) {
-        this.price = price;
-        this.typeOfProcess = typeOfProcess;
-        this.numberOfDocumentation = numberOfDocumentation;
-    }
+        public TaxProcess(int id, String name, float basePrice, float tax, float total) {
+            this.id = id;
+            this.name = name;
+            this.basePrice = basePrice;
+            this.tax = tax;
+            this.total = total;
+        }
 
-    @Override
-    public String toString() {
-        return "TaxProcess{" + "price=" + price + ", typeOfProcess=" + typeOfProcess + ", numberOfDocumentation=" + numberOfDocumentation + '}';
-    }
+        /**
+         * @return the id
+         */
+        public int getId() {
+            return id;
+        }
 
-    /**
-     * @return the price
-     */
-    public float getPrice() {
-        return price;
-    }
+        /**
+         * @param id the id to set
+         */
+        public void setId(int id) {
+            this.id = id;
+        }
 
-    /**
-     * @param price the price to set
-     */
-    public void setPrice(float price) {
-        this.price = price;
-    }
+        /**
+         * @return the name
+         */
+        public String getName() {
+            return name;
+        }
 
-    /**
-     * @return the typeOfProcess
-     */
-    public String getTypeOfProcess() {
-        return typeOfProcess;
-    }
+        /**
+         * @param name the name to set
+         */
+        public void setName(String name) {
+            this.name = name;
+        }
 
-    /**
-     * @param typeOfProcess the typeOfProcess to set
-     */
-    public void setTypeOfProcess(String typeOfProcess) {
-        this.typeOfProcess = typeOfProcess;
-    }
+        /**
+         * @return the basePrice
+         */
+        public float getBasePrice() {
+            return basePrice;
+        }
 
-    /**
-     * @return the numberOfDocumentation
-     */
-    public int getNumberOfDocumentation() {
-        return numberOfDocumentation;
-    }
+        /**
+         * @param basePrice the basePrice to set
+         */
+        public void setBasePrice(float basePrice) {
+            this.basePrice = basePrice;
+        }
 
-    /**
-     * @param numberOfDocumentation the numberOfDocumentation to set
-     */
-    public void setNumberOfDocumentation(int numberOfDocumentation) {
-        this.numberOfDocumentation = numberOfDocumentation;
-    }
+        /**
+         * @return the tax
+         */
+        public float getTax() {
+            return tax;
+        }
 
+        /**
+         * @param tax the tax to set
+         */
+        public void setTax(float tax) {
+            this.tax = tax;
+        }
+
+        /**
+         * @return the total
+         */
+        public float getTotal() {
+            return total;
+        }
+
+        /**
+         * @param total the total to set
+         */
+        public void setTotal(float total) {
+            this.total = total;
+        }
+ 
 }

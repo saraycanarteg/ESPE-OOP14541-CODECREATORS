@@ -58,7 +58,7 @@ public class MainMenu {
                         break;
 
                     case 3:
-                        CPPricingSystem.CalculateTaxProcessCost();
+                        CPPricingSystem.printCPPricingSystemMenu();
                         break;
 
                     case 4:

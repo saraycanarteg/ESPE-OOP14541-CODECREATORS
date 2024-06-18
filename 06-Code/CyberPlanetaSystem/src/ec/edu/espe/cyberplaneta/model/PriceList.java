@@ -1,6 +1,8 @@
 
 package ec.edu.espe.cyberplaneta.model;
 
+import java.util.Locale;
+
 /**
  * Represents a price list item with process ID, name, price, and tax rate.
  *
@@ -22,8 +24,8 @@ public class PriceList {
 
     @Override
     public String toString() {
-        return String.format("PriceList{processId=%d, processName=%s, price=%.2f, taxRate=%.2f%%}",
-                processId, processName, price, taxRate * 100); // Format taxRate as percentage
+        return String.format(Locale.US,"PriceList{processId=%d, processName=%s, price=%.2f, taxRate=%.2f}",
+                processId, processName, price, taxRate); 
     }
 
     private static void printPriceList(PriceList[] priceList) {
@@ -32,7 +34,7 @@ public class PriceList {
         System.out.println("=======================================================================================================");
         for (PriceList item : priceList) {
             System.out.printf("%-5d %-50s %-25s %-20.2f%%\n", item.getProcessId(), item.getProcessName(),
-                    item.getPrice(), item.getTaxRate() * 100);
+                    item.getPrice(), item.getTaxRate());
         }
         System.out.println("=======================================================================================================");
     }
@@ -46,9 +48,11 @@ public class PriceList {
 
     public static PriceList[] getPriceListArray() {
         return new PriceList[]{
-            new PriceList(1, "Declaracion de IVA", 3.0f, 0.15f),
-            new PriceList(2, "Devolucion Impuesto a la Renta", 3.5f, 0.15f),
-            new PriceList(3, "Anexo de Accionista", 5.0f, 0.15f)
+            new PriceList(1, "Declaracion de IVA en 0", 5.0f, 15f),
+            new PriceList(2, "Declaracion de IVA mensual", 20.0f, 15f),
+            new PriceList(3, "Declaracion de IVA semestral", 50.0f, 15f),
+            new PriceList(4, "Devolucion Impuesto a la Renta", 3.5f, 15f),
+            new PriceList(5, "Anexo de Accionista", 5.0f, 15f)
         };
     }
 

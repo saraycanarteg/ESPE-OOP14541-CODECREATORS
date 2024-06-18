@@ -5,10 +5,12 @@ import com.google.gson.GsonBuilder;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -72,18 +74,15 @@ public class SystemAdministrator {
         }
     }
 
-    private static void addNewTaxPayer() {
+ private static void addNewTaxPayer() {
 
         String idTaxPayer = "";
         String addAnotherTaxPayer;
-        String deliveryDate = "";
         String emailTaxPayer = "";
         String nameTaxPayer = "";
         boolean dataValidation = false;
-        boolean dataValidationDate = false;
         boolean accountingDocumentation = false;
         Scanner scanner = new Scanner(System.in);
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
         do {
 
@@ -118,22 +117,28 @@ public class SystemAdministrator {
                 }
             } while (!dataValidation);
 
-            System.out.print("Fecha de inicio del proceso: ");
-            LocalDate startDate = LocalDate.now();
-            System.out.println(startDate);
+           LocalDate startDate = LocalDate.now();
+           System.out.println("Fecha de inicio del proceso: " + startDate);
 
+           LocalDate deliveryDate = null;
             do {
                 System.out.print("Fecha de fin del proceso [dd/MM/yyyy]: ");
-                deliveryDate = scanner.next();
+                String deliveryDateString = scanner.next();
                 try {
-                    formatter.parse(deliveryDate);
-                    dataValidationDate = true;
-                } catch (ParseException e) {
+                    deliveryDate = LocalDate.parse(deliveryDateString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+                    if (deliveryDate.isBefore(startDate)) {
+                        System.out.println("La fecha de fin del proceso debe ser igual o posterior a la fecha de inicio.");
+                        dataValidation = false;
+                    } else {
+                        dataValidation = true;
+                    }
+                } catch (DateTimeParseException e) {
                     System.out.println("Fecha invalida. Por favor, ingrese una fecha con el formato dd/MM/yyyy.");
+                    dataValidation = false;
                 }
-            } while (!dataValidationDate);
+            } while (!dataValidation);
 
-            Calendar calendar = new Calendar(deliveryDate, startDate.toString());
+            Calendar calendar = new Calendar(deliveryDate.toString(), startDate.toString());
 
             TaxPayer taxPayer = new TaxPayer(idTaxPayer, emailTaxPayer, nameTaxPayer, passwordTaxPayer, accountingDocumentation, calendar);
 
@@ -261,10 +266,11 @@ public class SystemAdministrator {
                 }
 
                 if (selectedProcess != null) {
-                    String processInfo = String.format("{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
+                    String processInfo = String.format(Locale.US, "{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
                             selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
 
-                    DataBaseManager.saveTaxProcess(idTaxPayer, processInfo);
+
+                    DataBaseManager.SaveData(processInfo,idTaxPayer + "_process");
 
                     System.out.println("Proceso de impuestos agregado exitosamente.");
 
@@ -276,9 +282,10 @@ public class SystemAdministrator {
                     addAnotherProcess = true;
                 }
 
+
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine(); // Clear the invalid input
+                scanner.nextLine(); 
                 addAnotherProcess = true;
             }
             ClearScreen.clearScreen();

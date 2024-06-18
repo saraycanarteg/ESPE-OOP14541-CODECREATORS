@@ -150,14 +150,5 @@ public class DataBaseManager {
         }
     }
 
-    public static void saveTaxProcess(String idTaxPayer, String processData) {
-        String fileName = idTaxPayer + "_process.json";
-        try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            bufferedWriter.write(processData);
-            bufferedWriter.newLine();
-        } catch (IOException e) {
-            System.err.println("Error al escribir el archivo: " + e.getMessage());
-        }
-    }
 
 }

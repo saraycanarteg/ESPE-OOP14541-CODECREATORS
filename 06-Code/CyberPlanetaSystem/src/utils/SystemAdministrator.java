@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.InputMismatchException;
@@ -76,6 +77,11 @@ public class SystemAdministrator {
         String idTaxPayer = "";
         String addAnotherTaxPayer;
         String deliveryDate = "";
+        String emailTaxPayer = "";
+        String nameTaxPayer = "";
+        boolean dataValidation = false;
+        boolean dataValidationDate = false;
+        boolean accountingDocumentation = false;
         Scanner scanner = new Scanner(System.in);
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -84,26 +90,48 @@ public class SystemAdministrator {
             do {
                 System.out.print("\nID: ");
                 idTaxPayer = scanner.nextLine();
-            } while (idTaxPayer.length() != 13);
 
-            System.out.print("Email: ");
-            String emailTaxPayer = scanner.nextLine();
+            } while ((idTaxPayer.length() != 13) || (DataBaseManager.findCalendarById("TaxPayerData", idTaxPayer) != null));
 
-            System.out.print("Nombre: ");
-            String nameTaxPayer = scanner.nextLine();
+            do {
+                System.out.print("Email: ");
+                emailTaxPayer = scanner.nextLine();
+            } while (!emailTaxPayer.contains("@"));
+
+            do {
+                System.out.print("Nombre: ");
+                nameTaxPayer = scanner.nextLine();
+            } while (!nameTaxPayer.matches("[a-zA-Z\\s]+"));
 
             System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.nextLine();
 
-            System.out.print("El contribuyente proporciono documentacion? [true/false]: ");
-            boolean accountingDocumentation = scanner.nextBoolean();
+            do {
+                System.out.print("El contribuyente proporciono documentacion? [si/no]: ");
+                String accDocumentation = scanner.nextLine().trim().toLowerCase();
+                if (accDocumentation.equals("si")) {
+                    accountingDocumentation = true;
+                    dataValidation = true;
+                } else if (accDocumentation.equals("no")) {
+                    accountingDocumentation = false;
+                    dataValidation = true;
+                }
+            } while (!dataValidation);
 
             System.out.print("Fecha de inicio del proceso: ");
             LocalDate startDate = LocalDate.now();
             System.out.println(startDate);
 
-            System.out.print("Fecha de fin del proceso [dd/MM/yyyy]: ");
-            deliveryDate = scanner.next();
+            do {
+                System.out.print("Fecha de fin del proceso [dd/MM/yyyy]: ");
+                deliveryDate = scanner.next();
+                try {
+                    formatter.parse(deliveryDate);
+                    dataValidationDate = true;
+                } catch (ParseException e) {
+                    System.out.println("Fecha invalida. Por favor, ingrese una fecha con el formato dd/MM/yyyy.");
+                }
+            } while (!dataValidationDate);
 
             Calendar calendar = new Calendar(deliveryDate, startDate.toString());
 
@@ -129,10 +157,10 @@ public class SystemAdministrator {
         Scanner scanner = new Scanner(System.in);
         int option = 0;
         String idTaxPayer = "";
-        
-         do {
+
+        do {
             System.out.print("Ingrese el ID del Contribuyente a editar: ");
-           idTaxPayer = scanner.nextLine();
+            idTaxPayer = scanner.nextLine();
         } while (idTaxPayer.length() != 13);
 
         TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);

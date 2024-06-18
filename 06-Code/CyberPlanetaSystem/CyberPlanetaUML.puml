@@ -1,0 +1,19 @@
+@startuml
+annotation java.lang.SuppressWarnings
+class ec.edu.espe.cyberplaneta.view.CyberPlanetaSystem
+class ec.edu.espe.cyberplaneta.view.MainMenu
+
+class ec.edu.espe.cyberplaneta.model.Calendar
+class ec.edu.espe.cyberplaneta.model.FileSaver
+class ec.edu.espe.cyberplaneta.model.PriceList
+class ec.edu.espe.cyberplaneta.model.TaxPayer
+class ec.edu.espe.cyberplaneta.model.TaxProcess
+
+
+class utils.CPPricingSystem
+class utils.ClassificationAgenda
+class utils.SystemAdministrator
+class utils.DataBaseManager
+
+
+@enduml

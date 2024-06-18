@@ -64,8 +64,20 @@ public class ClassificationAgenda {
 
     public static void searchNinethDigit() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Ingrese el noveno digito para la busqueda: ");
-        int ninthDigit = scanner.nextInt();
+        int ninthDigit = -1;
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Ingrese el noveno digito para la busqueda: ");
+            String input = scanner.nextLine(); 
+
+            if (input.length() == 1 && Character.isDigit(input.charAt(0))) {
+                ninthDigit = Integer.parseInt(input); 
+                validInput = true;
+            } else {
+                System.out.println("Entrada incorrecta. Por favor, ingrese un solo digito.");
+            }
+        }
 
         searchByNinthDigit("TaxPayerData", ninthDigit);
     }

@@ -89,14 +89,14 @@ public class ClassificationAgenda {
         List<String> resultados = new ArrayList<>();
         for (String taxpayer : taxpayers) {
             try {
-
                 String idPart = taxpayer.split(",")[0].split(":")[1].replace("\"", "").trim();
 
                 if (idPart.length() >= 9 && Character.getNumericValue(idPart.charAt(8)) == ninthDigit) {
                     resultados.add(taxpayer);
                 }
             } catch (Exception e) {
-                System.out.println("Error no se encontro el archivo");
+                System.out.println("Error al procesar la linea: " + taxpayer);
+                e.printStackTrace();
             }
         }
 
@@ -104,10 +104,33 @@ public class ClassificationAgenda {
             System.out.println("No se encontraron contribuyentes con el noveno digito " + ninthDigit);
         } else {
             System.out.println("Contribuyentes encontrados con el noveno digito " + ninthDigit + ":");
-            for (String resultado : resultados) {
-                System.out.println(resultado);
+            printTable(resultados);
+        }
+    }
+
+    private static void printTable(List<String> taxpayers) {
+        String format = "| %-15s | %-20s | %-20s | %-15s | %-10s |%n";
+        System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
+        System.out.format("| ID              | Email                | Nombre               | Contrasenia      | Documentos |%n");
+        System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
+
+        for (String taxpayer : taxpayers) {
+            try {
+                String[] fields = taxpayer.split(",");
+                String id = fields[0].split(":")[1].replace("\"", "").trim();
+                String email = fields[1].split(":")[1].replace("\"", "").trim();
+                String name = fields[2].split(":")[1].replace("\"", "").trim();
+                String password = fields[3].split(":")[1].replace("\"", "").trim();
+                String documentation = fields[4].split(":")[1].replace("\"", "").trim();
+
+                System.out.format(format, id, email, name, password, documentation);
+            } catch (Exception e) {
+                System.out.println("Error al procesar la linea para la tabla: " + taxpayer);
+                e.printStackTrace();
             }
         }
+
+        System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
     }
 
     private static void sendNotification() {

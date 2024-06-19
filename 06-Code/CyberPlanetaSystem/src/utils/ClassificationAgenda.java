@@ -136,7 +136,7 @@ public class ClassificationAgenda {
     private static void sendNotification() {
         Scanner scanner = new Scanner(System.in);
         String idTaxPayer = "";
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
 
         do {

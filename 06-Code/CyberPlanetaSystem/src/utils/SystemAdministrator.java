@@ -300,7 +300,14 @@ public class SystemAdministrator {
             }
         } while (id.length() != 13 || !id.matches("\\d+"));
 
-        DataBaseManager.RemoveData("TaxPayerData", id);
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", id);
+
+        if (taxPayer == null) {
+            System.out.println("\nEl contribuyente no existe, no se puede eliminar\n");
+            return;
+        } else {
+            DataBaseManager.RemoveData("TaxPayerData", id);
+        }
     }
 
     private static void addNewTaxProcess() {

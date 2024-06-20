@@ -279,8 +279,8 @@ public class SystemAdministrator {
      boolean addAnotherProcess = false;
     do {
         try {
-            System.out.println("1. Desea continuar:");
-            System.out.println("2. Salir");
+            System.out.println("1. Desea continuar la asignacion del proceso: ");
+            System.out.println("2. Salir.");
             System.out.print("Ingrese una opcion: ");
             int option = scanner.nextInt();
             scanner.nextLine();
@@ -319,13 +319,13 @@ public class SystemAdministrator {
 
                  boolean validResponse;
                 do {
-                    System.out.print("Desea agregar otro proceso? (s/n): ");
+                    System.out.print("Desea agregar otro proceso (s/n): ");
                     String response = scanner.nextLine();
                     if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("n")) {
                         addAnotherProcess = response.equalsIgnoreCase("s");
                         validResponse = true;
                     } else {
-                        System.out.println("Ingrese nuevamente. Recuerde que solo puede ingresar (s/n)");
+                        System.out.println("Ingrese nuevamente. Recuerde que solo puede ingresar las letras (s/n)");
                         validResponse = false;
                     }
                 } while (!validResponse);
@@ -340,7 +340,7 @@ public class SystemAdministrator {
         }
         ClearScreen.clearScreen();
     } while (addAnotherProcess);
-}
+    }
 }
 
 

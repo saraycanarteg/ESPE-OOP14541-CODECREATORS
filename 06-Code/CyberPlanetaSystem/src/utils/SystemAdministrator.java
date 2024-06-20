@@ -276,83 +276,70 @@ public class SystemAdministrator {
     System.out.printf("%40s\n", "Asignacion proceso -> contribuyente");
     System.out.printf("%40s\n", "===============================================");
     
-    String idTaxPayer;
+     boolean addAnotherProcess = false;
     do {
-        System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso (13 digitos): ");
-        idTaxPayer = scanner.nextLine();
-        if (idTaxPayer.length() != 13) {
-            System.out.println("ID invalido. Debe contener exactamente 13 digitos.");
-        }
-    } while (idTaxPayer.length() != 13);
-
-    PriceList.displayPriceArray();
-    System.out.println();
-
-    boolean addAnotherProcess = true;
-    while (addAnotherProcess) {
         try {
-            System.out.println("1. Agregar proceso");
+            System.out.println("1. Desea continuar:");
             System.out.println("2. Salir");
-            System.out.print("Opcion: ");
+            System.out.print("Ingrese una opcion: ");
             int option = scanner.nextInt();
             scanner.nextLine();
 
-            switch (option) {
-                case 1:
-                    System.out.print("Ingrese el ID del proceso a agregar: ");
-                    int processId = scanner.nextInt();
-                    scanner.nextLine();
+            if (option == 2) {
+                System.out.println("Saliendo del proceso de asignación...");
+                return;
+            }
+    
+    System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
+            String idTaxPayer = scanner.nextLine();
 
-                    PriceList[] priceList = PriceList.getPriceListArray();
-                    PriceList selectedProcess = null;
-                    for (PriceList process : priceList) {
-                        if (process.getProcessId() == processId) {
-                            selectedProcess = process;
-                            break;
-                        }
-                    }
+            PriceList.displayPriceArray();
+            System.out.println();
 
-                    if (selectedProcess != null) {
-                        String processInfo = String.format(Locale.US, "{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
-                                selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
+            System.out.print("Ingrese el ID del proceso a agregar: ");
+            int processId = scanner.nextInt();
+            scanner.nextLine();
 
-                        DataBaseManager.SaveData(processInfo, idTaxPayer + "_process");
-
-                        System.out.println("Proceso de impuestos agregado exitosamente.");
-
-                        boolean validResponse = false;
-                        do {
-                            System.out.print("Desea agregar otro proceso? [si/no]: ");
-                            String response = scanner.nextLine().trim().toLowerCase();
-                            if (response.equals("si")) {
-                                addAnotherProcess = true;
-                                validResponse = true;
-                            } else if (response.equals("no")) {
-                                addAnotherProcess = false;
-                                validResponse = true;
-                            } else {
-                                System.out.println("Entrada invalida. Por favor, ingrese 'si' o 'no'.");
-                            }
-                        } while (!validResponse);
-                    } else {
-                        System.out.println("ID de proceso invalido. Por favor, intente de nuevo.");
-                        addAnotherProcess = true;
-                    }
+            PriceList[] priceList = PriceList.getPriceListArray();
+            PriceList selectedProcess = null;
+            for (PriceList process : priceList) {
+                if (process.getProcessId() == processId) {
+                    selectedProcess = process;
                     break;
-                case 2:
-                    System.out.println("Saliendo del proceso de agregar nuevos procesos...");
-                    return;
-                default:
-                    System.out.println("Opcion Invalida. Intente otra vez.");
-                    addAnotherProcess = true;
+                }
+            }
+
+            if (selectedProcess != null) {
+                String processInfo = String.format(Locale.US, "{\"processId\": %d, \"processName\": \"%s\", \"price\": %.2f, \"taxRate\": %.2f}",
+                        selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate());
+
+                DataBaseManager.SaveData(processInfo, idTaxPayer + "_process");
+
+                System.out.println("Proceso de impuestos agregado exitosamente.");
+
+                 boolean validResponse;
+                do {
+                    System.out.print("Desea agregar otro proceso? (s/n): ");
+                    String response = scanner.nextLine();
+                    if (response.equalsIgnoreCase("s") || response.equalsIgnoreCase("n")) {
+                        addAnotherProcess = response.equalsIgnoreCase("s");
+                        validResponse = true;
+                    } else {
+                        System.out.println("Ingrese nuevamente (s/n)");
+                        validResponse = false;
+                    }
+                } while (!validResponse);
+            } else {
+                System.out.println("ID de proceso inválido. Por favor, intente de nuevo.");
+                addAnotherProcess = true;
             }
         } catch (InputMismatchException e) {
-            System.out.println("Entrada invalida. Por favor, ingrese un número.");
-            scanner.nextLine(); 
+            System.out.println("Entrada inválida. Por favor, ingrese un número.");
+            scanner.nextLine();
             addAnotherProcess = true;
         }
         ClearScreen.clearScreen();
-    }
+    } while (addAnotherProcess);
 }
 }
 

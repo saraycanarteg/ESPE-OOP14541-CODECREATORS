@@ -107,9 +107,12 @@ public class CPPricingSystem {
             CalculateTaxProcessCost();
 
             String respuesta;
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
             do {
                 System.out.print("¿Desea calcular otro proceso? [si/no]: ");
-                respuesta = scanner.next().toLowerCase();
+                respuesta = scanner.nextLine().toLowerCase();
             } while (!respuesta.equals("si") && !respuesta.equals("no"));
 
             if (respuesta.equals("no")) {

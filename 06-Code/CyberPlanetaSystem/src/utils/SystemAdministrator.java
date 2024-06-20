@@ -115,10 +115,14 @@ public class SystemAdministrator {
             System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.next();
 
-            String accDocumentation="";
+            String accDocumentation = "";
+
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
             do {
                 System.out.print("El contribuyente proporciono documentacion?[si/no]: ");
-                accDocumentation = scanner.next().toLowerCase();
+                accDocumentation = scanner.nextLine().toLowerCase();
             } while (!accDocumentation.equals("si") && !accDocumentation.equals("no"));
 
             if (accDocumentation == "si") {
@@ -158,9 +162,13 @@ public class SystemAdministrator {
             String taxPayerData = gson.toJson(taxPayer);
 
             registerTaxPayer(taxPayerData);
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
+
             do {
                 System.out.print("Desea anadir otro contribuyente? [si/no]: ");
-                addAnotherTaxPayer = scanner.next().trim().toLowerCase();
+                addAnotherTaxPayer = scanner.nextLine().trim().toLowerCase();
                 if (addAnotherTaxPayer.equals("si")) {
                     addTaxpayer = true;
                     dataValidationAddTaxpayer = true;
@@ -254,9 +262,12 @@ public class SystemAdministrator {
                 case 4:
                     boolean newAccountingDocumentation = false;
                     boolean validInput = false;
+                    if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                    }
                     do {
                         System.out.print("Ingresa nueva documentacion [si/no]: ");
-                        String documentationInput = scanner.next().trim().toLowerCase();
+                        String documentationInput = scanner.nextLine().trim().toLowerCase();
                         if (documentationInput.equals("si")) {
                             newAccountingDocumentation = true;
                             validInput = true;
@@ -385,9 +396,12 @@ public class SystemAdministrator {
                     System.out.println("Proceso de impuestos agregado exitosamente.");
 
                     boolean validResponse;
+                    if (scanner.hasNextLine()) {
+                        scanner.nextLine();
+                    }
                     do {
                         System.out.print("Desea agregar otro proceso [si/no]: ");
-                        String response = scanner.next().trim().toLowerCase();
+                        String response = scanner.nextLine().trim().toLowerCase();
                         if (response.equalsIgnoreCase("si") || response.equalsIgnoreCase("no")) {
                             addAnotherProcess = response.equalsIgnoreCase("si");
                             validResponse = true;

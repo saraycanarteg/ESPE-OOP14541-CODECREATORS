@@ -16,9 +16,10 @@ public class CPPricingSystem {
     private static Scanner scanner = new Scanner(System.in);
     private static final String JSON_FILE = "Incomes";
 
-    public static void printCPPricingSystemMenu() {
-        loadProcessedItemsFromJson(); // Cargar datos del archivo JSON al inicio
-
+ public static void printCPPricingSystemMenu() {
+        
+        loadProcessedItemsFromJson(); 
+        int option = 0;
         while (true) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Sistema de Precios Cyber Planeta");
@@ -30,10 +31,24 @@ public class CPPricingSystem {
             System.out.printf("%40s\n", "===============================================");
             System.out.print("Opcion: ");
 
-            int option = scanner.nextInt();
+            try {
+                option = scanner.nextInt();
+
+                if (option < 1 || option > 3) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
+                }
+            } catch (InputMismatchException e) {
+                ClearScreen.clearScreen();
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
+                scanner.next();
+                continue;
+            }
+            ClearScreen.clearScreen();
             switch (option) {
                 case 1:
-                    calculateMultipleProcesses();
+                    verifyProcess();
                     break;
                 case 2:
                     printProcessedItems();
@@ -47,7 +62,46 @@ public class CPPricingSystem {
         }
     }
 
+    public static void verifyProcess (){
+         ClearScreen.clearScreen();
+         int option = 0;
+         while (true){
+            System.out.println("1. Continuar con el calculo");
+            System.out.println("2. Salir");
+            System.out.printf("%40s\n", "===============================================");
+            System.out.print("Opcion: ");
+            try {
+                option = scanner.nextInt();
+
+                if (option < 1 || option > 2) {
+                    ClearScreen.clearScreen();
+                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                    continue;
+                }
+            } catch (InputMismatchException e) {
+                ClearScreen.clearScreen();
+                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 2.");
+                scanner.next();
+                continue;
+            }
+            ClearScreen.clearScreen();
+            switch (option) {
+                case 1:
+                    calculateMultipleProcesses();
+                    break;
+                case 2:
+                  System.out.println("Saliendo del sistema...");
+                    return;
+                default:
+                   System.out.println("Opción inválida. Intente nuevamente.");
+            }
+         }
+
+    }
+    
+
     public static void calculateMultipleProcesses() {
+        ClearScreen.clearScreen();
         boolean continuar = true;
         while (continuar) {
             CalculateTaxProcessCost();

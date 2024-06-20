@@ -190,32 +190,6 @@
         <Method name="showMainMenu" returnType="void" visibility="private" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="RegisterTaxPayer" package="ec.edu.espe.cyberplaneta.view" visibility="public" xPosition="1877.0" yPosition="20.0">
-      <Fields>
-        <Field name="jLabel1" type="javax.swing.JLabel" visibility="private"/>
-        <Field name="jLabel2" type="javax.swing.JLabel" visibility="private"/>
-        <Field name="jLabel3" type="javax.swing.JLabel" visibility="private"/>
-        <Field name="jPanel1" type="javax.swing.JPanel" visibility="private"/>
-        <Field name="jTextField1" type="javax.swing.JTextField" visibility="private"/>
-        <Field name="jTextField2" type="javax.swing.JTextField" visibility="private"/>
-        <Field name="jTextField3" type="javax.swing.JTextField" visibility="private"/>
-      </Fields>
-      <Constructors>
-        <Constructor visibility="public"/>
-      </Constructors>
-      <Methods>
-        <Method name="initComponents" returnType="// &lt;editor-fold defaultstate=&quot;collapsed&quot; desc=&quot;Generated Code&quot;&gt;//GEN-BEGIN:initComponents void" visibility="private"/>
-        <Method name="jTextField1ActionPerformed" returnType="void" visibility="private">
-          <Argument type="java.awt.event.ActionEvent" name="evt"/>
-        </Method>
-        <Method name="jTextField2ActionPerformed" returnType="void" visibility="private">
-          <Argument type="java.awt.event.ActionEvent" name="evt"/>
-        </Method>
-        <Method name="main" returnType="void" visibility="public" isStatic="true">
-          <Argument type="String" name="args"/>
-        </Method>
-      </Methods>
-    </Class>
     <Class name="ClassificationAgenda" package="utils" visibility="public" xPosition="20.0" yPosition="312.0">
       <Fields/>
       <Constructors/>
@@ -297,11 +271,11 @@
     </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
-    <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.Calendar" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="ec.edu.espe.cyberplaneta.model.TaxPayer" target="ec.edu.espe.cyberplaneta.model.Calendar" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="calendar" source="ec.edu.espe.cyberplaneta.model.TaxPayer" target="ec.edu.espe.cyberplaneta.model.Calendar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="ec.edu.espe.cyberplaneta.model.PriceList" target="ec.edu.espe.cyberplaneta.model.PriceList" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="processedItems" source="utils.CPPricingSystem" target="ec.edu.espe.cyberplaneta.model.TaxProcess" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;TaxProcess&gt;"/>
     <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.Calendar" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="ec.edu.espe.cyberplaneta.model.PriceList" target="ec.edu.espe.cyberplaneta.model.PriceList" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="calendar" source="ec.edu.espe.cyberplaneta.model.TaxPayer" target="ec.edu.espe.cyberplaneta.model.Calendar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <HasRelation name="processedItems" source="utils.CPPricingSystem" target="ec.edu.espe.cyberplaneta.model.TaxProcess" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;TaxProcess&gt;"/>
   </ClassDiagramRelations>
 </ClassDiagram>

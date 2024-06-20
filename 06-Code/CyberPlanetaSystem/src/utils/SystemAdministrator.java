@@ -229,20 +229,21 @@ public class SystemAdministrator {
                 taxPayer.setPassword(newPassword);
                 break;
             case 4:
-                boolean newAccountingDocumentation = false;
-                boolean validInput = false;
-                do {
-                    System.out.print("Ingrese nueva documentacion [true/false]: ");
-                    String documentationInput = scanner.nextLine().trim().toLowerCase();
-                    if (documentationInput.equals("true") || documentationInput.equals("false")) {
-                        newAccountingDocumentation = Boolean.parseBoolean(documentationInput);
-                        validInput = true;
-                    } else {
-                        System.out.println("Entrada invalida. Por favor, ingrese 'true' o 'false'.");
-                    }
-                } while (!validInput);
-                taxPayer.setAccountingDocumentation(newAccountingDocumentation);
-                break;
+                 boolean newAccountingDocumentation = false;
+                    boolean validInput = false;
+                    do {
+                        System.out.print("Ingresa nueva documentacion [si/no]: ");
+                        String documentationInput = scanner.nextLine().trim().toLowerCase();
+                        if (documentationInput.equals("si")) {
+                            newAccountingDocumentation = true;
+                            validInput = true;
+                        } else if (documentationInput.equals("no")) {
+                            newAccountingDocumentation= false;
+                            validInput = true;
+                        }
+                    } while (!validInput);
+                    taxPayer.setAccountingDocumentation(newAccountingDocumentation);
+                    break;
             case 5:
                 return;
             default:

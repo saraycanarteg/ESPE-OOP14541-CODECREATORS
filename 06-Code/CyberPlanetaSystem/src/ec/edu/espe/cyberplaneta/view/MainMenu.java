@@ -23,7 +23,7 @@ public class MainMenu {
         int menuOption = 0;
         while (true) {
             System.out.printf("%40s\n", "===============================================");
-            System.out.printf("%40s\n", "Cyber Planeta System v.0.0.15");
+            System.out.printf("%40s\n", "Cyber Planeta System v.0.2.3");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("MENU DE OPCIONES");
             System.out.println("1. Contribuyente");

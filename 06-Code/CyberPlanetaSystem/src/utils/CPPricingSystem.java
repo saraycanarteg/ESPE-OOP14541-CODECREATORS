@@ -14,7 +14,7 @@ public class CPPricingSystem {
 
     private static List<TaxProcess> processedItems = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
-    private static final String JSON_FILE = "Incomes";
+    private static final String JSON_FILE = "Incomes.json";
 
     public static void printCPPricingSystemMenu() {
         loadProcessedItemsFromJson(); // Cargar datos del archivo JSON al inicio
@@ -151,7 +151,7 @@ public class CPPricingSystem {
     }
 
     private static void loadProcessedItemsFromJson() {
-        List<String> jsonData = DataBaseManager.ReadData("Incomes.json", "");
+        List<String> jsonData = DataBaseManager.ReadData(JSON_FILE, "");
 
         Gson gson = new Gson();
         Type type = new TypeToken<List<TaxProcess>>() {}.getType();

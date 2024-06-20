@@ -279,7 +279,7 @@ public class SystemAdministrator {
      boolean addAnotherProcess = false;
     do {
         try {
-            System.out.println("1. Desea continuar la asignacion del proceso: ");
+            System.out.println("1. Desea continuar la asignacion del proceso al contribuyente: ");
             System.out.println("2. Salir.");
             System.out.print("Ingrese una opcion: ");
             int option = scanner.nextInt();

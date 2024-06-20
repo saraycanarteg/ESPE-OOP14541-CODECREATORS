@@ -3,3 +3,5 @@
 {"id":2,"name":"Declaracion de IVA mensual","basePrice":20.0,"tax":3.9,"total":29.9}
 {"id":2,"name":"Declaracion de IVA mensual","basePrice":20.0,"tax":3.15,"total":24.15}
 {"id":4,"name":"Devolucion Impuesto a la Renta","basePrice":3.5,"tax":1.4250001,"total":10.925}
+{"id":4,"name":"Devolucion Impuesto a la Renta","basePrice":3.5,"tax":4.7250004,"total":36.225}
+{"id":3,"name":"Declaracion de IVA semestral","basePrice":50.0,"tax":11.55,"total":88.55}

@@ -290,7 +290,7 @@ public class SystemAdministrator {
                 return;
             }
     
-    System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
+            System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
             String idTaxPayer = scanner.nextLine();
 
             PriceList.displayPriceArray();
@@ -325,7 +325,7 @@ public class SystemAdministrator {
                         addAnotherProcess = response.equalsIgnoreCase("s");
                         validResponse = true;
                     } else {
-                        System.out.println("Ingrese nuevamente (s/n)");
+                        System.out.println("Ingrese nuevamente. Recuerde que solo puede ingresar (s/n)");
                         validResponse = false;
                     }
                 } while (!validResponse);

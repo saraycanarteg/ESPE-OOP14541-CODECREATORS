@@ -69,10 +69,10 @@ public class ClassificationAgenda {
 
         while (!validInput) {
             System.out.print("Ingrese el noveno digito para la busqueda: ");
-            String input = scanner.nextLine(); 
+            String input = scanner.nextLine();
 
             if (input.length() == 1 && Character.isDigit(input.charAt(0))) {
-                ninthDigit = Integer.parseInt(input); 
+                ninthDigit = Integer.parseInt(input);
                 validInput = true;
             } else {
                 System.out.println("Entrada incorrecta. Por favor, ingrese un solo digito.");
@@ -142,7 +142,7 @@ public class ClassificationAgenda {
         do {
             System.out.print("Ingrese el ID del contribuyente a buscar: ");
             idTaxPayer = scanner.next();
-        } while (idTaxPayer.length() != 13);
+        } while (idTaxPayer.length() != 13 || !idTaxPayer.matches("\\d+"));
 
         TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", idTaxPayer);
         if (taxPayer == null) {

@@ -26,9 +26,11 @@ public class MainMenu {
         Scanner scanner = new Scanner(System.in);
         String username;
         String password;
-
-        System.out.println("Ingrese su nombre de usuario:");
-        username = scanner.nextLine();
+        
+        do {
+                System.out.println("Ingrese su nombre de usuario (sin numeros):");
+                username = scanner.nextLine();
+            } while (!username.matches("[a-zA-Z\\s]+"));
         System.out.println("Ingrese su contrasenia:");
         password = scanner.nextLine();
 
@@ -41,6 +43,7 @@ public class MainMenu {
     private static void showMainMenu() {
         Scanner scanner = new Scanner(System.in);
         int menuOption = 0;
+        ClearScreen.clearScreen();
         while (true) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Cyber Planeta System v.0.2.3");

@@ -16,9 +16,9 @@ public class CPPricingSystem {
     private static Scanner scanner = new Scanner(System.in);
     private static final String JSON_FILE = "Incomes";
 
- public static void printCPPricingSystemMenu() {
-        
-        loadProcessedItemsFromJson(); 
+    public static void printCPPricingSystemMenu() {
+
+        loadProcessedItemsFromJson();
         int option = 0;
         while (true) {
             System.out.printf("%40s\n", "===============================================");
@@ -62,10 +62,11 @@ public class CPPricingSystem {
         }
     }
 
-    public static void verifyProcess (){
-         ClearScreen.clearScreen();
-         int option = 0;
-         while (true){
+    public static void verifyProcess() {
+        ClearScreen.clearScreen();
+        int option = 0;
+        while (true) {
+            System.out.printf("%40s\n", "===============================================");
             System.out.println("1. Continuar con el calculo");
             System.out.println("2. Salir");
             System.out.printf("%40s\n", "===============================================");
@@ -90,15 +91,14 @@ public class CPPricingSystem {
                     calculateMultipleProcesses();
                     break;
                 case 2:
-                  System.out.println("Saliendo...");
+                    System.out.println("Saliendo...");
                     return;
                 default:
-                   System.out.println("Opción invalida. Intente nuevamente.");
+                    System.out.println("Opción invalida. Intente nuevamente.");
             }
-         }
+        }
 
     }
-    
 
     public static void calculateMultipleProcesses() {
         ClearScreen.clearScreen();
@@ -108,7 +108,7 @@ public class CPPricingSystem {
 
             String respuesta;
             do {
-                System.out.print("¿Desea calcular otro proceso? (si/no): ");
+                System.out.print("¿Desea calcular otro proceso? [si/no]: ");
                 respuesta = scanner.next().toLowerCase();
             } while (!respuesta.equals("si") && !respuesta.equals("no"));
 
@@ -120,7 +120,7 @@ public class CPPricingSystem {
 
     public static void CalculateTaxProcessCost() {
         PriceList.displayPriceArray();
-
+        
         PriceList selectedProcess = null;
         int id = -1;
 
@@ -208,7 +208,8 @@ public class CPPricingSystem {
         List<String> jsonData = DataBaseManager.ReadData("Incomes.json", "");
 
         Gson gson = new Gson();
-        Type type = new TypeToken<List<TaxProcess>>() {}.getType();
+        Type type = new TypeToken<List<TaxProcess>>() {
+        }.getType();
         processedItems = gson.fromJson(jsonData.toString(), type);
     }
 }

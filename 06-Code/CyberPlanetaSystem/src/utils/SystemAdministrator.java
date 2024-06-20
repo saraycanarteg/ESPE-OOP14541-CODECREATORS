@@ -103,25 +103,29 @@ public class SystemAdministrator {
                 emailTaxPayer = scanner.next();
             } while (!emailTaxPayer.contains("@"));
 
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
+
             do {
                 System.out.print("Nombre: ");
-                nameTaxPayer = scanner.next();
+                nameTaxPayer = scanner.nextLine();
             } while (!nameTaxPayer.matches("[a-zA-Z\\s]+"));
 
             System.out.print("Contrasena: ");
             String passwordTaxPayer = scanner.next();
 
+            String accDocumentation="";
             do {
-                System.out.print("El contribuyente proporciono documentacion? [si/no]: ");
-                String accDocumentation = scanner.next().trim().toLowerCase();
-                if (accDocumentation.equals("si")) {
-                    accountingDocumentation = true;
-                    dataValidation = true;
-                } else if (accDocumentation.equals("no")) {
-                    accountingDocumentation = false;
-                    dataValidation = true;
-                }
-            } while (!dataValidation);
+                System.out.print("El contribuyente proporciono documentacion?[si/no]: ");
+                accDocumentation = scanner.next().toLowerCase();
+            } while (!accDocumentation.equals("si") && !accDocumentation.equals("no"));
+
+            if (accDocumentation == "si") {
+                accountingDocumentation = true;
+            } else if (accDocumentation == "no") {
+                accountingDocumentation = false;
+            }
 
             LocalDate startDate = LocalDate.now();
             System.out.println("Fecha de inicio del proceso: " + startDate);
@@ -358,11 +362,11 @@ public class SystemAdministrator {
                     }
                 } while (processId < 1 || processId > 6);
 
-                if (processId==6){
+                if (processId == 6) {
                     ClearScreen.clearScreen();
                     return;
                 }
-                
+
                 PriceList[] priceList = PriceList.getPriceListArray();
                 PriceList selectedProcess = null;
                 for (PriceList process : priceList) {

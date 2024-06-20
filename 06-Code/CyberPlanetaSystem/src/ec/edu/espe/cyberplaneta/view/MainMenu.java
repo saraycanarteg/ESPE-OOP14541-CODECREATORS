@@ -15,7 +15,27 @@ public class MainMenu {
 
     public static void main(String[] args) {
         ClearScreen.clearScreen();
+        while (!authenticateUser()) {
+            ClearScreen.clearScreen();
+            System.out.println("Usuario o contrasenia incorrectos. Por favor, intente de nuevo.");
+        }
         showMainMenu();
+    }
+    
+    private static boolean authenticateUser() {
+        Scanner scanner = new Scanner(System.in);
+        String username;
+        String password;
+
+        System.out.println("Ingrese su nombre de usuario:");
+        username = scanner.nextLine();
+        System.out.println("Ingrese su contrasenia:");
+        password = scanner.nextLine();
+
+        String correctUsername = "Guillermo Canarte";
+        String correctPassword = "1214";
+
+        return username.equals(correctUsername) && password.equals(correctPassword);
     }
 
     private static void showMainMenu() {
@@ -62,6 +82,7 @@ public class MainMenu {
                         break;
 
                     case 4:
+                        System.out.println("Saliendo...");
                         return;
 
                     default:

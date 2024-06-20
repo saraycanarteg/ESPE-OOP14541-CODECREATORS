@@ -65,7 +65,7 @@ public class SystemAdministrator {
                     addNewTaxProcess();
                     break;
                 case 5:
-                    System.out.println("Exiting...");
+                    System.out.println("Saliendo...");
                     return;
                 default:
                     System.out.println("Opcion Invalida. Intente otra vez.");
@@ -286,7 +286,7 @@ public class SystemAdministrator {
             scanner.nextLine();
 
             if (option == 2) {
-                System.out.println("Saliendo del proceso de asignación...");
+                System.out.println("Saliendo...");
                 return;
             }
     

@@ -54,7 +54,7 @@ public class CPPricingSystem {
                     printProcessedItems();
                     break;
                 case 3:
-                    System.out.println("Saliendo del sistema...");
+                    System.out.println("Saliendo...");
                     return;
                 default:
                     System.out.println("Opción inválida. Intente nuevamente.");
@@ -90,10 +90,10 @@ public class CPPricingSystem {
                     calculateMultipleProcesses();
                     break;
                 case 2:
-                  System.out.println("Saliendo del sistema...");
+                  System.out.println("Saliendo...");
                     return;
                 default:
-                   System.out.println("Opción inválida. Intente nuevamente.");
+                   System.out.println("Opción invalida. Intente nuevamente.");
             }
          }
 

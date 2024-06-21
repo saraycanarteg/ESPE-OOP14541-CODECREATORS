@@ -13,6 +13,8 @@ import utils.ClearScreen;
  */
 public class MainMenu {
 
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
         ClearScreen.clearScreen();
         while (!authenticateUser()) {
@@ -21,16 +23,15 @@ public class MainMenu {
         }
         showMainMenu();
     }
-    
+
     private static boolean authenticateUser() {
-        Scanner scanner = new Scanner(System.in);
         String username;
         String password;
-        
+
         do {
-                System.out.println("Ingrese su nombre de usuario (sin numeros):");
-                username = scanner.nextLine();
-            } while (!username.matches("[a-zA-Z\\s]+"));
+            System.out.println("Ingrese su nombre de usuario (sin numeros):");
+            username = scanner.nextLine();
+        } while (!username.matches("[a-zA-Z\\s]+"));
         System.out.println("Ingrese su contrasenia:");
         password = scanner.nextLine();
 
@@ -41,7 +42,6 @@ public class MainMenu {
     }
 
     private static void showMainMenu() {
-        Scanner scanner = new Scanner(System.in);
         int menuOption = 0;
         ClearScreen.clearScreen();
         while (true) {
@@ -70,29 +70,28 @@ public class MainMenu {
                 scanner.next();
                 continue;
             }
-                ClearScreen.clearScreen();
-                switch (menuOption) {
-                    case 1:
-                        SystemAdministrator.printSystemAdminMenu();
-                        break;
+            ClearScreen.clearScreen();
+            switch (menuOption) {
+                case 1:
+                    SystemAdministrator.printSystemAdminMenu();
+                    break;
 
-                    case 2:
-                        ClassificationAgenda.printSystemAgendaMenu();
-                        break;
+                case 2:
+                    ClassificationAgenda.printSystemAgendaMenu();
+                    break;
 
-                    case 3:
-                        CPPricingSystem.printCPPricingSystemMenu();
-                        break;
+                case 3:
+                    CPPricingSystem.printCPPricingSystemMenu();
+                    break;
 
-                    case 4:
-                        System.out.println("Saliendo...");
-                        return;
+                case 4:
+                    System.out.println("Saliendo...");
+                    return;
 
-                    default:
-                        System.out.println("Opcion no valida. Por favor, intente de nuevo.");
-                        break;
-                }
-
+                default:
+                    System.out.println("Opcion no valida. Por favor, intente de nuevo.");
+                    break;
+            }
         }
     }
 }

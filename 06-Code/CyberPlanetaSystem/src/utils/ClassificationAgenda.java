@@ -15,9 +15,8 @@ import java.util.List;
  * @author Code Creators, DCCO-ESPE
  */
 public class ClassificationAgenda {
-
+private static Scanner scanner = new Scanner(System.in);
     public static void printSystemAgendaMenu() {
-        Scanner scanner = new Scanner(System.in);
         int menuOption = 0;
         while (true) {
             System.out.println("============================================================================");
@@ -63,7 +62,6 @@ public class ClassificationAgenda {
     }
 
     public static void searchNinethDigit() {
-        Scanner scanner = new Scanner(System.in);
         int ninthDigit = -1;
         boolean validInput = false;
 
@@ -78,7 +76,6 @@ public class ClassificationAgenda {
                 System.out.println("Entrada incorrecta. Por favor, ingrese un solo digito.");
             }
         }
-
         searchByNinthDigit("TaxPayerData", ninthDigit);
     }
 
@@ -99,7 +96,6 @@ public class ClassificationAgenda {
                 e.printStackTrace();
             }
         }
-
         if (resultados.isEmpty()) {
             System.out.println("No se encontraron contribuyentes con el noveno digito " + ninthDigit);
         } else {
@@ -122,7 +118,6 @@ public class ClassificationAgenda {
                 String name = fields[2].split(":")[1].replace("\"", "").trim();
                 String password = fields[3].split(":")[1].replace("\"", "").trim();
                 String documentation = fields[4].split(":")[1].replace("\"", "").trim();
-
                 System.out.format(format, id, email, name, password, documentation);
             } catch (Exception e) {
                 System.out.println("Error al procesar la linea para la tabla: " + taxpayer);
@@ -134,11 +129,9 @@ public class ClassificationAgenda {
     }
 
     private static void sendNotification() {
-        Scanner scanner = new Scanner(System.in);
         String idTaxPayer = "";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate currentDate = LocalDate.now();
-
         do {
             System.out.print("Ingrese el ID del contribuyente a buscar: ");
             idTaxPayer = scanner.next();
@@ -153,7 +146,6 @@ public class ClassificationAgenda {
 
         LocalDate userDate = LocalDate.parse(calendar.getDeliveryDate(), formatter);
         long remainingDays = ChronoUnit.DAYS.between(currentDate, userDate);
-
         if (remainingDays > 0) {
             System.out.println("\nLa fecha de entrega del proceso del contibuyente " + taxPayer.getName() + " es " + calendar.getDeliveryDate()
                     + ", tienes " + remainingDays + " dias para la entrega\n");

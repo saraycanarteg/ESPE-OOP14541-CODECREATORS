@@ -44,7 +44,6 @@ public class DataBaseManager {
         } catch (IOException e) {
             System.out.println("Error al leer el archivo.");
         }
-
         return lineas;
     }
 
@@ -59,7 +58,6 @@ public class DataBaseManager {
 
         List<String> newLineas = new ArrayList<>();
         for (String linea : lineas) {
-            // Use Gson to parse the JSON and extract the id field
             Gson gson = new Gson();
             TaxPayer taxPayer;
             try {
@@ -139,7 +137,6 @@ public class DataBaseManager {
                 break;
             }
         }
-
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".json"))) {
             for (String line : lines) {
                 writer.write(line);
@@ -149,6 +146,4 @@ public class DataBaseManager {
             System.err.println("Error al escribir el archivo: " + e.getMessage());
         }
     }
-
-
 }

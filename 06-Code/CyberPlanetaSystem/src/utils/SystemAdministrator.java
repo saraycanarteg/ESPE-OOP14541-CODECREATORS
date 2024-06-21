@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -18,11 +17,10 @@ import java.util.Scanner;
  * @author Code Creators, DCCO-ESPE
  */
 public class SystemAdministrator {
-
+private static Scanner scanner = new Scanner(System.in);
     public static void printSystemAdminMenu() {
         ClearScreen.clearScreen();
         int menuOption = 0;
-        Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.println("============================================================================");
             System.out.printf("%40s\n", "Menu de Administrador de Sistema:");
@@ -84,7 +82,6 @@ public class SystemAdministrator {
         boolean dataValidationAddTaxpayer = false;
         boolean addTaxpayer = true;
         boolean accountingDocumentation = false;
-        Scanner scanner = new Scanner(System.in);
 
         while (addTaxpayer == true) {
 
@@ -186,7 +183,6 @@ public class SystemAdministrator {
     }
 
     private static void editTaxPayer() {
-        Scanner scanner = new Scanner(System.in);
         int option = 0;
         String idTaxPayer = "";
 
@@ -290,7 +286,6 @@ public class SystemAdministrator {
     }
 
     private static void deleteTaxPayer() {
-        Scanner scanner = new Scanner(System.in);
         String id;
         do {
             System.out.print("ID del contribuyente que va a eliminar (13 digitos): ");
@@ -311,7 +306,6 @@ public class SystemAdministrator {
     }
 
     private static void addNewTaxProcess() {
-        Scanner scanner = new Scanner(System.in);
         int processId = 0;
         ClearScreen.clearScreen();
         boolean addAnotherProcess = false;

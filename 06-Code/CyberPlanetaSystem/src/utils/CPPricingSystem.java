@@ -97,7 +97,6 @@ public class CPPricingSystem {
                     System.out.println("Opción invalida. Intente nuevamente.");
             }
         }
-
     }
 
     public static void calculateMultipleProcesses() {
@@ -171,7 +170,6 @@ public class CPPricingSystem {
         }
 
         float additionalCost = (numDocumentation / 10) * 0.50f;
-
         float basePrice = selectedProcess.getPrice();
         float totalPriceWithoutTax = basePrice + additionalCost;
         float tax = totalPriceWithoutTax * 0.15f;
@@ -183,7 +181,6 @@ public class CPPricingSystem {
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
                 selectedProcess.getProcessName(), id, totalPrice);
 
-        // Convertir a JSON y guardar en archivo
         Gson gson = new Gson();
         String jsonData = gson.toJson(processedItem);
         DataBaseManager.SaveData(jsonData, JSON_FILE);

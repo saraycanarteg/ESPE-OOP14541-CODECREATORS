@@ -1,19 +1,19 @@
-
 package ec.edu.espe.cyberplaneta.model;
 
 import com.google.gson.Gson;
 
-/**
- *
- * @author Code Creators,DCCO-ESPE
- */
 public class TaxPayer {
 
     private String id;
+
     private String email;
+
     private String name;
+
     private String password;
+
     private boolean accountingDocumentation;
+
     private Calendar calendar;
 
     public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation, Calendar calendar) {
@@ -39,7 +39,6 @@ public class TaxPayer {
         return gson.toJson(this);
     }
 
-    // Getters and Setters
     public String getId() {
         return id;
     }

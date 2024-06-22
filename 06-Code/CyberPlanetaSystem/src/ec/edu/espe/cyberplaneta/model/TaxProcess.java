@@ -1,94 +1,62 @@
 package ec.edu.espe.cyberplaneta.model;
 
-
-/**
- *
- * @author Code Creators, DCCO-ESPE
- */
 public class TaxProcess {
 
-        public int id;
-        public String name;
-        public float basePrice;
-        public float tax;
-        public float total;
+    public int id;
 
-        public TaxProcess(int id, String name, float basePrice, float tax, float total) {
-            this.id = id;
-            this.name = name;
-            this.basePrice = basePrice;
-            this.tax = tax;
-            this.total = total;
-        }
+    public String name;
 
-        /**
-         * @return the id
-         */
-        public int getId() {
-            return id;
-        }
+    public float basePrice;
 
-        /**
-         * @param id the id to set
-         */
-        public void setId(int id) {
-            this.id = id;
-        }
+    public float tax;
 
-        /**
-         * @return the name
-         */
-        public String getName() {
-            return name;
-        }
+    public float total;
 
-        /**
-         * @param name the name to set
-         */
-        public void setName(String name) {
-            this.name = name;
-        }
+    public TaxProcess(int id, String name, float basePrice, float tax, float total) {
+        this.id = id;
+        this.name = name;
+        this.basePrice = basePrice;
+        this.tax = tax;
+        this.total = total;
+    }
 
-        /**
-         * @return the basePrice
-         */
-        public float getBasePrice() {
-            return basePrice;
-        }
+    public int getId() {
+        return id;
+    }
 
-        /**
-         * @param basePrice the basePrice to set
-         */
-        public void setBasePrice(float basePrice) {
-            this.basePrice = basePrice;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        /**
-         * @return the tax
-         */
-        public float getTax() {
-            return tax;
-        }
+    public String getName() {
+        return name;
+    }
 
-        /**
-         * @param tax the tax to set
-         */
-        public void setTax(float tax) {
-            this.tax = tax;
-        }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-        /**
-         * @return the total
-         */
-        public float getTotal() {
-            return total;
-        }
+    public float getBasePrice() {
+        return basePrice;
+    }
 
-        /**
-         * @param total the total to set
-         */
-        public void setTotal(float total) {
-            this.total = total;
-        }
- 
+    public void setBasePrice(float basePrice) {
+        this.basePrice = basePrice;
+    }
+
+    public float getTax() {
+        return tax;
+    }
+
+    public void setTax(float tax) {
+        this.tax = tax;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
 }

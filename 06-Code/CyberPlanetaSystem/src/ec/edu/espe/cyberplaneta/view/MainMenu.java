@@ -6,10 +6,6 @@ import utils.CPPricingSystem;
 import utils.ClassificationAgenda;
 import consoleutils.*;
 
-/**
- *
- * @author Code Creators
- */
 public class MainMenu {
 
     private static final Scanner scanner = new Scanner(System.in);
@@ -26,17 +22,14 @@ public class MainMenu {
     private static boolean authenticateUser() {
         String username;
         String password;
-
         do {
             System.out.println("Ingrese su nombre de usuario (sin numeros):");
             username = scanner.nextLine();
         } while (!username.matches("[a-zA-Z\\s]+"));
         System.out.println("Ingrese su contrasenia:");
         password = scanner.nextLine();
-
         String correctUsername = "scurpin";
         String correctPassword = "1214";
-
         return username.equals(correctUsername) && password.equals(correctPassword);
     }
 
@@ -53,26 +46,21 @@ public class MainMenu {
             System.out.println("4. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
-
             int menuOption = ConsoleHelper.getValidIntegerInput(1, 4, "Entrada invalida. Por favor, ingrese un número del 1 al 4.", "Opcion: ");
             ConsoleHelper.clearScreen();
-            switch (menuOption) {
+            switch(menuOption) {
                 case 1:
                     SystemAdministrator.printSystemAdminMenu();
                     break;
-
                 case 2:
                     ClassificationAgenda.printSystemAgendaMenu();
                     break;
-
                 case 3:
                     CPPricingSystem.printCPPricingSystemMenu();
                     break;
-
                 case 4:
                     System.out.println("Saliendo...");
                     return;
-
                 default:
                     System.out.println("Opcion no valida. Por favor, intente de nuevo.");
                     break;

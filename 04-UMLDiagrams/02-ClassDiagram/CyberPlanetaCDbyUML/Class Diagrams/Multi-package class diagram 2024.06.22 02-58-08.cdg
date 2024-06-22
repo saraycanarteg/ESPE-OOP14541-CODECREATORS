@@ -2,7 +2,44 @@
 
 <ClassDiagram name="Multi-package class diagram">
   <ClassDiagramComponents>
-    <Class name="Calendar" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="20.0" yPosition="20.0">
+    <Class name="ConsoleHelper" package="consoleutils" visibility="public" xPosition="20.0" yPosition="20.0">
+      <Fields>
+        <Field name="scanner" type="Scanner" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
+      <Constructors/>
+      <Methods>
+        <Method name="clearScreen" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="getValidIntegerInput" returnType="int" visibility="public" isStatic="true">
+          <Argument type="int" name="min"/>
+          <Argument type="int" name="max"/>
+          <Argument type="String" name="errorMessage"/>
+          <Argument type="String" name="retryPrompt"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TaxPayerDeserializer" package="consoleutils" visibility="public" xPosition="20.0" yPosition="364.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="deserialize" returnType="TaxPayer" visibility="public">
+          <Argument type="JsonElement" name="json"/>
+          <Argument type="Type" name="typeOfT"/>
+          <Argument type="JsonDeserializationContext" name="context"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="TaxPayerSerializer" package="consoleutils" visibility="public" xPosition="20.0" yPosition="511.0">
+      <Fields/>
+      <Constructors/>
+      <Methods>
+        <Method name="serialize" returnType="JsonElement" visibility="public">
+          <Argument type="TaxPayer" name="taxPayer"/>
+          <Argument type="Type" name="type"/>
+          <Argument type="JsonSerializationContext" name="jsonSerializationContext"/>
+        </Method>
+      </Methods>
+    </Class>
+    <Class name="Calendar" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="1234.0" yPosition="68.0">
       <Fields>
         <Field name="deliveryDate" type="String" visibility="private"/>
         <Field name="startDate" type="String" visibility="private"/>
@@ -25,7 +62,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="FileSaver" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="320.0" yPosition="522.0">
+    <Class name="FileSaver" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="20.0" yPosition="661.0">
       <Fields>
         <Field name="numberOfFile" type="int" visibility="private"/>
       </Fields>
@@ -42,7 +79,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="PriceList" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="480.0" yPosition="10.0">
+    <Class name="PriceList" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="1573.0" yPosition="44.0">
       <Fields>
         <Field name="processId" type="int" visibility="private"/>
         <Field name="processName" type="String" visibility="private"/>
@@ -82,7 +119,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="TaxPayer" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="762.0" yPosition="463.0">
+    <Class name="TaxPayer" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="1505.0" yPosition="601.0">
       <Fields>
         <Field name="id" type="String" visibility="private"/>
         <Field name="email" type="String" visibility="private"/>
@@ -131,7 +168,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="TaxProcess" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="981.0" yPosition="42.0">
+    <Class name="TaxProcess" package="ec.edu.espe.cyberplaneta.model" visibility="public" xPosition="2010.0" yPosition="44.0">
       <Fields>
         <Field name="id" type="int" visibility="public"/>
         <Field name="name" type="String" visibility="public"/>
@@ -171,7 +208,7 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="CyberPlanetaSystem" package="ec.edu.espe.cyberplaneta.view" visibility="public" xPosition="1418.0" yPosition="20.0">
+    <Class name="CyberPlanetaSystem" package="ec.edu.espe.cyberplaneta.view" visibility="public" xPosition="20.0" yPosition="186.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -180,48 +217,69 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="MainMenu" package="ec.edu.espe.cyberplaneta.view" visibility="public" xPosition="1650.0" yPosition="20.0">
-      <Fields/>
+    <Class name="MainMenu" package="ec.edu.espe.cyberplaneta.view" visibility="public" xPosition="226.0" yPosition="186.0">
+      <Fields>
+        <Field name="scanner" type="Scanner" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
       <Constructors/>
       <Methods>
         <Method name="main" returnType="void" visibility="public" isStatic="true">
           <Argument type="String[]" name="args"/>
         </Method>
+        <Method name="authenticateUser" returnType="boolean" visibility="private" isStatic="true"/>
         <Method name="showMainMenu" returnType="void" visibility="private" isStatic="true"/>
       </Methods>
     </Class>
-    <Class name="ClassificationAgenda" package="utils" visibility="public" xPosition="20.0" yPosition="312.0">
-      <Fields/>
+    <Class name="ClassificationAgenda" package="utils" visibility="public" xPosition="657.0" yPosition="288.0">
+      <Fields>
+        <Field name="scanner" type="Scanner" visibility="private" isStatic="true"/>
+        <Field name="DATE_FORMATTER" type="DateTimeFormatter" visibility="private" isStatic="true" isFinal="true"/>
+      </Fields>
       <Constructors/>
       <Methods>
         <Method name="printSystemAgendaMenu" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="searchNinethDigit" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="searchByNinthDigit" returnType="void" visibility="private" isStatic="true">
-          <Argument type="String" name="fileName"/>
+        <Method name="searchNinthDigit" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="getValidNinthDigit" returnType="int" visibility="private" isStatic="true"/>
+        <Method name="filterTaxpayersByNinthDigit" returnType="List&lt;String&gt;" visibility="private" isStatic="true">
+          <Argument type="List&lt;String&gt;" name="taxpayers"/>
+          <Argument type="int" name="ninthDigit"/>
+        </Method>
+        <Method name="extractIdPart" returnType="String" visibility="private" isStatic="true">
+          <Argument type="String" name="taxpayer"/>
+        </Method>
+        <Method name="isValidNinthDigit" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="String" name="idPart"/>
+          <Argument type="int" name="ninthDigit"/>
+        </Method>
+        <Method name="displaySearchResults" returnType="void" visibility="private" isStatic="true">
+          <Argument type="List&lt;String&gt;" name="results"/>
           <Argument type="int" name="ninthDigit"/>
         </Method>
         <Method name="printTable" returnType="void" visibility="private" isStatic="true">
           <Argument type="List&lt;String&gt;" name="taxpayers"/>
         </Method>
         <Method name="sendNotification" returnType="void" visibility="private" isStatic="true"/>
+        <Method name="getValidTaxpayerId" returnType="String" visibility="private" isStatic="true"/>
+        <Method name="isValidTaxpayerId" returnType="boolean" visibility="private" isStatic="true">
+          <Argument type="String" name="taxpayerId"/>
+        </Method>
+        <Method name="getDaysBetweenDates" returnType="long" visibility="private" isStatic="true">
+          <Argument type="LocalDate" name="startDate"/>
+          <Argument type="LocalDate" name="endDate"/>
+        </Method>
+        <Method name="displayNotification" returnType="void" visibility="private" isStatic="true">
+          <Argument type="TaxPayer" name="taxpayer"/>
+          <Argument type="String" name="deliveryDate"/>
+          <Argument type="long" name="remainingDays"/>
+        </Method>
+        <Method name="searchNinethDigit" returnType="void" visibility="public" isStatic="true"/>
+        <Method name="searchByNinthDigit" returnType="void" visibility="private" isStatic="true">
+          <Argument type="String" name="fileName"/>
+          <Argument type="int" name="ninthDigit"/>
+        </Method>
       </Methods>
     </Class>
-    <Class name="CPPricingSystem" package="utils" visibility="public" xPosition="20.0" yPosition="522.0">
-      <Fields>
-        <Field name="processedItems" type="List&lt;TaxProcess&gt;" visibility="private" isStatic="true"/>
-        <Field name="scanner" type="Scanner" visibility="private" isStatic="true"/>
-        <Field name="JSON_FILE" type="String" visibility="private" isStatic="true" isFinal="true"/>
-      </Fields>
-      <Constructors/>
-      <Methods>
-        <Method name="printCPPricingSystemMenu" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="calculateMultipleProcesses" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="CalculateTaxProcessCost" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="printProcessedItems" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="loadProcessedItemsFromJson" returnType="void" visibility="private" isStatic="true"/>
-      </Methods>
-    </Class>
-    <Class name="DataBaseManager" package="utils" visibility="public" xPosition="1818.0" yPosition="588.0">
+    <Class name="DataBaseManager" package="utils" visibility="public" xPosition="657.0" yPosition="44.0">
       <Fields/>
       <Constructors/>
       <Methods>
@@ -255,27 +313,15 @@
         </Method>
       </Methods>
     </Class>
-    <Class name="SystemAdministrator" package="utils" visibility="public" xPosition="1511.0" yPosition="293.0">
-      <Fields/>
-      <Constructors/>
-      <Methods>
-        <Method name="printSystemAdminMenu" returnType="void" visibility="public" isStatic="true"/>
-        <Method name="addNewTaxPayer" returnType="void" visibility="private" isStatic="true"/>
-        <Method name="registerTaxPayer" returnType="void" visibility="private" isStatic="true">
-          <Argument type="String" name="taxpayer"/>
-        </Method>
-        <Method name="editTaxPayer" returnType="void" visibility="private" isStatic="true"/>
-        <Method name="deleteTaxPayer" returnType="void" visibility="private" isStatic="true"/>
-        <Method name="addNewTaxProcess" returnType="void" visibility="private" isStatic="true"/>
-      </Methods>
-    </Class>
   </ClassDiagramComponents>
   <ClassDiagramRelations>
     <UseRelation source="ec.edu.espe.cyberplaneta.model.TaxPayer" target="ec.edu.espe.cyberplaneta.model.Calendar" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.Calendar" sourceCardinality="1..1" targetCardinality="1..1"/>
     <UseRelation source="ec.edu.espe.cyberplaneta.model.PriceList" target="ec.edu.espe.cyberplaneta.model.PriceList" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="consoleutils.TaxPayerSerializer" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="utils.ClassificationAgenda" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
+    <UseRelation source="utils.DataBaseManager" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
     <HasRelation name="calendar" source="ec.edu.espe.cyberplaneta.model.TaxPayer" target="ec.edu.espe.cyberplaneta.model.Calendar" type="Aggregation" sourceCardinality="1..1" targetCardinality="1..1"/>
-    <HasRelation name="processedItems" source="utils.CPPricingSystem" target="ec.edu.espe.cyberplaneta.model.TaxProcess" type="Aggregation" sourceCardinality="1..1" targetCardinality="0..*" collectionType="List&lt;TaxProcess&gt;"/>
+    <UseRelation source="consoleutils.TaxPayerDeserializer" target="ec.edu.espe.cyberplaneta.model.TaxPayer" sourceCardinality="1..1" targetCardinality="1..1"/>
   </ClassDiagramRelations>
 </ClassDiagram>

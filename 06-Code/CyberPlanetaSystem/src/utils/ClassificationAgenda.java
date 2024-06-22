@@ -11,12 +11,10 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
-/**
- *
- * @author Code Creators, DCCO-ESPE
- */
 public class ClassificationAgenda {
-private static Scanner scanner = new Scanner(System.in);
+
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void printSystemAgendaMenu() {
         int menuOption = 0;
         while (true) {
@@ -30,8 +28,7 @@ private static Scanner scanner = new Scanner(System.in);
             System.out.print("Opcion a escoger: ");
             try {
                 menuOption = scanner.nextInt();
-                scanner.nextLine(); 
-
+                scanner.nextLine();
                 if (menuOption < 1 || menuOption > 3) {
                     ConsoleHelper.clearScreen();
                     System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
@@ -40,13 +37,11 @@ private static Scanner scanner = new Scanner(System.in);
             } catch (InputMismatchException e) {
                 ConsoleHelper.clearScreen();
                 System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
-                scanner.next(); 
+                scanner.next();
                 continue;
             }
-
-
             ConsoleHelper.clearScreen();
-            switch (menuOption) {
+            switch(menuOption) {
                 case 1:
                     searchNinthDigit();
                     break;
@@ -58,9 +53,7 @@ private static Scanner scanner = new Scanner(System.in);
                     return;
                 default:
                     System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-
             }
-
         }
     }
 
@@ -68,7 +61,6 @@ private static Scanner scanner = new Scanner(System.in);
         int ninthDigit = getValidNinthDigit();
         List<String> taxpayers = DataBaseManager.ReadData("TaxPayerData.json", ",");
         List<String> results = filterTaxpayersByNinthDigit(taxpayers, ninthDigit);
-
         displaySearchResults(results, ninthDigit);
     }
 
@@ -76,7 +68,6 @@ private static Scanner scanner = new Scanner(System.in);
         while (true) {
             System.out.print("Ingrese el noveno digito para la busqueda: ");
             String input = scanner.nextLine();
-
             if (input.length() == 1 && Character.isDigit(input.charAt(0))) {
                 return Integer.parseInt(input);
             } else {
@@ -86,11 +77,10 @@ private static Scanner scanner = new Scanner(System.in);
     }
 
     private static List<String> filterTaxpayersByNinthDigit(List<String> taxpayers, int ninthDigit) {
-        List<String> results = new ArrayList<>();
+        List<String> results = new ArrayList();
         for (String taxpayer : taxpayers) {
             try {
                 String idPart = extractIdPart(taxpayer);
-
                 if (isValidNinthDigit(idPart, ninthDigit)) {
                     results.add(taxpayer);
                 }
@@ -124,7 +114,6 @@ private static Scanner scanner = new Scanner(System.in);
         System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
         System.out.format("| ID              | Email                | Nombre               | Contrasenia      | Documentos |%n");
         System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
-
         for (String taxpayer : taxpayers) {
             try {
                 String[] fields = taxpayer.split(",");
@@ -139,53 +128,54 @@ private static Scanner scanner = new Scanner(System.in);
                 e.printStackTrace();
             }
         }
-
         System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
     }
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
-private static void sendNotification() {
-    String taxpayerId = getValidTaxpayerId();
-
-    TaxPayer taxpayer = DataBaseManager.findTaxPayerById("TaxPayerData", taxpayerId);
-    if (taxpayer == null) {
-        System.out.println("\nEl contribuyente no existe\n");
-        return;
+    private static void sendNotification() {
+        String taxpayerId = getValidTaxpayerId();
+        TaxPayer taxpayer = DataBaseManager.findTaxPayerById("TaxPayerData", taxpayerId);
+        if (taxpayer == null) {
+            System.out.println("\nEl contribuyente no existe\n");
+            return;
+        }
+        Calendar calendar = DataBaseManager.findCalendarById("TaxPayerData", taxpayerId);
+        LocalDate deliveryDate = LocalDate.parse(calendar.getDeliveryDate(), DATE_FORMATTER);
+        long remainingDays = getDaysBetweenDates(LocalDate.now(), deliveryDate);
+        displayNotification(taxpayer, calendar.getDeliveryDate(), remainingDays);
     }
 
-    Calendar calendar = DataBaseManager.findCalendarById("TaxPayerData", taxpayerId);
-    LocalDate deliveryDate = LocalDate.parse(calendar.getDeliveryDate(), DATE_FORMATTER);
-    long remainingDays = getDaysBetweenDates(LocalDate.now(), deliveryDate);
-
-    displayNotification(taxpayer, calendar.getDeliveryDate(), remainingDays);
-}
-
-private static String getValidTaxpayerId() {
-    String taxpayerId;
-    do {
-        System.out.print("Ingrese el ID del contribuyente a buscar: ");
-        taxpayerId = scanner.next();
-    } while (!isValidTaxpayerId(taxpayerId));
-    return taxpayerId;
-}
-
-private static boolean isValidTaxpayerId(String taxpayerId) {
-    return taxpayerId.length() == 13 && taxpayerId.matches("\\d+");
-}
-
-private static long getDaysBetweenDates(LocalDate startDate, LocalDate endDate) {
-    return ChronoUnit.DAYS.between(startDate, endDate);
-}
-
-private static void displayNotification(TaxPayer taxpayer, String deliveryDate, long remainingDays) {
-    if (remainingDays > 0) {
-        System.out.println("\nLa fecha de entrega del proceso del contribuyente " + taxpayer.getName() + " es " + deliveryDate
-                + ", tienes " + remainingDays + " días para la entrega\n");
-    } else if (remainingDays == 0) {
-        System.out.println("\nEl proceso se entrega hoy\n");
-    } else {
-        System.out.println("\nEl proceso ha sido entregado o está retrasado en su entrega\n");
+    private static String getValidTaxpayerId() {
+        String taxpayerId;
+        do {
+            System.out.print("Ingrese el ID del contribuyente a buscar: ");
+            taxpayerId = scanner.next();
+        } while (!isValidTaxpayerId(taxpayerId));
+        return taxpayerId;
     }
-}
+
+    private static boolean isValidTaxpayerId(String taxpayerId) {
+        return taxpayerId.length() == 13 && taxpayerId.matches("\\d+");
+    }
+
+    private static long getDaysBetweenDates(LocalDate startDate, LocalDate endDate) {
+        return ChronoUnit.DAYS.between(startDate, endDate);
+    }
+
+    private static void displayNotification(TaxPayer taxpayer, String deliveryDate, long remainingDays) {
+        if (remainingDays > 0) {
+            System.out.println("\nLa fecha de entrega del proceso del contribuyente " + taxpayer.getName() + " es " + deliveryDate + ", tienes " + remainingDays + " días para la entrega\n");
+        } else if (remainingDays == 0) {
+            System.out.println("\nEl proceso se entrega hoy\n");
+        } else {
+            System.out.println("\nEl proceso ha sido entregado o está retrasado en su entrega\n");
+        }
+    }
+
+    public static void searchNinethDigit() {
+    }
+
+    private static void searchByNinthDigit(String fileName, int ninthDigit) {
+    }
 }

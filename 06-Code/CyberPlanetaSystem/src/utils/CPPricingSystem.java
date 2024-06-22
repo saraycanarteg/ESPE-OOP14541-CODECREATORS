@@ -9,18 +9,37 @@ import java.util.InputMismatchException;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
+import consoleutils.*;
 
 public class CPPricingSystem {
 
     private static List<TaxProcess> processedItems = new ArrayList<>();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static final String JSON_FILE = "Incomes";
 
     public static void printCPPricingSystemMenu() {
-
         loadProcessedItemsFromJson();
-        int option = 0;
         while (true) {
+            printCPPricingSystemMenuOptions(1);
+            int option = ConsoleHelper.getValidIntegerInput(1, 3, "Entrada invalida. Por favor, ingrese un número del 1 al 3.", "Opcion: ");
+            ConsoleHelper.clearScreen();
+            getMenuOptionSelected(1, option);
+        }
+    }
+
+    private static void printverifyProcessMenu() {
+        ConsoleHelper.clearScreen();
+
+        while (true) {
+            printCPPricingSystemMenuOptions(2);
+            int option = ConsoleHelper.getValidIntegerInput(1, 2, "Entrada invalida. Por favor, ingrese un número del 1 al 2.", "Opcion: ");
+            ConsoleHelper.clearScreen();
+            getMenuOptionSelected(2, option);
+        }
+    }
+
+    private static void printCPPricingSystemMenuOptions(int typeOfMenu) {
+        if (typeOfMenu == 1) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Sistema de Precios Cyber Planeta");
             System.out.printf("%40s\n", "===============================================");
@@ -30,85 +49,60 @@ public class CPPricingSystem {
             System.out.println("3. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.print("Opcion: ");
-
-            try {
-                option = scanner.nextInt();
-
-                if (option < 1 || option > 3) {
-                    ClearScreen.clearScreen();
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                ClearScreen.clearScreen();
-                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
-                scanner.next();
-                continue;
-            }
-            ClearScreen.clearScreen();
-            switch (option) {
-                case 1:
-                    verifyProcess();
-                    break;
-                case 2:
-                    printProcessedItems();
-                    break;
-                case 3:
-                    System.out.println("Saliendo...");
-                    return;
-                default:
-                    System.out.println("Opción inválida. Intente nuevamente.");
-            }
         }
-    }
 
-    public static void verifyProcess() {
-        ClearScreen.clearScreen();
-        int option = 0;
-        while (true) {
+        if (typeOfMenu == 2) {
             System.out.printf("%40s\n", "===============================================");
             System.out.println("1. Continuar con el calculo");
             System.out.println("2. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.print("Opcion: ");
-            try {
-                option = scanner.nextInt();
-
-                if (option < 1 || option > 2) {
-                    ClearScreen.clearScreen();
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                ClearScreen.clearScreen();
-                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 2.");
-                scanner.next();
-                continue;
-            }
-            ClearScreen.clearScreen();
-            switch (option) {
-                case 1:
-                    calculateMultipleProcesses();
-                    break;
-                case 2:
-                    System.out.println("Saliendo...");
-                    return;
-                default:
-                    System.out.println("Opción invalida. Intente nuevamente.");
-            }
         }
     }
 
-    public static void calculateMultipleProcesses() {
-        ClearScreen.clearScreen();
+    private static boolean getMenuOptionSelected(int typeOfMenuOption, int option) {
+        if (typeOfMenuOption == 1) {
+            switch (option) {
+                case 1 ->
+                    printverifyProcessMenu();
+                case 2 ->
+                    printProcessedItems();
+                case 3 -> {
+                    System.out.println("Saliendo...");
+                    return false;
+                }
+                default ->
+                    System.out.println("Opción inválida. Intente nuevamente.");
+            }
+        }
+
+        if (typeOfMenuOption == 2) {
+            switch (option) {
+                case 1 ->
+                    calculateMultipleProcesses();
+                case 2 -> {
+                    System.out.println("Saliendo...");
+                    return false;
+                }
+                default ->
+                    System.out.println("Opción invalida. Intente nuevamente.");
+            }
+        }
+
+        return true;
+    }
+
+    private static void calculateMultipleProcesses() {
+        ConsoleHelper.clearScreen();
         boolean continuar = true;
         while (continuar) {
-            CalculateTaxProcessCost();
-
+            calculateTaxProcessCost();
             String respuesta;
+
             if (scanner.hasNextLine()) {
                 scanner.nextLine();
             }
+
             do {
                 System.out.print("¿Desea calcular otro proceso? [si/no]: ");
                 respuesta = scanner.nextLine().toLowerCase();
@@ -120,40 +114,9 @@ public class CPPricingSystem {
         }
     }
 
-    public static void CalculateTaxProcessCost() {
+    private static void calculateTaxProcessCost() {
         PriceList.displayPriceArray();
-        
-        PriceList selectedProcess = null;
-        int id = -1;
-
-        while (selectedProcess == null) {
-            while (id < 1) {
-                try {
-                    System.out.println("Ingrese ID del proceso a calcular precio: ");
-                    id = scanner.nextInt();
-                    if (id < 1) {
-                        System.out.println("Opcion invalida, ingrese un numero del 1-5.");
-                    }
-                } catch (InputMismatchException e) {
-                    System.out.println("Opcion invalida, ingrese un numero del 1-5.");
-                    scanner.next();
-                }
-            }
-
-            PriceList[] priceList = PriceList.getPriceListArray();
-
-            for (PriceList item : priceList) {
-                if (item.getProcessId() == id) {
-                    selectedProcess = item;
-                    break;
-                }
-            }
-
-            if (selectedProcess == null) {
-                System.out.println("ID no encontrado. Por favor, intente de nuevo.");
-                id = -1;
-            }
-        }
+        PriceList selectedProcess = validateProcessId();
 
         int numDocumentation = -1;
         while (numDocumentation < 0) {
@@ -169,17 +132,47 @@ public class CPPricingSystem {
             }
         }
 
+        float totalPrice = calculateTotalPrice(selectedProcess, numDocumentation);
+        saveProcessedItem(selectedProcess, totalPrice);
+    }
+
+    private static PriceList validateProcessId() {
+        PriceList selectedProcess = null;
+
+        while (selectedProcess == null) {
+            System.out.println("ID del proceso: ");
+            int id = ConsoleHelper.getValidIntegerInput(1, 5, "Entrada invalida. Por favor, ingrese un número del 1 al 5.", "ID del proceso: ");
+
+            PriceList[] priceList = PriceList.getPriceListArray();
+            for (PriceList item : priceList) {
+                if (item.getProcessId() == id) {
+                    selectedProcess = item;
+                    break;
+                }
+            }
+
+            if (selectedProcess == null) {
+                System.out.println("ID no encontrado. Por favor, intente de nuevo.");
+            }
+        }
+
+        return selectedProcess;
+    }
+
+    private static float calculateTotalPrice(PriceList selectedProcess, int numDocumentation) {
         float additionalCost = (numDocumentation / 10) * 0.50f;
         float basePrice = selectedProcess.getPrice();
         float totalPriceWithoutTax = basePrice + additionalCost;
         float tax = totalPriceWithoutTax * 0.15f;
-        float totalPrice = totalPriceWithoutTax + tax;
+        return totalPriceWithoutTax + tax;
+    }
 
-        TaxProcess processedItem = new TaxProcess(selectedProcess.getProcessId(), selectedProcess.getProcessName(), basePrice, tax, totalPrice);
+    private static void saveProcessedItem(PriceList selectedProcess, float totalPrice) {
+        TaxProcess processedItem = new TaxProcess(selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), totalPrice * 0.15f, totalPrice);
         processedItems.add(processedItem);
 
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
-                selectedProcess.getProcessName(), id, totalPrice);
+                selectedProcess.getProcessName(), selectedProcess.getProcessId(), totalPrice);
 
         Gson gson = new Gson();
         String jsonData = gson.toJson(processedItem);

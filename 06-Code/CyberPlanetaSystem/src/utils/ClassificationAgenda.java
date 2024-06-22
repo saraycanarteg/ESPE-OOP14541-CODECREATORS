@@ -1,5 +1,6 @@
 package utils;
 
+import consoleutils.ConsoleHelper;
 import ec.edu.espe.cyberplaneta.model.Calendar;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.time.LocalDate;
@@ -31,18 +32,18 @@ private static Scanner scanner = new Scanner(System.in);
                 menuOption = scanner.nextInt();
 
                 if (menuOption < 1 || menuOption > 3) {
-                    ClearScreen.clearScreen();
+                    ConsoleHelper.clearScreen();
                     System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
                     continue;
                 }
             } catch (InputMismatchException e) {
-                ClearScreen.clearScreen();
+                ConsoleHelper.clearScreen();
                 System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
                 scanner.next();
                 continue;
             }
 
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             switch (menuOption) {
                 case 1:
                     searchNinethDigit();

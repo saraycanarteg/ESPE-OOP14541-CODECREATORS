@@ -1,11 +1,10 @@
 package ec.edu.espe.cyberplaneta.view;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import utils.SystemAdministrator;
 import utils.CPPricingSystem;
 import utils.ClassificationAgenda;
-import utils.ClearScreen;
+import consoleutils.*;
 
 /**
  *
@@ -13,12 +12,12 @@ import utils.ClearScreen;
  */
 public class MainMenu {
 
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        ClearScreen.clearScreen();
+        ConsoleHelper.clearScreen();
         while (!authenticateUser()) {
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             System.out.println("Usuario o contrasenia incorrectos. Por favor, intente de nuevo.");
         }
         showMainMenu();
@@ -35,15 +34,14 @@ public class MainMenu {
         System.out.println("Ingrese su contrasenia:");
         password = scanner.nextLine();
 
-        String correctUsername = "Guillermo Canarte";
+        String correctUsername = "scurpin";
         String correctPassword = "1214";
 
         return username.equals(correctUsername) && password.equals(correctPassword);
     }
 
     private static void showMainMenu() {
-        int menuOption = 0;
-        ClearScreen.clearScreen();
+        ConsoleHelper.clearScreen();
         while (true) {
             System.out.printf("%40s\n", "===============================================");
             System.out.printf("%40s\n", "Cyber Planeta System v.0.2.3");
@@ -56,21 +54,8 @@ public class MainMenu {
             System.out.printf("%40s\n", "===============================================");
             System.out.println("Opcion:  ");
 
-            try {
-                menuOption = scanner.nextInt();
-
-                if (menuOption < 1 || menuOption > 4) {
-                    ClearScreen.clearScreen();
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                ClearScreen.clearScreen();
-                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 4.");
-                scanner.next();
-                continue;
-            }
-            ClearScreen.clearScreen();
+            int menuOption = ConsoleHelper.getValidIntegerInput(1, 4, "Entrada invalida. Por favor, ingrese un número del 1 al 4.", "Opcion: ");
+            ConsoleHelper.clearScreen();
             switch (menuOption) {
                 case 1:
                     SystemAdministrator.printSystemAdminMenu();

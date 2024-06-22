@@ -1,6 +1,8 @@
 
 package utils;
 
+import consoleutils.TaxPayerSerializer;
+import consoleutils.ConsoleHelper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import ec.edu.espe.cyberplaneta.model.Calendar;
@@ -22,11 +24,11 @@ public class SystemAdministrator {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void printSystemAdminMenu() {
-        ClearScreen.clearScreen();
+        ConsoleHelper.clearScreen();
         while (true) {
             showAdminMenu();
             int menuOption = getMenuOption(5);
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             executeMenuOption(menuOption);
             if (menuOption == 5) {
                 System.out.println("Saliendo...");
@@ -53,11 +55,11 @@ public class SystemAdministrator {
         try {
             menuOption = scanner.nextInt();
             if (menuOption < 1 || menuOption > optionNumber) {
-                ClearScreen.clearScreen();
+                ConsoleHelper.clearScreen();
                 System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
             }
         } catch (InputMismatchException e) {
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al " + optionNumber);
             scanner.next();
         }
@@ -237,7 +239,7 @@ public class SystemAdministrator {
         while (true) {
             showEditMenu();
             int option = getMenuOption(5);
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             executeEditOption(option, taxPayer);
             if (option == 5) {
                 break;
@@ -292,12 +294,12 @@ public class SystemAdministrator {
     }
 
     private static void addNewTaxProcess() {
-        ClearScreen.clearScreen();
+        ConsoleHelper.clearScreen();
         while (true) {
             showAddProcessMenu();
             int option = getMenuOption(2);
             if (option == 2) {
-                ClearScreen.clearScreen();
+                ConsoleHelper.clearScreen();
                 System.out.println("Saliendo...");
                 break;
             }
@@ -335,7 +337,7 @@ public class SystemAdministrator {
         int processId = getProcessId();
 
         if (processId == 6) {
-            ClearScreen.clearScreen();
+            ConsoleHelper.clearScreen();
             return false;
         }
 

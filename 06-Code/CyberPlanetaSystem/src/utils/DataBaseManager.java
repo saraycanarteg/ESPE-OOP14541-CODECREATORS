@@ -1,6 +1,8 @@
 
 package utils;
 
+import consoleutils.TaxPayerSerializer;
+import consoleutils.TaxPayerDeserializer;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;

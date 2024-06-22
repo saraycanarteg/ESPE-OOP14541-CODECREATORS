@@ -1,5 +1,5 @@
 
-package utils;
+package consoleutils;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;

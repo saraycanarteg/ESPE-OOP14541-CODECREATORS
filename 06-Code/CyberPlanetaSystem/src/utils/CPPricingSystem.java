@@ -19,22 +19,23 @@ public class CPPricingSystem {
 
     public static void printCPPricingSystemMenu() {
         loadProcessedItemsFromJson();
-        while (true) {
+        boolean continueRunning = true;
+        while (continueRunning) {
             printCPPricingSystemMenuOptions(1);
             int option = ConsoleHelper.getValidIntegerInput(1, 3, "Entrada invalida. Por favor, ingrese un número del 1 al 3.", "Opcion: ");
             ConsoleHelper.clearScreen();
-            getMenuOptionSelected(1, option);
+            continueRunning = getMenuOptionSelected(1, option);
         }
     }
 
     private static void printverifyProcessMenu() {
         ConsoleHelper.clearScreen();
-
-        while (true) {
+        boolean continueRunning = true;
+        while (continueRunning) {
             printCPPricingSystemMenuOptions(2);
             int option = ConsoleHelper.getValidIntegerInput(1, 2, "Entrada invalida. Por favor, ingrese un número del 1 al 2.", "Opcion: ");
             ConsoleHelper.clearScreen();
-            getMenuOptionSelected(2, option);
+            continueRunning = getMenuOptionSelected(2, option);
         }
     }
 
@@ -63,29 +64,24 @@ public class CPPricingSystem {
     private static boolean getMenuOptionSelected(int typeOfMenuOption, int option) {
         if (typeOfMenuOption == 1) {
             switch (option) {
-                case 1 ->
-                    printverifyProcessMenu();
-                case 2 ->
-                    printProcessedItems();
+                case 1 -> printverifyProcessMenu();
+                case 2 -> printProcessedItems();
                 case 3 -> {
                     System.out.println("Saliendo...");
                     return false;
                 }
-                default ->
-                    System.out.println("Opción inválida. Intente nuevamente.");
+                default -> System.out.println("Opción inválida. Intente nuevamente.");
             }
         }
 
         if (typeOfMenuOption == 2) {
             switch (option) {
-                case 1 ->
-                    calculateMultipleProcesses();
+                case 1 -> calculateMultipleProcesses();
                 case 2 -> {
                     System.out.println("Saliendo...");
                     return false;
                 }
-                default ->
-                    System.out.println("Opción invalida. Intente nuevamente.");
+                default -> System.out.println("Opción invalida. Intente nuevamente.");
             }
         }
 

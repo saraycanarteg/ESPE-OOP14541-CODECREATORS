@@ -1,3 +1,4 @@
+
 package utils;
 
 import com.google.gson.Gson;
@@ -109,7 +110,7 @@ public class SystemAdministrator {
 
     private static String getIdTaxPayer(int typeMenu) {
         String idTaxPayer;
-        Boolean dataValidate = false;
+        Boolean dataValidate;
         do {
             executeIdOption(typeMenu);
             idTaxPayer = scanner.next();
@@ -127,19 +128,16 @@ public class SystemAdministrator {
 
     private static void executeIdOption(int idOption) {
         switch (idOption) {
-            case 1:
-                System.out.print("\nID: ");
-                break;
-            case 2:
+            case 1 ->
+                System.out.print("ID: ");
+            case 2 ->
                 System.out.print("Ingrese el ID del Contribuyente a editar: ");
-                break;
-            case 3:
+            case 3->
                 System.out.print("ID del contribuyente que va a eliminar (13 digitos): ");
-                break;
-            case 4:
+            case 4->
                 System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
-            default:
-                break;
+            default->
+                System.out.print("ID:");
         }
     }
 

@@ -64,24 +64,29 @@ public class CPPricingSystem {
     private static boolean getMenuOptionSelected(int typeOfMenuOption, int option) {
         if (typeOfMenuOption == 1) {
             switch (option) {
-                case 1 -> printverifyProcessMenu();
-                case 2 -> printProcessedItems();
+                case 1 ->
+                    printverifyProcessMenu();
+                case 2 ->
+                    printProcessedItems();
                 case 3 -> {
                     System.out.println("Saliendo...");
                     return false;
                 }
-                default -> System.out.println("Opción inválida. Intente nuevamente.");
+                default ->
+                    System.out.println("Opción inválida. Intente nuevamente.");
             }
         }
 
         if (typeOfMenuOption == 2) {
             switch (option) {
-                case 1 -> calculateMultipleProcesses();
+                case 1 ->
+                    calculateMultipleProcesses();
                 case 2 -> {
                     System.out.println("Saliendo...");
                     return false;
                 }
-                default -> System.out.println("Opción invalida. Intente nuevamente.");
+                default ->
+                    System.out.println("Opción invalida. Intente nuevamente.");
             }
         }
 
@@ -159,12 +164,12 @@ public class CPPricingSystem {
         float additionalCost = (numDocumentation / 10) * 0.50f;
         float basePrice = selectedProcess.getPrice();
         float totalPriceWithoutTax = basePrice + additionalCost;
-        float tax = totalPriceWithoutTax * 0.15f;
+        float tax = totalPriceWithoutTax * (selectedProcess.getTaxRate() / 100);
         return totalPriceWithoutTax + tax;
     }
 
     private static void saveProcessedItem(PriceList selectedProcess, float totalPrice) {
-        TaxProcess processedItem = new TaxProcess(selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), totalPrice * 0.15f, totalPrice);
+        TaxProcess processedItem = new TaxProcess(selectedProcess, totalPrice);
         processedItems.add(processedItem);
 
         System.out.printf("El costo del proceso '%s' con ID %d es de $%.2f%n",
@@ -185,8 +190,9 @@ public class CPPricingSystem {
         float totalIncome = 0;
 
         for (TaxProcess item : processedItems) {
+            PriceList priceList = item.getPriceList(); // Obtener el objeto PriceList del TaxProcess
             System.out.printf("%-5s %-50s %-25.2f %-20.2f %-20.2f\n",
-                    item.getId(), item.getName(), item.getBasePrice(), item.getTax(), item.getTotal());
+                    priceList.getProcessId(), priceList.getProcessName(), priceList.getPrice(), priceList.getTaxRate(), item.getTotal());
             totalIncome += item.getTotal();
         }
 
@@ -194,11 +200,17 @@ public class CPPricingSystem {
     }
 
     private static void loadProcessedItemsFromJson() {
-        List<String> jsonData = DataBaseManager.ReadData("Incomes.json", "");
+        List<String> jsonData = DataBaseManager.ReadData("Incomes.json", ""); 
 
-        Gson gson = new Gson();
-        Type type = new TypeToken<List<TaxProcess>>() {
-        }.getType();
-        processedItems = gson.fromJson(jsonData.toString(), type);
+        if (jsonData != null) {
+            Gson gson = new Gson();
+            Type type = new TypeToken<List<TaxProcess>>() {
+            }.getType();
+            processedItems = gson.fromJson(jsonData.toString(), type);
+        } else {
+            processedItems = new ArrayList<>(); 
+        }
     }
+
 }
+

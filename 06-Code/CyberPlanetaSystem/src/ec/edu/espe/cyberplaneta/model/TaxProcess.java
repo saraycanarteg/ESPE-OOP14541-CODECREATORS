@@ -2,54 +2,20 @@ package ec.edu.espe.cyberplaneta.model;
 
 public class TaxProcess {
 
-    public int id;
+    private PriceList priceList;
+    private float total;
 
-    public String name;
-
-    public float basePrice;
-
-    public float tax;
-
-    public float total;
-
-    public TaxProcess(int id, String name, float basePrice, float tax, float total) {
-        this.id = id;
-        this.name = name;
-        this.basePrice = basePrice;
-        this.tax = tax;
+    public TaxProcess(PriceList priceList, float total) {
+        this.priceList = priceList;
         this.total = total;
     }
 
-    public int getId() {
-        return id;
+    public PriceList getPriceList() {
+        return priceList;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public float getBasePrice() {
-        return basePrice;
-    }
-
-    public void setBasePrice(float basePrice) {
-        this.basePrice = basePrice;
-    }
-
-    public float getTax() {
-        return tax;
-    }
-
-    public void setTax(float tax) {
-        this.tax = tax;
+    public void setPriceList(PriceList priceList) {
+        this.priceList = priceList;
     }
 
     public float getTotal() {
@@ -60,3 +26,4 @@ public class TaxProcess {
         this.total = total;
     }
 }
+

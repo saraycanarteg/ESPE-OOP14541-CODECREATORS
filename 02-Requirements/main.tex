@@ -121,7 +121,7 @@ The objectives and goals of Cyber Planeta System are:
     \item \textbf{calculateTaxProcessCost:} the cost to be charged to the taxpayer was calculated.
     \item \textbf{price:} Calculate the tax owed by a taxpayer.
     \item \textbf{typeofProcess:} process to be carried out for the taxpayer.
-    \item \textbf{numberOfDocumentation:} where the taxpayer can be identified.
+    \item \textbf{numberOfDocumentation:} By documentation we mean the number of sales notes, invoices and other paperwork that our customer will have to analyze to execute each process, therefore, the more documentation, the higher the cost. 
     \item \textbf{addDateCalendar:} the day when the declaration must be filed is added.
     \item \textbf{id:} taxpayer identification number or also known as NUI.
     \item \textbf{email:} email of taxpayer.
@@ -182,20 +182,21 @@ The Cyber Planeta System is an independent product that does not require integra
 Cyber Planeta streamlines tax payer's management and will focus in functionalities as: \begin{itemize}
 \item \textbf{Tax Payer Management:}
 \begin{itemize}
-\item Add, edit, and delete tax payer profiles.
-\item Attach individual documentation (e.g., scanned sales notes) to tax payer profiles.
+\item Add, edit (the customer can edit all fields except dates), and delete tax payer profiles.
+\item Attach individual documentation (e.g., scanned sales notes) to tax payer profiles. 
+\textbf{NOTE:} Would be added when the project uses graphical interface programming.
 \item Search by 9th RUC digit for easy identification of tax declaration day.
 \end{itemize}
 \item \textbf{Tax Declaration Management:}
 \begin{itemize}
 \item Display tax declarations in a convenient calendar format.
-\item We will send the remaining days to send the notifications of when the deliveries will be made. 
+\item Send the remaining days to send the notifications of when the deliveries will be made. 
 \end{itemize}
 \item \textbf{Cost Calculation:}
 \begin{itemize}
 \item Empower the cyber owner to calculate the cost of each process.
-\item Determine the base fee based on the process type.
-\item Factor in additional costs based on process duration, documentation volume, and other relevant factors.
+\item The program will only ask for the customer's ID to extract the base price and tax from the table provided by Guillermo Cañarte.
+\item Add additional cost to the base price; for every 10 documents the program will charge 0.50 additional cents.
 \item All the calculations that are made for each one of the contributors will be added up, and a space will be generated where the monthly income of the contributor will be shown.
 
 
@@ -224,6 +225,8 @@ These are some limitations for the development of the program
 \item Do not store information indefinitely.
 
 \item It does not have to be a complex system.
+\item The customer can edit all fields except the delivery date. 
+
 
 
 \end{itemize}
@@ -280,6 +283,8 @@ The search must be fast and efficient.
 The system must have a calendar where appointments can be scheduled for customers. 
 The calendar must allow viewing available and occupied appointments. 
 The system must send email or SMS notifications to customers to remind them of their appointments. 
+\textbf{NOTE:} 
+This will be shown in the second version of the program, because it is not possible in the console. 
 \end{itemize}
 
 \begin{itemize}
@@ -300,14 +305,7 @@ Notifications should be clear and concise.
 \item
 \textbf {Report generation}
 The system could generate personalized reports for customers with information about their tax declarations, such as filing dates, amounts paid, etc. 
-Reports should be exportable to different formats, such as PDF or Excel. 
-\end{itemize}
-
-\begin{itemize}
-\item
-\textbf {Automatic updates}
-The system must be updated automatically to ensure that the latest version of the SRI platform is always being used and that the latest tax regulations are complied with. 
-Updates should be downloaded and installed transparently for users. 
+Reports should be exportable to different formats, such as Excel (CVS) or JSON. 
 \end{itemize}
 
 \begin{itemize}
@@ -560,6 +558,7 @@ The following are the design constraints that may affect the development of the 
     \item \textbf{Administrators:}will have full access to the system and will be able to perform any task.
     \item \textbf{Registered users: } will have access to the system's functionalities and will be able to perform specific tasks according to their role.
     \item \textbf{Guest users:} will have limited access to the system and will be able to perform specific tasks according to their role.
+      
 \end{itemize}
 
 \subsection{"Other requirements}

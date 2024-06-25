@@ -1,4 +1,3 @@
-
 package utils;
 
 import consoleutils.TaxPayerSerializer;
@@ -123,6 +122,11 @@ public class SystemAdministrator {
                 dataValidate = false;
             }
 
+            if (!idTaxPayer.endsWith("001") && typeMenu == 1) {
+                System.out.println("El ID debe terminar en '001'.");
+                dataValidate = false;
+            }
+
         } while (idTaxPayer.length() != 13 || !idTaxPayer.matches("\\d+") || !dataValidate);
 
         return idTaxPayer;
@@ -134,11 +138,11 @@ public class SystemAdministrator {
                 System.out.print("ID: ");
             case 2 ->
                 System.out.print("Ingrese el ID del Contribuyente a editar: ");
-            case 3->
+            case 3 ->
                 System.out.print("ID del contribuyente que va a eliminar (13 digitos): ");
-            case 4->
+            case 4 ->
                 System.out.print("Ingrese el ID del contribuyente para agregar un nuevo proceso: ");
-            default->
+            default ->
                 System.out.print("ID:");
         }
     }

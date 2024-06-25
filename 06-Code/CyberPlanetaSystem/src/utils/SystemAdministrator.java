@@ -269,21 +269,43 @@ public class SystemAdministrator {
     }
 
     private static void executeEditOption(int option, TaxPayer taxPayer) {
-        switch (option) {
-            case 1 ->
-                taxPayer.setEmail(getEmailTaxPayer(2));
-            case 2 ->
-                taxPayer.setName(getNameTaxPayer(2));
-            case 3 ->
-                taxPayer.setPassword(getPasswordTaxPayer(2));
-            case 4 ->
-                taxPayer.setAccountingDocumentation(getAccountingDocumentation(2));
-            case 5 ->
-                System.out.println("Saliendo...");
-            default ->
-                System.out.println("Opcion Invalida. Intente otra vez.");
+    switch (option) {
+        case 1 -> {
+            String newEmail = getEmailTaxPayer(2);
+            if (!newEmail.equals(taxPayer.getEmail())) {
+                taxPayer.setEmail(newEmail);
+            } else {
+                System.out.println("El nuevo Email no puede ser igual al anterior.");
+            }
         }
+        case 2 -> {
+            String newName = getNameTaxPayer(2);
+            if (!newName.equals(taxPayer.getName())) {
+                taxPayer.setName(newName);
+            } else {
+                System.out.println("El nuevo Nombre no puede ser igual al anterior.");
+            }
+        }
+        case 3 -> {
+            String newPassword = getPasswordTaxPayer(2);
+            if (!newPassword.equals(taxPayer.getPassword())) {
+                taxPayer.setPassword(newPassword);
+            } else {
+                System.out.println("La nueva Contrasena no puede ser igual a la anterior.");
+            }
+        }
+        case 4 -> {
+            boolean newDocumentation = getAccountingDocumentation(2);
+            if (newDocumentation != taxPayer.isAccountingDocumentation()) {
+                taxPayer.setAccountingDocumentation(newDocumentation);
+            } else {
+                System.out.println("La nueva Documentacion no puede ser igual a la anterior.");
+            }
+        }
+        case 5 -> System.out.println("Saliendo...");
+        default -> System.out.println("Opcion Invalida. Intente otra vez.");
     }
+}
 
     private static void deleteTaxPayer() {
         String idTaxPayer = getIdTaxPayer(3);

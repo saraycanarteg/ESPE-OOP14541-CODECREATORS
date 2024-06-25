@@ -59,8 +59,8 @@ public class ClassificationAgenda {
 
     public static void searchNinthDigit() {
         int ninthDigit = getValidNinthDigit();
-        List<String> taxpayers = DataBaseManager.ReadData("TaxPayerData.json", ",");
-        List<String> results = filterTaxpayersByNinthDigit(taxpayers, ninthDigit);
+        List<String> taxPayers = DataBaseManager.readData("TaxPayerData.json", ",");
+        List<String> results = filterTaxPayersByNinthDigit(taxPayers, ninthDigit);
         displaySearchResults(results, ninthDigit);
     }
 
@@ -76,24 +76,24 @@ public class ClassificationAgenda {
         }
     }
 
-    private static List<String> filterTaxpayersByNinthDigit(List<String> taxpayers, int ninthDigit) {
+    private static List<String> filterTaxPayersByNinthDigit(List<String> taxPayers, int ninthDigit) {
         List<String> results = new ArrayList();
-        for (String taxpayer : taxpayers) {
+        for (String taxPayer : taxPayers) {
             try {
-                String idPart = extractIdPart(taxpayer);
+                String idPart = extractIdPart(taxPayer);
                 if (isValidNinthDigit(idPart, ninthDigit)) {
-                    results.add(taxpayer);
+                    results.add(taxPayer);
                 }
             } catch (Exception e) {
-                System.out.println("Error al procesar la linea: " + taxpayer);
+                System.out.println("Error al procesar la linea: " + taxPayer);
                 e.printStackTrace();
             }
         }
         return results;
     }
 
-    private static String extractIdPart(String taxpayer) {
-        return taxpayer.split(",")[0].split(":")[1].replace("\"", "").trim();
+    private static String extractIdPart(String taxPayer) {
+        return taxPayer.split(",")[0].split(":")[1].replace("\"", "").trim();
     }
 
     private static boolean isValidNinthDigit(String idPart, int ninthDigit) {
@@ -109,14 +109,14 @@ public class ClassificationAgenda {
         }
     }
 
-    private static void printTable(List<String> taxpayers) {
+    private static void printTable(List<String> taxPayers) {
         String format = "| %-15s | %-20s | %-20s | %-15s | %-10s |%n";
         System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
         System.out.format("| ID              | Email                | Nombre               | Contrasenia      | Documentos |%n");
         System.out.format("+-----------------+----------------------+----------------------+-----------------+------------+%n");
-        for (String taxpayer : taxpayers) {
+        for (String taxPayer : taxPayers) {
             try {
-                String[] fields = taxpayer.split(",");
+                String[] fields = taxPayer.split(",");
                 String id = fields[0].split(":")[1].replace("\"", "").trim();
                 String email = fields[1].split(":")[1].replace("\"", "").trim();
                 String name = fields[2].split(":")[1].replace("\"", "").trim();
@@ -124,7 +124,7 @@ public class ClassificationAgenda {
                 String documentation = fields[4].split(":")[1].replace("\"", "").trim();
                 System.out.format(format, id, email, name, password, documentation);
             } catch (Exception e) {
-                System.out.println("Error al procesar la linea para la tabla: " + taxpayer);
+                System.out.println("Error al procesar la linea para la tabla: " + taxPayer);
                 e.printStackTrace();
             }
         }
@@ -134,48 +134,42 @@ public class ClassificationAgenda {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     private static void sendNotification() {
-        String taxpayerId = getValidTaxpayerId();
-        TaxPayer taxpayer = DataBaseManager.findTaxPayerById("TaxPayerData", taxpayerId);
-        if (taxpayer == null) {
+        String taxPayerId = getValidTaxpayerId();
+        TaxPayer taxPayer = DataBaseManager.findTaxPayerById("TaxPayerData", taxPayerId);
+        if (taxPayer == null) {
             System.out.println("\nEl contribuyente no existe\n");
             return;
         }
-        Calendar calendar = DataBaseManager.findCalendarById("TaxPayerData", taxpayerId);
+        Calendar calendar = DataBaseManager.findCalendarById("TaxPayerData", taxPayerId);
         LocalDate deliveryDate = LocalDate.parse(calendar.getDeliveryDate(), DATE_FORMATTER);
         long remainingDays = getDaysBetweenDates(LocalDate.now(), deliveryDate);
-        displayNotification(taxpayer, calendar.getDeliveryDate(), remainingDays);
+        displayNotification(taxPayer, calendar.getDeliveryDate(), remainingDays);
     }
 
     private static String getValidTaxpayerId() {
-        String taxpayerId;
+        String taxPayerId;
         do {
             System.out.print("Ingrese el ID del contribuyente a buscar: ");
-            taxpayerId = scanner.next();
-        } while (!isValidTaxpayerId(taxpayerId));
-        return taxpayerId;
+            taxPayerId = scanner.next();
+        } while (!isValidTaxPayerId(taxPayerId));
+        return taxPayerId;
     }
 
-    private static boolean isValidTaxpayerId(String taxpayerId) {
-        return taxpayerId.length() == 13 && taxpayerId.matches("\\d+");
+    private static boolean isValidTaxPayerId(String taxPayerId) {
+        return taxPayerId.length() == 13 && taxPayerId.matches("\\d+");
     }
 
     private static long getDaysBetweenDates(LocalDate startDate, LocalDate endDate) {
         return ChronoUnit.DAYS.between(startDate, endDate);
     }
 
-    private static void displayNotification(TaxPayer taxpayer, String deliveryDate, long remainingDays) {
+    private static void displayNotification(TaxPayer taxPayer, String deliveryDate, long remainingDays) {
         if (remainingDays > 0) {
-            System.out.println("\nLa fecha de entrega del proceso del contribuyente " + taxpayer.getName() + " es " + deliveryDate + ", tienes " + remainingDays + " días para la entrega\n");
+            System.out.println("\nLa fecha de entrega del proceso del contribuyente " + taxPayer.getName() + " es " + deliveryDate + ", tienes " + remainingDays + " días para la entrega\n");
         } else if (remainingDays == 0) {
             System.out.println("\nEl proceso se entrega hoy\n");
         } else {
             System.out.println("\nEl proceso ha sido entregado o está retrasado en su entrega\n");
         }
-    }
-
-    public static void searchNinethDigit() {
-    }
-
-    private static void searchByNinthDigit(String fileName, int ninthDigit) {
-    }
+    }  
 }

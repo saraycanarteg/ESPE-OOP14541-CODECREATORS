@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class DataBaseManager {
 
-    public static void SaveData(String data, String fileName) {
+    public static void saveData(String data, String fileName) {
         fileName = fileName + ".json";
         try (FileWriter fileWriter = new FileWriter(fileName, true); BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
             bufferedWriter.write(data);
@@ -33,7 +33,7 @@ public class DataBaseManager {
         }
     }
 
-    public static List<String> ReadData(String fileName, String separator) {
+    public static List<String> readData(String fileName, String separator) {
         List<String> lineas = new ArrayList<>();
 
         try {
@@ -49,9 +49,9 @@ public class DataBaseManager {
         return lineas;
     }
 
-    public static void RemoveData(String fileName, String idEdit) {
+    public static void removeData(String fileName, String idEdit) {
         fileName = fileName + ".json";
-        List<String> lineas = ReadData(fileName, "");
+        List<String> lineas = readData(fileName, "");
 
         if (lineas.isEmpty()) {
             System.out.println("El archivo está vacío.");
@@ -119,7 +119,7 @@ public class DataBaseManager {
     }
 
     public static void updateTaxPayer(TaxPayer taxPayer, String fileName) {
-        List<String> lines = ReadData(fileName + ".json", "");
+        List<String> lines = readData(fileName + ".json", "");
 
         for (int i = 0; i < lines.size(); i++) {
             if (lines.get(i).contains(taxPayer.getId())) {

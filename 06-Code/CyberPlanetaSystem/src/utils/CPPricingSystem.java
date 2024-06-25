@@ -28,7 +28,7 @@ public class CPPricingSystem {
         }
     }
 
-    private static void printverifyProcessMenu() {
+    private static void printVerifyProcessMenu() {
         ConsoleHelper.clearScreen();
         boolean continueRunning = true;
         while (continueRunning) {
@@ -65,7 +65,7 @@ public class CPPricingSystem {
         if (typeOfMenuOption == 1) {
             switch (option) {
                 case 1 ->
-                    printverifyProcessMenu();
+                    printVerifyProcessMenu();
                 case 2 ->
                     printProcessedItems();
                 case 3 -> {
@@ -177,7 +177,7 @@ public class CPPricingSystem {
 
         Gson gson = new Gson();
         String jsonData = gson.toJson(processedItem);
-        DataBaseManager.SaveData(jsonData, JSON_FILE);
+        DataBaseManager.saveData(jsonData, JSON_FILE);
     }
 
     public static void printProcessedItems() {
@@ -200,7 +200,7 @@ public class CPPricingSystem {
     }
 
     private static void loadProcessedItemsFromJson() {
-        List<String> jsonData = DataBaseManager.ReadData("Incomes.json", ""); 
+        List<String> jsonData = DataBaseManager.readData("Incomes.json", ""); 
 
         if (jsonData != null) {
             Gson gson = new Gson();

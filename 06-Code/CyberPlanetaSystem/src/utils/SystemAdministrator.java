@@ -225,7 +225,7 @@ public class SystemAdministrator {
     }
 
     private static void registerTaxPayer(String taxpayerData) {
-        DataBaseManager.SaveData(taxpayerData, "TaxPayerData");
+        DataBaseManager.saveData(taxpayerData, "TaxPayerData");
     }
 
     private static void editTaxPayer() {
@@ -289,7 +289,7 @@ public class SystemAdministrator {
         if (taxPayer == null) {
             System.out.println("\nEl contribuyente no existe, no se puede eliminar\n");
         } else {
-            DataBaseManager.RemoveData("TaxPayerData", idTaxPayer);
+            DataBaseManager.removeData("TaxPayerData", idTaxPayer);
         }
     }
 
@@ -352,7 +352,7 @@ public class SystemAdministrator {
 
         if (selectedProcess != null) {
             String processInfo = createProcessInfo(selectedProcess);
-            DataBaseManager.SaveData(processInfo, idTaxPayer + "_process");
+            DataBaseManager.saveData(processInfo, idTaxPayer + "_process");
             System.out.println("Proceso de impuestos agregado exitosamente.");
             return askToAddAnotherProcess();
         } else {

@@ -106,7 +106,7 @@ public class CPPricingSystem {
 
             do {
                 System.out.print("¿Desea calcular otro proceso? [si/no]: ");
-                respuesta = scanner.nextLine().toLowerCase();
+                respuesta = scanner.nextLine().trim().toLowerCase();
             } while (!respuesta.equals("si") && !respuesta.equals("no"));
 
             if (respuesta.equals("no")) {
@@ -160,11 +160,11 @@ public class CPPricingSystem {
         return selectedProcess;
     }
 
-    private static float calculateTotalPrice(PriceList selectedProcess, int numDocumentation) {
-        float additionalCost = (numDocumentation / 10) * 0.50f;
+    private static float calculateTotalPrice(PriceList selectedProcess, float numDocumentation) {
+        float additionalCost = ((numDocumentation / 10) * 0.50f);
         float basePrice = selectedProcess.getPrice();
         float totalPriceWithoutTax = basePrice + additionalCost;
-        float tax = totalPriceWithoutTax * (selectedProcess.getTaxRate() / 100);
+        float tax = (totalPriceWithoutTax * (selectedProcess.getTaxRate() / 100));
         return totalPriceWithoutTax + tax;
     }
 
@@ -190,7 +190,7 @@ public class CPPricingSystem {
         float totalIncome = 0;
 
         for (TaxProcess item : processedItems) {
-            PriceList priceList = item.getPriceList(); // Obtener el objeto PriceList del TaxProcess
+            PriceList priceList = item.getPriceList(); 
             System.out.printf("%-5s %-50s %-25.2f %-20.2f %-20.2f\n",
                     priceList.getProcessId(), priceList.getProcessName(), priceList.getPrice(), priceList.getTaxRate(), item.getTotal());
             totalIncome += item.getTotal();

@@ -8,16 +8,14 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 
 public class ClassificationAgenda {
 
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void printSystemAgendaMenu() {
-        int menuOption = 0;
-        while (true) {
+        public static void printSystemAgendaMenu() {
+           while (true) {
             System.out.println("============================================================================");
             System.out.printf("%40s\n", "Menu de Administrador de Agenda:");
             System.out.println("============================================================================");
@@ -26,33 +24,16 @@ public class ClassificationAgenda {
             System.out.println("3. Salir");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
-            try {
-                menuOption = scanner.nextInt();
-                scanner.nextLine();
-                if (menuOption < 1 || menuOption > 3) {
-                    ConsoleHelper.clearScreen();
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
-                    continue;
-                }
-            } catch (InputMismatchException e) {
-                ConsoleHelper.clearScreen();
-                System.out.println("Entrada invalida. Por favor, ingrese un número del 1 al 3.");
-                scanner.next();
-                continue;
-            }
+            int menuOption = ConsoleHelper.getValidIntegerInput(1, 3, "Entrada invalida. Por favor, ingrese un número del 1 al 3.", "Opcion a escoger: ");
             ConsoleHelper.clearScreen();
             switch(menuOption) {
-                case 1:
-                    searchNinthDigit();
-                    break;
-                case 2:
-                    sendNotification();
-                    break;
-                case 3:
+                case 1 -> searchNinthDigit();
+                case 2 -> sendNotification();
+                case 3 -> {
                     System.out.println("Saliendo...");
                     return;
-                default:
-                    System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
+                   }
+                default -> System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
             }
         }
     }

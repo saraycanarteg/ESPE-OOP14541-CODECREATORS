@@ -182,21 +182,26 @@ public class CPPricingSystem {
 
     public static void printProcessedItems() {
         System.out.println("\nTabla de Ingresos:");
-
         System.out.println("====================================================================================================================");
         System.out.printf("%-5s %-50s %-25s %-20s %-20s\n", "ID", "Nombre del Proceso", "Precio Base ($)", "Impuesto (%)", "Total($)");
         System.out.println("====================================================================================================================");
-
-        float totalIncome = 0;
 
         for (TaxProcess item : processedItems) {
             PriceList priceList = item.getPriceList(); 
             System.out.printf("%-5s %-50s %-25.2f %-20.2f %-20.2f\n",
                     priceList.getProcessId(), priceList.getProcessName(), priceList.getPrice(), priceList.getTaxRate(), item.getTotal());
-            totalIncome += item.getTotal();
         }
 
+        float totalIncome = calculateTotalIncome(processedItems);
         System.out.printf("\nLos ingresos totales son: $%.2f\n", totalIncome);
+    }
+
+    private static float calculateTotalIncome(List<TaxProcess> processedItems) {
+        float totalIncome = 0;
+        for (TaxProcess item : processedItems) {
+            totalIncome += item.getTotal();
+        }
+        return totalIncome;
     }
 
     private static void loadProcessedItemsFromJson() {

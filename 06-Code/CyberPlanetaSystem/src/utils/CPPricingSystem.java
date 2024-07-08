@@ -22,7 +22,7 @@ public class CPPricingSystem {
         boolean continueRunning = true;
         while (continueRunning) {
             printCPPricingSystemMenuOptions(1);
-            int option = ConsoleHelper.getValidIntegerInput(1, 3, "Entrada invalida. Por favor, ingrese un número del 1 al 3.", "Opcion: ");
+            int option = ConsoleHelper.getValidIntegerInput(1, 4, "Entrada invalida. Por favor, ingrese un número del 1 al 4.", "Opcion: ");
             ConsoleHelper.clearScreen();
             continueRunning = getMenuOptionSelected(1, option);
         }
@@ -47,7 +47,8 @@ public class CPPricingSystem {
             System.out.println("MENU DE OPCIONES");
             System.out.println("1. Calcular costo de un proceso");
             System.out.println("2. Revisar ingresos totales");
-            System.out.println("3. Salir");
+            System.out.println("3. Calculo de tasa de crecimiento anual (CAGR)");
+            System.out.println("4. Salir");
             System.out.printf("%40s\n", "===============================================");
             System.out.print("Opcion: ");
         }
@@ -68,7 +69,9 @@ public class CPPricingSystem {
                     printVerifyProcessMenu();
                 case 2 ->
                     printProcessedItems();
-                case 3 -> {
+                case 3 ->
+                    CPAnnualGrowthSystem.calculateCAGR();
+                case 4 -> {
                     System.out.println("Saliendo...");
                     return false;
                 }

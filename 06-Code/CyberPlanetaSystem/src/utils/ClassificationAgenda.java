@@ -15,24 +15,28 @@ public class ClassificationAgenda {
     private static Scanner scanner = new Scanner(System.in);
 
         public static void printSystemAgendaMenu() {
-           while (true) {
+        while (true) {
             System.out.println("============================================================================");
             System.out.printf("%40s\n", "Menu de Administrador de Agenda:");
             System.out.println("============================================================================");
             System.out.println("1. Mostrar los contribuyentes por el noveno digito");
             System.out.println("2. Mostrar notificaciones pendientes");
-            System.out.println("3. Salir");
+            System.out.println("3. Comparar impuestos de dos meses");
+            System.out.println("4. Calcular promedio de impuestos mensuales");
+            System.out.println("5. Salir");
             System.out.println("============================================================================");
             System.out.print("Opcion a escoger: ");
-            int menuOption = ConsoleHelper.getValidIntegerInput(1, 3, "Entrada invalida. Por favor, ingrese un número del 1 al 3.", "Opcion a escoger: ");
+            int menuOption = ConsoleHelper.getValidIntegerInput(1, 5, "Entrada invalida. Por favor, ingrese un número del 1 al 5.", "Opcion a escoger: ");
             ConsoleHelper.clearScreen();
             switch(menuOption) {
                 case 1 -> searchNinthDigit();
                 case 2 -> sendNotification();
-                case 3 -> {
+                case 3 -> compareMonthlyTaxes();
+                case 4 -> calculateAverageMonthlyTaxes();
+                case 5 -> {
                     System.out.println("Saliendo...");
                     return;
-                   }
+                }
                 default -> System.out.println("Opcion invalida. Por favor, intentelo de nuevo.");
             }
         }
@@ -152,5 +156,60 @@ public class ClassificationAgenda {
         } else {
             System.out.println("\nEl proceso ha sido entregado o está retrasado en su entrega\n");
         }
-    }  
+    }
+
+    public static void compareMonthlyTaxes() {
+        System.out.print("Ingrese el impuesto cobrado en el primer mes: ");
+        double firstMonthTax = getValidDoubleInput();
+
+        System.out.print("Ingrese el impuesto cobrado en el segundo mes: ");
+        double secondMonthTax = getValidDoubleInput();
+
+        double difference = calculateTaxDifference(firstMonthTax, secondMonthTax);
+        System.out.printf("La diferencia de impuestos entre los dos meses es: $%.2f\n", difference);
+    }
+
+    private static double getValidDoubleInput() {
+        while (true) {
+            try {
+                return Double.parseDouble(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada invalida. Por favor, ingrese un numero valido: ");
+            }
+        }
+    }
+
+    private static double calculateTaxDifference(double firstMonthTax, double secondMonthTax) {
+        return Math.abs(firstMonthTax - secondMonthTax);
+    }
+    
+    public static void calculateAverageMonthlyTaxes() {
+        System.out.print("Ingrese la cantidad de meses: ");
+        int numberOfMonths = getValidIntegerInput();
+
+        double totalTaxes = 0;
+        for (int i = 1; i <= numberOfMonths; i++) {
+            System.out.printf("Ingrese el impuesto cobrado en el mes %d: ", i);
+            totalTaxes += getValidDoubleInput();
+        }
+
+        double average = calculateAverage(totalTaxes, numberOfMonths);
+        System.out.printf("El promedio de impuestos pagados en %d meses es: $%.2f\n", numberOfMonths, average);
+    }
+
+    private static int getValidIntegerInput() {
+        while (true) {
+            try {
+                return Integer.parseInt(scanner.nextLine().trim());
+            } catch (NumberFormatException e) {
+                System.out.print("Entrada invalida. Por favor, ingrese un numero entero valido: ");
+            }
+        }
+    }
+
+    private static double calculateAverage(double total, int count) {
+        return total / count;
+    }
+
+    
 }

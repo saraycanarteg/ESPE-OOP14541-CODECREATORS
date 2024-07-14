@@ -1,12 +1,24 @@
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":59.225}
-{"priceList":{"processId":1,"processName":"Declaracion de IVA en 0","price":5.0,"taxRate":15.0},"total":7.475}
-{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":23.575}
-{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":36.225}
-{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":24.15}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":70.725}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":70.725}
-{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":5.75}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":70.725}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":70.725}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":73.1975}
-{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":71.1275}
+
+{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":37.605}
+{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":8.51}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":7.82}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":9.0275}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":8.97}
+{"priceList":{"processId":1,"processName":"Declaracion de IVA en 0","price":5.0,"taxRate":15.0},"total":10.925}
+{"priceList":{"processId":1,"processName":"Declaracion de IVA en 0","price":5.0,"taxRate":15.0},"total":10.235}
+{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":49.0475}
+{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":86.25}
+{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":6.8424997}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":7.015}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":10.235}
+{"priceList":{"processId":1,"processName":"Declaracion de IVA en 0","price":5.0,"taxRate":15.0},"total":10.8675}
+{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":28.1175}
+{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":61.525}
+{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":7.475}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":8.97}
+{"priceList":{"processId":3,"processName":"Declaracion de IVA semestral","price":50.0,"taxRate":15.0},"total":96.025}
+{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":6.21}
+{"priceList":{"processId":1,"processName":"Declaracion de IVA en 0","price":5.0,"taxRate":15.0},"total":6.325}
+{"priceList":{"processId":4,"processName":"Devolucion Impuesto a la Renta","price":3.5,"taxRate":15.0},"total":9.775}
+{"priceList":{"processId":2,"processName":"Declaracion de IVA mensual","price":20.0,"taxRate":15.0},"total":25.875}
+{"priceList":{"processId":5,"processName":"Anexo de Accionista","price":5.0,"taxRate":15.0},"total":9.602501}

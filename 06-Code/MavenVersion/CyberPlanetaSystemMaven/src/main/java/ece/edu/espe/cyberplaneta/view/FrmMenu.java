@@ -50,6 +50,7 @@ public class FrmMenu extends javax.swing.JFrame {
         itmCAGR = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         itmUserManual = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,6 +95,11 @@ public class FrmMenu extends javax.swing.JFrame {
         itmTaxpayerInfo.add(itmEditTaxpayer);
 
         itmDeleteTaxpayer.setText("Eliminar Contribuyente");
+        itmDeleteTaxpayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmDeleteTaxpayerActionPerformed(evt);
+            }
+        });
         itmTaxpayerInfo.add(itmDeleteTaxpayer);
 
         mnuTaxpayer.add(itmTaxpayerInfo);
@@ -140,9 +146,19 @@ public class FrmMenu extends javax.swing.JFrame {
         itmTaxesOperations.setText("Taxes Options");
 
         itmCalculateTaxAverage.setText("Calcular Promedio de Impuestos");
+        itmCalculateTaxAverage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCalculateTaxAverageActionPerformed(evt);
+            }
+        });
         itmTaxesOperations.add(itmCalculateTaxAverage);
 
         itmCompare2Taxes.setText("Comparar 2 meses de Impuestos");
+        itmCompare2Taxes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCompare2TaxesActionPerformed(evt);
+            }
+        });
         itmTaxesOperations.add(itmCompare2Taxes);
 
         mnuClassificationAgenda.add(itmTaxesOperations);
@@ -182,6 +198,14 @@ public class FrmMenu extends javax.swing.JFrame {
         itmUserManual.setText("Manual de Usuario");
         mnuHelp.add(itmUserManual);
 
+        jMenuItem2.setText("Sobre el programa");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        mnuHelp.add(jMenuItem2);
+
         jMenuBar1.add(mnuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -204,7 +228,7 @@ public class FrmMenu extends javax.swing.JFrame {
         FrmPricingSystem frmtaxPricingSystem = new FrmPricingSystem();
         this.setVisible(true);
         frmtaxPricingSystem.setVisible(true);
-        
+
     }//GEN-LAST:event_itmTaxProcessCosstActionPerformed
 
     private void itmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogOutActionPerformed
@@ -212,7 +236,9 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmLogOutActionPerformed
 
     private void itmEditTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditTaxpayerActionPerformed
-        // TODO add your handling code here:
+        FrmEditTaxpayer frmEditTaxpayer = new FrmEditTaxpayer();
+        this.setVisible(false);
+        frmEditTaxpayer.setVisible(true);
     }//GEN-LAST:event_itmEditTaxpayerActionPerformed
 
     private void itmDeliveryCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeliveryCalendarActionPerformed
@@ -228,19 +254,19 @@ public class FrmMenu extends javax.swing.JFrame {
     private void itmTotalIcomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmTotalIcomeActionPerformed
         FrmIncomes frmIncomes = new FrmIncomes();
         this.setVisible(false);
-        frmIncomes .setVisible(true);
+        frmIncomes.setVisible(true);
     }//GEN-LAST:event_itmTotalIcomeActionPerformed
 
     private void itmCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCAGRActionPerformed
-        FrmCalculateCAGR frmCalculateCAGR = new FrmCalculateCAGR ();
+        FrmCalculateCAGR frmCalculateCAGR = new FrmCalculateCAGR();
         this.setVisible(false);
-        frmCalculateCAGR .setVisible(true);
+        frmCalculateCAGR.setVisible(true);
     }//GEN-LAST:event_itmCAGRActionPerformed
 
     private void itmNotificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmNotificationsActionPerformed
-        FrmShowNotification frmShowNotification = new FrmShowNotification ();
+        FrmShowNotification frmShowNotification = new FrmShowNotification();
         this.setVisible(false);
-        frmShowNotification .setVisible(true);
+        frmShowNotification.setVisible(true);
     }//GEN-LAST:event_itmNotificationsActionPerformed
 
     private void itmSearch9thDigitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSearch9thDigitActionPerformed
@@ -254,6 +280,28 @@ public class FrmMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmEditTaxpayer.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void itmDeleteTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeleteTaxpayerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itmDeleteTaxpayerActionPerformed
+
+    private void itmCalculateTaxAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCalculateTaxAverageActionPerformed
+        FrmCalculateAverageMonthlyTaxes frmCalculateAverageMonthlyTaxes = new FrmCalculateAverageMonthlyTaxes();
+        this.setVisible(false);
+        frmCalculateAverageMonthlyTaxes.setVisible(true);
+    }//GEN-LAST:event_itmCalculateTaxAverageActionPerformed
+
+    private void itmCompare2TaxesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCompare2TaxesActionPerformed
+        FrmCompareTwoMonthsTax frmCompareTwoMonthsTax = new FrmCompareTwoMonthsTax();
+        this.setVisible(false);
+        frmCompareTwoMonthsTax.setVisible(true);
+    }//GEN-LAST:event_itmCompare2TaxesActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        FrmSplash frmSplash = new FrmSplash();
+        this.setVisible(false);
+        frmSplash.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -313,6 +361,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmUserManual;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu mnuClassificationAgenda;
     private javax.swing.JMenu mnuCyberPlaneta;
     private javax.swing.JMenu mnuHelp;

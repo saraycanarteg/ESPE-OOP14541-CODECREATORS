@@ -76,6 +76,14 @@
                 <Property name="text" type="java.lang.String" value="Agregar Proceso a Contribuyente"/>
               </Properties>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Editar Contribuyente"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuClassificationAgenda">
@@ -87,6 +95,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Sistema de B&#xfa;squeda (9&#xba; D&#xed;gito)"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmSearch9thDigitActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmNotifications">
               <Properties>

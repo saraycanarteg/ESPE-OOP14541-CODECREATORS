@@ -28,55 +28,116 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCyberPlaneta = new javax.swing.JMenu();
-        itmLogout = new javax.swing.JMenuItem();
-        itmExit = new javax.swing.JMenuItem();
+        itmAccountSettings = new javax.swing.JMenuItem();
+        itmLogOut = new javax.swing.JMenuItem();
         mnuTaxpayer = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        itmTaxpayerInfo = new javax.swing.JMenu();
+        itmAddTaxpayer = new javax.swing.JMenuItem();
+        itmEditTaxpayer = new javax.swing.JMenuItem();
+        itmDeleteTaxpayer = new javax.swing.JMenuItem();
+        itmAddProcessTaxayer = new javax.swing.JMenuItem();
         mnuClassificationAgenda = new javax.swing.JMenu();
+        itmSearch9thDigit = new javax.swing.JMenuItem();
+        itmNotifications = new javax.swing.JMenuItem();
+        itmDeliveryCalendar = new javax.swing.JMenuItem();
+        itmTaxesOperations = new javax.swing.JMenu();
+        itmCalculateTaxAverage = new javax.swing.JMenuItem();
+        itmCompare2Taxes = new javax.swing.JMenuItem();
         mnuPricingSystem = new javax.swing.JMenu();
         itmTaxProcessCosst = new javax.swing.JMenuItem();
         itmTotalIcome = new javax.swing.JMenuItem();
         itmCAGR = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
+        itmUserManual = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jMenuBar1.setBackground(new java.awt.Color(65, 109, 155));
         jMenuBar1.setBorder(null);
+        jMenuBar1.setForeground(new java.awt.Color(65, 109, 155));
 
+        mnuCyberPlaneta.setBackground(new java.awt.Color(65, 109, 155));
         mnuCyberPlaneta.setText("CyberPlaneta");
 
-        itmLogout.setText("LogOut");
-        mnuCyberPlaneta.add(itmLogout);
+        itmAccountSettings.setText("Configuración de Cuenta");
+        mnuCyberPlaneta.add(itmAccountSettings);
 
-        itmExit.setText("Exit");
-        itmExit.addActionListener(new java.awt.event.ActionListener() {
+        itmLogOut.setText("Salir");
+        itmLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmExitActionPerformed(evt);
+                itmLogOutActionPerformed(evt);
             }
         });
-        mnuCyberPlaneta.add(itmExit);
+        mnuCyberPlaneta.add(itmLogOut);
 
         jMenuBar1.add(mnuCyberPlaneta);
 
-        mnuTaxpayer.setText("Taxpayer");
+        mnuTaxpayer.setText("Contribuyente");
 
-        jMenuItem1.setText("Información del Contribuyente");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        itmTaxpayerInfo.setText("Información del Contribuyente");
+
+        itmAddTaxpayer.setText("Añadir Contribuyente");
+        itmAddTaxpayer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                itmAddTaxpayerActionPerformed(evt);
             }
         });
-        mnuTaxpayer.add(jMenuItem1);
+        itmTaxpayerInfo.add(itmAddTaxpayer);
+
+        itmEditTaxpayer.setText("Editar Contribuyente");
+        itmEditTaxpayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmEditTaxpayerActionPerformed(evt);
+            }
+        });
+        itmTaxpayerInfo.add(itmEditTaxpayer);
+
+        itmDeleteTaxpayer.setText("Eliminar Contribuyente");
+        itmTaxpayerInfo.add(itmDeleteTaxpayer);
+
+        mnuTaxpayer.add(itmTaxpayerInfo);
+
+        itmAddProcessTaxayer.setText("Agregar Proceso a Contribuyente");
+        mnuTaxpayer.add(itmAddProcessTaxayer);
 
         jMenuBar1.add(mnuTaxpayer);
 
-        mnuClassificationAgenda.setText("Classification Agenda");
+        mnuClassificationAgenda.setText("Agenda de Clasificación");
+
+        itmSearch9thDigit.setText("Sistema de Búsqueda (9º Dígito)");
+        mnuClassificationAgenda.add(itmSearch9thDigit);
+
+        itmNotifications.setText("Notificaciones");
+        itmNotifications.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmNotificationsActionPerformed(evt);
+            }
+        });
+        mnuClassificationAgenda.add(itmNotifications);
+
+        itmDeliveryCalendar.setText("Calendario de Entregas");
+        itmDeliveryCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmDeliveryCalendarActionPerformed(evt);
+            }
+        });
+        mnuClassificationAgenda.add(itmDeliveryCalendar);
+
+        itmTaxesOperations.setText("Taxes Options");
+
+        itmCalculateTaxAverage.setText("Calcular Promedio de Impuestos");
+        itmTaxesOperations.add(itmCalculateTaxAverage);
+
+        itmCompare2Taxes.setText("Comparar 2 meses de Impuestos");
+        itmTaxesOperations.add(itmCompare2Taxes);
+
+        mnuClassificationAgenda.add(itmTaxesOperations);
+
         jMenuBar1.add(mnuClassificationAgenda);
 
-        mnuPricingSystem.setText("Pricing System");
+        mnuPricingSystem.setText("Sistema de Precios");
 
-        itmTaxProcessCosst.setText("Calculate Tax Process Cost");
+        itmTaxProcessCosst.setText("Calcular Costo de Proceso");
         itmTaxProcessCosst.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itmTaxProcessCosstActionPerformed(evt);
@@ -84,15 +145,29 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         mnuPricingSystem.add(itmTaxProcessCosst);
 
-        itmTotalIcome.setText("Review Total Income");
+        itmTotalIcome.setText("Revisar Ingresos Totales");
+        itmTotalIcome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmTotalIcomeActionPerformed(evt);
+            }
+        });
         mnuPricingSystem.add(itmTotalIcome);
 
-        itmCAGR.setText("Calculate CAGR");
+        itmCAGR.setText("Calcular CAGR");
+        itmCAGR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmCAGRActionPerformed(evt);
+            }
+        });
         mnuPricingSystem.add(itmCAGR);
 
         jMenuBar1.add(mnuPricingSystem);
 
-        mnuHelp.setText("Help");
+        mnuHelp.setText("Ayuda");
+
+        itmUserManual.setText("Manual de Usuario");
+        mnuHelp.add(itmUserManual);
+
         jMenuBar1.add(mnuHelp);
 
         setJMenuBar(jMenuBar1);
@@ -101,11 +176,11 @@ public class FrmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 551, Short.MAX_VALUE)
+            .addGap(0, 639, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 278, Short.MAX_VALUE)
+            .addGap(0, 279, Short.MAX_VALUE)
         );
 
         pack();
@@ -118,13 +193,41 @@ public class FrmMenu extends javax.swing.JFrame {
         
     }//GEN-LAST:event_itmTaxProcessCosstActionPerformed
 
-    private void itmExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmExitActionPerformed
+    private void itmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogOutActionPerformed
         System.exit(0);
-    }//GEN-LAST:event_itmExitActionPerformed
+    }//GEN-LAST:event_itmLogOutActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+    private void itmEditTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditTaxpayerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }//GEN-LAST:event_itmEditTaxpayerActionPerformed
+
+    private void itmDeliveryCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeliveryCalendarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itmDeliveryCalendarActionPerformed
+
+    private void itmAddTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAddTaxpayerActionPerformed
+        FrmAddTaxpayer frmAddTaxpayer = new FrmAddTaxpayer();
+        this.setVisible(false);
+        frmAddTaxpayer.setVisible(true);
+    }//GEN-LAST:event_itmAddTaxpayerActionPerformed
+
+    private void itmTotalIcomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmTotalIcomeActionPerformed
+        FrmIncomes frmIncomes = new FrmIncomes();
+        this.setVisible(false);
+        frmIncomes .setVisible(true);
+    }//GEN-LAST:event_itmTotalIcomeActionPerformed
+
+    private void itmCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCAGRActionPerformed
+        FrmCalculateCAGR frmCalculateCAGR = new FrmCalculateCAGR ();
+        this.setVisible(false);
+        frmCalculateCAGR .setVisible(true);
+    }//GEN-LAST:event_itmCAGRActionPerformed
+
+    private void itmNotificationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmNotificationsActionPerformed
+        FrmShowNotification frmShowNotification = new FrmShowNotification ();
+        this.setVisible(false);
+        frmShowNotification .setVisible(true);
+    }//GEN-LAST:event_itmNotificationsActionPerformed
 
     /**
      * @param args the command line arguments
@@ -165,13 +268,24 @@ public class FrmMenu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem itmAccountSettings;
+    private javax.swing.JMenuItem itmAddProcessTaxayer;
+    private javax.swing.JMenuItem itmAddTaxpayer;
     private javax.swing.JMenuItem itmCAGR;
-    private javax.swing.JMenuItem itmExit;
-    private javax.swing.JMenuItem itmLogout;
+    private javax.swing.JMenuItem itmCalculateTaxAverage;
+    private javax.swing.JMenuItem itmCompare2Taxes;
+    private javax.swing.JMenuItem itmDeleteTaxpayer;
+    private javax.swing.JMenuItem itmDeliveryCalendar;
+    private javax.swing.JMenuItem itmEditTaxpayer;
+    private javax.swing.JMenuItem itmLogOut;
+    private javax.swing.JMenuItem itmNotifications;
+    private javax.swing.JMenuItem itmSearch9thDigit;
     private javax.swing.JMenuItem itmTaxProcessCosst;
+    private javax.swing.JMenu itmTaxesOperations;
+    private javax.swing.JMenu itmTaxpayerInfo;
     private javax.swing.JMenuItem itmTotalIcome;
+    private javax.swing.JMenuItem itmUserManual;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu mnuClassificationAgenda;
     private javax.swing.JMenu mnuCyberPlaneta;
     private javax.swing.JMenu mnuHelp;

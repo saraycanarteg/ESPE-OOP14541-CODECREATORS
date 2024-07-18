@@ -10,56 +10,127 @@
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="null"/>
         </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="9b" green="6d" red="41" type="rgb"/>
+        </Property>
       </Properties>
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="mnuCyberPlaneta">
           <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="9b" green="6d" red="41" type="rgb"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="CyberPlaneta"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="itmLogout">
+            <MenuItem class="javax.swing.JMenuItem" name="itmAccountSettings">
               <Properties>
-                <Property name="text" type="java.lang.String" value="LogOut"/>
+                <Property name="text" type="java.lang.String" value="Configuraci&#xf3;n de Cuenta"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="itmExit">
+            <MenuItem class="javax.swing.JMenuItem" name="itmLogOut">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Exit"/>
+                <Property name="text" type="java.lang.String" value="Salir"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmExitActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmLogOutActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuTaxpayer">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Taxpayer"/>
+            <Property name="text" type="java.lang.String" value="Contribuyente"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <Menu class="javax.swing.JMenu" name="itmTaxpayerInfo">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n del Contribuyente"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem1ActionPerformed"/>
-              </Events>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="itmAddTaxpayer">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="A&#xf1;adir Contribuyente"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmAddTaxpayerActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itmEditTaxpayer">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Editar Contribuyente"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmEditTaxpayerActionPerformed"/>
+                  </Events>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itmDeleteTaxpayer">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Eliminar Contribuyente"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+            <MenuItem class="javax.swing.JMenuItem" name="itmAddProcessTaxayer">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Agregar Proceso a Contribuyente"/>
+              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuClassificationAgenda">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Classification Agenda"/>
+            <Property name="text" type="java.lang.String" value="Agenda de Clasificaci&#xf3;n"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itmSearch9thDigit">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Sistema de B&#xfa;squeda (9&#xba; D&#xed;gito)"/>
+              </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmNotifications">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Notificaciones"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmNotificationsActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="itmDeliveryCalendar">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Calendario de Entregas"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmDeliveryCalendarActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <Menu class="javax.swing.JMenu" name="itmTaxesOperations">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Taxes Options"/>
+              </Properties>
+              <SubComponents>
+                <MenuItem class="javax.swing.JMenuItem" name="itmCalculateTaxAverage">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Calcular Promedio de Impuestos"/>
+                  </Properties>
+                </MenuItem>
+                <MenuItem class="javax.swing.JMenuItem" name="itmCompare2Taxes">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Comparar 2 meses de Impuestos"/>
+                  </Properties>
+                </MenuItem>
+              </SubComponents>
+            </Menu>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuPricingSystem">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Pricing System"/>
+            <Property name="text" type="java.lang.String" value="Sistema de Precios"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="itmTaxProcessCosst">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Calculate Tax Process Cost"/>
+                <Property name="text" type="java.lang.String" value="Calcular Costo de Proceso"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmTaxProcessCosstActionPerformed"/>
@@ -67,20 +138,33 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmTotalIcome">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Review Total Income"/>
+                <Property name="text" type="java.lang.String" value="Revisar Ingresos Totales"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmTotalIcomeActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="itmCAGR">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Calculate CAGR"/>
+                <Property name="text" type="java.lang.String" value="Calcular CAGR"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmCAGRActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="mnuHelp">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Help"/>
+            <Property name="text" type="java.lang.String" value="Ayuda"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="itmUserManual">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Manual de Usuario"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
         </Menu>
       </SubComponents>
     </Menu>
@@ -108,12 +192,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="551" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="639" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <EmptySpace min="0" pref="278" max="32767" attributes="0"/>
+          <EmptySpace min="0" pref="279" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>

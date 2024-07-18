@@ -250,7 +250,9 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        // TODO add your handling code here:
+            FrmMenu frmMenu= new FrmMenu();
+            this.setVisible(false);
+            frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnCalculateIncome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncome1ActionPerformed

@@ -26,16 +26,20 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCyberPlaneta = new javax.swing.JMenu();
         itmAccountSettings = new javax.swing.JMenuItem();
         itmLogOut = new javax.swing.JMenuItem();
         mnuTaxpayer = new javax.swing.JMenu();
+        itmAddProcessTaxayer = new javax.swing.JMenuItem();
         itmTaxpayerInfo = new javax.swing.JMenu();
         itmAddTaxpayer = new javax.swing.JMenuItem();
         itmEditTaxpayer = new javax.swing.JMenuItem();
         itmDeleteTaxpayer = new javax.swing.JMenuItem();
-        itmAddProcessTaxayer = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         mnuClassificationAgenda = new javax.swing.JMenu();
         itmSearch9thDigit = new javax.swing.JMenuItem();
@@ -54,12 +58,29 @@ public class FrmMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jMenuBar1.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cyberplanetalogo.png"))); // NOI18N
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2.jpg"))); // NOI18N
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-230, 0, -1, 440));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, -1, -1));
+
+        jMenuBar1.setBackground(new java.awt.Color(159, 246, 70));
         jMenuBar1.setBorder(null);
         jMenuBar1.setForeground(new java.awt.Color(65, 109, 155));
+        jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jMenuBar1.setMinimumSize(new java.awt.Dimension(485, 28));
+        jMenuBar1.setOpaque(true);
 
-        mnuCyberPlaneta.setBackground(new java.awt.Color(65, 109, 155));
+        mnuCyberPlaneta.setBackground(new java.awt.Color(159, 246, 70));
+        mnuCyberPlaneta.setForeground(new java.awt.Color(51, 0, 153));
+        mnuCyberPlaneta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/house-chimney.png"))); // NOI18N
         mnuCyberPlaneta.setText("CyberPlaneta");
+        mnuCyberPlaneta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mnuCyberPlaneta.setOpaque(true);
 
         itmAccountSettings.setText("Configuración de Cuenta");
         mnuCyberPlaneta.add(itmAccountSettings);
@@ -74,9 +95,17 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuCyberPlaneta);
 
+        mnuTaxpayer.setBackground(new java.awt.Color(159, 246, 70));
+        mnuTaxpayer.setForeground(new java.awt.Color(51, 0, 153));
+        mnuTaxpayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-user.png"))); // NOI18N
         mnuTaxpayer.setText("Contribuyente");
+        mnuTaxpayer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mnuTaxpayer.setOpaque(true);
 
-        itmTaxpayerInfo.setText("Información del Contribuyente");
+        itmAddProcessTaxayer.setText("Información General de Contribuyentes");
+        mnuTaxpayer.add(itmAddProcessTaxayer);
+
+        itmTaxpayerInfo.setText("Manejo de Contribuyentes");
 
         itmAddTaxpayer.setText("Añadir Contribuyente");
         itmAddTaxpayer.addActionListener(new java.awt.event.ActionListener() {
@@ -104,10 +133,7 @@ public class FrmMenu extends javax.swing.JFrame {
 
         mnuTaxpayer.add(itmTaxpayerInfo);
 
-        itmAddProcessTaxayer.setText("Agregar Proceso a Contribuyente");
-        mnuTaxpayer.add(itmAddProcessTaxayer);
-
-        jMenuItem1.setText("Editar Contribuyente");
+        jMenuItem1.setText("Procesos de Contribuyentes");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -117,7 +143,12 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuTaxpayer);
 
+        mnuClassificationAgenda.setBackground(new java.awt.Color(159, 246, 70));
+        mnuClassificationAgenda.setForeground(new java.awt.Color(51, 0, 153));
+        mnuClassificationAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-clock.png"))); // NOI18N
         mnuClassificationAgenda.setText("Agenda de Clasificación");
+        mnuClassificationAgenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mnuClassificationAgenda.setOpaque(true);
 
         itmSearch9thDigit.setText("Sistema de Búsqueda (9º Dígito)");
         itmSearch9thDigit.addActionListener(new java.awt.event.ActionListener() {
@@ -143,7 +174,7 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         mnuClassificationAgenda.add(itmDeliveryCalendar);
 
-        itmTaxesOperations.setText("Taxes Options");
+        itmTaxesOperations.setText("Operaciones con Impuestos");
 
         itmCalculateTaxAverage.setText("Calcular Promedio de Impuestos");
         itmCalculateTaxAverage.addActionListener(new java.awt.event.ActionListener() {
@@ -165,7 +196,12 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuClassificationAgenda);
 
+        mnuPricingSystem.setBackground(new java.awt.Color(159, 246, 70));
+        mnuPricingSystem.setForeground(new java.awt.Color(51, 0, 153));
+        mnuPricingSystem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator.png"))); // NOI18N
         mnuPricingSystem.setText("Sistema de Precios");
+        mnuPricingSystem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mnuPricingSystem.setOpaque(true);
 
         itmTaxProcessCosst.setText("Calcular Costo de Proceso");
         itmTaxProcessCosst.addActionListener(new java.awt.event.ActionListener() {
@@ -193,9 +229,15 @@ public class FrmMenu extends javax.swing.JFrame {
 
         jMenuBar1.add(mnuPricingSystem);
 
+        mnuHelp.setBackground(new java.awt.Color(159, 246, 70));
+        mnuHelp.setForeground(new java.awt.Color(51, 0, 153));
+        mnuHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/interrogation.png"))); // NOI18N
         mnuHelp.setText("Ayuda");
+        mnuHelp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        mnuHelp.setOpaque(true);
 
         itmUserManual.setText("Manual de Usuario");
+        itmUserManual.setOpaque(true);
         mnuHelp.add(itmUserManual);
 
         jMenuItem2.setText("Sobre el programa");
@@ -214,11 +256,13 @@ public class FrmMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 639, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 279, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -359,9 +403,13 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenu itmTaxpayerInfo;
     private javax.swing.JMenuItem itmTotalIcome;
     private javax.swing.JMenuItem itmUserManual;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuClassificationAgenda;
     private javax.swing.JMenu mnuCyberPlaneta;
     private javax.swing.JMenu mnuHelp;

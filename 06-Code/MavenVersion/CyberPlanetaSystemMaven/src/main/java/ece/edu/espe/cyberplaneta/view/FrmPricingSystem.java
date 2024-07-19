@@ -1,22 +1,34 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ece.edu.espe.cyberplaneta.view;
+
+import ec.edu.espe.cyberplaneta.model.PriceList;
+import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
+import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Usuario
+ * @author Saray Cañarte
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
-
+    private final PricingSystemManager controller;
     /**
      * Creates new form FrmPriceSystem
      */
+
     public FrmPricingSystem() {
+        this.controller = new PricingSystemManager(); 
         initComponents();
+        loadPriceListTable(); 
     }
 
+    private void loadPriceListTable() {
+        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
+        model.setRowCount(0); 
+
+        for (PriceList price : PricingSystemManager.getPriceListArray()) {
+            model.addRow(new Object[]{price.getProcessId(), price.getProcessName(), price.getPrice(), price.getTaxRate()});
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,6 +41,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblPriceList = new javax.swing.JTable();
@@ -39,6 +52,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         txtProcessIdCalc = new javax.swing.JTextField();
         txtNumberOfDocumentation = new javax.swing.JTextField();
         chbAddCalcToIncomes = new javax.swing.JCheckBox();
+        txtInvalidId = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnCalculateIncome = new javax.swing.JButton();
         btnCancelIncomeCalc = new javax.swing.JButton();
@@ -46,31 +60,22 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(165, 231, 165));
+        jLabel1.setForeground(new java.awt.Color(7, 81, 203));
         jLabel1.setText("Sistema de Cálculo de Precios");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 510, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(25, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(23, 23, 23))
-        );
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, -1, 100));
 
-        jPanel3.setBackground(new java.awt.Color(165, 231, 165));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 910, 100));
+
+        jPanel3.setBackground(new java.awt.Color(159, 246, 70));
 
         tblPriceList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblPriceList.setForeground(new java.awt.Color(65, 109, 155));
@@ -93,6 +98,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
+        tblPriceList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
         tblPriceList.setGridColor(new java.awt.Color(65, 109, 155));
         jScrollPane2.setViewportView(tblPriceList);
 
@@ -102,8 +108,8 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 701, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(9, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 898, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,70 +119,56 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel4.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 910, -1));
+
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("ID del proceso:");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("Número de Documentación:");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("¿Desea añadir al registro de ingresos?");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+
+        txtProcessIdCalc.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtProcessIdCalcFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 100, -1));
 
         txtNumberOfDocumentation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumberOfDocumentationActionPerformed(evt);
             }
         });
+        jPanel4.add(txtNumberOfDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 100, -1));
 
-        chbAddCalcToIncomes.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        chbAddCalcToIncomes.setForeground(new java.awt.Color(255, 255, 255));
+        chbAddCalcToIncomes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        chbAddCalcToIncomes.setForeground(new java.awt.Color(7, 81, 203));
         chbAddCalcToIncomes.setText("Añadir");
+        chbAddCalcToIncomes.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        jPanel4.add(chbAddCalcToIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 245, -1));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel2))
-                .addGap(59, 59, 59)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtProcessIdCalc)
-                    .addComponent(txtNumberOfDocumentation)
-                    .addComponent(chbAddCalcToIncomes, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(73, Short.MAX_VALUE))
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtProcessIdCalc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtNumberOfDocumentation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(chbAddCalcToIncomes))
-                .addGap(25, 25, 25))
-        );
+        txtInvalidId.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 280, 20));
 
-        jPanel5.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 910, 154));
 
-        btnCalculateIncome.setBackground(new java.awt.Color(165, 231, 165));
+        jPanel5.setBackground(new java.awt.Color(7, 81, 203));
+
+        btnCalculateIncome.setBackground(new java.awt.Color(159, 246, 70));
         btnCalculateIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateIncome.setForeground(new java.awt.Color(65, 109, 155));
+        btnCalculateIncome.setForeground(new java.awt.Color(7, 81, 203));
         btnCalculateIncome.setText("Calcular");
 
         btnCancelIncomeCalc.setBackground(new java.awt.Color(255, 101, 98));
@@ -194,11 +186,11 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(161, 161, 161)
+                .addContainerGap(200, Short.MAX_VALUE)
                 .addComponent(btnCancelIncomeCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(142, 142, 142)
+                .addGap(203, 203, 203)
                 .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(205, 205, 205))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,33 +202,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(226, 226, 226))
-        );
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 910, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -246,7 +212,9 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 485, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
@@ -261,6 +229,25 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             this.setVisible(false);
             frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
+
+    private void txtProcessIdCalcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProcessIdCalcFocusLost
+        try {
+            int processId = Integer.parseInt(txtProcessIdCalc.getText());
+            if (processId < 0) {
+                txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
+                txtInvalidId.setText("Error: ID no puede ser negativo");
+            } else if (!controller.isProcessIdAvailable(processId)) {
+                txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
+                txtInvalidId.setText("Error: ID no disponible");
+            } else {
+                txtInvalidId.setIcon(null);
+                txtInvalidId.setText(null);
+            }
+        } catch (NumberFormatException e) {
+            txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
+            txtInvalidId.setText("Error: Por favor ingrese un número válido");
+        }
+    }//GEN-LAST:event_txtProcessIdCalcFocusLost
 
     /**
      * @param args the command line arguments
@@ -306,6 +293,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -313,6 +301,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblPriceList;
+    private javax.swing.JLabel txtInvalidId;
     private javax.swing.JTextField txtNumberOfDocumentation;
     private javax.swing.JTextField txtProcessIdCalc;
     // End of variables declaration//GEN-END:variables

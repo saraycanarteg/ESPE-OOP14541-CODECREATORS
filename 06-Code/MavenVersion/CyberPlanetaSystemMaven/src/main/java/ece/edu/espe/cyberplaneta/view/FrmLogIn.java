@@ -49,6 +49,11 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         txtUser.setMaximumSize(new java.awt.Dimension(64, 18));
+        txtUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUserActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(7, 81, 203));
@@ -57,6 +62,11 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         btnPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         btnPassword.setMaximumSize(new java.awt.Dimension(64, 18));
+        btnPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPasswordActionPerformed(evt);
+            }
+        });
 
         btnLogin.setBackground(new java.awt.Color(159, 246, 70));
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -126,13 +136,21 @@ public class FrmLogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        if (true){
+        
             FrmMenu frmMain= new FrmMenu();
             this.setVisible(false);
             frmMain.setVisible(true);
-        }
+        
 
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUserActionPerformed
+
+    private void btnPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPasswordActionPerformed
 
     /**
      * @param args the command line arguments

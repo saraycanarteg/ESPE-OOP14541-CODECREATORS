@@ -3,6 +3,7 @@ package ece.edu.espe.cyberplaneta.view;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -10,7 +11,8 @@ import javax.swing.table.DefaultTableModel;
  * @author Saray Cañarte
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
-    private final PricingSystemManager controller;
+    private PricingSystemManager controller = new PricingSystemManager();
+    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmPricingSystem.class.getResource("/images/triangle-warning.png"));
     /**
      * Creates new form FrmPriceSystem
      */
@@ -18,7 +20,8 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     public FrmPricingSystem() {
         this.controller = new PricingSystemManager(); 
         initComponents();
-        loadPriceListTable(); 
+        loadPriceListTable();
+        txtInvalidId.setIcon(null);
     }
 
     private void loadPriceListTable() {
@@ -52,6 +55,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         txtProcessIdCalc = new javax.swing.JTextField();
         txtNumberOfDocumentation = new javax.swing.JTextField();
         chbAddCalcToIncomes = new javax.swing.JCheckBox();
+        txtInvalidIDocumentation = new javax.swing.JLabel();
         txtInvalidId = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnCalculateIncome = new javax.swing.JButton();
@@ -144,8 +148,18 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 txtProcessIdCalcFocusLost(evt);
             }
         });
+        txtProcessIdCalc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProcessIdCalcActionPerformed(evt);
+            }
+        });
         jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 100, -1));
 
+        txtNumberOfDocumentation.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumberOfDocumentationFocusLost(evt);
+            }
+        });
         txtNumberOfDocumentation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNumberOfDocumentationActionPerformed(evt);
@@ -159,6 +173,9 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         chbAddCalcToIncomes.setMargin(new java.awt.Insets(2, 4, 2, 4));
         jPanel4.add(chbAddCalcToIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 245, -1));
 
+        txtInvalidIDocumentation.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel4.add(txtInvalidIDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 280, 20));
+
         txtInvalidId.setForeground(new java.awt.Color(255, 0, 0));
         jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 280, 20));
 
@@ -170,6 +187,11 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         btnCalculateIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCalculateIncome.setForeground(new java.awt.Color(7, 81, 203));
         btnCalculateIncome.setText("Calcular");
+        btnCalculateIncome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCalculateIncomeActionPerformed(evt);
+            }
+        });
 
         btnCancelIncomeCalc.setBackground(new java.awt.Color(255, 101, 98));
         btnCancelIncomeCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -199,29 +221,29 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelIncomeCalc)
                     .addComponent(btnCalculateIncome))
-                .addContainerGap(18, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 910, -1));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 420, 910, 70));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 479, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNumberOfDocumentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberOfDocumentationActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_txtNumberOfDocumentationActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
@@ -234,20 +256,104 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         try {
             int processId = Integer.parseInt(txtProcessIdCalc.getText());
             if (processId < 0) {
-                txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
+                txtInvalidId.setIcon(WARNING_ICON);
                 txtInvalidId.setText("Error: ID no puede ser negativo");
             } else if (!controller.isProcessIdAvailable(processId)) {
-                txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
+                txtInvalidId.setIcon(WARNING_ICON);
                 txtInvalidId.setText("Error: ID no disponible");
             } else {
                 txtInvalidId.setIcon(null);
                 txtInvalidId.setText(null);
             }
         } catch (NumberFormatException e) {
-            txtInvalidId.setIcon(new ImageIcon(getClass().getResource("/images/triangle-warning.png")));
-            txtInvalidId.setText("Error: Por favor ingrese un número válido");
+            txtInvalidId.setIcon(WARNING_ICON);
+            txtInvalidId.setText("Error: Ingrese un número válido");
         }
     }//GEN-LAST:event_txtProcessIdCalcFocusLost
+
+    private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
+        boolean hasInvalidFields = false;
+
+        if (txtInvalidId != null) {
+            String invalidIdText = txtInvalidId.getText();
+            if (invalidIdText != null && !invalidIdText.isEmpty()) {
+                hasInvalidFields = true;
+            }
+        }
+
+        if (txtInvalidIDocumentation != null) {
+            String invalidDocText = txtInvalidIDocumentation.getText();
+            if (invalidDocText != null && !invalidDocText.isEmpty()) {
+                hasInvalidFields = true;
+            }
+        }
+
+        if (hasInvalidFields) {
+            JOptionPane.showMessageDialog(this,
+                    "No se puede proceder con el cálculo. Por favor, corrija los campos señalados.",
+                    "Error de validación",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        String processIdText = txtProcessIdCalc.getText();
+        String numberOfDocumentationText = txtNumberOfDocumentation.getText();
+        boolean addToIncomes = chbAddCalcToIncomes.isSelected();
+
+        if (processIdText.isEmpty() || numberOfDocumentationText.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            int processId = Integer.parseInt(processIdText);
+            int numberOfDocumentation = Integer.parseInt(numberOfDocumentationText);
+            PriceList selectedProcess = null;
+            for (PriceList process : PricingSystemManager.getPriceListArray()) {
+                if (process.getProcessId() == processId) {
+                    selectedProcess = process;
+                    break;
+                }
+            }
+            if (selectedProcess == null) {
+                JOptionPane.showMessageDialog(this, "Proceso no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            float totalPrice = PricingSystemManager.calculateTotalPrice(selectedProcess, numberOfDocumentation);
+
+            String message = String.format("ID del proceso: %d\nNombre del Proceso: %s\nPrecio Base: $%.2f\nImpuesto: %.2f%%\nNúmero de Documentación: %s\nPrecio Total: $%.2f",
+                    selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate(), numberOfDocumentation, totalPrice);
+            JOptionPane.showMessageDialog(this, message, "Resultados de Cálculo", JOptionPane.INFORMATION_MESSAGE);
+
+            if (addToIncomes) {
+                PricingSystemManager.saveTaxProcessToDatabase(selectedProcess, totalPrice, numberOfDocumentation);
+                JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Por favor ingrese valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnCalculateIncomeActionPerformed
+
+    private void txtProcessIdCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcessIdCalcActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProcessIdCalcActionPerformed
+
+    private void txtNumberOfDocumentationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumberOfDocumentationFocusLost
+        try {
+            int numDocumentation = Integer.parseInt(txtNumberOfDocumentation.getText());
+            if (numDocumentation <= 0) {
+                txtInvalidIDocumentation.setIcon(WARNING_ICON);
+                txtInvalidIDocumentation.setText("Error: Número de documentación no puede ser negativo");
+            } else {
+                txtInvalidIDocumentation.setIcon(null);
+                txtInvalidIDocumentation.setText(null);
+            }
+        } catch (NumberFormatException e) {
+            txtInvalidIDocumentation.setIcon(WARNING_ICON);
+            txtInvalidIDocumentation.setText("Error: Por favor ingrese un número válido");
+        }
+    }//GEN-LAST:event_txtNumberOfDocumentationFocusLost
 
     /**
      * @param args the command line arguments
@@ -301,6 +407,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblPriceList;
+    private javax.swing.JLabel txtInvalidIDocumentation;
     private javax.swing.JLabel txtInvalidId;
     private javax.swing.JTextField txtNumberOfDocumentation;
     private javax.swing.JTextField txtProcessIdCalc;

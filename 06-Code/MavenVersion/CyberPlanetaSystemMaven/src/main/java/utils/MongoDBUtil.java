@@ -126,6 +126,22 @@ public class MongoDBUtil {
         }
         return msm;
     }
+    public static boolean verificationIdTaxpayer(String id) {
+        boolean verification = false;
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            Document user = collection.find(eq("id", id)).first();
+            if (user == null) {
+                verification = true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return verification;
+    }
+    
 }
 
 

@@ -4,6 +4,8 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import java.util.regex.Pattern;
+
 /**
  *
  * @author Usuario
@@ -50,9 +52,19 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         txtUser.setMaximumSize(new java.awt.Dimension(64, 18));
+        txtUser.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUserFocusLost(evt);
+            }
+        });
         txtUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUserActionPerformed(evt);
+            }
+        });
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
             }
         });
 
@@ -81,8 +93,9 @@ public class FrmLogIn extends javax.swing.JFrame {
             }
         });
 
-        txtPassIncorrect.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        txtPassIncorrect.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtPassIncorrect.setForeground(new java.awt.Color(255, 0, 0));
+        txtPassIncorrect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -95,8 +108,8 @@ public class FrmLogIn extends javax.swing.JFrame {
                         .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(60, 60, 60))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(txtPassIncorrect, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -145,20 +158,18 @@ public class FrmLogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        
+
         String passwor = new String(btnPassword.getPassword());
         String user = txtUser.getText().trim();
-        
+
         if (utils.MongoDBUtil.validateUser(user, passwor)) {
             FrmMenu frmMain = new FrmMenu();
             this.setVisible(false);
             frmMain.setVisible(true);
         } else {
-            
             txtPassIncorrect.setText("Contraseña ó usuario inválido");
         }
 
-        
 
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -169,6 +180,23 @@ public class FrmLogIn extends javax.swing.JFrame {
     private void btnPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPasswordActionPerformed
+
+    private void txtUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserFocusLost
+        if (containsInvalidCharacters(txtUser.getText().trim())) {
+            txtPassIncorrect.setText("Formato de usuario incorrecto");
+        } else {
+            txtPassIncorrect.setText(null);
+        }
+
+    }//GEN-LAST:event_txtUserFocusLost
+
+    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+
+        char c = evt.getKeyChar();
+        if (!Character.isLetterOrDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
+            evt.consume(); // Ignorar el evento
+        }
+    }//GEN-LAST:event_txtUserKeyTyped
 
     /**
      * @param args the command line arguments
@@ -206,6 +234,12 @@ public class FrmLogIn extends javax.swing.JFrame {
                 new FrmLogIn().setVisible(true);
             }
         });
+    }
+
+    public static boolean containsInvalidCharacters(String text) {
+        String regex = "[\\s!@#$%^&*(),.?\":{}|<>]";
+        Pattern pattern = Pattern.compile(regex);
+        return pattern.matcher(text).find();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

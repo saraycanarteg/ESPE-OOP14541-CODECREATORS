@@ -7,10 +7,13 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MongoDBUtil {
+
     private static final String URI = "mongodb+srv://canarte:canarte@cluster0.devwm9s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     private static final String DATABASE_NAME = "CyberPlaneta";
 
@@ -23,12 +26,15 @@ public class MongoDBUtil {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("Incomes");
 
+        BigDecimal price = BigDecimal.valueOf(taxProcess.getPriceList().getPrice()).setScale(2, RoundingMode.HALF_UP);
+        BigDecimal total = BigDecimal.valueOf(taxProcess.getTotal()).setScale(2, RoundingMode.HALF_UP);
+
         Document document = new Document("processId", taxProcess.getPriceList().getProcessId())
                 .append("processName", taxProcess.getPriceList().getProcessName())
-                .append("price", taxProcess.getPriceList().getPrice())
+                .append("price", price.doubleValue())
                 .append("taxRate", taxProcess.getPriceList().getTaxRate())
                 .append("numberOfDocumentation", numberOfDocumentation)
-                .append("total", taxProcess.getTotal());
+                .append("total", total.doubleValue());
 
         collection.insertOne(document);
     }

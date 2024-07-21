@@ -27,9 +27,8 @@ public class FrmMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCyberPlaneta = new javax.swing.JMenu();
         itmAccountSettings = new javax.swing.JMenuItem();
@@ -44,7 +43,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuClassificationAgenda = new javax.swing.JMenu();
         itmSearch9thDigit = new javax.swing.JMenuItem();
         itmNotifications = new javax.swing.JMenuItem();
-        itmDeliveryCalendar = new javax.swing.JMenuItem();
         itmTaxesOperations = new javax.swing.JMenu();
         itmCalculateTaxAverage = new javax.swing.JMenuItem();
         itmCompare2Taxes = new javax.swing.JMenuItem();
@@ -53,7 +51,6 @@ public class FrmMenu extends javax.swing.JFrame {
         itmTotalIcome = new javax.swing.JMenuItem();
         itmCAGR = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
-        itmUserManual = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -61,12 +58,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/cyberplanetalogo.png"))); // NOI18N
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 130, -1, -1));
-
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2.jpg"))); // NOI18N
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-230, 0, -1, 440));
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 110, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cyberplanetalogo.png"))); // NOI18N
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 120, -1, -1));
 
         jMenuBar1.setBackground(new java.awt.Color(159, 246, 70));
         jMenuBar1.setBorder(null);
@@ -166,14 +162,6 @@ public class FrmMenu extends javax.swing.JFrame {
         });
         mnuClassificationAgenda.add(itmNotifications);
 
-        itmDeliveryCalendar.setText("Calendario de Entregas");
-        itmDeliveryCalendar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itmDeliveryCalendarActionPerformed(evt);
-            }
-        });
-        mnuClassificationAgenda.add(itmDeliveryCalendar);
-
         itmTaxesOperations.setText("Operaciones con Impuestos");
 
         itmCalculateTaxAverage.setText("Calcular Promedio de Impuestos");
@@ -236,10 +224,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuHelp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         mnuHelp.setOpaque(true);
 
-        itmUserManual.setText("Manual de Usuario");
-        itmUserManual.setOpaque(true);
-        mnuHelp.add(itmUserManual);
-
         jMenuItem2.setText("Sobre el programa");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -284,10 +268,6 @@ public class FrmMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmEditTaxpayer.setVisible(true);
     }//GEN-LAST:event_itmEditTaxpayerActionPerformed
-
-    private void itmDeliveryCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeliveryCalendarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_itmDeliveryCalendarActionPerformed
 
     private void itmAddTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAddTaxpayerActionPerformed
         FrmAddTaxpayer frmAddTaxpayer = new FrmAddTaxpayer();
@@ -393,7 +373,6 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmCalculateTaxAverage;
     private javax.swing.JMenuItem itmCompare2Taxes;
     private javax.swing.JMenuItem itmDeleteTaxpayer;
-    private javax.swing.JMenuItem itmDeliveryCalendar;
     private javax.swing.JMenuItem itmEditTaxpayer;
     private javax.swing.JMenuItem itmLogOut;
     private javax.swing.JMenuItem itmNotifications;
@@ -402,10 +381,8 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenu itmTaxesOperations;
     private javax.swing.JMenu itmTaxpayerInfo;
     private javax.swing.JMenuItem itmTotalIcome;
-    private javax.swing.JMenuItem itmUserManual;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

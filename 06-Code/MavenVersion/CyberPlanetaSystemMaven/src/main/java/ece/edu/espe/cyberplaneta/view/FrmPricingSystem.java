@@ -2,9 +2,16 @@ package ece.edu.espe.cyberplaneta.view;
 
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 /**
  *
@@ -22,15 +29,39 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         initComponents();
         loadPriceListTable();
         txtInvalidId.setIcon(null);
+        customizeTableHeader();
     }
 
     private void loadPriceListTable() {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
 
         for (PriceList price : PricingSystemManager.getPriceListArray()) {
-            model.addRow(new Object[]{price.getProcessId(), price.getProcessName(), price.getPrice(), price.getTaxRate()});
+            model.addRow(new Object[]{
+                price.getProcessId(),
+                price.getProcessName(),
+                String.format("%.2f", price.getPrice()),
+                String.format("%.2f", price.getTaxRate())
+            });
         }
+    }
+    private void customizeTableHeader() {
+        JTableHeader header = tblPriceList.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        header.setForeground(new Color(255, 255, 255));
+        header.setBackground(new Color(7, 81, 203));
+        tblPriceList.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(new Color(7, 81, 203)); 
+                c.setForeground(Color.WHITE); 
+                c.setFont(c.getFont().deriveFont(Font.BOLD));
+                return c;
+            }
+        });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,17 +124,13 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre del Proceso", "Precio Base ($)", "Impuesto (%)"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Float.class, java.lang.Float.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tblPriceList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_NEXT_COLUMN);
         tblPriceList.setGridColor(new java.awt.Color(65, 109, 155));
+        tblPriceList.setRowHeight(25);
+        tblPriceList.setSelectionBackground(new java.awt.Color(159, 246, 70));
+        tblPriceList.setSelectionForeground(new java.awt.Color(7, 81, 203));
+        tblPriceList.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblPriceList);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -119,11 +146,11 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 910, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 910, 170));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -131,18 +158,19 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("ID del proceso:");
-        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, -1, -1));
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("Número de Documentación:");
-        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 153));
         jLabel4.setText("¿Desea añadir al registro de ingresos?");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, -1, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
 
+        txtProcessIdCalc.setToolTipText("Ingrese un ID de la tabla");
         txtProcessIdCalc.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtProcessIdCalcFocusLost(evt);
@@ -153,8 +181,9 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 txtProcessIdCalcActionPerformed(evt);
             }
         });
-        jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 20, 100, -1));
+        jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 100, -1));
 
+        txtNumberOfDocumentation.setToolTipText("Ingrese el número de documentación proporcionado para realizar ese proceso");
         txtNumberOfDocumentation.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNumberOfDocumentationFocusLost(evt);
@@ -165,19 +194,20 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                 txtNumberOfDocumentationActionPerformed(evt);
             }
         });
-        jPanel4.add(txtNumberOfDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 100, -1));
+        jPanel4.add(txtNumberOfDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 100, -1));
 
         chbAddCalcToIncomes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         chbAddCalcToIncomes.setForeground(new java.awt.Color(7, 81, 203));
         chbAddCalcToIncomes.setText("Añadir");
+        chbAddCalcToIncomes.setToolTipText("Seleccione si desea añadir el cálculo como ingreso de CyberPlaneta");
         chbAddCalcToIncomes.setMargin(new java.awt.Insets(2, 4, 2, 4));
-        jPanel4.add(chbAddCalcToIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 100, 245, -1));
+        jPanel4.add(chbAddCalcToIncomes, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 120, 245, -1));
 
         txtInvalidIDocumentation.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel4.add(txtInvalidIDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 280, 20));
+        jPanel4.add(txtInvalidIDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 250, 40));
 
         txtInvalidId.setForeground(new java.awt.Color(255, 0, 0));
-        jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 280, 20));
+        jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 250, 40));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 910, 154));
 
@@ -257,17 +287,17 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             int processId = Integer.parseInt(txtProcessIdCalc.getText());
             if (processId < 0) {
                 txtInvalidId.setIcon(WARNING_ICON);
-                txtInvalidId.setText("Error: ID no puede ser negativo");
+                txtInvalidId.setText("<html>Error: ID no puede ser negativo");
             } else if (!controller.isProcessIdAvailable(processId)) {
                 txtInvalidId.setIcon(WARNING_ICON);
-                txtInvalidId.setText("Error: ID no disponible");
+                txtInvalidId.setText("<html>Error: ID no disponible");
             } else {
                 txtInvalidId.setIcon(null);
                 txtInvalidId.setText(null);
             }
         } catch (NumberFormatException e) {
             txtInvalidId.setIcon(WARNING_ICON);
-            txtInvalidId.setText("Error: Ingrese un número válido");
+            txtInvalidId.setText("<html>Error: Ingrese un número válido");
         }
     }//GEN-LAST:event_txtProcessIdCalcFocusLost
 
@@ -344,14 +374,14 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             int numDocumentation = Integer.parseInt(txtNumberOfDocumentation.getText());
             if (numDocumentation <= 0) {
                 txtInvalidIDocumentation.setIcon(WARNING_ICON);
-                txtInvalidIDocumentation.setText("Error: Número de documentación no puede ser negativo");
+                txtInvalidIDocumentation.setText("<html>Error: Número de documentación no puede ser negativo");
             } else {
                 txtInvalidIDocumentation.setIcon(null);
                 txtInvalidIDocumentation.setText(null);
             }
         } catch (NumberFormatException e) {
             txtInvalidIDocumentation.setIcon(WARNING_ICON);
-            txtInvalidIDocumentation.setText("Error: Por favor ingrese un número válido");
+            txtInvalidIDocumentation.setText("<html>Error: Por favor ingrese un número válido");
         }
     }//GEN-LAST:event_txtNumberOfDocumentationFocusLost
 
@@ -380,6 +410,8 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FrmPricingSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 

@@ -1,5 +1,8 @@
 package ec.edu.espe.cyberplaneta.model;
-
+/**
+ *
+ * @author Saray Cañarte, Code Creators, DCCO-ESPE
+ */
 public class TaxProcess {
 
     private PriceList priceList;

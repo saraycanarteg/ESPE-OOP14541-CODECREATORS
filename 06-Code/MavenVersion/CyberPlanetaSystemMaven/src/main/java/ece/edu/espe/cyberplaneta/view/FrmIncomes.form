@@ -55,7 +55,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="-5" y="104" width="920" height="-1"/>
+              <AbsoluteConstraints x="-5" y="104" width="920" height="400"/>
             </Constraint>
           </Constraints>
 
@@ -68,12 +68,12 @@
                           <Component id="jScrollPane2" min="-2" pref="877" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="cmbAlphabeticalOrder" min="-2" pref="207" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                              <Component id="cmbNumericalOrder" min="-2" pref="207" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
-                              <Component id="cmbAlphabeticalOrder" min="-2" pref="211" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="cmbNumericalOrder" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="btnAplyOrder" min="-2" pref="116" max="-2" attributes="0"/>
+                              <Component id="btnGenerateReport" min="-2" pref="191" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
@@ -88,11 +88,13 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="cmbNumericalOrder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="cmbAlphabeticalOrder" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnAplyOrder" alignment="3" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="cmbNumericalOrder" alignment="0" max="32767" attributes="0"/>
+                          <Component id="cmbAlphabeticalOrder" alignment="0" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="btnGenerateReport" alignment="3" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="272" max="-2" attributes="0"/>
@@ -115,16 +117,13 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Segoe UI" size="12" style="1"/>
                     </Property>
-                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="9b" green="6d" red="41" type="rgb"/>
-                    </Property>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                       <Table columnCount="6" rowCount="5">
-                        <Column editable="true" title="ID" type="java.lang.String"/>
-                        <Column editable="true" title="Nombre del Proceso" type="java.lang.String"/>
-                        <Column editable="true" title="N&#xfa;mero de Documentaci&#xf3;n" type="java.lang.Integer"/>
-                        <Column editable="true" title="Precio Base ($)" type="java.lang.Float"/>
-                        <Column editable="true" title="Impuesto (%)" type="java.lang.Float"/>
+                        <Column editable="true" title="ID" type="java.lang.Object"/>
+                        <Column editable="true" title="Nombre del Proceso" type="java.lang.Object"/>
+                        <Column editable="true" title="N&#xfa;mero de Documentaci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Precio Base ($)" type="java.lang.Object"/>
+                        <Column editable="true" title="Impuesto (%)" type="java.lang.Object"/>
                         <Column editable="true" title="Total ($)" type="java.lang.Object"/>
                       </Table>
                     </Property>
@@ -162,11 +161,17 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
-                    <Property name="gridColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="9b" green="6d" red="41" type="rgb"/>
+                    <Property name="focusable" type="boolean" value="false"/>
+                    <Property name="rowHeight" type="int" value="25"/>
+                    <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="0" green="ff" red="0" type="rgb"/>
                     </Property>
+                    <Property name="selectionForeground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="99" green="0" red="0" type="rgb"/>
+                    </Property>
+                    <Property name="showHorizontalLines" type="boolean" value="true"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
-                      <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
+                      <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
                 </Component>
@@ -182,6 +187,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbNumericalOrderActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -196,6 +204,9 @@
                   </StringArray>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbAlphabeticalOrderActionPerformed"/>
+              </Events>
               <AuxValues>
                 <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
               </AuxValues>
@@ -211,7 +222,7 @@
                 <Property name="text" type="java.lang.String" value="Ordenar por:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="btnAplyOrder">
+            <Component class="javax.swing.JButton" name="btnGenerateReport">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="46" green="f6" red="9f" type="rgb"/>
@@ -222,8 +233,11 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cb" green="51" red="7" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Aplicar"/>
+                <Property name="text" type="java.lang.String" value="Exportar a Excel"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerateReportActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel4">
               <Properties>

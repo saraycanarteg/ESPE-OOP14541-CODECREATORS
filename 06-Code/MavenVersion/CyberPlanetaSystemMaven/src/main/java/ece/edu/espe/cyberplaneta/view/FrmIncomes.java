@@ -1,17 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.controller.ExcelReport;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.io.IOException;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 import utils.MongoDBUtil;
 import java.util.List;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 
 /**
  *
- * @author Usuario
+ * @author Saray Cañarte, Code Creators, DCCO-ESPE
  */
 public class FrmIncomes extends javax.swing.JFrame {
 
@@ -21,15 +26,22 @@ public class FrmIncomes extends javax.swing.JFrame {
     public FrmIncomes() {
         initComponents();
         loadIncomes();
+
+        tblTotalIncomes.setShowGrid(true);
+        tblTotalIncomes.setGridColor(Color.LIGHT_GRAY);
+        tblTotalIncomes.setRowHeight(25);
+        tblTotalIncomes.setIntercellSpacing(new Dimension(0, 0));
+        tblTotalIncomes.getTableHeader().setReorderingAllowed(false);
+        tblTotalIncomes.getTableHeader().setResizingAllowed(false);
     }
 
     private void loadIncomes() {
         DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-        model.setRowCount(0); 
+        model.setRowCount(0);
         List<Document> documents = MongoDBUtil.getAllIncomes();
-
+        float totalSum = 0;
+       
         for (Document doc : documents) {
-            
             int id = doc.getInteger("processId");
             String name = doc.getString("processName");
             int numberOfDocumentation = doc.getInteger("numberOfDocumentation");
@@ -37,8 +49,47 @@ public class FrmIncomes extends javax.swing.JFrame {
             float taxRate = doc.getDouble("taxRate").floatValue();
             float totalPrice = doc.getDouble("total").floatValue();
 
-            model.addRow(new Object[]{id, name, numberOfDocumentation, priceBase, taxRate, totalPrice});
+        model.addRow(new Object[]{
+            id,
+            name,
+            numberOfDocumentation,
+            String.format("%.2f", priceBase),
+            String.format("%.2f", taxRate),
+            String.format("%.2f", totalPrice)
+        });
+
+            totalSum += totalPrice;
         }
+
+        model.addRow(new Object[]{"", "", "TOTAL:", "", "", String.format("%.2f", totalSum)});
+
+        tblTotalIncomes.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (row == table.getRowCount() - 1) {
+                    c.setBackground(new Color(159, 246, 70)); 
+                    c.setForeground(new Color(7, 81, 203)); 
+                } else {
+                    c.setBackground(Color.WHITE); 
+                    c.setForeground(new Color(0, 0, 102)); 
+                }
+                c.setFont(row == table.getRowCount() - 1 ? c.getFont().deriveFont(Font.BOLD) : table.getFont());
+                return c;
+            }
+        });
+
+   
+        tblTotalIncomes.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(new Color(7, 81, 203)); 
+                c.setForeground(Color.WHITE); 
+                c.setFont(c.getFont().deriveFont(Font.BOLD));
+                return c;
+            }
+        });
     }
 
 
@@ -58,7 +109,7 @@ public class FrmIncomes extends javax.swing.JFrame {
         cmbNumericalOrder = new javax.swing.JComboBox<>();
         cmbAlphabeticalOrder = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        btnAplyOrder = new javax.swing.JButton();
+        btnGenerateReport = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnGoBackToMain = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -73,7 +124,6 @@ public class FrmIncomes extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
         tblTotalIncomes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        tblTotalIncomes.setForeground(new java.awt.Color(65, 109, 155));
         tblTotalIncomes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -85,30 +135,42 @@ public class FrmIncomes extends javax.swing.JFrame {
             new String [] {
                 "ID", "Nombre del Proceso", "Número de Documentación", "Precio Base ($)", "Impuesto (%)", "Total ($)"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Object.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
-        tblTotalIncomes.setGridColor(new java.awt.Color(65, 109, 155));
+        ));
+        tblTotalIncomes.setFocusable(false);
+        tblTotalIncomes.setRowHeight(25);
+        tblTotalIncomes.setSelectionBackground(new java.awt.Color(0, 255, 0));
+        tblTotalIncomes.setSelectionForeground(new java.awt.Color(0, 0, 153));
+        tblTotalIncomes.setShowHorizontalLines(true);
+        tblTotalIncomes.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblTotalIncomes);
 
         cmbNumericalOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orden Numérico", "Mayor a Menor", "Menor a Mayor" }));
+        cmbNumericalOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbNumericalOrderActionPerformed(evt);
+            }
+        });
 
         cmbAlphabeticalOrder.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Orden Alfabético", "A-Z", "Z-A" }));
+        cmbAlphabeticalOrder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbAlphabeticalOrderActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(65, 109, 155));
         jLabel2.setText("Ordenar por:");
 
-        btnAplyOrder.setBackground(new java.awt.Color(159, 246, 70));
-        btnAplyOrder.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnAplyOrder.setForeground(new java.awt.Color(7, 81, 203));
-        btnAplyOrder.setText("Aplicar");
+        btnGenerateReport.setBackground(new java.awt.Color(159, 246, 70));
+        btnGenerateReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGenerateReport.setForeground(new java.awt.Color(7, 81, 203));
+        btnGenerateReport.setText("Exportar a Excel");
+        btnGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateReportActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBackground(new java.awt.Color(7, 81, 203));
 
@@ -149,12 +211,12 @@ public class FrmIncomes extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
+                        .addGap(116, 116, 116)
+                        .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnAplyOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -164,18 +226,19 @@ public class FrmIncomes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(btnAplyOrder, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbNumericalOrder)
+                    .addComponent(cmbAlphabeticalOrder)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(btnGenerateReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(17, 17, 17)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 104, 920, -1));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-5, 104, 920, 400));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -212,6 +275,108 @@ public class FrmIncomes extends javax.swing.JFrame {
             frmMenu.setVisible(true);
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
+    private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
+    ExcelReport excelReport = new ExcelReport();
+    
+    try {
+        excelReport.exportToExcel(tblTotalIncomes); 
+    } catch (IOException ex) {
+        System.out.println("Error: " + ex);
+    }    
+    }//GEN-LAST:event_btnGenerateReportActionPerformed
+
+    private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
+                                                
+    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+    int columnIndex = 1; 
+
+    if (model.getRowCount() > 1) {
+      
+        List<Object[]> rowData = new ArrayList<>();
+        Object[] totalRow = model.getDataVector().lastElement().toArray(); 
+        for (int i = 0; i < model.getRowCount() - 1; i++) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            rowData.add(row);
+        }
+
+        String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
+        rowData.sort((row1, row2) -> {
+            String name1 = (String) row1[columnIndex];
+            String name2 = (String) row2[columnIndex];
+            
+            if (selectedOrder.equals("A-Z")) {
+                return name1.compareTo(name2);
+            } else if (selectedOrder.equals("Z-A")) {
+                return name2.compareTo(name1);
+            }
+            return 0;
+        });
+        
+        model.setRowCount(0);
+        for (Object[] row : rowData) {
+            model.addRow(row);
+        }
+        model.addRow(totalRow);
+    }
+
+
+    }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
+
+    private void cmbNumericalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNumericalOrderActionPerformed
+                                                                                                  
+    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+    int columnIndex = 5; 
+
+    if (model.getRowCount() > 1) {
+        List<Object[]> rowData = new ArrayList<>();
+        Object[] totalRow = new Object[model.getColumnCount()];
+        
+        if (model.getRowCount() > 0) {
+            totalRow = model.getDataVector().get(model.getRowCount() - 1).toArray(); 
+        }
+        
+        for (int i = 0; i < model.getRowCount() - 1; i++) {
+            Object[] row = new Object[model.getColumnCount()];
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                row[j] = model.getValueAt(i, j);
+            }
+            rowData.add(row);
+        }
+        
+        String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
+        rowData.sort((row1, row2) -> {
+            Double value1 = parseDouble(row1[columnIndex]);
+            Double value2 = parseDouble(row2[columnIndex]);
+            
+            if (selectedOrder.equals("Mayor a Menor")) {
+                return value2.compareTo(value1); 
+            } else if (selectedOrder.equals("Menor a Mayor")) {
+                return value1.compareTo(value2); 
+            }
+            return 0;
+        });
+           
+        model.setRowCount(0);
+        for (Object[] row : rowData) {
+            model.addRow(row);
+        }
+        if (totalRow != null) {
+            model.addRow(totalRow);
+        }
+    }
+
+
+    }//GEN-LAST:event_cmbNumericalOrderActionPerformed
+    private Double parseDouble(Object value) {
+        try {
+            return Double.parseDouble(value.toString().replace(",", ""));
+        } catch (NumberFormatException e) {
+            return 0.0;
+        }
+    }
     /**
      * @param args the command line arguments
      */
@@ -238,6 +403,7 @@ public class FrmIncomes extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(FrmIncomes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -248,7 +414,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAplyOrder;
+    private javax.swing.JButton btnGenerateReport;
     private javax.swing.JButton btnGoBackToMain;
     private javax.swing.JComboBox<String> cmbAlphabeticalOrder;
     private javax.swing.JComboBox<String> cmbNumericalOrder;

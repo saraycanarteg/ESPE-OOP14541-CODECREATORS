@@ -4,6 +4,13 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
+import org.bson.Document;
+import utils.MongoDBUtil;
+
 /**
  *
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
@@ -16,6 +23,92 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     public FrmEditTaxpayer() {
         initComponents();
     }
+    private void cargarTaxPayer() {
+        String id = txtId.getText().trim();
+
+        if (id.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID.");
+            return;
+        }
+
+        Document taxPayer = MongoDBUtil.getTaxPayerById(id);
+        if (taxPayer != null) {
+            txtEmail.setText(taxPayer.getString("email"));
+            txtNombre.setText(taxPayer.getString("name"));
+            txtContrasenia.setText(taxPayer.getString("password"));
+            chkDocumentacion.setSelected(taxPayer.getBoolean("accountingDocumentation"));
+            dateChooserStart.setDate(taxPayer.getDate("startDate"));
+            dateChooserEnd.setDate(taxPayer.getDate("deliveryDate"));
+        } else {
+            JOptionPane.showMessageDialog(this, "Contribuyente no encontrado.");
+        }
+    }
+
+    private void saveTaxPayerChanges() {
+        String id = txtId.getText().trim();
+        String email = txtEmail.getText().trim();
+        String name = txtNombre.getText().trim();
+        String password = txtContrasenia.getText().trim();
+        boolean documentation = chkDocumentacion.isSelected();
+        Date startDate = dateChooserStart.getDate();
+        Date deliveryDate = dateChooserEnd.getDate();
+
+        if (!isValidId(id)) {
+            JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
+            return;
+        }
+
+        if (!isValidName(name)) {
+            JOptionPane.showMessageDialog(this, "Nombre inválido. No debe contener números ni caracteres especiales.");
+            return;
+        }
+
+        if (!isValidEmail(email)) {
+            JOptionPane.showMessageDialog(this, "Correo electrónico inválido.");
+            return;
+        }
+
+        if (password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "La contraseña no puede estar vacía.");
+            return;
+        }
+
+        if (startDate == null || deliveryDate == null) {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione las fechas de inicio y entrega.");
+            return;
+        }
+
+        if (startDate.after(deliveryDate)) {
+            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de entrega.");
+            return;
+        }
+
+        Document updatedTaxPayer = new Document("id", id)
+                .append("email", email)
+                .append("name", name)
+                .append("password", password)
+                .append("accountingDocumentation", documentation)
+                .append("startDate", startDate)
+                .append("deliveryDate", deliveryDate);
+
+        MongoDBUtil.updateTaxPayer(updatedTaxPayer);
+        JOptionPane.showMessageDialog(this, "Contribuyente actualizado correctamente.");
+    }
+
+    private boolean isValidId(String id) {
+        return id.matches("\\d{13}");
+    }
+
+    private boolean isValidName(String name) {
+        return name.matches("[a-zA-Z\\s]+");
+    }
+
+    private boolean isValidEmail(String email) {
+        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -26,148 +119,196 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel9 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jPanel7 = new javax.swing.JPanel();
+        txtId = new javax.swing.JTextField();
+        txtContrasenia = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtEmail = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        btnCargar = new javax.swing.JButton();
+        chkDocumentacion = new javax.swing.JCheckBox();
+        dateChooserEnd = new com.toedter.calendar.JDateChooser();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        dateChooserStart = new com.toedter.calendar.JDateChooser();
+        txtInvalidId = new javax.swing.JLabel();
+        txtInvalidName = new javax.swing.JLabel();
+        txtInvalidEmail = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        btnGuardar = new javax.swing.JButton();
         btnCancelIncomeCalc = new javax.swing.JButton();
-        btnCalculateIncome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel9.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(165, 231, 165));
-        jLabel1.setText("Editar Contribuyente");
+        jLabel1.setForeground(new java.awt.Color(7, 81, 203));
+        jLabel1.setText("Sistema de Cálculo de Precios");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 20, 510, -1));
 
-        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
-        jPanel9.setLayout(jPanel9Layout);
-        jPanel9Layout.setHorizontalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addGap(65, 65, 65)
-                .addComponent(jLabel1)
-                .addContainerGap(77, Short.MAX_VALUE))
-        );
-        jPanel9Layout.setVerticalGroup(
-            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, -1, 100));
 
-        jPanel5.setBackground(new java.awt.Color(65, 109, 155));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("ID:");
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Email:");
+        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setForeground(new java.awt.Color(0, 51, 204));
         jLabel6.setText("Documentación:");
+        jPanel4.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel4.setForeground(new java.awt.Color(0, 51, 204));
         jLabel4.setText("Nombre:");
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 140, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setForeground(new java.awt.Color(0, 51, 204));
         jLabel7.setText("Contraseña:");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, -1));
 
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        txtId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtIdFocusLost(evt);
             }
         });
-
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtIdActionPerformed(evt);
             }
         });
+        jPanel4.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 170, -1));
 
-        jTextField4.addActionListener(new java.awt.event.ActionListener() {
+        txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField4ActionPerformed(evt);
+                txtContraseniaActionPerformed(evt);
             }
         });
+        jPanel4.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 170, -1));
 
-        jTextField5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField5ActionPerformed(evt);
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
             }
         });
-
-        jTextField7.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField7ActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
+        jPanel4.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel3))
-                .addGap(53, 53, 53)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
+        txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtEmailFocusLost(evt);
+            }
+        });
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEmailActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 170, -1));
 
-        jPanel7.setBackground(new java.awt.Color(65, 109, 155));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel2.setText("ID:");
+        jPanel4.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, -1, -1));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel3.setText("Email:");
+        jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, -1, -1));
+
+        btnCargar.setBackground(new java.awt.Color(159, 246, 70));
+        btnCargar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCargar.setForeground(new java.awt.Color(7, 81, 203));
+        btnCargar.setText("Cargar");
+        btnCargar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargarActionPerformed(evt);
+            }
+        });
+        jPanel4.add(btnCargar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        jPanel4.add(chkDocumentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, -1, -1));
+
+        dateChooserEnd.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateChooserEndFocusLost(evt);
+            }
+        });
+        jPanel4.add(dateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 170, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel9.setText("Fecha de inicio:");
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel10.setText("Fecha de entrega:");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, -1));
+
+        dateChooserStart.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                dateChooserStartFocusLost(evt);
+            }
+        });
+        jPanel4.add(dateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 170, -1));
+
+        txtInvalidId.setForeground(new java.awt.Color(204, 0, 0));
+        txtInvalidId.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtInvalidIdFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvalidIdFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 160, 23));
+
+        txtInvalidName.setForeground(new java.awt.Color(204, 0, 0));
+        txtInvalidName.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtInvalidNameFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvalidNameFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtInvalidName, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 160, 23));
+
+        txtInvalidEmail.setForeground(new java.awt.Color(204, 0, 0));
+        txtInvalidEmail.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtInvalidEmailFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvalidEmailFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtInvalidEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, 160, 23));
+
+        jPanel5.setBackground(new java.awt.Color(7, 81, 203));
+
+        btnGuardar.setBackground(new java.awt.Color(159, 246, 70));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(7, 81, 203));
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
         btnCancelIncomeCalc.setBackground(new java.awt.Color(255, 101, 98));
         btnCancelIncomeCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -179,75 +320,149 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             }
         });
 
-        btnCalculateIncome.setBackground(new java.awt.Color(165, 231, 165));
-        btnCalculateIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateIncome.setForeground(new java.awt.Color(65, 109, 155));
-        btnCalculateIncome.setText("Guardar");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(200, Short.MAX_VALUE)
                 .addComponent(btnCancelIncomeCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(56, 56, 56))
+                .addGap(203, 203, 203)
+                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(205, 205, 205))
         );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelIncomeCalc)
-                    .addComponent(btnCalculateIncome))
-                .addContainerGap(32, Short.MAX_VALUE))
+                    .addComponent(btnGuardar))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
+        String PATTERN = "^\\d{13}$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtId.getText().trim());
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+        if (!match.matches()) {
+            txtInvalidId.setText("ID (RUC) Inválido");
+        } else {
+            txtInvalidId.setText(null); // Limpiar el texto si es válido
+        }
+    }//GEN-LAST:event_txtIdFocusLost
 
-    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField4ActionPerformed
+    }//GEN-LAST:event_txtIdActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_txtContraseniaActionPerformed
 
-    private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        String PATTERN = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtNombre.getText().trim());
+
+        if (!match.matches()) {
+            txtInvalidName.setText("Nombre Inválido");
+        } else {
+            txtInvalidName.setText(null); // Limpiar el texto si es válido
+        }
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField7ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        String PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtEmail.getText().trim()); // Añadir trim() para manejar espacios en blanco
+
+        if (!match.matches()) {
+            txtInvalidEmail.setText("Correo Inválido");
+        } else {
+            txtInvalidEmail.setText(null); // Limpiar el texto si es válido
+        }
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEmailActionPerformed
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        cargarTaxPayer();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void dateChooserEndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserEndFocusLost
+
+    }//GEN-LAST:event_dateChooserEndFocusLost
+
+    private void dateChooserStartFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserStartFocusLost
+
+    }//GEN-LAST:event_dateChooserStartFocusLost
+
+    private void txtInvalidIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidIdFocusGained
+
+    private void txtInvalidIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusLost
+
+    }//GEN-LAST:event_txtInvalidIdFocusLost
+
+    private void txtInvalidNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidNameFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidNameFocusGained
+
+    private void txtInvalidNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidNameFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidNameFocusLost
+
+    private void txtInvalidEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidEmailFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidEmailFocusGained
+
+    private void txtInvalidEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidEmailFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidEmailFocusLost
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        saveTaxPayerChanges();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
+        FrmMenu frmMenu= new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
@@ -288,21 +503,30 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalculateIncome;
     private javax.swing.JButton btnCancelIncomeCalc;
+    private javax.swing.JButton btnCargar;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JCheckBox chkDocumentacion;
+    private com.toedter.calendar.JDateChooser dateChooserEnd;
+    private com.toedter.calendar.JDateChooser dateChooserStart;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel9;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField7;
+    private javax.swing.JTextField txtContrasenia;
+    private javax.swing.JTextField txtEmail;
+    private javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtInvalidEmail;
+    private javax.swing.JLabel txtInvalidId;
+    private javax.swing.JLabel txtInvalidName;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

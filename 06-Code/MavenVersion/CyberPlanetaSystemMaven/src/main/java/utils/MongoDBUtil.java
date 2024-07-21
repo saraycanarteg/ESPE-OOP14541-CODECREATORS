@@ -190,4 +190,15 @@ public class MongoDBUtil {
 
         return documents;
     }
+    public static Document getTaxPayerById(String id) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        return collection.find(eq("id", id)).first();
+    }
+
+    public static void updateTaxPayer(Document updatedTaxPayer) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        collection.replaceOne(eq("id", updatedTaxPayer.getString("id")), updatedTaxPayer);
+    }
 }

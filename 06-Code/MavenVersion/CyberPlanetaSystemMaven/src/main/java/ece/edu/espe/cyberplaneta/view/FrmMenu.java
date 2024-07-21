@@ -306,7 +306,9 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itmDeleteTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeleteTaxpayerActionPerformed
-        // TODO add your handling code here:
+        FrmDeleteTaxpayer frmDeleteTaxpayer = new FrmDeleteTaxpayer();
+        this.setVisible(false);
+        frmDeleteTaxpayer.setVisible(true);
     }//GEN-LAST:event_itmDeleteTaxpayerActionPerformed
 
     private void itmCalculateTaxAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCalculateTaxAverageActionPerformed

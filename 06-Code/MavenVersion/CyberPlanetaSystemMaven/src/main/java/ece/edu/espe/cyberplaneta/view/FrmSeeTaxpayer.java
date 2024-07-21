@@ -262,7 +262,9 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCalculateIncome1ActionPerformed
 
     private void btnCalculateIncome3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncome3ActionPerformed
-        // TODO add your handling code here:
+        FrmDeleteTaxpayer frmDeleteTaxpayer = new FrmDeleteTaxpayer();
+        this.setVisible(false);
+        frmDeleteTaxpayer.setVisible(true);
     }//GEN-LAST:event_btnCalculateIncome3ActionPerformed
 
     /**

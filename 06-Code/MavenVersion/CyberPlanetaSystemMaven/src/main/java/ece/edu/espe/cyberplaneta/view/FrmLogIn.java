@@ -75,9 +75,22 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         btnPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         btnPassword.setMaximumSize(new java.awt.Dimension(64, 18));
+        btnPassword.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btnPasswordFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                btnPasswordFocusLost(evt);
+            }
+        });
         btnPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPasswordActionPerformed(evt);
+            }
+        });
+        btnPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnPasswordKeyTyped(evt);
             }
         });
 
@@ -87,6 +100,7 @@ public class FrmLogIn extends javax.swing.JFrame {
         btnLogin.setText("Ingresar");
         btnLogin.setBorder(null);
         btnLogin.setBorderPainted(false);
+        btnLogin.setEnabled(false);
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
@@ -161,8 +175,9 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         String passwor = new String(btnPassword.getPassword());
         String user = txtUser.getText().trim();
-
-        if (utils.MongoDBUtil.validateUser(user, passwor)) {
+        if (containsInvalidCharacters(txtUser.getText().trim()) || new String(btnPassword.getPassword()).isEmpty()) {
+            txtPassIncorrect.setText("Campos vacios");
+        } else if (utils.MongoDBUtil.validateUser(user, passwor)) {
             FrmMenu frmMain = new FrmMenu();
             this.setVisible(false);
             frmMain.setVisible(true);
@@ -184,19 +199,39 @@ public class FrmLogIn extends javax.swing.JFrame {
     private void txtUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserFocusLost
         if (containsInvalidCharacters(txtUser.getText().trim())) {
             txtPassIncorrect.setText("Formato de usuario incorrecto");
+        } else if (txtUser.getText().isEmpty()) {
+            txtPassIncorrect.setText("Campos vacios");
         } else {
             txtPassIncorrect.setText(null);
         }
 
+
     }//GEN-LAST:event_txtUserFocusLost
 
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
-
         char c = evt.getKeyChar();
         if (!Character.isLetterOrDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
             evt.consume(); // Ignorar el evento
         }
     }//GEN-LAST:event_txtUserKeyTyped
+
+    private void btnPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnPasswordFocusGained
+
+    }//GEN-LAST:event_btnPasswordFocusGained
+
+    private void btnPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnPasswordFocusLost
+        if (new String(btnPassword.getPassword()).isEmpty()) {
+            txtPassIncorrect.setText("Campos vacios");
+        } else {
+            txtPassIncorrect.setText(null);
+        }
+
+    }//GEN-LAST:event_btnPasswordFocusLost
+
+    private void btnPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPasswordKeyTyped
+
+        btnLogin.setEnabled(true);
+    }//GEN-LAST:event_btnPasswordKeyTyped
 
     /**
      * @param args the command line arguments

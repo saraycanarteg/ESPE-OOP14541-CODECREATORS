@@ -12,7 +12,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,10 +55,7 @@ public class MongoDBUtil {
 
         return documents;
     }
-    
-    
-    
-    
+
     public static boolean validateUser(String username, String password) {
         boolean isValid = false;
 
@@ -84,7 +80,7 @@ public class MongoDBUtil {
     public static String[] notificaionTaxPayer(String idTaxPayer) {
         String msm = null;
         String[] data = new String[6];
-     
+
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
             MongoCollection<Document> collection = database.getCollection("TaxPayerData");
@@ -95,8 +91,8 @@ public class MongoDBUtil {
             String deliveryDate = user.getString("deliveryDate");
             String startDate = user.getString("startDate");
             LocalDate deliveryDates = LocalDate.parse(deliveryDate, DATE_FORMATTER);
-            long remainingDays = getDaysBetweenDates(LocalDate.now(), deliveryDates);
-            msm = displayNotification(nameTaxpayer, deliveryDate, remainingDays);
+            long remainingDays = ec.edu.espe.cyberplaneta.controller.NotificationControl.getDaysBetweenDates(LocalDate.now(), deliveryDates);
+            msm = ec.edu.espe.cyberplaneta.controller.NotificationControl.displayNotification(nameTaxpayer, deliveryDate, remainingDays);
 
             data[0] = id;
             data[1] = nameTaxpayer;
@@ -111,21 +107,31 @@ public class MongoDBUtil {
         return data;
     }
 
-    private static long getDaysBetweenDates(LocalDate startDate, LocalDate endDate) {
-        return ChronoUnit.DAYS.between(startDate, endDate);
+    public static String[] DeleteTaxPayer(String idTaxPayer) {
+        String msm = null;
+        String[] data = new String[5];
+
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            Document user = collection.find(eq("id", idTaxPayer)).first();
+
+            String id = user.getString("id");
+            String nameTaxpayer = user.getString("name");
+            String email = user.getString("email");
+            String password = user.getString("password");
+
+            data[0] = id;
+            data[1] = nameTaxpayer;
+            data[2] = email;
+            data[3] = password;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return data;
     }
 
-    private static String displayNotification(String nameTaxpayer, String deliveryDate, long remainingDays) {
-        String msm = null;
-        if (remainingDays > 0) {
-            msm = "Tienes " + remainingDays + " días para la entrega";
-        } else if (remainingDays == 0) {
-            msm = "El proceso se entrega hoy";
-        } else {
-            msm = "El proceso ha sido entregado o está retrasado en su entrega";
-        }
-        return msm;
-    }
     public static boolean verificationIdTaxpayer(String id) {
         boolean verification = false;
         try (MongoClient mongoClient = MongoClients.create(URI)) {
@@ -141,9 +147,18 @@ public class MongoDBUtil {
         }
         return verification;
     }
-    
+
+    public static void deleteDocumentById(String id) {
+         try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+
+            collection.deleteOne(eq("id", id)).getDeletedCount();
+
+   
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 }
-
-
-
-

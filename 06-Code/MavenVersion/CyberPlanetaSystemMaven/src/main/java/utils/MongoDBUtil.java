@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import static com.mongodb.client.model.Filters.eq;
+import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import org.bson.Document;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import java.math.BigDecimal;
@@ -160,5 +161,33 @@ public class MongoDBUtil {
             e.printStackTrace();
         }
 
+    }
+    public static void saveTaxPayer(TaxPayer taxPayer) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+
+        Document document = new Document("id", taxPayer.getId())
+                .append("email", taxPayer.getEmail())
+                .append("name", taxPayer.getName())
+                .append("password", taxPayer.getPassword())
+                .append("accountingDocumentation", taxPayer.isAccountingDocumentation())
+                .append("deliveryDate", taxPayer.getdeliveryDate())
+                .append("startDate", taxPayer.getStartDate());
+                
+
+        collection.insertOne(document);
+    }
+    public static List<Document> getAllTaxPayers() {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        List<Document> documents = new ArrayList<>();
+
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
+            while (cursor.hasNext()) {
+                documents.add(cursor.next());
+            }
+        }
+
+        return documents;
     }
 }

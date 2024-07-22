@@ -4,6 +4,7 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -37,8 +38,8 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             txtNombre.setText(taxPayer.getString("name"));
             txtContrasenia.setText(taxPayer.getString("password"));
             chkDocumentacion.setSelected(taxPayer.getBoolean("accountingDocumentation"));
-            dateChooserStart.setDate(taxPayer.getDate("startDate"));
-            dateChooserEnd.setDate(taxPayer.getDate("deliveryDate"));
+            dateChooserStart.setDate(parseDate(taxPayer.getString("startDate")));
+            dateChooserEnd.setDate(parseDate(taxPayer.getString("deliveryDate")));
         } else {
             JOptionPane.showMessageDialog(this, "Contribuyente no encontrado.");
         }
@@ -83,13 +84,17 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             return;
         }
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String startDateString = sdf.format(startDate);
+        String deliveryDateString = sdf.format(deliveryDate);
+
         Document updatedTaxPayer = new Document("id", id)
                 .append("email", email)
                 .append("name", name)
                 .append("password", password)
                 .append("accountingDocumentation", documentation)
-                .append("startDate", startDate)
-                .append("deliveryDate", deliveryDate);
+                .append("startDate", startDateString)
+                .append("deliveryDate", deliveryDateString);
 
         MongoDBUtil.updateTaxPayer(updatedTaxPayer);
         JOptionPane.showMessageDialog(this, "Contribuyente actualizado correctamente.");
@@ -108,6 +113,15 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+
+    private Date parseDate(String dateString) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            return sdf.parse(dateString);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     /**

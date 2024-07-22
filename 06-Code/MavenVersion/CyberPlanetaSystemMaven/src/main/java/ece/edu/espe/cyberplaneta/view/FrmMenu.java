@@ -79,6 +79,11 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuCyberPlaneta.setOpaque(true);
 
         itmAccountSettings.setText("Configuración de Cuenta");
+        itmAccountSettings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAccountSettingsActionPerformed(evt);
+            }
+        });
         mnuCyberPlaneta.add(itmAccountSettings);
 
         itmLogOut.setText("Salir");
@@ -339,6 +344,10 @@ public class FrmMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmSeeTaxpayer.setVisible(true);
     }//GEN-LAST:event_itmAddProcessTaxayerActionPerformed
+
+    private void itmAccountSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAccountSettingsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_itmAccountSettingsActionPerformed
 
     /**
      * @param args the command line arguments

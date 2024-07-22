@@ -129,8 +129,9 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         jLabel4.setText("Ingresos año final:");
 
         sldCAGRYears.setMaximum(10);
-        sldCAGRYears.setMinimum(2);
-        sldCAGRYears.setValue(2);
+        sldCAGRYears.setMinimum(1);
+        sldCAGRYears.setToolTipText("");
+        sldCAGRYears.setValue(1);
         sldCAGRYears.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldCAGRYearsStateChanged(evt);
@@ -162,7 +163,7 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
 
         lblNumberOfYears.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNumberOfYears.setForeground(new java.awt.Color(7, 81, 203));
-        lblNumberOfYears.setText("2");
+        lblNumberOfYears.setText("1");
 
         lblInvalidIncome1.setForeground(new java.awt.Color(255, 0, 0));
 
@@ -377,7 +378,7 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         int years = sldCAGRYears.getValue();
       
         double cagr = PricingSystemManager.calculateCAGR(initialIncome, finalIncome, years);
-        double projectedIncome = PricingSystemManager.calculateFutureValue(initialIncome, cagr, years);
+        double projectedIncome = PricingSystemManager.calculateFutureValue(finalIncome, cagr, years);
         
         DefaultCategoryDataset data = new DefaultCategoryDataset();
         data.setValue(initialIncome, "Ingreso Inicial", "Inicial");

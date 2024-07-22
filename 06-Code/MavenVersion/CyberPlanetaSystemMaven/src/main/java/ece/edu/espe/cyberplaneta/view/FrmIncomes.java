@@ -1,6 +1,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
+import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.ExcelReport;
+import ec.edu.espe.cyberplaneta.controller.PdfReport;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -109,9 +111,10 @@ public class FrmIncomes extends javax.swing.JFrame {
         cmbNumericalOrder = new javax.swing.JComboBox<>();
         cmbAlphabeticalOrder = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
-        btnGenerateReport = new javax.swing.JButton();
+        btnGenerateReportExcel = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnGoBackToMain = new javax.swing.JButton();
+        btnGenerateReportPdf = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -162,13 +165,13 @@ public class FrmIncomes extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(65, 109, 155));
         jLabel2.setText("Ordenar por:");
 
-        btnGenerateReport.setBackground(new java.awt.Color(159, 246, 70));
-        btnGenerateReport.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnGenerateReport.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReport.setText("Exportar a Excel");
-        btnGenerateReport.addActionListener(new java.awt.event.ActionListener() {
+        btnGenerateReportExcel.setBackground(new java.awt.Color(159, 246, 70));
+        btnGenerateReportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGenerateReportExcel.setForeground(new java.awt.Color(7, 81, 203));
+        btnGenerateReportExcel.setText("Exportar a Excel");
+        btnGenerateReportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnGenerateReportActionPerformed(evt);
+                btnGenerateReportExcelActionPerformed(evt);
             }
         });
 
@@ -201,6 +204,16 @@ public class FrmIncomes extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
+        btnGenerateReportPdf.setBackground(new java.awt.Color(159, 246, 70));
+        btnGenerateReportPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGenerateReportPdf.setForeground(new java.awt.Color(7, 81, 203));
+        btnGenerateReportPdf.setText("Exportar a PDF");
+        btnGenerateReportPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateReportPdfActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -211,12 +224,14 @@ public class FrmIncomes extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
-                        .addGap(116, 116, 116)
+                        .addGap(18, 18, 18)
                         .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(32, 32, 32)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnGenerateReport, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnGenerateReportPdf)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGenerateReportExcel)))
                 .addGap(26, 26, 26))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -226,13 +241,13 @@ public class FrmIncomes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbNumericalOrder)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbAlphabeticalOrder)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(btnGenerateReport, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(17, 17, 17)
+                    .addComponent(cmbNumericalOrder)
+                    .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -275,7 +290,7 @@ public class FrmIncomes extends javax.swing.JFrame {
             frmMenu.setVisible(true);
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
-    private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
+    private void btnGenerateReportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportExcelActionPerformed
     ExcelReport excelReport = new ExcelReport();
     
     try {
@@ -283,7 +298,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     } catch (IOException ex) {
         System.out.println("Error: " + ex);
     }    
-    }//GEN-LAST:event_btnGenerateReportActionPerformed
+    }//GEN-LAST:event_btnGenerateReportExcelActionPerformed
 
     private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
                                                 
@@ -370,6 +385,20 @@ public class FrmIncomes extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_cmbNumericalOrderActionPerformed
+
+    private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
+                                                 
+    PdfReport pdfReport = new PdfReport();
+    
+    try {
+        pdfReport.exportToPDF(tblTotalIncomes);
+    } catch (IOException | DocumentException ex) {
+        System.out.println("Error: " + ex.getMessage());
+        ex.printStackTrace();
+    }
+
+
+    }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
     private Double parseDouble(Object value) {
         try {
             return Double.parseDouble(value.toString().replace(",", ""));
@@ -414,7 +443,8 @@ public class FrmIncomes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnGenerateReport;
+    private javax.swing.JButton btnGenerateReportExcel;
+    private javax.swing.JButton btnGenerateReportPdf;
     private javax.swing.JButton btnGoBackToMain;
     private javax.swing.JComboBox<String> cmbAlphabeticalOrder;
     private javax.swing.JComboBox<String> cmbNumericalOrder;

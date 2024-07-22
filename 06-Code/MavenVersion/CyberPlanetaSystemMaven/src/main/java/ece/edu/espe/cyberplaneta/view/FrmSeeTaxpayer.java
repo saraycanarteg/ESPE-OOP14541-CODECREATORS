@@ -1,6 +1,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
+import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.ExcelReport;
+import ec.edu.espe.cyberplaneta.controller.PdfReport;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -84,6 +86,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
         btnGenerateReport = new javax.swing.JButton();
         cmbAlphabeticalOrder = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        btnGenerateReportPdf = new javax.swing.JButton();
         jPanel6 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -212,6 +215,17 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
         jLabel2.setText("Ordenar por:");
         jPanel5.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
+        btnGenerateReportPdf.setBackground(new java.awt.Color(159, 246, 70));
+        btnGenerateReportPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnGenerateReportPdf.setForeground(new java.awt.Color(7, 81, 203));
+        btnGenerateReportPdf.setText("Exportar a PDF");
+        btnGenerateReportPdf.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerateReportPdfActionPerformed(evt);
+            }
+        });
+        jPanel5.add(btnGenerateReportPdf, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 130, 140, -1));
+
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -296,6 +310,19 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
 
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
+    private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
+
+        PdfReport pdfReport = new PdfReport();
+
+        try {
+            pdfReport.exportToPDF(tblTaxpayers);
+        } catch (IOException | DocumentException ex) {
+            System.out.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+    }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -334,6 +361,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelIncomeCalc;
     private javax.swing.JButton btnGenerateReport;
+    private javax.swing.JButton btnGenerateReportPdf;
     private javax.swing.JComboBox<String> cmbAlphabeticalOrder;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -272,8 +272,9 @@
             <Component class="javax.swing.JSlider" name="sldCAGRYears">
               <Properties>
                 <Property name="maximum" type="int" value="10"/>
-                <Property name="minimum" type="int" value="2"/>
-                <Property name="value" type="int" value="2"/>
+                <Property name="minimum" type="int" value="1"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
+                <Property name="value" type="int" value="1"/>
               </Properties>
               <Events>
                 <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sldCAGRYearsStateChanged"/>
@@ -302,7 +303,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="cb" green="51" red="7" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="2"/>
+                <Property name="text" type="java.lang.String" value="1"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="lblInvalidIncome1">

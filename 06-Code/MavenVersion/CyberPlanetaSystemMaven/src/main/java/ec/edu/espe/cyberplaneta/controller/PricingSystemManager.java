@@ -29,13 +29,21 @@ public class PricingSystemManager {
         return false;
     }
     public static float calculateTotalPrice(PriceList selectedProcess, float numDocumentation) {
+        float basePrice = calculateBasePrice(selectedProcess, numDocumentation);
+        float tax = calculateTax(basePrice, selectedProcess.getTaxRate());
+        return basePrice + tax;
+    }
+
+    public static float calculateBasePrice(PriceList selectedProcess, float numDocumentation) {
         float additionalCost = ((numDocumentation / 10) * 0.50f);
         float basePrice = selectedProcess.getPrice();
-        float totalPriceWithoutTax = basePrice + additionalCost;
-        float tax = (totalPriceWithoutTax * (selectedProcess.getTaxRate() / 100));
-        return totalPriceWithoutTax + tax;
+        return basePrice + additionalCost;
     }
-    
+
+    public static float calculateTax(float basePrice, float taxRate) {
+        return basePrice * (taxRate / 100);
+    }
+
     //INCOMES CONTROLLER
     public static void saveTaxProcessToDatabase(PriceList selectedProcess, float totalPrice, int numberOfDocumentation) {
         TaxProcess taxProcess = new TaxProcess(selectedProcess, totalPrice);
@@ -44,15 +52,15 @@ public class PricingSystemManager {
     
     //CAGR CONTROLLER
     public static double calculateCAGR(double initialValue, double finalValue, int numYears) {
-        double cagr = Math.pow((finalValue / initialValue), (1.0 / (numYears-1))) - 1;
+        double cagr = Math.pow((finalValue / initialValue), (1.0 / (numYears))) - 1;
         return cagr * 100;
     }
     public static boolean isValidValue(double value) {
         double epsilon = 0.01;
         return Math.abs(Math.round(value * 100) - value * 100) < epsilon;
     }
-    public static double calculateFutureValue(double initialValue, double cagr, int numYears) {
-        double futureValue = initialValue * Math.pow(1 + (cagr/100), numYears);
+    public static double calculateFutureValue(double finalValue, double cagr, int numYears) {
+        double futureValue = finalValue * Math.pow(1 + (cagr/100), numYears);
         return futureValue;
     }
 }

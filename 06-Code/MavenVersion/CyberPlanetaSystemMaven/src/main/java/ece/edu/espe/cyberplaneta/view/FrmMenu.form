@@ -77,6 +77,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Informaci&#xf3;n General de Contribuyentes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="itmAddProcessTaxayerActionPerformed"/>
+              </Events>
             </MenuItem>
             <Menu class="javax.swing.JMenu" name="itmTaxpayerInfo">
               <Properties>

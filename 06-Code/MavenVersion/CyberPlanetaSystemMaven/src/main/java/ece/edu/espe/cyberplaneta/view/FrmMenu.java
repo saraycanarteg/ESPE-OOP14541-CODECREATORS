@@ -6,7 +6,7 @@ package ece.edu.espe.cyberplaneta.view;
 
 /**
  *
- * @author Usuario
+ * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public class FrmMenu extends javax.swing.JFrame {
 
@@ -99,6 +99,11 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuTaxpayer.setOpaque(true);
 
         itmAddProcessTaxayer.setText("Información General de Contribuyentes");
+        itmAddProcessTaxayer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itmAddProcessTaxayerActionPerformed(evt);
+            }
+        });
         mnuTaxpayer.add(itmAddProcessTaxayer);
 
         itmTaxpayerInfo.setText("Manejo de Contribuyentes");
@@ -328,6 +333,12 @@ public class FrmMenu extends javax.swing.JFrame {
         this.setVisible(false);
         frmSplash.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void itmAddProcessTaxayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAddProcessTaxayerActionPerformed
+        FrmSeeTaxpayer frmSeeTaxpayer = new FrmSeeTaxpayer();
+        this.setVisible(false);
+        frmSeeTaxpayer.setVisible(true);
+    }//GEN-LAST:event_itmAddProcessTaxayerActionPerformed
 
     /**
      * @param args the command line arguments

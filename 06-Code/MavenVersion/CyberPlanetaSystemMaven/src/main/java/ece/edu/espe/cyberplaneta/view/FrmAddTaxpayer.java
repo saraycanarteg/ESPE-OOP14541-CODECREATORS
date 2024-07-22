@@ -367,9 +367,9 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmSeeTaxpayer frmSeeTaxpayer = new FrmSeeTaxpayer();
-        this.setVisible(false);
-        frmSeeTaxpayer.setVisible(true);
+            FrmMenu frmMenu= new FrmMenu();
+            this.setVisible(false);
+            frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void txtEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtEmailInputMethodTextChanged

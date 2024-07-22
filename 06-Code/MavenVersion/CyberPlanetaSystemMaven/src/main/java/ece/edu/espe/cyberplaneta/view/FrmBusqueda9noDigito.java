@@ -12,8 +12,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import org.bson.Document;
 import utils.MongoDBUtil;
 
@@ -27,7 +29,27 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
      */
     public FrmBusqueda9noDigito() {
         initComponents();
+        customizeTableHeader();
        // loadTaxPayers();
+    }
+
+    private void customizeTableHeader() {
+        JTableHeader header = tblTaxPayers.getTableHeader();
+        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
+        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
+        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        header.setForeground(new Color(255, 255, 255));
+        header.setBackground(new Color(7, 81, 203));
+        tblTaxPayers.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                c.setBackground(new Color(7, 81, 203));
+                c.setForeground(Color.WHITE);
+                c.setFont(c.getFont().deriveFont(Font.BOLD));
+                return c;
+            }
+        });
     }
     private void loadTaxPayersByNinthDigit(String ninthDigit) {
         DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
@@ -106,7 +128,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel11.setText("Busqueda por 9no Digito");
+        jLabel11.setText("Búsqueda por 9no Dígito");
         jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 430, -1));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
@@ -126,18 +148,18 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
                 jTextField1FocusLost(evt);
             }
         });
-        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 71, -1));
+        jPanel4.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 71, -1));
 
         jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(51, 51, 255));
         jLabel4.setText("N*:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 255));
         jLabel5.setText("Lista:");
-        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, -1, -1));
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
 
         tblTaxPayers.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblTaxPayers.setModel(new javax.swing.table.DefaultTableModel(
@@ -160,7 +182,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
         tblTaxPayers.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tblTaxPayers);
 
-        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 840, 160));
+        jPanel4.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 840, 180));
 
         btnBuscarAction.setBackground(new java.awt.Color(159, 246, 70));
         btnBuscarAction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -171,7 +193,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
                 btnBuscarActionActionPerformed(evt);
             }
         });
-        jPanel4.add(btnBuscarAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 148, -1));
+        jPanel4.add(btnBuscarAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 148, -1));
 
         txtInvalidId1.setForeground(new java.awt.Color(204, 0, 0));
         txtInvalidId1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -219,17 +241,14 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 910, Short.MAX_VALUE)
             .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE)
+                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -238,9 +257,9 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmSeeTaxpayer frmSeeTaxpayer = new FrmSeeTaxpayer();
-        this.setVisible(false);
-        frmSeeTaxpayer.setVisible(true);
+            FrmMenu frmMenu= new FrmMenu();
+            this.setVisible(false);
+            frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionActionPerformed

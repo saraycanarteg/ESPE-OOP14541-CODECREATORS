@@ -15,7 +15,7 @@ import javax.swing.table.JTableHeader;
 
 /**
  *
- * @author Saray Cañarte
+ * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
     private PricingSystemManager controller = new PricingSystemManager();

@@ -85,7 +85,7 @@ public class MongoDBUtil {
 
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            MongoCollection<Document> collection = database.getCollection("TaxPayer");
             Document user = collection.find(eq("id", idTaxPayer)).first();
 
             String id = user.getString("id");
@@ -115,7 +115,7 @@ public class MongoDBUtil {
 
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            MongoCollection<Document> collection = database.getCollection("TaxPayer");
             Document user = collection.find(eq("id", idTaxPayer)).first();
 
             String id = user.getString("id");
@@ -138,7 +138,7 @@ public class MongoDBUtil {
         boolean verification = false;
         try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            MongoCollection<Document> collection = database.getCollection("TaxPayer");
             Document user = collection.find(eq("id", id)).first();
             if (user == null) {
                 verification = true;
@@ -153,7 +153,7 @@ public class MongoDBUtil {
     public static void deleteDocumentById(String id) {
          try (MongoClient mongoClient = MongoClients.create(URI)) {
             MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayerData");
+            MongoCollection<Document> collection = database.getCollection("TaxPayer");
 
             collection.deleteOne(eq("id", id)).getDeletedCount();
 

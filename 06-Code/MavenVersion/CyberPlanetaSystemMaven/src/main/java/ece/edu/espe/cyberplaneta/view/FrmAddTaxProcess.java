@@ -15,7 +15,7 @@ import javax.swing.table.JTableHeader;
 
 /**
  *
- * @author Saray Cañarte
+ * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmAddTaxProcess extends javax.swing.JFrame {
 

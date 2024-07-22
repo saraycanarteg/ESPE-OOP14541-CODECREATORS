@@ -5,6 +5,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -56,7 +57,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
         txtNotification = new javax.swing.JLabel();
         btnCalculateIncome = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtError = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCancelIncomeCalc = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
@@ -163,9 +163,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(65, 109, 155));
         jLabel4.setText("ID:");
 
-        txtError.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtError.setForeground(new java.awt.Color(255, 51, 51));
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -181,8 +178,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtError, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
@@ -191,12 +186,10 @@ public class FrmShowNotification extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnCalculateIncome)
-                        .addComponent(jLabel4))
-                    .addComponent(txtError, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnCalculateIncome)
+                    .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -273,16 +266,15 @@ public class FrmShowNotification extends javax.swing.JFrame {
         String[] info = new String[5];
         String id = jTextField1.getText();
         if (id.length() != 13) {
-            txtError.setText("El ID debe tener 13 digitos");
+            JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else if (!id.endsWith("001")) {
-            txtError.setText("El ID debe terminar en '001'");
+           JOptionPane.showMessageDialog(this, "El ID debe terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
-            txtError.setText("El contribuyente no existe");
+            JOptionPane.showMessageDialog(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else {
-            txtError.setText(null);
             cleanRow();
             String[] data = utils.MongoDBUtil.notificaionTaxPayer(id);
             for (int i = 0; i < data.length - 1; i++) {
@@ -360,7 +352,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    public javax.swing.JLabel txtError;
     private javax.swing.JLabel txtNotification;
     // End of variables declaration//GEN-END:variables
 }

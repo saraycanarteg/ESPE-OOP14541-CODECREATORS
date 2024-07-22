@@ -1,5 +1,6 @@
 package utils;
 
+import com.mongodb.MongoCommandException;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -200,5 +201,35 @@ public class MongoDBUtil {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
         collection.replaceOne(eq("id", updatedTaxPayer.getString("id")), updatedTaxPayer);
+    }
+    
+    public static void createCollection(String collectionName, int idProcess,String nameProcess,float priceProcess,float rateTax) {
+        try (MongoClient mongoClient = MongoClients.create(URI)) {
+            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
+
+            boolean collectionExists = database.listCollectionNames()
+                    .into(new ArrayList<>())
+                    .contains(collectionName);
+
+            if (!collectionExists) {
+                database.createCollection(collectionName);
+            } 
+            
+            MongoCollection<Document> collection = database.getCollection(collectionName );
+
+            // Crear el documento con la estructura especificada
+            Document document = new Document("processId", idProcess)
+                    .append("processName", nameProcess)
+                    .append("price", priceProcess)
+                    .append("taxRate", rateTax);
+
+            // Insertar el documento en la colección
+            collection.insertOne(document);
+            
+        } catch (MongoCommandException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

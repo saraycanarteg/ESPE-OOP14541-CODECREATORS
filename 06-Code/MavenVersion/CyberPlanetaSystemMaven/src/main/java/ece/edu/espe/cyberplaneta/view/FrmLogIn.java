@@ -5,6 +5,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -182,7 +183,7 @@ public class FrmLogIn extends javax.swing.JFrame {
             this.setVisible(false);
             frmMain.setVisible(true);
         } else {
-            txtPassIncorrect.setText("Contraseña ó usuario inválido");
+            JOptionPane.showMessageDialog(this, "Usuiario ó contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
 

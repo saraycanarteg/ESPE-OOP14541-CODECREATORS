@@ -7,6 +7,7 @@ package ece.edu.espe.cyberplaneta.view;
 import java.awt.Color;
 import static java.awt.Frame.NORMAL;
 import static java.awt.image.ImageObserver.ERROR;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -52,11 +53,8 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanel5 = new javax.swing.JPanel();
-        txtNotification = new javax.swing.JLabel();
         btnCalculateIncome = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        txtError = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         btnCancelIncomeCalc = new javax.swing.JButton();
@@ -112,37 +110,13 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         jTable2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane3.setViewportView(jTable2);
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-
-        txtNotification.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtNotification.setForeground(new java.awt.Color(65, 109, 155));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 656, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtNotification, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(12, Short.MAX_VALUE))
-        );
-
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 680, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -150,9 +124,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         btnCalculateIncome.setBackground(new java.awt.Color(159, 246, 70));
@@ -168,9 +140,6 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(65, 109, 155));
         jLabel4.setText("ID:");
-
-        txtError.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtError.setForeground(new java.awt.Color(255, 51, 51));
 
         btnDelete.setBackground(new java.awt.Color(255, 51, 51));
         btnDelete.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -198,28 +167,27 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
                         .addComponent(jLabel4)
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtError, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addGap(229, 229, 229)
                         .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(14, Short.MAX_VALUE))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(13, 13, 13)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))
-                        .addComponent(txtError, javax.swing.GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(btnCalculateIncome)
-                        .addComponent(btnDelete)))
-                .addGap(18, 18, 18)
+                        .addGap(23, 23, 23))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnCalculateIncome)
+                            .addComponent(btnDelete))
+                        .addGap(18, 18, 18)))
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -288,16 +256,15 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         String[] info = new String[4];
         String id = jTextField1.getText();
         if (id.length() != 13) {
-            txtError.setText("El ID debe tener 13 digitos");
+            JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else if (!id.endsWith("001")) {
-            txtError.setText("El ID debe terminar en '001'");
+            JOptionPane.showMessageDialog(this, "El ID debe terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
-            txtError.setText("El contribuyente no existe");
+            JOptionPane.showMessageDialog(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else {
-            txtError.setText(null);
             cleanRow();
             String[] data = utils.MongoDBUtil.DeleteTaxPayer(id);
             for (int i = 0; i < data.length - 1; i++) {
@@ -320,7 +287,8 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         if (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-        txtNotification.setText("Contribuyente Eliminado");
+        btnDelete.setEnabled(false);
+        JOptionPane.showMessageDialog(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -359,7 +327,6 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     }
     
     private void cleanRow() {
-        txtNotification.setText(null);
         btnDelete.setEnabled(false);
         if (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
@@ -377,11 +344,8 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
-    public javax.swing.JLabel txtError;
-    private javax.swing.JLabel txtNotification;
     // End of variables declaration//GEN-END:variables
 }

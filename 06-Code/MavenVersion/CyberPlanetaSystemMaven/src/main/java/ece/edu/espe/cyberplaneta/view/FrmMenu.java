@@ -300,9 +300,9 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmSearch9thDigitActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        FrmEditTaxpayer frmEditTaxpayer = new FrmEditTaxpayer();
+        FrmAddTaxProcess frmAddTaxProcess = new FrmAddTaxProcess();
         this.setVisible(false);
-        frmEditTaxpayer.setVisible(true);
+        frmAddTaxProcess.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void itmDeleteTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeleteTaxpayerActionPerformed

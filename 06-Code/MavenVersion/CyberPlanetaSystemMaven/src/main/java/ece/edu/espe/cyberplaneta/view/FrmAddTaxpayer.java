@@ -405,8 +405,14 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
         boolean frmDocumentation = ChkDocumentacion.isSelected();
 
         // Validaciones
-        if (frmAddId.isEmpty() || !isValidRUC(frmAddId)) {
+        if (frmAddId.isEmpty() || isValidRUC(frmAddId)) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos que terminen en 001).");
+            return;
+        }
+
+        // Validar si el RUC ya existe en la base de datos
+        if (TaxPayerManager.isRucExist(frmAddId)) {
+            JOptionPane.showMessageDialog(null, "El RUC ya existe en la base de datos.");
             return;
         }
 

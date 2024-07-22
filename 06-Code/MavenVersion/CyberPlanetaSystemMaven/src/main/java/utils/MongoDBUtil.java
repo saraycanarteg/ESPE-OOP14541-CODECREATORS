@@ -22,7 +22,7 @@ public class MongoDBUtil {
     private static final String URI = "mongodb+srv://canarte:canarte@cluster0.devwm9s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     private static final String DATABASE_NAME = "CyberPlaneta";
 
-    private static MongoDatabase getDatabase() {
+    public static MongoDatabase getDatabase() {
         MongoClient mongoClient = MongoClients.create(URI);
         return mongoClient.getDatabase(DATABASE_NAME);
     }

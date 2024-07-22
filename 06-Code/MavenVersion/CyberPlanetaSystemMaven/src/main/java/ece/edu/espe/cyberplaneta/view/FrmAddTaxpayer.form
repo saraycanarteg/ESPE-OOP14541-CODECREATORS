@@ -155,13 +155,10 @@
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <Component id="jdtFinish" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace type="separate" pref="61" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="txtInvalidDates" min="-2" pref="23" max="-2" attributes="0"/>
-                          <EmptySpace pref="100" max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="txtInvalidDates" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace pref="61" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

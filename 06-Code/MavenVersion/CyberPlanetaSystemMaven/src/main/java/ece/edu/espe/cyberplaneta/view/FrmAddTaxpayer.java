@@ -32,7 +32,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
 }
 
     private boolean isValidRUC(String ruc) {
-    String rucRegex = "^\\d{13}$";
+    String rucRegex = "^\\\\d{10}001$";
     Pattern pattern = Pattern.compile(rucRegex);
     Matcher matcher = pattern.matcher(ruc);
     return matcher.matches();
@@ -398,66 +398,66 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailFocusLost
                    
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-    String frmAddId = txtId.getText().trim();
-    String frmEmail = txtEmail.getText().trim();
-    String frmNombre = txtNombre.getText().trim();
-    String frmContrasenia = txtContrasenia.getText().trim();
-    boolean frmDocumentation = ChkDocumentacion.isSelected();
+        String frmAddId = txtId.getText().trim();
+        String frmEmail = txtEmail.getText().trim();
+        String frmNombre = txtNombre.getText().trim();
+        String frmContrasenia = txtContrasenia.getText().trim();
+        boolean frmDocumentation = ChkDocumentacion.isSelected();
 
-    // Validaciones
-    if (frmAddId.isEmpty() || !isValidRUC(frmAddId)) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos).");
-        return;
-    }
-
-    if (frmEmail.isEmpty() || !isValidEmail(frmEmail)) {
-        JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo electrónico válido.");
-        return;
-    }
-
-    if (frmNombre.isEmpty() || !isValidName(frmNombre)) {
-        JOptionPane.showMessageDialog(null, "El nombre no puede tener números ni caracteres especiales.");
-        return;
-    }
-
-    if (frmContrasenia.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "El campo Contraseña no puede estar vacío.");
-        return;
-    }
-
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    String date1 = "";
-    String date2 = "";
-
-    try {
-        Date initDate = jdtInit.getDate();
-        Date finishDate = jdtFinish.getDate();
-
-        if (initDate == null || finishDate == null) {
-            throw new ParseException("Las fechas no pueden ser nulas", 0);
-        }
-
-        if (finishDate.before(initDate)) {
-            JOptionPane.showMessageDialog(null, "La fecha final no puede ser anterior a la fecha inicial.");
+        // Validaciones
+        if (frmAddId.isEmpty() || !isValidRUC(frmAddId)) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos que terminen en 001).");
             return;
         }
 
-        date1 = sdf.format(initDate);
-        date2 = sdf.format(finishDate);
-    } catch (ParseException e) {
-        JOptionPane.showMessageDialog(null, "Por favor, seleccione fechas válidas.");
-        return;
-    }
+        if (frmEmail.isEmpty() || !isValidEmail(frmEmail)) {
+            JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo electrónico válido.");
+            return;
+        }
 
-    // Crear el objeto TaxPayer y guardar en la base de datos
-    TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2);
+        if (frmNombre.isEmpty() || !isValidName(frmNombre)) {
+            JOptionPane.showMessageDialog(null, "El nombre no puede tener números ni caracteres especiales.");
+            return;
+        }
 
-    try {
-        TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
-        JOptionPane.showMessageDialog(null, "Contribuyente guardado exitosamente.");
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el contribuyente: " + e.getMessage());
-    }
+        if (frmContrasenia.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "El campo Contraseña no puede estar vacío.");
+            return;
+        }
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String date1 = "";
+        String date2 = "";
+
+        try {
+            Date initDate = jdtInit.getDate();
+            Date finishDate = jdtFinish.getDate();
+
+            if (initDate == null || finishDate == null) {
+                throw new ParseException("Las fechas no pueden ser nulas", 0);
+            }
+
+            if (finishDate.before(initDate)) {
+                JOptionPane.showMessageDialog(null, "La fecha final no puede ser anterior a la fecha inicial.");
+                return;
+            }
+
+            date1 = sdf.format(initDate);
+            date2 = sdf.format(finishDate);
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Por favor, seleccione fechas válidas.");
+            return;
+        }
+
+        // Crear el objeto TaxPayer y guardar en la base de datos
+        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2);
+
+        try {
+            TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
+            JOptionPane.showMessageDialog(null, "Contribuyente guardado exitosamente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el contribuyente: " + e.getMessage());
+        }
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -474,15 +474,15 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInvalidNameFocusLost
 
     private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
-        String PATTERN = "^\\d{13}$";
-    Pattern patt = Pattern.compile(PATTERN);
-    Matcher match = patt.matcher(txtId.getText().trim());
+        String PATTERN = "^\\d{10}001$"; // Cambiado para validar que el RUC termine en '001'
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtId.getText().trim());
 
-    if (!match.matches()) {
-        txtInvalidId.setText("ID (RUC) Inválido");
-    } else {
-        txtInvalidId.setText(null); // Limpiar el texto si es válido
-    }
+        if (!match.matches()) {
+            txtInvalidId.setText("ID (RUC) Inválido");
+        } else {
+            txtInvalidId.setText(null); // Limpiar el texto si es válido
+        }
     }//GEN-LAST:event_txtIdFocusLost
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost

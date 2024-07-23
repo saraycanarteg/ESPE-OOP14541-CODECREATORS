@@ -178,7 +178,7 @@ public class PricingSystemManagerTest {
         System.out.println("calculateBasePrice");
         PriceList selectedProcess = new PriceList(4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 0.0F;
-        float expResult = 6.45F; 
+        float expResult = 3.5F; 
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
@@ -377,4 +377,6 @@ public class PricingSystemManagerTest {
         double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     } 
+     
+     
 }

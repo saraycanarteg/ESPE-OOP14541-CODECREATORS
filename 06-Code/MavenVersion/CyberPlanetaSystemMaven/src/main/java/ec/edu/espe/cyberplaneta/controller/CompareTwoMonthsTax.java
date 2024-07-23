@@ -10,15 +10,7 @@ package ec.edu.espe.cyberplaneta.controller;
  */
 public class CompareTwoMonthsTax {
 
-    private CompareTwoMonthsTax(double primerMes, double segundoMes) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    public String calculateComparison(double primerMes, double segundoMes) {
-        CompareTwoMonthsTax model = new CompareTwoMonthsTax(primerMes, segundoMes);
-        return model.comparar();
-    }
-
-    private String comparar() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public static double calculateDifference(double primerMes, double segundoMes) {
+        return Math.abs(primerMes - segundoMes);
     }
 }

@@ -140,9 +140,63 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice4() {
         System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(2, "Declaración de IVA semestral", 20.0f, 15f);
+        float numDocumentation = 50.0F;
+        float expResult = 22.5F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice5() {
+        System.out.println("calculateBasePrice");
         PriceList selectedProcess = new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f);
-        float numDocumentation = 123.0F;
-        float expResult = 56.15F; 
+        float numDocumentation = 137.0F;
+        float expResult = 56.85F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice6() {
+        System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f);
+        float numDocumentation = 46.0F;
+        float expResult = 52.3F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice7() {
+        System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(4, "Declaración de IVA semestral", 3.5f, 15f);
+        float numDocumentation = 81.0F;
+        float expResult = 7.55F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice8() {
+        System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(4, "Declaración de IVA semestral", 3.5f, 15f);
+        float numDocumentation = 0.0F;
+        float expResult = 6.45F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice9() {
+        System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(5, "Declaración de IVA semestral", 5.0f, 15f);
+        float numDocumentation = 246.0F;
+        float expResult = 17.3F; 
+        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateBasePrice10() {
+        System.out.println("calculateBasePrice");
+        PriceList selectedProcess = new PriceList(5, "Declaración de IVA semestral", 5.0f, 15f);
+        float numDocumentation = 451.0F;
+        float expResult = 27.55F; 
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }

@@ -357,6 +357,82 @@ public class PricingSystemManagerTest {
         double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
+    
+    @Test
+    public void testCalculateCAGR4() {
+        System.out.println("calculateCAGR");
+        double initialValue = 350.0;
+        double finalValue = 140.0;
+        int numYears = 4;
+        double expResult = 20.47;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCAGR5() {
+        System.out.println("calculateCAGR");
+        double initialValue = 200.0;
+        double finalValue = 100.0;
+        int numYears = 4;
+        double expResult = 15.91;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCAGR6() {
+        System.out.println("calculateCAGR");
+        double initialValue = 460.0;
+        double finalValue = 700.0;
+        int numYears = 1;
+        double expResult = 51.17;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCAGR7() {
+        System.out.println("calculateCAGR");
+        double initialValue = 920.0;
+        double finalValue = 1000.0;
+        int numYears = 2;
+        double expResult = 4.26;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCAGR8() {
+        System.out.println("calculateCAGR");
+        double initialValue = 1500.0;
+        double finalValue = 140.0;
+        int numYears = 1;
+        double expResult = 90.67;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    @Test
+    public void testCalculateCAGR09() {
+        System.out.println("calculateCAGR");
+        double initialValue = 9000.0;
+        double finalValue = 15000.0;
+        int numYears = 1;
+        double expResult = 66.67;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
+    
+    @Test
+    public void testCalculateCAGR10() {
+        System.out.println("calculateCAGR");
+        double initialValue = 78587.25;
+        double finalValue = 108742.52;
+        int numYears = 8;
+        double expResult = 4.14;
+        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        assertEquals(expResult, result, 0.01);
+    }
 
     /**
      * Test of calculateFutureValue method, of class PricingSystemManager.

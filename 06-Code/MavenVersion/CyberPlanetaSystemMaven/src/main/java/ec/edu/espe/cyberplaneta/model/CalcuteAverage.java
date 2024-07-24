@@ -3,7 +3,7 @@ package ec.edu.espe.cyberplaneta.model;
 
 /**
  *
- * @author lilit
+ * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
  */
 public class CalcuteAverage {
 
@@ -26,6 +26,10 @@ public class CalcuteAverage {
     }
 
     public double calculateAvera(double[] impuestos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public double calcularPromedio(double[] impuestos) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

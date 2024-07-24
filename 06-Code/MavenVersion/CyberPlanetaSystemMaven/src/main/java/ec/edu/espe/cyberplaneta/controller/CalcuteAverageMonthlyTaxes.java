@@ -5,38 +5,26 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class CalcuteAverageMonthlyTaxes {
-    private CalcuteAverage model;
+      public static double calculateAverageMonthlyTaxes(int numberOfMonths, double[] monthlyTaxes) {
+        if (numberOfMonths <= 0 || monthlyTaxes == null || monthlyTaxes.length != numberOfMonths) {
+            throw new IllegalArgumentException("Número de meses inválido o arreglo de impuestos no coincide.");
+        }
 
-    public CalcuteAverageMonthlyTaxes() {
-        this.model = new CalcuteAverage(); // Inicializa el modelo
+        double totalTaxes = 0;
+        for (double tax : monthlyTaxes) {
+            totalTaxes += tax;
+        }
+
+        return calculateAverage(totalTaxes, numberOfMonths);
     }
 
-    public void calcularPromedio(JTextField[] camposImpuesto, JLabel resultadoLabel) {
-        if (camposImpuesto == null || camposImpuesto.length == 0) {
-            resultadoLabel.setText("No hay datos para calcular.");
-            return;
-        }
-
-        double[] impuestos = new double[camposImpuesto.length];
-        boolean hayEntradaValida = false;
-
-        for (int i = 0; i < camposImpuesto.length; i++) {
-            try {
-                impuestos[i] = Double.parseDouble(camposImpuesto[i].getText());
-                hayEntradaValida = true; // Hay al menos una entrada válida
-            } catch (NumberFormatException e) {
-                impuestos[i] = 0; // Manejar entrada no válida
-            }
-        }
-
-        if (hayEntradaValida) {
-            double promedio = model.calcularPromedio(impuestos);
-            resultadoLabel.setText(String.format("%.2f", promedio));
-        } else {
-            resultadoLabel.setText("No se ingresaron datos válidos.");
-        }
+    private static double calculateAverage(double totalTaxes, int numberOfMonths) {
+        return totalTaxes / numberOfMonths;
     }
+
+    
 }
+
 
 
 

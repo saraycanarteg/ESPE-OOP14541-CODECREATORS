@@ -4,8 +4,6 @@
  */
 package ec.edu.espe.cyberplaneta.controller;
 
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  *
- * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
+ * @author lilit
  */
 public class CalcuteAverageMonthlyTaxesTest {
     
@@ -39,96 +37,109 @@ public class CalcuteAverageMonthlyTaxesTest {
     }
 
     /**
-     * Test of calcularPromedio method, of class CalcuteAverageMonthlyTaxes.
+     * Test of calculateAverageMonthlyTaxes method, of class CalcuteAverageMonthlyTaxes.
      */
-    @Test
-    public void testCalcularPromedio1() {
-        JTextField[] camposImpuesto = {new JTextField(), new JTextField()};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("0.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio2() {
-        JTextField[] camposImpuesto = {new JTextField("100")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("100.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio3() {
-        JTextField[] camposImpuesto = {new JTextField("100"), new JTextField("200"), new JTextField("300")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("200.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio4() {
-        JTextField[] camposImpuesto = {new JTextField("-100"), new JTextField("-200")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("-150.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio5() {
-        JTextField[] camposImpuesto = {new JTextField("100"), new JTextField("-50")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("25.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio6() {
-        JTextField[] camposImpuesto = {null, new JTextField("100")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("50.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio7() {
-        JTextField[] camposImpuesto = {new JTextField(" "), new JTextField("100")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("100.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio8() {
-        JTextField[] camposImpuesto = {new JTextField("100.5"), new JTextField("200.5")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("150.5", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio9() {
-        JTextField[] camposImpuesto = {new JTextField("1000000"), new JTextField("2000000")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("1500000.0", resultadoLabel.getText());
-    }
-
-    @Test
-    public void testCalcularPromedio10() {
-        JTextField[] camposImpuesto = {new JTextField("0.01"), new JTextField("0.02")};
-        JLabel resultadoLabel = new JLabel();
-        CalcuteAverageMonthlyTaxes instance = new CalcuteAverageMonthlyTaxes();
-        instance.calcularPromedio(camposImpuesto, resultadoLabel);
-        assertEquals("0.015", resultadoLabel.getText());
-    }
+  
     
+     @Test
+    public void testCalculateAverageMonthlyTaxes1() {
+        System.out.println("calculateAverageMonthlyTaxes1");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {100.0, 50.0};
+        double expResult = 75.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes2() {
+        System.out.println("calculateAverageMonthlyTaxes2");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {200.0, 100.0};
+        double expResult = 150.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes3() {
+        System.out.println("calculateAverageMonthlyTaxes3");
+        int numberOfMonths = 3;
+        double[] monthlyTaxes = {300.0, 300.0, 300.0};
+        double expResult = 300.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes4() {
+        System.out.println("calculateAverageMonthlyTaxes4");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {150.0, 200.0};
+        double expResult = 175.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes5() {
+        System.out.println("calculateAverageMonthlyTaxes5");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {0.0, 100.0};
+        double expResult = 50.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes6() {
+        System.out.println("calculateAverageMonthlyTaxes6");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {500.5, 250.5};
+        double expResult = 375.5;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+  
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes7() {
+        System.out.println("calculateAverageMonthlyTaxes7");
+        int numberOfMonths = 1;
+        double[] monthlyTaxes = {100.0};
+        double expResult = 100.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes8() {
+        System.out.println("calculateAverageMonthlyTaxes8");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {1000.0, 500.0};
+        double expResult = 750.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes9() {
+        System.out.println("calculateAverageMonthlyTaxes9");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {150.75, 100.25};
+        double expResult = 125.5;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
+
+    @Test
+    public void testCalculateAverageMonthlyTaxes10() {
+        System.out.println("calculateAverageMonthlyTaxes10");
+        int numberOfMonths = 2;
+        double[] monthlyTaxes = {0.0, 0.0};
+        double expResult = 0.0;
+        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        assertEquals(expResult, result, 0.01);
+    }
 }

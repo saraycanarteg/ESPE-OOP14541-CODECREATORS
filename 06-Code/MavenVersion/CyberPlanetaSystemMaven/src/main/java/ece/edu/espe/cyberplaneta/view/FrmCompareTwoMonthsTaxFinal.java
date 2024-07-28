@@ -1,5 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -7,7 +9,7 @@ package ece.edu.espe.cyberplaneta.view;
 
 /**
  *
- * @author Sanmertin Jose, OOP-ERATION-GOSLING,DCC-ESPE
+ * @author Nahomi Cedeño,CODECREATORS,DCC0-ESPE
  */
 public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
 
@@ -70,8 +72,8 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
                 .addContainerGap(196, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
-                .addComponent(txtComparation, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(222, 222, 222))
+                .addComponent(txtComparation, javax.swing.GroupLayout.PREFERRED_SIZE, 462, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(142, 142, 142))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -203,24 +205,24 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCalculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateActionPerformed
-      // Obtiene los valores de los campos txtValueMonth1 y txtValueMonth2
     String valueMonth1Str = txtValueMonth1.getText().replace(",", "");
     String valueMonth2Str = txtValueMonth2.getText().replace(",", "");
 
-    // Convierte los valores a números
+    if (!valueMonth1Str.matches("\\d+(\\.\\d+)?") || !valueMonth2Str.matches("\\d+(\\.\\d+)?")) {
+    JOptionPane.showMessageDialog(null, "Por favor, ingrese solo números.");
+    txtValueMonth1.setText("");
+    txtValueMonth2.setText("");
+} else {
     double valueMonth1 = Double.parseDouble(valueMonth1Str);
     double valueMonth2 = Double.parseDouble(valueMonth2Str);
 
-    // Llama a la función de comparación y obtiene el resultado
     String result = compareMonths(valueMonth1, valueMonth2);
 
-    // Muestra el resultado en el campo txtComparation
     txtComparation.setText(result);
 
-    // Limpia los campos txtValueMonth1 y txtValueMonth2
     txtValueMonth1.setText("");
     txtValueMonth2.setText("");
-
+    }
     }//GEN-LAST:event_btnCalculateActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
@@ -231,9 +233,11 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
 
     private String compareMonths(double valueMonth1, double valueMonth2) {
     if (valueMonth1 > valueMonth2) {
-        return "Primer mes ingresado es mayor a segundo mes ingresado";
+        double difference = valueMonth1 - valueMonth2;
+        return "Primer mes ingresado es mayor a segundo mes ingresado por"  + difference;
     } else if (valueMonth2 > valueMonth1) {
-        return "Segundo mes ingresado es mayor a primer mes ingresado";
+        double difference = valueMonth2 - valueMonth1;
+        return "Segundo mes ingresado es mayor a primer mes ingresado"  + difference;
     } else {
         return "No existe diferencia";
     }

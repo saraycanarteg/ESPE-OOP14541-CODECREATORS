@@ -8,6 +8,8 @@ import ece.edu.espe.cyberplaneta.view.FrmMenu;
 import ece.edu.espe.cyberplaneta.view.FrmMenu;
 import ece.edu.espe.cyberplaneta.view.FrmMenu;
 import ece.edu.espe.cyberplaneta.view.FrmMenu;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -357,72 +359,96 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelCAGRCalcActionPerformed
 
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-       // Obtiene el mes seleccionado por el JSpinner
     int selectedMonth = (int) monthSpinner.getValue();
     
-    // Llama a la función para calcular el promedio
     double average = calculateAverage(selectedMonth);
     
-    // Muestra el resultado en el campo txtAverage
     txtAverage.setText(String.format("%.2f", average));
     
-    // Limpia todos los campos excepto txtAverage
     clearFields();
 }
+private void updateTextFields(int selectedMonth) {
+    txtmonthJanuary.setEnabled(selectedMonth >= 1);
+    txtmonthFebruary.setEnabled(selectedMonth >= 2);
+    txtmonthMarch.setEnabled(selectedMonth >= 3);
+    txtmonthApril.setEnabled(selectedMonth >= 4);
+    txtmonthMay.setEnabled(selectedMonth >= 5);
+    txtmonthJune.setEnabled(selectedMonth >= 6);
+    txtmonthJuly.setEnabled(selectedMonth >= 7);
+    txtmonthAgoust.setEnabled(selectedMonth >= 8);
+    txtmonthSeptember.setEnabled(selectedMonth >= 9);
+    txtmonthOctober.setEnabled(selectedMonth >= 10);
+    txtmonthNovember.setEnabled(selectedMonth >= 11);
+    txtmonthDecember.setEnabled(selectedMonth >= 12);
+}
+
 private double calculateAverage(int selectedMonth) {
     double sum = 0;
     int count = 0;
-
+    
     if (selectedMonth >= 1) {
-        sum += Double.parseDouble(txtmonthJanuary.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthJanuary);
         count++;
     }
     if (selectedMonth >= 2) {
-        sum += Double.parseDouble(txtmonthFebruary.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthFebruary);
         count++;
     }
     if (selectedMonth >= 3) {
-        sum += Double.parseDouble(txtmonthMarch.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthMarch);
         count++;
     }
     if (selectedMonth >= 4) {
-        sum += Double.parseDouble(txtmonthApril.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthApril);
         count++;
     }
     if (selectedMonth >= 5) {
-        sum += Double.parseDouble(txtmonthMay.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthMay);
         count++;
     }
     if (selectedMonth >= 6) {
-        sum += Double.parseDouble(txtmonthJune.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthJune);
         count++;
     }
     if (selectedMonth >= 7) {
-        sum += Double.parseDouble(txtmonthJuly.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthJuly);
         count++;
     }
     if (selectedMonth >= 8) {
-        sum += Double.parseDouble(txtmonthAgoust.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthAgoust);
         count++;
     }
     if (selectedMonth >= 9) {
-        sum += Double.parseDouble(txtmonthSeptember.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthSeptember);
         count++;
     }
     if (selectedMonth >= 10) {
-        sum += Double.parseDouble(txtmonthOctober.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthOctober);
         count++;
     }
     if (selectedMonth >= 11) {
-        sum += Double.parseDouble(txtmonthNovember.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthNovember);
         count++;
     }
     if (selectedMonth >= 12) {
-        sum += Double.parseDouble(txtmonthDecember.getText().replace(",", ""));
+        sum += getValidatedValue(txtmonthDecember);
         count++;
     }
 
     return count == 0 ? 0 : sum / count;
+}
+
+private double getValidatedValue(JTextField textField) {
+    String text = textField.getText().replace(",", "");
+    if (text.isEmpty()) {
+        return 0; 
+    }
+    if (!text.matches("\\d+(\\.\\d+)?")) { 
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese solo números.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        textField.setText(""); 
+        return 0; 
+    }
+    return Double.parseDouble(text);
 }
 
 private void clearFields() {

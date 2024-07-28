@@ -1,14 +1,11 @@
 package utils;
 
-import com.mongodb.MongoCommandException;
-import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import org.bson.Document;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -16,14 +13,18 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import org.bson.Document;
 
+/**
+ *
+ * @authors Saray Canarte, Christian Bonifaz, Andres Cedeno. Code Creators, DCCO-ESPE
+ */
 public class MongoDBUtil {
 
-    private static final String URI = "mongodb+srv://canarte:canarte@cluster0.devwm9s.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
     private static final String DATABASE_NAME = "CyberPlaneta";
 
     public static MongoDatabase getDatabase() {
-        MongoClient mongoClient = MongoClients.create(URI);
+        MongoClient mongoClient = MongoClientSingleton.getInstance();
         return mongoClient.getDatabase(DATABASE_NAME);
     }
 
@@ -61,18 +62,14 @@ public class MongoDBUtil {
     public static boolean validateUser(String username, String password) {
         boolean isValid = false;
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("usuarios");
-            Document user = collection.find(eq("user", username)).first();
-            if (user != null) {
-                String storedPassword = user.getString("password");
-                if (storedPassword.equals(password)) {
-                    isValid = true;
-                }
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("usuarios");
+        Document user = collection.find(eq("user", username)).first();
+        if (user != null) {
+            String storedPassword = user.getString("password");
+            if (storedPassword.equals(password)) {
+                isValid = true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return isValid;
     }
@@ -83,29 +80,25 @@ public class MongoDBUtil {
         String msm = null;
         String[] data = new String[6];
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayer");
-            Document user = collection.find(eq("id", idTaxPayer)).first();
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        Document user = collection.find(eq("id", idTaxPayer)).first();
 
-            String id = user.getString("id");
-            String nameTaxpayer = user.getString("name");
-            String deliveryDate = user.getString("deliveryDate");
-            String startDate = user.getString("startDate");
-            LocalDate deliveryDates = LocalDate.parse(deliveryDate, DATE_FORMATTER);
-            long remainingDays = ec.edu.espe.cyberplaneta.controller.NotificationControl.getDaysBetweenDates(LocalDate.now(), deliveryDates);
-            msm = ec.edu.espe.cyberplaneta.controller.NotificationControl.displayNotification(nameTaxpayer, deliveryDate, remainingDays);
+        String id = user.getString("id");
+        String nameTaxpayer = user.getString("name");
+        String deliveryDate = user.getString("deliveryDate");
+        String startDate = user.getString("startDate");
+        LocalDate deliveryDates = LocalDate.parse(deliveryDate, DATE_FORMATTER);
+        long remainingDays = ec.edu.espe.cyberplaneta.controller.NotificationControl.getDaysBetweenDates(LocalDate.now(), deliveryDates);
+        msm = ec.edu.espe.cyberplaneta.controller.NotificationControl.displayNotification(nameTaxpayer, deliveryDate, remainingDays);
 
-            data[0] = id;
-            data[1] = nameTaxpayer;
-            data[2] = startDate;
-            data[3] = deliveryDate;
-            data[4] = Long.toString(remainingDays);
-            data[5] = msm;
+        data[0] = id;
+        data[1] = nameTaxpayer;
+        data[2] = startDate;
+        data[3] = deliveryDate;
+        data[4] = Long.toString(remainingDays);
+        data[5] = msm;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return data;
     }
 
@@ -113,56 +106,40 @@ public class MongoDBUtil {
         String msm = null;
         String[] data = new String[5];
 
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayer");
-            Document user = collection.find(eq("id", idTaxPayer)).first();
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        Document user = collection.find(eq("id", idTaxPayer)).first();
 
-            String id = user.getString("id");
-            String nameTaxpayer = user.getString("name");
-            String email = user.getString("email");
-            String password = user.getString("password");
+        String id = user.getString("id");
+        String nameTaxpayer = user.getString("name");
+        String email = user.getString("email");
+        String password = user.getString("password");
 
-            data[0] = id;
-            data[1] = nameTaxpayer;
-            data[2] = email;
-            data[3] = password;
+        data[0] = id;
+        data[1] = nameTaxpayer;
+        data[2] = email;
+        data[3] = password;
 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return data;
     }
 
     public static boolean verificationIdTaxpayer(String id) {
         boolean verification = false;
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayer");
-            Document user = collection.find(eq("id", id)).first();
-            if (user == null) {
-                verification = true;
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        Document user = collection.find(eq("id", id)).first();
+        if (user == null) {
+            verification = true;
         }
         return verification;
     }
 
     public static void deleteDocumentById(String id) {
-         try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
-            MongoCollection<Document> collection = database.getCollection("TaxPayer");
-
-            collection.deleteOne(eq("id", id)).getDeletedCount();
-
-   
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("TaxPayer");
+        collection.deleteOne(eq("id", id));
     }
+
     public static void saveTaxPayer(TaxPayer taxPayer) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -174,10 +151,10 @@ public class MongoDBUtil {
                 .append("accountingDocumentation", taxPayer.isAccountingDocumentation())
                 .append("deliveryDate", taxPayer.getdeliveryDate())
                 .append("startDate", taxPayer.getStartDate());
-                
 
         collection.insertOne(document);
     }
+
     public static List<Document> getAllTaxPayers() {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -191,6 +168,7 @@ public class MongoDBUtil {
 
         return documents;
     }
+
     public static Document getTaxPayerById(String id) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -202,34 +180,25 @@ public class MongoDBUtil {
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
         collection.replaceOne(eq("id", updatedTaxPayer.getString("id")), updatedTaxPayer);
     }
-    
-    public static void createCollection(String collectionName, int idProcess,String nameProcess,float priceProcess,float rateTax) {
-        try (MongoClient mongoClient = MongoClients.create(URI)) {
-            MongoDatabase database = mongoClient.getDatabase(DATABASE_NAME);
 
-            boolean collectionExists = database.listCollectionNames()
-                    .into(new ArrayList<>())
-                    .contains(collectionName);
+    public static void createCollection(String collectionName, int idProcess, String nameProcess, float priceProcess, float rateTax) {
+        MongoDatabase database = getDatabase();
 
-            if (!collectionExists) {
-                database.createCollection(collectionName);
-            } 
-            
-            MongoCollection<Document> collection = database.getCollection(collectionName );
+        boolean collectionExists = database.listCollectionNames()
+                .into(new ArrayList<>())
+                .contains(collectionName);
 
-            // Crear el documento con la estructura especificada
-            Document document = new Document("processId", idProcess)
-                    .append("processName", nameProcess)
-                    .append("price", priceProcess)
-                    .append("taxRate", rateTax);
-
-            // Insertar el documento en la colección
-            collection.insertOne(document);
-            
-        } catch (MongoCommandException e) {
-            e.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (!collectionExists) {
+            database.createCollection(collectionName);
         }
+
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+
+        Document document = new Document("processId", idProcess)
+                .append("processName", nameProcess)
+                .append("price", priceProcess)
+                .append("taxRate", rateTax);
+
+        collection.insertOne(document);
     }
 }

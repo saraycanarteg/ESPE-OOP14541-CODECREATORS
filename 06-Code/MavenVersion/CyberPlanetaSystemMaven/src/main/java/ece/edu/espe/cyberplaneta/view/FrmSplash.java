@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Usuario
+ * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public final class FrmSplash extends javax.swing.JFrame {
 

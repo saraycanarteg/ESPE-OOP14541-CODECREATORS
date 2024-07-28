@@ -4,6 +4,8 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import utils.MongoClientSingleton;
+
 /**
  *
  * @author Saray Canarte, Code Creators, DCCO-ESPE
@@ -271,6 +273,10 @@ public class FrmMenu extends javax.swing.JFrame {
 
     private void itmLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmLogOutActionPerformed
         System.exit(0);
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            MongoClientSingleton.close();
+            System.out.println("MongoDB connection closed.");
+        }));
     }//GEN-LAST:event_itmLogOutActionPerformed
 
     private void itmEditTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmEditTaxpayerActionPerformed

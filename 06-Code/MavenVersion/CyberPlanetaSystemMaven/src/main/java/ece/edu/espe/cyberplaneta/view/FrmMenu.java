@@ -352,7 +352,9 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmAddProcessTaxayerActionPerformed
 
     private void itmAccountSettingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmAccountSettingsActionPerformed
-        // TODO add your handling code here:
+        FrmAccountSetting frmAccountSetting = new FrmAccountSetting();
+        this.setVisible(false);
+        frmAccountSetting.setVisible(true);
     }//GEN-LAST:event_itmAccountSettingsActionPerformed
 
     /**

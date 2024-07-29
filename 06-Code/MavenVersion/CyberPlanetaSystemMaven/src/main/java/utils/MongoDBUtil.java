@@ -5,6 +5,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import static com.mongodb.client.model.Filters.eq;
+import com.mongodb.client.model.Updates;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import java.math.BigDecimal;
@@ -72,6 +73,19 @@ public class MongoDBUtil {
             }
         }
         return isValid;
+    }
+    public static boolean updateUser(String oldUsername, String newUsername, String newPassword) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("usuarios");
+        Document user = collection.find(eq("user", oldUsername)).first();
+        if (user != null) {
+            collection.updateOne(eq("user", oldUsername), Updates.combine(
+                Updates.set("user", newUsername),
+                Updates.set("password", newPassword)
+            ));
+            return true;
+        }
+        return false;
     }
 
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");

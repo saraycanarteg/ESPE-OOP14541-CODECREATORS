@@ -1,13 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ece.edu.espe.cyberplaneta.view;
 
-import ece.edu.espe.cyberplaneta.view.FrmMenu;
-import ece.edu.espe.cyberplaneta.view.FrmMenu;
-import ece.edu.espe.cyberplaneta.view.FrmMenu;
-import ece.edu.espe.cyberplaneta.view.FrmMenu;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
@@ -62,6 +54,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         txtmonthDecember = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         txtAverage = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCancelCAGRCalc = new javax.swing.JButton();
         btnCalculateCAGR = new javax.swing.JButton();
@@ -81,135 +74,170 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(0, 0, 153));
         jLabel2.setText("Seleccione el número de meses a calcular:");
 
+        txtmonthFebruary.setEnabled(false);
+
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel3.setText("Ingrese el impuesto cobrado en el mes 2:");
+        jLabel3.setText("MES 2:");
 
         monthSpinner.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
         monthSpinner.setAutoscrolls(true);
         monthSpinner.setRequestFocusEnabled(false);
         monthSpinner.setVerifyInputWhenFocusTarget(false);
+        monthSpinner.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                monthSpinnerStateChanged(evt);
+            }
+        });
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel4.setText("Ingrese el impuesto cobrado en el mes 1:");
+        jLabel4.setText("MES 1:");
+
+        txtmonthJanuary.setEnabled(false);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel7.setText("Ingrese el impuesto cobrado en el mes 3:");
+        jLabel7.setText("MES 3:");
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel8.setText("Ingrese el impuesto cobrado en el mes 4:");
+        jLabel8.setText("MES 4:");
+
+        txtmonthMarch.setEnabled(false);
+
+        txtmonthApril.setEnabled(false);
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel9.setText("Ingrese el impuesto cobrado en el mes 5:");
+        jLabel9.setText("MES 5:");
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel10.setText("Ingrese el impuesto cobrado en el mes 6:");
+        jLabel10.setText("MES 6:");
+
+        txtmonthMay.setEnabled(false);
+
+        txtmonthJune.setEnabled(false);
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel11.setText("Ingrese el impuesto cobrado en el mes 7:");
+        jLabel11.setText("MES 7:");
+
+        txtmonthJuly.setEnabled(false);
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel12.setText("Ingrese el impuesto cobrado en el mes 11:");
+        jLabel12.setText("MES 11:");
+
+        txtmonthNovember.setEnabled(false);
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel13.setText("Ingrese el impuesto cobrado en el mes 10:");
+        jLabel13.setText("MES 10:");
+
+        txtmonthOctober.setEnabled(false);
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel14.setText("Ingrese el impuesto cobrado en el mes 9:");
+        jLabel14.setText("MES 9:");
+
+        txtmonthSeptember.setEnabled(false);
 
         jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel15.setText("Ingrese el impuesto cobrado en el mes 8:");
+        jLabel15.setText("MES 8:");
+
+        txtmonthAgoust.setEnabled(false);
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel16.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel16.setText("Ingrese el impuesto cobrado en el mes 12:");
+        jLabel16.setText("MES 12:");
+
+        txtmonthDecember.setEnabled(false);
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(0, 0, 153));
         jLabel17.setText("Su promedio es:");
 
+        txtAverage.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtAverage.setForeground(new java.awt.Color(0, 0, 153));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel18.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel18.setText("Ingrese el impuesto cobrado en:");
+
         javax.swing.GroupLayout jPanelCalcuteAverageMonthlyLayout = new javax.swing.GroupLayout(jPanelCalcuteAverageMonthly);
         jPanelCalcuteAverageMonthly.setLayout(jPanelCalcuteAverageMonthlyLayout);
         jPanelCalcuteAverageMonthlyLayout.setHorizontalGroup(
             jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                .addContainerGap(215, Short.MAX_VALUE)
                 .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                            .addComponent(jLabel4)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtmonthJanuary, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                            .addComponent(jLabel3)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtmonthFebruary, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtmonthMarch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(370, 370, 370))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtmonthMay, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtmonthJanuary, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                .addComponent(jLabel8)
+                                .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtmonthApril, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                            .addComponent(jLabel10)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtmonthJune, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txtmonthFebruary, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                .addComponent(jLabel12)
+                                .addComponent(jLabel7)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtmonthNovember, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtmonthMarch, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                                    .addComponent(jLabel9)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtmonthMay, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                                    .addComponent(jLabel8)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(txtmonthApril, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
+                                .addComponent(jLabel10)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtmonthDecember, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtmonthJune, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtmonthJuly, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(monthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(182, 182, 182)
+                                .addComponent(monthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                                .addGap(104, 104, 104)
                                 .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel14)
-                                            .addComponent(jLabel15))
-                                        .addGap(18, 18, 18)
+                                    .addComponent(jLabel11)
+                                    .addComponent(jLabel15)
+                                    .addComponent(jLabel14)
+                                    .addComponent(jLabel13)
+                                    .addComponent(jLabel12)
+                                    .addComponent(jLabel16))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtmonthNovember, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtmonthDecember, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(txtmonthAgoust, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(txtmonthSeptember, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                                        .addComponent(jLabel13)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(txtmonthOctober, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(103, 103, 103))
+                                            .addComponent(txtmonthSeptember, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(txtmonthOctober, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtmonthJuly, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(199, 199, 199))
                     .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
-                        .addGap(18, 18, 18)
+                        .addGap(62, 62, 62)
+                        .addComponent(jLabel17)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtAverage, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap())))
+            .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jLabel18)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanelCalcuteAverageMonthlyLayout.setVerticalGroup(
             jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,17 +246,15 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
                 .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(monthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 57, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel18)
+                .addGap(18, 18, 18)
                 .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel4)
-                        .addComponent(txtmonthJanuary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel11)
-                        .addComponent(txtmonthJuly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(txtmonthJanuary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtmonthFebruary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -247,8 +273,17 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel10)
-                            .addComponent(txtmonthJune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txtmonthJune, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel17)
+                            .addComponent(txtAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16))
                     .addGroup(jPanelCalcuteAverageMonthlyLayout.createSequentialGroup()
+                        .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(txtmonthJuly, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel15)
                             .addComponent(txtmonthAgoust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -267,17 +302,13 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
                         .addGap(12, 12, 12)
                         .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel16)
-                            .addComponent(txtmonthDecember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(jPanelCalcuteAverageMonthlyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel17)
-                    .addComponent(txtAverage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26))
+                            .addComponent(txtmonthDecember, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
-        jPanel3.setBackground(new java.awt.Color(65, 109, 155));
+        jPanel3.setBackground(new java.awt.Color(7, 81, 203));
 
-        btnCancelCAGRCalc.setBackground(new java.awt.Color(255, 101, 98));
+        btnCancelCAGRCalc.setBackground(new java.awt.Color(255, 0, 0));
         btnCancelCAGRCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCancelCAGRCalc.setForeground(new java.awt.Color(255, 255, 255));
         btnCancelCAGRCalc.setText("Cancelar");
@@ -287,7 +318,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
             }
         });
 
-        btnCalculateCAGR.setBackground(new java.awt.Color(165, 231, 165));
+        btnCalculateCAGR.setBackground(new java.awt.Color(159, 246, 70));
         btnCalculateCAGR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnCalculateCAGR.setForeground(new java.awt.Color(65, 109, 155));
         btnCalculateCAGR.setText("Calcular");
@@ -337,7 +368,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addGap(6, 6, 6)
-                .addComponent(jPanelCalcuteAverageMonthly, javax.swing.GroupLayout.PREFERRED_SIZE, 920, Short.MAX_VALUE))
+                .addComponent(jPanelCalcuteAverageMonthly, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -359,84 +390,49 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelCAGRCalcActionPerformed
 
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-    int selectedMonth = (int) monthSpinner.getValue();
-    
-    double average = calculateAverage(selectedMonth);
-    
-    txtAverage.setText(String.format("%.2f", average));
-    
-    clearFields();
-}
-private void updateTextFields(int selectedMonth) {
-    txtmonthJanuary.setEnabled(selectedMonth >= 1);
-    txtmonthFebruary.setEnabled(selectedMonth >= 2);
-    txtmonthMarch.setEnabled(selectedMonth >= 3);
-    txtmonthApril.setEnabled(selectedMonth >= 4);
-    txtmonthMay.setEnabled(selectedMonth >= 5);
-    txtmonthJune.setEnabled(selectedMonth >= 6);
-    txtmonthJuly.setEnabled(selectedMonth >= 7);
-    txtmonthAgoust.setEnabled(selectedMonth >= 8);
-    txtmonthSeptember.setEnabled(selectedMonth >= 9);
-    txtmonthOctober.setEnabled(selectedMonth >= 10);
-    txtmonthNovember.setEnabled(selectedMonth >= 11);
-    txtmonthDecember.setEnabled(selectedMonth >= 12);
-}
+        int selectedMonth = (int) monthSpinner.getValue();
 
-private double calculateAverage(int selectedMonth) {
-    double sum = 0;
-    int count = 0;
-    
-    if (selectedMonth >= 1) {
-        sum += getValidatedValue(txtmonthJanuary);
-        count++;
-    }
-    if (selectedMonth >= 2) {
-        sum += getValidatedValue(txtmonthFebruary);
-        count++;
-    }
-    if (selectedMonth >= 3) {
-        sum += getValidatedValue(txtmonthMarch);
-        count++;
-    }
-    if (selectedMonth >= 4) {
-        sum += getValidatedValue(txtmonthApril);
-        count++;
-    }
-    if (selectedMonth >= 5) {
-        sum += getValidatedValue(txtmonthMay);
-        count++;
-    }
-    if (selectedMonth >= 6) {
-        sum += getValidatedValue(txtmonthJune);
-        count++;
-    }
-    if (selectedMonth >= 7) {
-        sum += getValidatedValue(txtmonthJuly);
-        count++;
-    }
-    if (selectedMonth >= 8) {
-        sum += getValidatedValue(txtmonthAgoust);
-        count++;
-    }
-    if (selectedMonth >= 9) {
-        sum += getValidatedValue(txtmonthSeptember);
-        count++;
-    }
-    if (selectedMonth >= 10) {
-        sum += getValidatedValue(txtmonthOctober);
-        count++;
-    }
-    if (selectedMonth >= 11) {
-        sum += getValidatedValue(txtmonthNovember);
-        count++;
-    }
-    if (selectedMonth >= 12) {
-        sum += getValidatedValue(txtmonthDecember);
-        count++;
+        double average = calculateAverage(selectedMonth);
+
+        txtAverage.setText(String.format("%.2f", average));
+
+        clearFields();
     }
 
-    return count == 0 ? 0 : sum / count;
-}
+    private void updateTextFields(int selectedMonth) {
+        txtmonthJanuary.setEnabled(selectedMonth >= 1);
+        txtmonthFebruary.setEnabled(selectedMonth >= 2);
+        txtmonthMarch.setEnabled(selectedMonth >= 3);
+        txtmonthApril.setEnabled(selectedMonth >= 4);
+        txtmonthMay.setEnabled(selectedMonth >= 5);
+        txtmonthJune.setEnabled(selectedMonth >= 6);
+        txtmonthJuly.setEnabled(selectedMonth >= 7);
+        txtmonthAgoust.setEnabled(selectedMonth >= 8);
+        txtmonthSeptember.setEnabled(selectedMonth >= 9);
+        txtmonthOctober.setEnabled(selectedMonth >= 10);
+        txtmonthNovember.setEnabled(selectedMonth >= 11);
+        txtmonthDecember.setEnabled(selectedMonth >= 12);
+    }
+
+    private double calculateAverage(int selectedMonth) {
+        double sum = 0;
+        int count = 0;
+
+        JTextField[] monthFields = {
+            txtmonthJanuary, txtmonthFebruary, txtmonthMarch,
+            txtmonthApril, txtmonthMay, txtmonthJune,
+            txtmonthJuly, txtmonthAgoust, txtmonthSeptember,
+            txtmonthOctober, txtmonthNovember, txtmonthDecember
+        };
+
+        for (int i = 0; i < selectedMonth; i++) {
+            sum += getValidatedValue(monthFields[i]);
+            count++;
+        }
+
+        return count == 0 ? 0 : sum / count;
+    }
+
 
 private double getValidatedValue(JTextField textField) {
     String text = textField.getText().replace(",", "");
@@ -452,23 +448,27 @@ private double getValidatedValue(JTextField textField) {
 }
 
 private void clearFields() {
-    txtmonthJanuary.setText("");
-    txtmonthFebruary.setText("");
-    txtmonthMarch.setText("");
-    txtmonthApril.setText("");
-    txtmonthMay.setText("");
-    txtmonthJune.setText("");
-    txtmonthJuly.setText("");
-    txtmonthAgoust.setText("");
-    txtmonthSeptember.setText("");
-    txtmonthOctober.setText("");
-    txtmonthNovember.setText("");
-    txtmonthDecember.setText("");
+    JTextField[] monthFields = {
+        txtmonthJanuary, txtmonthFebruary, txtmonthMarch, 
+        txtmonthApril, txtmonthMay, txtmonthJune, 
+        txtmonthJuly, txtmonthAgoust, txtmonthSeptember, 
+        txtmonthOctober, txtmonthNovember, txtmonthDecember
+    };
+
+    for (JTextField field : monthFields) {
+        field.setText("");
+    }
 }
+
 // Método para calcular el CAGR
 private double calcularCAGR(double valorInicial, double valorFinal, int años) {
     return Math.pow(valorFinal / valorInicial, 1.0 / años) - 1;
     }//GEN-LAST:event_btnCalculateCAGRActionPerformed
+
+    private void monthSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_monthSpinnerStateChanged
+         int selectedMonth = (int) monthSpinner.getValue();
+        updateTextFields(selectedMonth);
+    }//GEN-LAST:event_monthSpinnerStateChanged
 
     /**
      * @param args the command line arguments
@@ -516,6 +516,7 @@ private double calcularCAGR(double valorInicial, double valorFinal, int años) {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -543,13 +544,4 @@ private double calcularCAGR(double valorInicial, double valorFinal, int años) {
     private javax.swing.JTextField txtmonthSeptember;
     // End of variables declaration//GEN-END:variables
 
-    private static class txtValorInicial {
-
-        private static String getText() {
-            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-        }
-
-        public txtValorInicial() {
-        }
-    }
 }

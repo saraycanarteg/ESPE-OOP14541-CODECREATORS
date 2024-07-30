@@ -1,6 +1,6 @@
 package ec.edu.espe.cyberplaneta.controller;
 
-import ec.edu.espe.cyberplaneta.model.CalcuteAverage;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 

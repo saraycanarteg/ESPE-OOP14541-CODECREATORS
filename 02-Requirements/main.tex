@@ -183,8 +183,7 @@ Cyber Planeta streamlines tax payer's management and will focus in functionaliti
 \item \textbf{Tax Payer Management:}
 \begin{itemize}
 \item Add, edit (the customer can edit all fields except dates), and delete tax payer profiles.
-\item Attach individual documentation (e.g., scanned sales notes) to tax payer profiles. 
-\textbf{NOTE:} Would be added when the project uses graphical interface programming.
+\item Generate PDF and Excel Reports of the Taxpayers Data.
 \item Search by 9th RUC digit for easy identification of tax declaration day.
 \end{itemize}
 \item \textbf{Tax Declaration Management:}
@@ -198,6 +197,7 @@ Cyber Planeta streamlines tax payer's management and will focus in functionaliti
 \item The program will only ask for the customer's ID to extract the base price and tax from the table provided by Guillermo Cañarte.
 \item Add additional cost to the base price; for every 10 documents the program will charge 0.50 additional cents.
 \item All the calculations that are made for each one of the contributors will be added up, and a space will be generated where the monthly income of the contributor will be shown.
+\item Include a basic calculator to compare and calculate averages of taxes, and estimate future Cyber Planeta income's.
 
 
 \end{itemize}
@@ -247,76 +247,59 @@ A future requirement is for the system to send notifications about tax processes
 \section{Specific requirements}
 \label{sec:org40573d1}
 
-This document outlines the system requirements for an cyberg program specializing in tax returns. The program aims to facilitate the organization of the premises and the completion of tax procedures for customers.
+This document outlines the system requirements for a cyber program specializing in tax information management. The program aims to facilitate the organization of the premises and the completion of tax procedures for customers.
 
 \begin{itemize}
 \item
-\textbf {Customer data collection}
-The system must have a form for customers to enter their personal data, such as name, address, ID number, RUC, type of procedure they want to perform, etc. 
-The data entered by customers must be stored securely and confidentially. 
+\textbf {Tax Payer Data}
+The system must allow to register, edit, delete and search Tax Payers, which will have personal data, such as name, ID number, email, password, documentation, start-date of a process and end-date of a process. It also will allow to add a 1 or more tax processes to a Tax Payer (these processes must be based on the Price List given by the owner)
+The data entered must be stored securely and confidentially. 
 \end{itemize}
 
 \begin{itemize}
 \item
-\textbf {Integration with the SRI platform}
-The system must be able to connect to the SRI platform to carry out tax declarations automatically. 
-The system must be compatible with the latest versions of the SRI platform. 
-\end{itemize}
-
-\begin{itemize}
-\item
-\textbf {Fare calculation}
-The system must be able to calculate the price of the service based on the type of procedure and the number of declarations to be made. 
-A tiered pricing system should be implemented to offer discounts to customers who perform multiple procedures.
+\textbf {Pricing calculation}
+The system must be able to calculate the price of the service based on the type of procedure (ID) and the number of documentation given to the process (considering it will have an extra cost).
 \end{itemize}
 
 \begin{itemize}
 \item
 \textbf {Search by RUC}
-The system must have a search system that allows customers to find their previous declarations by RUC. 
+The system must have a search system that Cyber Planeta Admin to find Tax Payers given the 9th digit of the ID (RUC). 
 The search must be fast and efficient. 
 \end{itemize}
 
 \begin{itemize}
 \item
-\textbf {Appointment calendar}
-The system must have a calendar where appointments can be scheduled for customers. 
-The calendar must allow viewing available and occupied appointments. 
-The system must send email or SMS notifications to customers to remind them of their appointments. 
-\textbf{NOTE:} 
-This will be shown in the second version of the program, because it is not possible in the console. 
+\textbf {Notification}
+The system must compare the end-date of a Tax Payer to current date and verify how many days are missing till due date. 
 \end{itemize}
 
 \begin{itemize}
 \item
-\textbf {Group system}
-The system could implement a group system to organize customers according to the type of procedure they want to perform. 
-This would facilitate care and allow for more personalized service. 
+\textbf {Other Calculations}
+The system must allow Cyber Planeta owner to compute basic calculations required by the user to solve possible Tax Payer questions (Compare 2 month taxes and Calculate the average of taxes in specific months).
+These calculations should not necessarily be saved in the cloud or the program storage, since they will represent information to be told to the taxpayer in common questions during the customer service.
 \end{itemize}
 
 \begin{itemize}
 \item
-\textbf {Notifications}
-The system must send email or SMS notifications to customers to inform them of the status of their procedures. 
-Notifications should be clear and concise. 
+\textbf {Incomes Management}
+The program must allow to enter Incomes and calculate the total of them, it must take in consideration that the user asked for a direct option in Pricing Calculation to add as a Income the computations in order for the user to save time.
+Cyber Planeta System must also allow the user to estimate the future incomes that his business will have.
 \end{itemize}
 
 \begin{itemize}
 \item
 \textbf {Report generation}
-The system could generate personalized reports for customers with information about their tax declarations, such as filing dates, amounts paid, etc. 
-Reports should be exportable to different formats, such as Excel (CVS) or JSON. 
+The system could generate personalized reports for customers with information about their tax declarations and Incomes Information. 
+Reports should be exportable to different formats, such as Excel (CVS) or PDF. 
 \end{itemize}
-
 \begin{itemize}
 \item
-\textbf {Technical support}
-The system must have a technical support system to help customers with any problems they may have using it,
-Technical support must be available by phone, email or online chat. 
+\textbf {Account Settings}
+The user must be able to change the user and password initially given by the program. 
 \end{itemize}
-
-
-
 
 
 
@@ -347,7 +330,7 @@ The menu must be accessible from any screen the search bar must support searches
 The functions required for Cyber Planeta System are:\\
 
 \textbf{Taxpayer:}\\
-Taxpayers are the users who will request the cyber center's services. Each Taxpayer has attributes such as name, RUC, process type, processing date, price, and number of documents.Taxpayers are the users who will request the cyber center's services. Each Taxpayer has attributes such as name, RUC, process type, processing date, price, and number of documents.
+Each Taxpayer has attributes such as name, RUC, process type, processing date, price, and number of documents.
 \begin{itemize}
 \item \textbf {Add Taxpayer:}
 The system must allow the entry of data for new clients, Name, RUC, process type, processing date, price, number of documents, Registration confirmation.
@@ -370,12 +353,12 @@ The system must allow the search for clients by name or RUC, List of matching cl
 \textbf{Calendar:}\\
 The processing calendar organizes the dates on which the processes must be carried out, based on the client's RUC.
 \begin{itemize}
-\item \textbf {Assign Processing Date:}
-The system must assign a processing date based on the client's RUC, Processing date.Processing date.
+\item \textbf {Calculate Processing Date:}
+The system must calculate the missing days till the due date of a process.
 \end{itemize}
 \begin{itemize}
-\item \textbf {Show Calendar:}
-The system must display a calendar with the dates of the scheduled processes, Calendar view.
+\item \textbf {Show Notification:}
+The system must display a notification window with the dates of the scheduled processes, and the remaining days.
 \end{itemize}
 \begin{itemize}
 \item \textbf {Send Reminders:}
@@ -395,6 +378,15 @@ The system must calculate and display the price of the selected process for each
 \begin{itemize}
 \item \textbf {Generate Processing Report:}
 The system must generate reports of the processes carried out within a specified date range, Date range, Report in PDF or Excel format.
+\end{itemize}
+\textbf{Other:}
+\begin{itemize}
+\item \textbf {Basic calculations:}
+Compare 2 moth taxes and calculate the average of taxes (maximum 12 moths).
+\end{itemize}
+\begin{itemize}
+\item \textbf {Incomes:}
+The system must save pricing calculations as Incomes (the ones chose by the user), calculate the total  of the Incomes and allow to estimate future incomes.
 \end{itemize}
 
 

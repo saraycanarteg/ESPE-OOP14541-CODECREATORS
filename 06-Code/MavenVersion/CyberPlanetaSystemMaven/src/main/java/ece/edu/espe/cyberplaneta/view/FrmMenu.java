@@ -34,6 +34,7 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuCyberPlaneta = new javax.swing.JMenu();
         itmAccountSettings = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
         itmLogOut = new javax.swing.JMenuItem();
         mnuTaxpayer = new javax.swing.JMenu();
         itmAddProcessTaxayer = new javax.swing.JMenuItem();
@@ -71,14 +72,12 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuBar1.setForeground(new java.awt.Color(65, 109, 155));
         jMenuBar1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jMenuBar1.setMinimumSize(new java.awt.Dimension(485, 28));
-        jMenuBar1.setOpaque(true);
 
         mnuCyberPlaneta.setBackground(new java.awt.Color(159, 246, 70));
         mnuCyberPlaneta.setForeground(new java.awt.Color(51, 0, 153));
         mnuCyberPlaneta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/house-chimney.png"))); // NOI18N
         mnuCyberPlaneta.setText("CyberPlaneta");
         mnuCyberPlaneta.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        mnuCyberPlaneta.setOpaque(true);
 
         itmAccountSettings.setText("Configuración de Cuenta");
         itmAccountSettings.addActionListener(new java.awt.event.ActionListener() {
@@ -87,6 +86,14 @@ public class FrmMenu extends javax.swing.JFrame {
             }
         });
         mnuCyberPlaneta.add(itmAccountSettings);
+
+        jMenuItem3.setText("Agregar Usuario");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        mnuCyberPlaneta.add(jMenuItem3);
 
         itmLogOut.setText("Salir");
         itmLogOut.addActionListener(new java.awt.event.ActionListener() {
@@ -103,7 +110,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuTaxpayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/book-user.png"))); // NOI18N
         mnuTaxpayer.setText("Contribuyente");
         mnuTaxpayer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        mnuTaxpayer.setOpaque(true);
 
         itmAddProcessTaxayer.setText("Información General de Contribuyentes");
         itmAddProcessTaxayer.addActionListener(new java.awt.event.ActionListener() {
@@ -156,7 +162,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuClassificationAgenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calendar-clock.png"))); // NOI18N
         mnuClassificationAgenda.setText("Agenda de Clasificación");
         mnuClassificationAgenda.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        mnuClassificationAgenda.setOpaque(true);
 
         itmSearch9thDigit.setText("Sistema de Búsqueda (9º Dígito)");
         itmSearch9thDigit.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +206,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuPricingSystem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/calculator.png"))); // NOI18N
         mnuPricingSystem.setText("Sistema de Precios");
         mnuPricingSystem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        mnuPricingSystem.setOpaque(true);
 
         itmTaxProcessCosst.setText("Calcular Costo de Proceso");
         itmTaxProcessCosst.addActionListener(new java.awt.event.ActionListener() {
@@ -234,7 +238,6 @@ public class FrmMenu extends javax.swing.JFrame {
         mnuHelp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/interrogation.png"))); // NOI18N
         mnuHelp.setText("Ayuda");
         mnuHelp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        mnuHelp.setOpaque(true);
 
         jMenuItem2.setText("Sobre el programa");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -357,6 +360,12 @@ public class FrmMenu extends javax.swing.JFrame {
         frmAccountSetting.setVisible(true);
     }//GEN-LAST:event_itmAccountSettingsActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+       FrmAddUser frmAddUser = new FrmAddUser();
+       this.setVisible(false);
+       frmAddUser.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -416,6 +425,7 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuClassificationAgenda;
     private javax.swing.JMenu mnuCyberPlaneta;

@@ -68,7 +68,8 @@ public class MongoDBUtil {
         Document user = collection.find(eq("user", username)).first();
         if (user != null) {
             String storedPassword = user.getString("password");
-            if (storedPassword.equals(password)) {
+            String paswordds=decryptData(storedPassword);
+            if (paswordds.equals(password)) {
                 isValid = true;
             }
         }
@@ -137,6 +138,34 @@ public class MongoDBUtil {
         return data;
     }
 
+    public static String decryptData(String texto) {
+        StringBuilder resultado = new StringBuilder();
+
+        for (int i = 0; i < texto.length(); i++) {
+            char caracter = texto.charAt(i);
+
+            if (Character.isLetter(caracter)) {
+                if (caracter == 'a') {
+                    resultado.append('z');
+                } else if (caracter == 'A') {
+                    resultado.append('Z');
+                } else {
+                    resultado.append((char) (caracter - 1));
+                }
+            } else if (Character.isDigit(caracter)) {
+                if (caracter == '0') {
+                    resultado.append('9');
+                } else {
+                    resultado.append((char) (caracter - 1));
+                }
+            } else {
+                resultado.append(caracter);
+            }
+        }
+
+        return resultado.toString();
+    }
+    
     public static boolean verificationIdTaxpayer(String id) {
         boolean verification = false;
         MongoDatabase database = getDatabase();
@@ -168,6 +197,17 @@ public class MongoDBUtil {
 
         collection.insertOne(document);
     }
+    
+     public static void saveUser(String password, String NameUser) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("usuarios");
+
+        Document document = new Document("user", NameUser)
+                .append("password", password);
+
+        collection.insertOne(document);
+    }
+    
 
     public static List<Document> getAllTaxPayers() {
         MongoDatabase database = getDatabase();

@@ -24,6 +24,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     public FrmEditTaxpayer() {
         initComponents();
     }
+
     private void cargarTaxPayer() {
         String id = txtId.getText().trim();
 
@@ -40,6 +41,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             chkDocumentacion.setSelected(taxPayer.getBoolean("accountingDocumentation"));
             dateChooserStart.setDate(parseDate(taxPayer.getString("startDate")));
             dateChooserEnd.setDate(parseDate(taxPayer.getString("deliveryDate")));
+            txtCelular1.setText(taxPayer.getString("cellNumber"));
         } else {
             JOptionPane.showMessageDialog(this, "Contribuyente no encontrado.");
         }
@@ -53,6 +55,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         boolean documentation = chkDocumentacion.isSelected();
         Date startDate = dateChooserStart.getDate();
         Date deliveryDate = dateChooserEnd.getDate();
+        String cellNumber = txtCelular1.getText().trim();
 
         if (!isValidId(id)) {
             JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
@@ -84,6 +87,11 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             return;
         }
 
+        if (cellNumber.isEmpty() || cellNumber.length() != 10 || !cellNumber.startsWith("09")) {
+            JOptionPane.showMessageDialog(null, "Informacion de celular incorrecta.");
+            return;
+        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String startDateString = sdf.format(startDate);
         String deliveryDateString = sdf.format(deliveryDate);
@@ -94,7 +102,8 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
                 .append("password", password)
                 .append("accountingDocumentation", documentation)
                 .append("startDate", startDateString)
-                .append("deliveryDate", deliveryDateString);
+                .append("deliveryDate", deliveryDateString)
+                .append("cellNumber", cellNumber);
 
         MongoDBUtil.updateTaxPayer(updatedTaxPayer);
         JOptionPane.showMessageDialog(this, "Contribuyente actualizado correctamente.");
@@ -155,6 +164,9 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         txtInvalidId = new javax.swing.JLabel();
         txtInvalidName = new javax.swing.JLabel();
         txtInvalidEmail = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        txtCelular1 = new javax.swing.JTextField();
+        txtInvalidCell = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnGuardar = new javax.swing.JButton();
         btnCancelIncomeCalc = new javax.swing.JButton();
@@ -271,12 +283,12 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 51, 204));
         jLabel9.setText("Fecha de inicio:");
-        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 230, -1, -1));
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 51, 204));
         jLabel10.setText("Fecha de entrega:");
-        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 270, -1, -1));
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
 
         dateChooserStart.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -317,6 +329,34 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             }
         });
         jPanel4.add(txtInvalidEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, 160, 23));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 51, 204));
+        jLabel11.setText("Numero de Celular:");
+        jPanel4.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 290, -1, -1));
+
+        txtCelular1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCelular1FocusLost(evt);
+            }
+        });
+        txtCelular1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelular1KeyTyped(evt);
+            }
+        });
+        jPanel4.add(txtCelular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 180, -1));
+
+        txtInvalidCell.setForeground(new java.awt.Color(204, 0, 0));
+        txtInvalidCell.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtInvalidCellFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvalidCellFocusLost(evt);
+            }
+        });
+        jPanel4.add(txtInvalidCell, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 210, 20));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 106, 920, 321));
 
@@ -461,10 +501,32 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu= new FrmMenu();
+        FrmMenu frmMenu = new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
+
+    private void txtCelular1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelular1KeyTyped
+
+    }//GEN-LAST:event_txtCelular1KeyTyped
+
+    private void txtInvalidCellFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidCellFocusGained
+
+    private void txtInvalidCellFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidCellFocusLost
+
+    private void txtCelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelular1FocusLost
+        if (txtCelular1.getText().trim().length() != 10) {
+            txtInvalidCell.setText("Debe tener 10 dígitos");
+        } else if (!txtCelular1.getText().trim().startsWith("09")) {
+            txtInvalidCell.setText("Debe empezar con 09");
+        } else {
+            txtInvalidCell.setText(null);
+        }
+    }//GEN-LAST:event_txtCelular1FocusLost
 
     /**
      * @param args the command line arguments
@@ -510,6 +572,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     private com.toedter.calendar.JDateChooser dateChooserStart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -520,9 +583,11 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JTextField txtCelular1;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtInvalidCell;
     private javax.swing.JLabel txtInvalidEmail;
     private javax.swing.JLabel txtInvalidId;
     private javax.swing.JLabel txtInvalidName;

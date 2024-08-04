@@ -6,9 +6,7 @@ package ec.edu.espe.cyberplaneta.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import org.bson.Document;
 import utils.MongoDBUtil;
 
@@ -17,6 +15,7 @@ import utils.MongoDBUtil;
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
  */
 public class TaxPayerManager {
+
     public static boolean isRucExist(String ruc) {
         MongoDatabase database = MongoDBUtil.getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -35,9 +34,9 @@ public class TaxPayerManager {
                 .append("password", taxpayer.getPassword())
                 .append("accountingDocumentation", taxpayer.isAccountingDocumentation())
                 .append("startDate", taxpayer.getStartDate())
-                .append("deliveryDate", taxpayer.getdeliveryDate());
+                .append("deliveryDate", taxpayer.getdeliveryDate())
+                .append("cellNumber", taxpayer.getCellNumber());
 
         collection.insertOne(document);
     }
 }
-

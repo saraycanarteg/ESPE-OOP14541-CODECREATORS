@@ -24,13 +24,14 @@ import utils.MongoDBUtil;
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
  */
 public class FrmBusqueda9noDigito extends javax.swing.JFrame {
+
     /**
      * Creates new form FrmBusqueda9noDigito
      */
     public FrmBusqueda9noDigito() {
         initComponents();
         customizeTableHeader();
-       // loadTaxPayers();
+        // loadTaxPayers();
     }
 
     private void customizeTableHeader() {
@@ -51,6 +52,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
             }
         });
     }
+
     private void loadTaxPayersByNinthDigit(String ninthDigit) {
         DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
         model.setRowCount(0);
@@ -63,13 +65,15 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
                 String name = doc.getString("name");
                 String password = doc.getString("password");
                 boolean documentation = doc.getBoolean("accountingDocumentation");
+                String celNumber = doc.getString("cellNumber");
 
                 model.addRow(new Object[]{
                     id,
                     email,
                     name,
                     password,
-                    documentation ? "Sí" : "No"
+                    documentation ? "Sí" : "No",
+                    celNumber
                 });
             }
         }
@@ -88,8 +92,8 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
                 Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(new Color(7, 81, 203)); 
-                c.setForeground(Color.WHITE); 
+                c.setBackground(new Color(7, 81, 203));
+                c.setForeground(Color.WHITE);
                 c.setFont(c.getFont().deriveFont(Font.BOLD));
                 return c;
             }
@@ -164,14 +168,14 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
         tblTaxPayers.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblTaxPayers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Email", "Nombre", "Contraseña", "Documentacion"
+                "ID", "Email", "Nombre", "Contraseña", "Documentacion", "Celular"
             }
         ));
         tblTaxPayers.setFocusable(false);
@@ -257,18 +261,18 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-            FrmMenu frmMenu= new FrmMenu();
-            this.setVisible(false);
-            frmMenu.setVisible(true);
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionActionPerformed
-       String ninthDigit = jTextField1.getText().trim();
-    if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
-        loadTaxPayersByNinthDigit(ninthDigit);
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
-    }
+        String ninthDigit = jTextField1.getText().trim();
+        if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
+            loadTaxPayersByNinthDigit(ninthDigit);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
+        }
     }//GEN-LAST:event_btnBuscarActionActionPerformed
 
     private void txtInvalidId1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidId1FocusGained
@@ -281,14 +285,14 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         String PATTERN = "^\\d$"; // Asegurarse de que es un solo dígito numérico
-    Pattern patt = Pattern.compile(PATTERN);
-    Matcher match = patt.matcher(jTextField1.getText().trim());
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(jTextField1.getText().trim());
 
-    if (!match.matches()) {
-        txtInvalidId1.setText("Debe ingresar un solo dígito numérico");
-    } else {
-        txtInvalidId1.setText(null); // Limpiar el texto si es válido
-    }
+        if (!match.matches()) {
+            txtInvalidId1.setText("Debe ingresar un solo dígito numérico");
+        } else {
+            txtInvalidId1.setText(null); // Limpiar el texto si es válido
+        }
     }//GEN-LAST:event_jTextField1FocusLost
 
     /**

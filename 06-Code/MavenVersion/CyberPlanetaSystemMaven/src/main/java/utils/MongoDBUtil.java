@@ -18,7 +18,8 @@ import org.bson.Document;
 
 /**
  *
- * @authors Saray Canarte, Christian Bonifaz, Andres Cedeno. Code Creators, DCCO-ESPE
+ * @authors Saray Canarte, Christian Bonifaz, Andres Cedeno. Code Creators,
+ * DCCO-ESPE
  */
 public class MongoDBUtil {
 
@@ -68,21 +69,33 @@ public class MongoDBUtil {
         Document user = collection.find(eq("user", username)).first();
         if (user != null) {
             String storedPassword = user.getString("password");
-            String paswordds=decryptData(storedPassword);
+            String paswordds = decryptData(storedPassword);
             if (paswordds.equals(password)) {
                 isValid = true;
             }
         }
         return isValid;
     }
+
+    public static boolean validateNameUser(String username) {
+        boolean isValid = false;
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("usuarios");
+        Document user = collection.find(eq("user", username)).first();
+        if (user != null) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
     public static boolean updateUser(String oldUsername, String newUsername, String newPassword) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("usuarios");
         Document user = collection.find(eq("user", oldUsername)).first();
         if (user != null) {
             collection.updateOne(eq("user", oldUsername), Updates.combine(
-                Updates.set("user", newUsername),
-                Updates.set("password", newPassword)
+                    Updates.set("user", newUsername),
+                    Updates.set("password", newPassword)
             ));
             return true;
         }
@@ -93,7 +106,7 @@ public class MongoDBUtil {
 
     public static String[] notificaionTaxPayer(String idTaxPayer) {
         String msm = null;
-        String[] data = new String[6];
+        String[] data = new String[7];
 
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -103,6 +116,7 @@ public class MongoDBUtil {
         String nameTaxpayer = user.getString("name");
         String deliveryDate = user.getString("deliveryDate");
         String startDate = user.getString("startDate");
+        String cellNumber = user.getString("cellNumber");
         LocalDate deliveryDates = LocalDate.parse(deliveryDate, DATE_FORMATTER);
         long remainingDays = ec.edu.espe.cyberplaneta.controller.NotificationControl.getDaysBetweenDates(LocalDate.now(), deliveryDates);
         msm = ec.edu.espe.cyberplaneta.controller.NotificationControl.displayNotification(nameTaxpayer, deliveryDate, remainingDays);
@@ -112,14 +126,15 @@ public class MongoDBUtil {
         data[2] = startDate;
         data[3] = deliveryDate;
         data[4] = Long.toString(remainingDays);
-        data[5] = msm;
+        data[5] = cellNumber;
+        data[6] = msm;
 
         return data;
     }
 
     public static String[] DeleteTaxPayer(String idTaxPayer) {
         String msm = null;
-        String[] data = new String[5];
+        String[] data = new String[6];
 
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("TaxPayer");
@@ -129,11 +144,13 @@ public class MongoDBUtil {
         String nameTaxpayer = user.getString("name");
         String email = user.getString("email");
         String password = user.getString("password");
+        String cellNumber = user.getString("cellNumber");
 
         data[0] = id;
         data[1] = nameTaxpayer;
         data[2] = email;
         data[3] = password;
+        data[4] = cellNumber;
 
         return data;
     }
@@ -165,7 +182,7 @@ public class MongoDBUtil {
 
         return resultado.toString();
     }
-    
+
     public static boolean verificationIdTaxpayer(String id) {
         boolean verification = false;
         MongoDatabase database = getDatabase();
@@ -197,8 +214,8 @@ public class MongoDBUtil {
 
         collection.insertOne(document);
     }
-    
-     public static void saveUser(String password, String NameUser) {
+
+    public static void saveUser(String password, String NameUser) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("usuarios");
 
@@ -207,7 +224,6 @@ public class MongoDBUtil {
 
         collection.insertOne(document);
     }
-    
 
     public static List<Document> getAllTaxPayers() {
         MongoDatabase database = getDatabase();

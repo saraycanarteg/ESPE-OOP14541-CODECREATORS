@@ -27,6 +27,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
         modelo.addColumn("Fecha de inicio");
         modelo.addColumn("Fecha de entrega");
         modelo.addColumn("Dias Restantes");
+        modelo.addColumn("Celular");
 
         this.jTable2.setModel(modelo);
         this.jTable2.setCellSelectionEnabled(false);
@@ -55,7 +56,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         txtNotification = new javax.swing.JLabel();
-        btnCalculateIncome = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         btnCancelIncomeCalc = new javax.swing.JButton();
@@ -86,17 +87,17 @@ public class FrmShowNotification extends javax.swing.JFrame {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha de Inicio", "Fecha de Entrega", "Dias Restantes", "Estado"
+                "ID", "Fecha de Inicio", "Fecha de Entrega", "Dias Restantes", "Estado", "Celular"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -149,13 +150,13 @@ public class FrmShowNotification extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnCalculateIncome.setBackground(new java.awt.Color(159, 246, 70));
-        btnCalculateIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateIncome.setForeground(new java.awt.Color(65, 109, 155));
-        btnCalculateIncome.setText("Buscar");
-        btnCalculateIncome.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setBackground(new java.awt.Color(159, 246, 70));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(65, 109, 155));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateIncomeActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -179,7 +180,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63))))
         );
         jPanel3Layout.setVerticalGroup(
@@ -188,7 +189,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
                 .addGap(13, 13, 13)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCalculateIncome)
+                    .addComponent(btnBuscar)
                     .addComponent(jLabel4))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -262,8 +263,8 @@ public class FrmShowNotification extends javax.swing.JFrame {
         frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
-    private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
-        String[] info = new String[5];
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String[] info = new String[6];
         String id = jTextField1.getText();
         if (id.length() != 13) {
             JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -281,9 +282,9 @@ public class FrmShowNotification extends javax.swing.JFrame {
                 info[i] = data[i];
             }
             modelo.addRow(info);
-            txtNotification.setText(data[5]);
+            txtNotification.setText(data[6]);
         }
-    }//GEN-LAST:event_btnCalculateIncomeActionPerformed
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
 
@@ -339,7 +340,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalculateIncome;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelIncomeCalc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

@@ -17,26 +17,27 @@ import javax.swing.JOptionPane;
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmAddTaxpayer extends javax.swing.JFrame {
-    
+
     private boolean isValidEmail(String email) {
-    String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    Pattern pattern = Pattern.compile(emailRegex);
-    Matcher matcher = pattern.matcher(email);
-    return matcher.matches();
-}
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
     private boolean isValidName(String name) {
-    String nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-    Pattern pattern = Pattern.compile(nameRegex);
-    Matcher matcher = pattern.matcher(name);
-    return matcher.matches();
-}
+        String nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        Pattern pattern = Pattern.compile(nameRegex);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
+    }
 
     private boolean isValidRUC(String ruc) {
-    String rucRegex = "^\\\\d{10}001$";
-    Pattern pattern = Pattern.compile(rucRegex);
-    Matcher matcher = pattern.matcher(ruc);
-    return matcher.matches();
-}
+        String rucRegex = "^\\\\d{10}001$";
+        Pattern pattern = Pattern.compile(rucRegex);
+        Matcher matcher = pattern.matcher(ruc);
+        return matcher.matches();
+    }
 
     /**
      * Creates new form FrmAddTaxpayer
@@ -73,6 +74,9 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
         txtInvalidName = new javax.swing.JLabel();
         txtInvalidId = new javax.swing.JLabel();
         txtInvalidDates = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        txtCelular = new javax.swing.JTextField();
+        txtInvalidCell = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         btnCancelIncomeCalc = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
@@ -194,6 +198,36 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
 
         txtInvalidDates.setForeground(new java.awt.Color(204, 0, 0));
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(0, 0, 153));
+        jLabel9.setText("Numero de Celular:");
+
+        txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCelularFocusLost(evt);
+            }
+        });
+        txtCelular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCelularActionPerformed(evt);
+            }
+        });
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCelularKeyTyped(evt);
+            }
+        });
+
+        txtInvalidCell.setForeground(new java.awt.Color(204, 0, 0));
+        txtInvalidCell.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtInvalidCellFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtInvalidCellFocusLost(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -201,24 +235,6 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(278, 278, 278)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8))
-                        .addGap(80, 80, 80)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ChkDocumentacion)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                            .addComponent(jdtInit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jdtFinish, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtInvalidName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtInvalidDates, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -233,7 +249,32 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
                                 .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtInvalidId, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(6, 6, 6)))))
+                                .addGap(6, 6, 6))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(68, 68, 68)
+                                .addComponent(txtCelular))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel6)
+                                    .addComponent(jLabel7)
+                                    .addComponent(jLabel8))
+                                .addGap(80, 80, 80)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ChkDocumentacion)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(txtContrasenia, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(jdtInit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jdtFinish, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtInvalidName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtInvalidCell, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtInvalidDates, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -266,18 +307,20 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
                     .addComponent(ChkDocumentacion))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel7)
-                            .addComponent(jdtInit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jdtFinish, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 61, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(txtInvalidDates, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(100, Short.MAX_VALUE))))
+                    .addComponent(jLabel7)
+                    .addComponent(jdtInit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInvalidDates, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jdtFinish, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9)
+                        .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtInvalidCell, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(7, 81, 203));
@@ -359,7 +402,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        
+
     }//GEN-LAST:event_txtIdActionPerformed
 
     private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
@@ -367,13 +410,13 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-            FrmMenu frmMenu= new FrmMenu();
-            this.setVisible(false);
-            frmMenu.setVisible(true);
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void txtEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtEmailInputMethodTextChanged
-        
+
     }//GEN-LAST:event_txtEmailInputMethodTextChanged
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
@@ -381,31 +424,32 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailKeyReleased
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        
+
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-       String PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-    Pattern patt = Pattern.compile(PATTERN);
-    Matcher match = patt.matcher(txtEmail.getText().trim()); // Añadir trim() para manejar espacios en blanco
+        String PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtEmail.getText().trim()); // Añadir trim() para manejar espacios en blanco
 
-    if (!match.matches()) {
-        txtInvalidEmail.setText("Correo Inválido");
-    } else {
-        txtInvalidEmail.setText(null); // Limpiar el texto si es válido
-    }
-    
+        if (!match.matches()) {
+            txtInvalidEmail.setText("Correo Inválido");
+        } else {
+            txtInvalidEmail.setText(null); // Limpiar el texto si es válido
+        }
+
     }//GEN-LAST:event_txtEmailFocusLost
-                   
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String frmAddId = txtId.getText().trim();
         String frmEmail = txtEmail.getText().trim();
         String frmNombre = txtNombre.getText().trim();
         String frmContrasenia = txtContrasenia.getText().trim();
         boolean frmDocumentation = ChkDocumentacion.isSelected();
+        String frmCellNumber = txtCelular.getText().trim();
 
         // Validaciones
-        if (frmAddId.isEmpty() || isValidRUC(frmAddId)) {
+        if (frmAddId.isEmpty() || isValidRUC(frmAddId) || frmAddId.length() != 13) {
             JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos que terminen en 001).");
             return;
         }
@@ -428,6 +472,11 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
 
         if (frmContrasenia.isEmpty()) {
             JOptionPane.showMessageDialog(null, "El campo Contraseña no puede estar vacío.");
+            return;
+        }
+
+        if (frmCellNumber.isEmpty() || frmCellNumber.length() != 10 || !frmCellNumber.startsWith("09")) {
+            JOptionPane.showMessageDialog(null, "Informacion de celular incorrecta.");
             return;
         }
 
@@ -456,7 +505,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
         }
 
         // Crear el objeto TaxPayer y guardar en la base de datos
-        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2);
+        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2, frmCellNumber);
 
         try {
             TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
@@ -472,7 +521,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInvalidIdFocusGained
 
     private void txtInvalidIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusLost
-    
+
     }//GEN-LAST:event_txtInvalidIdFocusLost
 
     private void txtInvalidNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidNameFocusLost
@@ -492,44 +541,73 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdFocusLost
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-       String PATTERN = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-    Pattern patt = Pattern.compile(PATTERN);
-    Matcher match = patt.matcher(txtNombre.getText().trim());
+        String PATTERN = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(txtNombre.getText().trim());
 
-    if (!match.matches()) {
-        txtInvalidName.setText("Nombre Inválido");
-    } else {
-        txtInvalidName.setText(null); // Limpiar el texto si es válido
-    }
+        if (!match.matches()) {
+            txtInvalidName.setText("Nombre Inválido");
+        } else {
+            txtInvalidName.setText(null); // Limpiar el texto si es válido
+        }
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void jdtFinishFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdtFinishFocusLost
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    Date initDate = jdtInit.getDate();
-    Date finishDate = jdtFinish.getDate();
-    
-    if (initDate == null || finishDate == null) {
-        txtInvalidDates.setText("Seleccione ambas fechas");
-    } else if (finishDate.before(initDate)) {
-        txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
-    } else {
-        txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
-    }
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date initDate = jdtInit.getDate();
+        Date finishDate = jdtFinish.getDate();
+
+        if (initDate == null || finishDate == null) {
+            txtInvalidDates.setText("Seleccione ambas fechas");
+        } else if (finishDate.before(initDate)) {
+            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+        } else {
+            txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
+        }
     }//GEN-LAST:event_jdtFinishFocusLost
 
     private void jdtInitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdtInitFocusLost
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    Date initDate = jdtInit.getDate();
-    Date finishDate = jdtFinish.getDate();
-    
-    if (initDate == null || finishDate == null) {
-        txtInvalidDates.setText("Seleccione ambas fechas");
-    } else if (finishDate.before(initDate)) {
-        txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
-    } else {
-        txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
-    }
+        Date initDate = jdtInit.getDate();
+        Date finishDate = jdtFinish.getDate();
+
+        if (initDate == null || finishDate == null) {
+            txtInvalidDates.setText("Seleccione ambas fechas");
+        } else if (finishDate.before(initDate)) {
+            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+        } else {
+            txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
+        }
     }//GEN-LAST:event_jdtInitFocusLost
+
+    private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
+        if (txtCelular.getText().trim().length() != 10) {
+            txtInvalidCell.setText("Debe tener 10 dígitos");
+        } else if (!txtCelular.getText().trim().startsWith("09")) {
+            txtInvalidCell.setText("Debe empezar con 09");
+        } else {
+            txtInvalidCell.setText(null);
+        }
+    }//GEN-LAST:event_txtCelularFocusLost
+
+    private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCelularActionPerformed
+
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtCelularKeyTyped
+
+    private void txtInvalidCellFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidCellFocusGained
+
+    private void txtInvalidCellFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtInvalidCellFocusLost
 
     /**
      * @param args the command line arguments
@@ -545,16 +623,24 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmAddTaxpayer.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -579,14 +665,17 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private com.toedter.calendar.JDateChooser jdtFinish;
     private com.toedter.calendar.JDateChooser jdtInit;
+    private javax.swing.JTextField txtCelular;
     private javax.swing.JTextField txtContrasenia;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;
+    private javax.swing.JLabel txtInvalidCell;
     private javax.swing.JLabel txtInvalidDates;
     private javax.swing.JLabel txtInvalidEmail;
     private javax.swing.JLabel txtInvalidId;

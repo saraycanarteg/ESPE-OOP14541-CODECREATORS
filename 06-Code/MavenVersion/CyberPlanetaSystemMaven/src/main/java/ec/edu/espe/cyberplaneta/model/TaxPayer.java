@@ -1,6 +1,5 @@
 package ec.edu.espe.cyberplaneta.model;
 
-import java.util.Date;
 
 public class TaxPayer {
 
@@ -10,11 +9,11 @@ public class TaxPayer {
     private String password;
     private boolean accountingDocumentation;
     private String startDate; // Campo para la fecha de inicio
-    private String deliveryDate
-;   // Campo para la fecha de finalización
+    private String deliveryDate;
+    private String cellNumber;
+   // Campo para la fecha de finalización
 
-    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation, String startDate, String deliveryDate
-) {
+    public TaxPayer(String id, String email, String name, String password, boolean accountingDocumentation, String startDate, String deliveryDate, String cellNumber) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -22,6 +21,7 @@ public class TaxPayer {
         this.accountingDocumentation = accountingDocumentation;
         this.startDate = startDate;
         this.deliveryDate = deliveryDate;
+        this.cellNumber = cellNumber;
     }
 
     public String getId() {
@@ -79,6 +79,19 @@ public class TaxPayer {
     public void setdeliveryDate(String deliveryDate) {
         this.deliveryDate = deliveryDate;
     }
-}
 
+    /**
+     * @return the cellNumber
+     */
+    public String getCellNumber() {
+        return cellNumber;
+    }
+
+    /**
+     * @param cellNumber the cellNumber to set
+     */
+    public void setCellNumber(String cellNumber) {
+        this.cellNumber = cellNumber;
+    }
+}
 

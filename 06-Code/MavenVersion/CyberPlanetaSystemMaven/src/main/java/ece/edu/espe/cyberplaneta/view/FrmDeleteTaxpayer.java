@@ -33,6 +33,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         modelo.addColumn("Nombre");
         modelo.addColumn("Correo");
         modelo.addColumn("Contraseña");
+        modelo.addColumn("Celular");
 
         this.tblDeleteTaxpayer.setModel(modelo);
         this.tblDeleteTaxpayer.setCellSelectionEnabled(false);
@@ -106,6 +107,11 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
                 jTextField1FocusLost(evt);
             }
         });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField1KeyTyped(evt);
@@ -122,11 +128,11 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nombre", "Email", "Contraseña"
+                "ID", "Nombre", "Email", "Contraseña", "Celular"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class
+                java.lang.Long.class, java.lang.String.class, java.lang.String.class, java.lang.Long.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -273,7 +279,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
-        String[] info = new String[4];
+        String[] info = new String[5];
         String id = jTextField1.getText();
         if (id.length() != 13) {
             JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
@@ -310,6 +316,10 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         btnDelete.setEnabled(false);
         JOptionPane.showMessageDialog(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
     }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments

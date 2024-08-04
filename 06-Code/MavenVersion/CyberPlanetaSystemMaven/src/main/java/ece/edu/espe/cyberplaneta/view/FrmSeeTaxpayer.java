@@ -55,7 +55,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
 
         List<Document> taxPayers = MongoDBUtil.getAllTaxPayers();
         for (Document taxPayer : taxPayers) {
-            Object[] rowData = new Object[7];
+            Object[] rowData = new Object[8];
             rowData[0] = taxPayer.getString("id");
             rowData[1] = taxPayer.getString("email");
             rowData[2] = taxPayer.getString("name");
@@ -63,6 +63,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
             rowData[4] = taxPayer.getBoolean("accountingDocumentation");
             rowData[5] = taxPayer.getString("startDate");
             rowData[6] = taxPayer.getString("deliveryDate");
+            rowData[7] = taxPayer.getString("cellNumber");
 
             model.addRow(rowData);
         }
@@ -117,17 +118,17 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
 
         tblTaxpayers.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Email", "Nombre", "Contraseña", "Documentación", "Fecha de Incio", "Fecha de Entrega"
+                "ID", "Email", "Nombre", "Contraseña", "Documentación", "Fecha de Incio", "Fecha de Entrega", "Celular"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Long.class
+                java.lang.Long.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Long.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {

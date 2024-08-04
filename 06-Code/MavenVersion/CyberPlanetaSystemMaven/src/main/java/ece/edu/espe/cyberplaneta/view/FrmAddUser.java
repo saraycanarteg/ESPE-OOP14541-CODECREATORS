@@ -60,7 +60,7 @@ public class FrmAddUser extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(7, 81, 203));
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jLabel2.setText("Usuario");
+        jLabel2.setText("Nuevo Usuario");
 
         txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         txtUser.setMaximumSize(new java.awt.Dimension(64, 18));
@@ -83,7 +83,7 @@ public class FrmAddUser extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(7, 81, 203));
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lock.png"))); // NOI18N
-        jLabel3.setText("Contraseña");
+        jLabel3.setText("NuevaContraseña");
 
         btnPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         btnPassword.setMaximumSize(new java.awt.Dimension(64, 18));
@@ -115,7 +115,7 @@ public class FrmAddUser extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(291, Short.MAX_VALUE)
+                .addContainerGap(252, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(txtPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -266,10 +266,15 @@ public class FrmAddUser extends javax.swing.JFrame {
         String passwor = new String(btnPassword.getPassword());
         String password = encriptionData(passwor);
         String user = txtUser.getText().trim();
-        utils.MongoDBUtil.saveUser(password, user);
-        txtUser.setText("");
-        btnPassword.setText("");
-        JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+
+        if (!utils.MongoDBUtil.validateNameUser(user)) {
+            utils.MongoDBUtil.saveUser(password, user);
+            txtUser.setText("");
+            btnPassword.setText("");
+            JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed

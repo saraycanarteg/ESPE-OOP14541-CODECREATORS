@@ -71,7 +71,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
                     id,
                     email,
                     name,
-                    password,
+                    utils.EncryptData.decryptData(password),
                     documentation ? "Sí" : "No",
                     celNumber
                 });

@@ -515,7 +515,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
         }
 
         // Crear el objeto TaxPayer y guardar en la base de datos
-        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2, frmCellNumber);
+        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, utils.EncryptData.encriptionData(frmContrasenia), frmDocumentation, date1, date2, frmCellNumber);
 
         try {
             TaxPayerManager.saveTaxPayerToDatabase(taxpayer);

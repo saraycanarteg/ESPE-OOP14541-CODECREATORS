@@ -327,5 +327,20 @@ public class MongoDBUtil {
         Document query = new Document("id", id);
         return collection.countDocuments(query) > 0;
     }
-    
+    public static Document getIncomeById(int processId) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("income_calculated"); 
+        Document document = collection.find(eq("Id", processId)).first();
+        return document;
+    }
+    public static void updateIncome(int processId, Document updatedDocument) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("income_calculated"); 
+        collection.updateOne(eq("processId", processId), new Document("$set", updatedDocument));
+    }
+    public static void deleteIncome(int processId) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection("income_calculated");
+        collection.deleteOne(eq("processId", processId));
+    }
 }

@@ -5,6 +5,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,6 +58,8 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         Date startDate = dateChooserStart.getDate();
         Date deliveryDate = dateChooserEnd.getDate();
         String cellNumber = txtCelular1.getText().trim();
+        LocalDate localDate = LocalDate.now();
+        Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
         if (!isValidId(id)) {
             JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
@@ -84,6 +88,11 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
 
         if (startDate.after(deliveryDate)) {
             JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de entrega.");
+            return;
+        }
+
+        if (startDate.before(currentDate)) {
+            JOptionPane.showMessageDialog(null, "La fecha inicial no puede ser menor a la fecha de hoy.");
             return;
         }
 
@@ -179,7 +188,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel1.setText("Añadir Contribuyente");
+        jLabel1.setText("Editar Contribuyente");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 30, 380, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N

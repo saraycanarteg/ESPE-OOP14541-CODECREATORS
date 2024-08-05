@@ -8,6 +8,8 @@ import ec.edu.espe.cyberplaneta.controller.TaxPayerManager;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.*;
 import javax.swing.JOptionPane;
@@ -200,7 +202,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 153));
-        jLabel9.setText("Numero de Celular:");
+        jLabel9.setText("Número de Celular:");
 
         txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -494,6 +496,14 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
 
             if (finishDate.before(initDate)) {
                 JOptionPane.showMessageDialog(null, "La fecha final no puede ser anterior a la fecha inicial.");
+                return;
+            }
+
+            LocalDate localDate = LocalDate.now();
+            Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+            
+             if (initDate.before(currentDate)) {
+                JOptionPane.showMessageDialog(null, "La fecha inicial no puede ser menor a la fecha de hoy.");
                 return;
             }
 

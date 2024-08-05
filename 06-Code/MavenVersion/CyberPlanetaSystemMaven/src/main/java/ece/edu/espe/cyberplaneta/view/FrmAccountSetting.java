@@ -272,7 +272,7 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         String newUsername = txtNewUser.getText();
         String newPassword = txtNewPassword.getText();
 
-        boolean updated = MongoDBUtil.updateUser(oldUsername, newUsername, newPassword);
+        boolean updated = MongoDBUtil.updateUser(oldUsername, newUsername, utils.EncryptData.encriptionData(newPassword));
 
         if (updated) {
             JOptionPane.showMessageDialog(this, "Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);

@@ -59,7 +59,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
             rowData[0] = taxPayer.getString("id");
             rowData[1] = taxPayer.getString("email");
             rowData[2] = taxPayer.getString("name");
-            rowData[3] = taxPayer.getString("password");
+            rowData[3] = utils.EncryptData.decryptData(taxPayer.getString("password"));
             rowData[4] = taxPayer.getBoolean("accountingDocumentation");
             rowData[5] = taxPayer.getString("startDate");
             rowData[6] = taxPayer.getString("deliveryDate");

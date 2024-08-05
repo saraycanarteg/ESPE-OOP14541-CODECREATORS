@@ -39,7 +39,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         if (taxPayer != null) {
             txtEmail.setText(taxPayer.getString("email"));
             txtNombre.setText(taxPayer.getString("name"));
-            txtContrasenia.setText(taxPayer.getString("password"));
+            txtContrasenia.setText(utils.EncryptData.decryptData(taxPayer.getString("password")));
             chkDocumentacion.setSelected(taxPayer.getBoolean("accountingDocumentation"));
             dateChooserStart.setDate(parseDate(taxPayer.getString("startDate")));
             dateChooserEnd.setDate(parseDate(taxPayer.getString("deliveryDate")));
@@ -58,9 +58,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         Date startDate = dateChooserStart.getDate();
         Date deliveryDate = dateChooserEnd.getDate();
         String cellNumber = txtCelular1.getText().trim();
-        LocalDate localDate = LocalDate.now();
-        Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-
+       
         if (!isValidId(id)) {
             JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
             return;
@@ -91,11 +89,6 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
             return;
         }
 
-        if (startDate.before(currentDate)) {
-            JOptionPane.showMessageDialog(null, "La fecha inicial no puede ser menor a la fecha de hoy.");
-            return;
-        }
-
         if (cellNumber.isEmpty() || cellNumber.length() != 10 || !cellNumber.startsWith("09")) {
             JOptionPane.showMessageDialog(null, "Informacion de celular incorrecta.");
             return;
@@ -108,7 +101,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         Document updatedTaxPayer = new Document("id", id)
                 .append("email", email)
                 .append("name", name)
-                .append("password", password)
+                .append("password", utils.EncryptData.encriptionData(password))
                 .append("accountingDocumentation", documentation)
                 .append("startDate", startDateString)
                 .append("deliveryDate", deliveryDateString)

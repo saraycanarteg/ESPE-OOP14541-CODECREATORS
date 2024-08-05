@@ -69,7 +69,7 @@ public class MongoDBUtil {
         Document user = collection.find(eq("user", username)).first();
         if (user != null) {
             String storedPassword = user.getString("password");
-            String paswordds = decryptData(storedPassword);
+            String paswordds = utils.EncryptData.decryptData(storedPassword);
             if (paswordds.equals(password)) {
                 isValid = true;
             }
@@ -149,38 +149,10 @@ public class MongoDBUtil {
         data[0] = id;
         data[1] = nameTaxpayer;
         data[2] = email;
-        data[3] = password;
+        data[3] = utils.EncryptData.decryptData(password);
         data[4] = cellNumber;
 
         return data;
-    }
-
-    public static String decryptData(String texto) {
-        StringBuilder resultado = new StringBuilder();
-
-        for (int i = 0; i < texto.length(); i++) {
-            char caracter = texto.charAt(i);
-
-            if (Character.isLetter(caracter)) {
-                if (caracter == 'a') {
-                    resultado.append('z');
-                } else if (caracter == 'A') {
-                    resultado.append('Z');
-                } else {
-                    resultado.append((char) (caracter - 1));
-                }
-            } else if (Character.isDigit(caracter)) {
-                if (caracter == '0') {
-                    resultado.append('9');
-                } else {
-                    resultado.append((char) (caracter - 1));
-                }
-            } else {
-                resultado.append(caracter);
-            }
-        }
-
-        return resultado.toString();
     }
 
     public static boolean verificationIdTaxpayer(String id) {

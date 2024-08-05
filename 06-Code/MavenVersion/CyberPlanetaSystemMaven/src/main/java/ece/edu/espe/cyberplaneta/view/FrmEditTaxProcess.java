@@ -9,6 +9,8 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
@@ -18,22 +20,39 @@ import utils.MongoDBUtil;
  *
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
-public class FrmAddTaxProcess extends javax.swing.JFrame {
+public class FrmEditTaxProcess extends javax.swing.JFrame {
 
     private PricingSystemManager controller = new PricingSystemManager();
-    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmAddTaxProcess.class.getResource("/images/triangle-warning.png"));
+    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmEditTaxProcess.class.getResource("/images/triangle-warning.png"));
 
     /**
      * Creates new form FrmPriceSystem
      */
-    public FrmAddTaxProcess() {
+    public FrmEditTaxProcess() {
         this.controller = new PricingSystemManager();
         initComponents();
         loadPriceListTable();
         customizeTableHeader();
         txtId.setEnabled(false);
-    }
 
+        // Añadir validación para permitir solo números en txtId
+        txtId.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                validateNumberInput(txtId);
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                validateNumberInput(txtId);
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                validateNumberInput(txtId);
+            }
+        });
+    }
     private void loadPriceListTable() {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
         model.setRowCount(0);
@@ -45,6 +64,14 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
                 String.format("%.2f", price.getPrice()),
                 String.format("%.2f", price.getTaxRate())
             });
+        }
+    }
+
+    private void validateNumberInput(javax.swing.JTextField textField) {
+        String text = textField.getText();
+        if (!text.matches("\\d*")) {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese solo números en el ID general", "Error", JOptionPane.ERROR_MESSAGE);
+            textField.setText(text.replaceAll("[^\\d]", ""));
         }
     }
 
@@ -105,7 +132,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel1.setText("Agregar Proceso");
+        jLabel1.setText("Editar Proceso");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, 510, -1));
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
@@ -254,7 +281,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         btnAdd.setBackground(new java.awt.Color(159, 246, 70));
         btnAdd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAdd.setForeground(new java.awt.Color(0, 0, 153));
-        btnAdd.setText("Agregar Proceso");
+        btnAdd.setText("Actualizar Proceso");
         btnAdd.setEnabled(false);
         btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,8 +389,8 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
             }
 
             if (selectedProcess != null) {
-                if (MongoDBUtil.generalIdExists(nameCollection, id)) {
-                    JOptionPane.showMessageDialog(this, "El ID general ya existe. Por favor, ingrese un ID diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+                if (!MongoDBUtil.generalIdExists(nameCollection, id)) {
+                    JOptionPane.showMessageDialog(this, "El ID general no existe. No se puede editar el proceso.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -371,8 +398,8 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
                 float priceProcess = selectedProcess.getPrice();
                 float rateTax = selectedProcess.getTaxRate();
 
-                MongoDBUtil.createCollection(nameCollection, id, processId, nameProcess, priceProcess, rateTax);
-                JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+                MongoDBUtil.updateCollection(nameCollection, id, processId, nameProcess, priceProcess, rateTax);
+                JOptionPane.showMessageDialog(this, "Datos actualizados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(this, "Proceso no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -419,14 +446,22 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmAddTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmEditTaxProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -439,7 +474,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmAddTaxProcess().setVisible(true);
+                new FrmEditTaxProcess().setVisible(true);
             }
         });
     }

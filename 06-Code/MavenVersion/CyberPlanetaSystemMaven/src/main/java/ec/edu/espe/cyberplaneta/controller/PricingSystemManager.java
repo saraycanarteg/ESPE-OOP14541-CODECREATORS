@@ -12,11 +12,11 @@ public class PricingSystemManager {
     //PRICING SYSTEM CONTROLLER
     public static PriceList[] getPriceListArray() {
         return new PriceList[]{
-            new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f),
-            new PriceList(2, "Declaración de IVA mensual", 20.0f, 15f),
-            new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f),
-            new PriceList(4, "Devolución Impuesto a la Renta", 3.5f, 15f),
-            new PriceList(5, "Anexo de Accionista", 5.0f, 15f)
+            new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f),
+            new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f),
+            new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f),
+            new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f),
+            new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f)
         };
     }
     public boolean isProcessIdAvailable(int id) {

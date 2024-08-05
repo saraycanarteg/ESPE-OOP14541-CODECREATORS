@@ -19,7 +19,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice1() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.9F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -29,7 +29,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice2() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.75F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -39,7 +39,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice3() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(2, "Declaración de IVA mensual", 20.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 30.07F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -49,7 +49,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice4() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 10.0F;
         float expResult = 58.07F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -59,7 +59,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice5() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(4, "Devolución Impuesto a la Renta", 3.5f, 15f);
+        PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 9.0F;
         float expResult = 4.54F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -69,7 +69,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice6() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(4, "Devolución Impuesto a la Renta", 3.5f, 15f);
+        PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 4.02F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -79,7 +79,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice7() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(5, "Anexo de Accionista", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 453.0F;
         float expResult = 31.79F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -89,7 +89,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice8() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(5, "Anexo de Accionista", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -99,7 +99,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice9() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(2, "Declaración de IVA mensual", 20.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 25.30F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -109,7 +109,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateTotalPrice10() {
         System.out.println("calculateTotalPrice");
-        PriceList selectedProcess = new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
         float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
@@ -122,7 +122,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice1() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.0F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -132,7 +132,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice2() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(1, "Declaración de IVA en 0", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.0F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -142,7 +142,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice3() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(2, "Declaración de IVA mensual", 20.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 26.15F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -152,7 +152,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice4() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(2, "Declaración de IVA semestral", 20.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA semestral", 20.0f, 15f);
         float numDocumentation = 50.0F;
         float expResult = 22.5F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -162,7 +162,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice5() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 137.0F;
         float expResult = 56.85F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -172,7 +172,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice6() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(3, "Declaración de IVA semestral", 50.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 46.0F;
         float expResult = 52.3F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -182,7 +182,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice7() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(4, "Declaración de IVA semestral", 3.5f, 15f);
+        PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 81.0F;
         float expResult = 7.55F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -192,7 +192,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice8() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(4, "Declaración de IVA semestral", 3.5f, 15f);
+        PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 3.5F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -202,7 +202,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice9() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(5, "Declaración de IVA semestral", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 246.0F;
         float expResult = 17.3F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
@@ -212,7 +212,7 @@ public class PricingSystemManagerTest {
     @Test
     public void testCalculateBasePrice10() {
         System.out.println("calculateBasePrice");
-        PriceList selectedProcess = new PriceList(5, "Declaración de IVA semestral", 5.0f, 15f);
+        PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 451.0F;
         float expResult = 27.55F;
         float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);

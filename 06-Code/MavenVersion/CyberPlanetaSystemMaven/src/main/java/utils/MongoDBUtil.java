@@ -251,24 +251,81 @@ public class MongoDBUtil {
         collection.replaceOne(eq("id", updatedTaxPayer.getString("id")), updatedTaxPayer);
     }
 
-    public static void createCollection(String collectionName, int idProcess, String nameProcess, float priceProcess, float rateTax) {
+    public static void createCollection(String collectionName,String id, int idProcess, String nameProcess, float priceProcess, float rateTax) {
         MongoDatabase database = getDatabase();
 
-        boolean collectionExists = database.listCollectionNames()
-                .into(new ArrayList<>())
-                .contains(collectionName);
+    boolean collectionExists = database.listCollectionNames()
+            .into(new ArrayList<>())
+            .contains(collectionName);
 
-        if (!collectionExists) {
-            database.createCollection(collectionName);
+    if (!collectionExists) {
+        database.createCollection(collectionName);
+    }
+
+    MongoCollection<Document> collection = database.getCollection(collectionName);
+
+    long count = collection.countDocuments();
+
+    Document document = new Document("id", id)
+            .append("processId", idProcess)
+            .append("processName", nameProcess)
+            .append("price", priceProcess)
+            .append("taxRate", rateTax);
+
+    collection.insertOne(document);
+    }
+    public static Document getProcessById(String id,String colection) {
+    MongoDatabase database = getDatabase();
+    MongoCollection<Document> collection = database.getCollection(colection);
+    return collection.find(eq("id", id)).first();
+}
+
+    public static void deleteDocumentById(String id,String colection) {
+    MongoDatabase database = getDatabase();
+    MongoCollection<Document> collection = database.getCollection(colection);
+    collection.deleteOne(eq("id", id));
+}
+    
+    public static List<Document> getAllProcess(String contributorId) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection(contributorId);
+        List<Document> documents = new ArrayList<>();
+
+        try (MongoCursor<Document> cursor = collection.find().iterator()) {
+            while (cursor.hasNext()) {
+                documents.add(cursor.next());
+            }
         }
 
+        return documents;
+    }
+    public static void updateCollection(String collectionName, String id, int idProcess, String nameProcess, float priceProcess, float rateTax) {
+        MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);
 
-        Document document = new Document("processId", idProcess)
+        Document query = new Document("id", id);
+        Document newDocument = new Document()
+                .append("id", id)
+                .append("processId", idProcess)
                 .append("processName", nameProcess)
                 .append("price", priceProcess)
                 .append("taxRate", rateTax);
 
-        collection.insertOne(document);
+        Document updateObject = new Document("$set", newDocument);
+        collection.updateOne(query, updateObject);
     }
+    public static boolean generalIdExists(String collectionName, String id) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection(collectionName);
+        Document query = new Document("id", id);
+        return collection.countDocuments(query) > 0;
+       
+    }
+    public static boolean verificationIdTaxProcess(String id) {
+        MongoDatabase database = getDatabase();
+        MongoCollection<Document> collection = database.getCollection(id);
+        Document query = new Document("id", id);
+        return collection.countDocuments(query) > 0;
+    }
+    
 }

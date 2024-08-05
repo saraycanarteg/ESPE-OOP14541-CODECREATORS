@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import org.bson.Document;
 import utils.MongoDBUtil;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 
@@ -35,6 +36,8 @@ public class FrmIncomes extends javax.swing.JFrame {
         tblTotalIncomes.setIntercellSpacing(new Dimension(0, 0));
         tblTotalIncomes.getTableHeader().setReorderingAllowed(false);
         tblTotalIncomes.getTableHeader().setResizingAllowed(false);
+        tblTotalIncomes.setSelectionBackground(new java.awt.Color(159, 246, 70));
+        tblTotalIncomes.setSelectionForeground(new java.awt.Color(0, 0, 102));
     }
 
     private void loadIncomes() {
@@ -115,6 +118,8 @@ public class FrmIncomes extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         btnGoBackToMain = new javax.swing.JButton();
         btnGenerateReportPdf = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -129,6 +134,7 @@ public class FrmIncomes extends javax.swing.JFrame {
         tblTotalIncomes.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblTotalIncomes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -163,12 +169,12 @@ public class FrmIncomes extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(65, 109, 155));
-        jLabel2.setText("Ordenar por:");
+        jLabel2.setText("Buscar por:");
 
         btnGenerateReportExcel.setBackground(new java.awt.Color(159, 246, 70));
         btnGenerateReportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerateReportExcel.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportExcel.setText("Exportar a Excel");
+        btnGenerateReportExcel.setText("Excel");
         btnGenerateReportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportExcelActionPerformed(evt);
@@ -207,10 +213,30 @@ public class FrmIncomes extends javax.swing.JFrame {
         btnGenerateReportPdf.setBackground(new java.awt.Color(159, 246, 70));
         btnGenerateReportPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerateReportPdf.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportPdf.setText("Exportar a PDF");
+        btnGenerateReportPdf.setText("PDF");
         btnGenerateReportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportPdfActionPerformed(evt);
+            }
+        });
+
+        btnBorrar.setBackground(new java.awt.Color(159, 246, 70));
+        btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBorrar.setForeground(new java.awt.Color(7, 81, 203));
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBorrarActionPerformed(evt);
+            }
+        });
+
+        btnEditar.setBackground(new java.awt.Color(159, 246, 70));
+        btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(7, 81, 203));
+        btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
             }
         });
 
@@ -229,8 +255,12 @@ public class FrmIncomes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnBorrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGenerateReportPdf)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnGenerateReportExcel)))
                 .addGap(26, 26, 26))
             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -246,7 +276,9 @@ public class FrmIncomes extends javax.swing.JFrame {
                     .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbAlphabeticalOrder)
                     .addComponent(cmbNumericalOrder)
-                    .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnBorrar)
+                    .addComponent(btnEditar))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -397,6 +429,92 @@ public class FrmIncomes extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
+
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        int selectedRow = tblTotalIncomes.getSelectedRow();
+        System.out.println("Fila seleccionada: " + selectedRow);
+
+    if (selectedRow >= 0) {
+        int processId = (int) tblTotalIncomes.getValueAt(selectedRow, 0);
+        int confirm = JOptionPane.showConfirmDialog(this, 
+            "¿Está seguro de borrar este ingreso?", 
+            "Confirmar eliminación", 
+            JOptionPane.YES_NO_OPTION, 
+            JOptionPane.QUESTION_MESSAGE);
+
+        if (confirm == JOptionPane.YES_OPTION) {
+            MongoDBUtil.deleteIncome(processId);
+            DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+            model.removeRow(selectedRow);
+            recalculateTotal(model);
+            
+            JOptionPane.showMessageDialog(this, "Ingreso eliminado exitosamente.");
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para borrar.");
+    }
+    }//GEN-LAST:event_btnBorrarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        int selectedRow = tblTotalIncomes.getSelectedRow();
+    
+    if (selectedRow >= 0) {
+        // Obtener los valores actuales de la fila seleccionada
+        int processId = (int) tblTotalIncomes.getValueAt(selectedRow, 0);
+        String name = (String) tblTotalIncomes.getValueAt(selectedRow, 1);
+        int numberOfDocumentation = (int) tblTotalIncomes.getValueAt(selectedRow, 2);
+        float priceBase = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 3).toString().replace(",", "."));
+        float taxRate = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 4).toString().replace(",", "."));
+        float totalPrice = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 5).toString().replace(",", "."));
+
+        // Mostrar un cuadro de diálogo para editar los valores
+        String newName = JOptionPane.showInputDialog(this, "Editar nombre:", name);
+        String newNumberOfDocumentation = JOptionPane.showInputDialog(this, "Editar número de documentación:", numberOfDocumentation);
+        String newPriceBase = JOptionPane.showInputDialog(this, "Editar precio base:", priceBase);
+        String newTaxRate = JOptionPane.showInputDialog(this, "Editar tasa de impuesto:", taxRate);
+
+        // Validar y actualizar los valores
+        if (newName != null && newNumberOfDocumentation != null && newPriceBase != null && newTaxRate != null) {
+            try {
+                numberOfDocumentation = Integer.parseInt(newNumberOfDocumentation);
+                priceBase = Float.parseFloat(newPriceBase.replace(",", "."));
+                taxRate = Float.parseFloat(newTaxRate.replace(",", "."));
+
+                // Actualizar la tabla
+                DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+                model.setValueAt(newName, selectedRow, 1);
+                model.setValueAt(numberOfDocumentation, selectedRow, 2);
+                model.setValueAt(String.format("%.2f", priceBase), selectedRow, 3);
+                model.setValueAt(String.format("%.2f", taxRate), selectedRow, 4);
+                
+                // Calcular el nuevo total y actualizar la base de datos
+                float newTotalPrice = priceBase + (priceBase * taxRate / 100); // Ajusta según tu lógica
+                model.setValueAt(String.format("%.2f", newTotalPrice), selectedRow, 5);
+                
+                // Guardar cambios en la base de datos
+                boolean success = MongoDBUtil.updateIncome(processId, newName, numberOfDocumentation, priceBase, taxRate, newTotalPrice);
+                if (success) {
+                    JOptionPane.showMessageDialog(this, "Cambios guardados exitosamente.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al guardar los cambios.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos.");
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para editar.");
+    }
+    }//GEN-LAST:event_btnEditarActionPerformed
+    private void recalculateTotal(DefaultTableModel model) {
+    float totalSum = 0;
+
+    for (int i = 0; i < model.getRowCount() - 1; i++) {
+        totalSum += Float.parseFloat(model.getValueAt(i, 5).toString().replace(",", ""));
+    }
+
+    model.setValueAt(String.format("%.2f", totalSum), model.getRowCount() - 1, 5);
+}
     private Double parseDouble(Object value) {
         try {
             return Double.parseDouble(value.toString().replace(",", ""));
@@ -441,6 +559,8 @@ public class FrmIncomes extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGenerateReportExcel;
     private javax.swing.JButton btnGenerateReportPdf;
     private javax.swing.JButton btnGoBackToMain;

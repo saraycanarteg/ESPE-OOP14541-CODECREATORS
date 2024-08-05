@@ -4,8 +4,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
+import com.mongodb.client.result.UpdateResult;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import java.math.BigDecimal;
@@ -305,11 +307,28 @@ public class MongoDBUtil {
         Document document = collection.find(eq("Id", processId)).first();
         return document;
     }
-    public static void updateIncome(int processId, Document updatedDocument) {
+    public static boolean updateIncome(int processId, String name, int numberOfDocumentation, float priceBase, float taxRate, float totalPrice) {
+    try {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("income_calculated"); 
-        collection.updateOne(eq("processId", processId), new Document("$set", updatedDocument));
+
+        
+        Document updatedDocument = new Document("processName", name)
+            .append("numberOfDocumentation", numberOfDocumentation)
+            .append("price", priceBase)
+            .append("taxRate", taxRate)
+            .append("total", totalPrice);
+
+       
+        UpdateResult result = collection.updateOne(Filters.eq("processId", processId), new Document("$set", updatedDocument));
+
+        return result.getModifiedCount() > 0; 
+    } catch (Exception e) {
+        e.printStackTrace(); 
+        return false;
     }
+}
+
     public static void deleteIncome(int processId) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection("income_calculated");

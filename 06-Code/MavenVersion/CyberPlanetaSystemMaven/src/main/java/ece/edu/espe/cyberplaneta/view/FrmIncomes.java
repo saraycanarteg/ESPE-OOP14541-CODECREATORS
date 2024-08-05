@@ -389,7 +389,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     PdfReport pdfReport = new PdfReport();
     
     try {
-        pdfReport.exportToPDF(tblTotalIncomes);
+        pdfReport.exportTableToPDF(tblTotalIncomes);
     } catch (IOException | DocumentException ex) {
         System.out.println("Error: " + ex.getMessage());
         ex.printStackTrace();

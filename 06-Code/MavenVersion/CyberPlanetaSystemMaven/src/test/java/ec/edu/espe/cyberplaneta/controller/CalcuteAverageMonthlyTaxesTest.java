@@ -37,7 +37,7 @@ public class CalcuteAverageMonthlyTaxesTest {
     }
 
     /**
-     * Test of calculateAverageMonthlyTaxes method, of class CalcuteAverageMonthlyTaxes.
+     * Test of calculateAverageMonthlyTaxes method, of class TaxesAverageController.
      */
   
     
@@ -47,7 +47,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {100.0, 50.0};
         double expResult = 75.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -57,7 +57,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {200.0, 100.0};
         double expResult = 150.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -67,7 +67,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 3;
         double[] monthlyTaxes = {300.0, 300.0, 300.0};
         double expResult = 300.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -77,7 +77,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {150.0, 200.0};
         double expResult = 175.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -87,7 +87,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {0.0, 100.0};
         double expResult = 50.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -97,7 +97,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {500.5, 250.5};
         double expResult = 375.5;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -109,7 +109,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 1;
         double[] monthlyTaxes = {100.0};
         double expResult = 100.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -119,7 +119,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {1000.0, 500.0};
         double expResult = 750.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -129,7 +129,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {150.75, 100.25};
         double expResult = 125.5;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -139,7 +139,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {0.0, 0.0};
         double expResult = 0.0;
-        double result = CalcuteAverageMonthlyTaxes.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 }

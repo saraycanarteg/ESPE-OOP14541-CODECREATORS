@@ -366,71 +366,78 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFinalIncomeFocusLost
 
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-                                                
-    if (lblInvalidIncome1.getText() != null && !lblInvalidIncome1.getText().isEmpty() ||
-        lblInvalidIncome2.getText() != null && !lblInvalidIncome2.getText().isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Error: No se puede continuar con el cálculo hasta corregir los campos señalados", "Error de validación", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-    try {
-        float initialIncome = Float.parseFloat(txtInitialIncome.getText());
-        float finalIncome = Float.parseFloat(txtFinalIncome.getText());
-        int years = sldCAGRYears.getValue();
-      
-        double cagr = PricingSystemManager.calculateCAGR(initialIncome, finalIncome, years);
-        double projectedIncome = PricingSystemManager.calculateFutureValue(finalIncome, cagr, years);
-        
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-        data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
-        data.setValue(finalIncome, "Ingreso Final", "Final");
-        data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
-        
-        JFreeChart barChart = ChartFactory.createBarChart3D(
-                "Proyección de Ingresos",
-                "Tipo de Ingreso",
-                "Valor en dólares ($)",
-                data,
-                PlotOrientation.HORIZONTAL,
-                true,
-                true,
-                false);
-        
-        CategoryPlot plot = (CategoryPlot) barChart.getPlot();
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setBaseItemLabelsVisible(true);
-        renderer.setItemLabelAnchorOffset(10.0);
-        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
-        
-        ChartPanel panel = new ChartPanel(barChart);
-        panel.setMouseWheelEnabled(false);
-        panel.setPreferredSize(new Dimension(100, 500));
-        
-        pnlGraph.removeAll();
-        pnlGraph.setLayout(new BorderLayout());
-        pnlGraph.add(panel, BorderLayout.CENTER);
-        
-        String resultMessage = String.format(
-            "Resultado del cálculo CAGR:\n\n" +
-            "Ingreso Inicial: $%.2f\n" +
-            "Ingreso Final: $%.2f\n" +
-            "Años de Proyección: %d\n" +
-            "Ingreso Proyectado: $%.2f\n" +
-            "Porcentaje de CAGR: %.2f%%",
-            initialIncome, finalIncome, years, projectedIncome, cagr
-        );
-        
-        JOptionPane.showMessageDialog(this, resultMessage, "Resultado CAGR", JOptionPane.INFORMATION_MESSAGE);
-        
-        pnlGraph.revalidate();
-        pnlGraph.repaint();
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
-    }
+        if (lblInvalidIncome1.getText() != null && !lblInvalidIncome1.getText().isEmpty()
+                || lblInvalidIncome2.getText() != null && !lblInvalidIncome2.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Error: No se puede continuar con el cálculo hasta corregir los campos señalados", "Error de validación", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
+        try {
+            float initialIncome = Float.parseFloat(txtInitialIncome.getText());
+            float finalIncome = Float.parseFloat(txtFinalIncome.getText());
+            int years = sldCAGRYears.getValue();
+
+            if (initialIncome < 0 || finalIncome < 0) {
+                JOptionPane.showMessageDialog(this, "Error: Los valores de ingreso no pueden ser negativos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            double cagr = PricingSystemManager.calculateCAGR(initialIncome, finalIncome, years);
+            double projectedIncome = PricingSystemManager.calculateFutureValue(finalIncome, cagr, years);
+
+            generateChart(initialIncome, finalIncome, projectedIncome);
+
+            String resultMessage = String.format(
+                    "Resultado del cálculo CAGR:\n\n"
+                    + "Ingreso Inicial: $%.2f\n"
+                    + "Ingreso Final: $%.2f\n"
+                    + "Años de Proyección: %d\n"
+                    + "Ingreso Proyectado: $%.2f\n"
+                    + "Porcentaje de CAGR: %.2f%%",
+                    initialIncome, finalIncome, years, projectedIncome, cagr
+            );
+
+            JOptionPane.showMessageDialog(this, resultMessage, "Resultado CAGR", JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_btnCalculateCAGRActionPerformed
-
+private void generateChart(double initialIncome, double finalIncome, double projectedIncome) {
+    DefaultCategoryDataset data = new DefaultCategoryDataset();
+    data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
+    data.setValue(finalIncome, "Ingreso Final", "Final");
+    data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
+    
+    JFreeChart barChart = ChartFactory.createBarChart3D(
+            "Proyección de Ingresos",
+            "Tipo de Ingreso",
+            "Valor en dólares ($)",
+            data,
+            PlotOrientation.HORIZONTAL,
+            true,
+            true,
+            false);
+    
+    CategoryPlot plot = (CategoryPlot) barChart.getPlot();
+    BarRenderer renderer = (BarRenderer) plot.getRenderer();
+    renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
+    renderer.setBaseItemLabelsVisible(true);
+    renderer.setItemLabelAnchorOffset(10.0);
+    renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
+    
+    ChartPanel panel = new ChartPanel(barChart);
+    panel.setMouseWheelEnabled(false);
+    panel.setPreferredSize(new Dimension(100, 500));
+    
+    pnlGraph.removeAll();
+    pnlGraph.setLayout(new BorderLayout());
+    pnlGraph.add(panel, BorderLayout.CENTER);
+    
+    pnlGraph.revalidate();
+    pnlGraph.repaint();
+}
     /**
      * @param args the command line arguments
      */

@@ -316,7 +316,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
         PdfReport pdfReport = new PdfReport();
 
         try {
-            pdfReport.exportToPDF(tblTaxpayers);
+            pdfReport.exportTableToPDF(tblTaxpayers);
         } catch (IOException | DocumentException ex) {
             System.out.println("Error: " + ex.getMessage());
             ex.printStackTrace();

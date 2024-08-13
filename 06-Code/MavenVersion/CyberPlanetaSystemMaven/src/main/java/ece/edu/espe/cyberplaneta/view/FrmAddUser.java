@@ -29,38 +29,38 @@ public class FrmAddUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pnlTitle = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        lblIcon = new javax.swing.JLabel();
+        pnlData = new javax.swing.JPanel();
+        lblNewUser = new javax.swing.JLabel();
         txtUser = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        btnPassword = new javax.swing.JPasswordField();
-        txtPassIncorrect = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        btnLogin = new javax.swing.JButton();
-        btnCancelIncomeCalc = new javax.swing.JButton();
+        lblNewPassword = new javax.swing.JLabel();
+        pwdUserPassword = new javax.swing.JPasswordField();
+        lblPassIncorrect = new javax.swing.JLabel();
+        pnlButton = new javax.swing.JPanel();
+        btnSave = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        pnlTitle.setBackground(new java.awt.Color(255, 255, 255));
+        pnlTitle.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel1.setText("Agregar Usuario");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 320, -1));
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(7, 81, 203));
+        lblTitle.setText("Agregar Usuario");
+        pnlTitle.add(lblTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 20, 320, -1));
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, -1, 100));
+        lblIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
+        pnlTitle.add(lblIcon, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, -1, 100));
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        pnlData.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
-        jLabel2.setText("Nuevo Usuario:");
+        lblNewUser.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblNewUser.setForeground(new java.awt.Color(7, 81, 203));
+        lblNewUser.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/user.png"))); // NOI18N
+        lblNewUser.setText("Nuevo Usuario:");
 
         txtUser.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         txtUser.setMaximumSize(new java.awt.Dimension(64, 18));
@@ -69,124 +69,111 @@ public class FrmAddUser extends javax.swing.JFrame {
                 txtUserFocusLost(evt);
             }
         });
-        txtUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserActionPerformed(evt);
-            }
-        });
         txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtUserKeyTyped(evt);
             }
         });
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lock.png"))); // NOI18N
-        jLabel3.setText("Nueva Contraseña:");
+        lblNewPassword.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblNewPassword.setForeground(new java.awt.Color(7, 81, 203));
+        lblNewPassword.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/lock.png"))); // NOI18N
+        lblNewPassword.setText("Nueva Contraseña:");
 
-        btnPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
-        btnPassword.setMaximumSize(new java.awt.Dimension(64, 18));
-        btnPassword.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                btnPasswordFocusGained(evt);
-            }
+        pwdUserPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
+        pwdUserPassword.setMaximumSize(new java.awt.Dimension(64, 18));
+        pwdUserPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                btnPasswordFocusLost(evt);
+                pwdUserPasswordFocusLost(evt);
             }
         });
-        btnPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPasswordActionPerformed(evt);
-            }
-        });
-        btnPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+        pwdUserPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                btnPasswordKeyTyped(evt);
+                pwdUserPasswordKeyTyped(evt);
             }
         });
 
-        txtPassIncorrect.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtPassIncorrect.setForeground(new java.awt.Color(255, 0, 0));
-        txtPassIncorrect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblPassIncorrect.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblPassIncorrect.setForeground(new java.awt.Color(255, 0, 0));
+        lblPassIncorrect.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlDataLayout = new javax.swing.GroupLayout(pnlData);
+        pnlData.setLayout(pnlDataLayout);
+        pnlDataLayout.setHorizontalGroup(
+            pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDataLayout.createSequentialGroup()
                 .addContainerGap(244, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(lblPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(pnlDataLayout.createSequentialGroup()
+                        .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNewPassword)
+                            .addComponent(lblNewUser))
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtUser, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(248, 248, 248))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
+        pnlDataLayout.setVerticalGroup(
+            pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlDataLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtUser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(lblNewUser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                .addGroup(pnlDataLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(pwdUserPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblNewPassword))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
+                .addComponent(lblPassIncorrect, javax.swing.GroupLayout.DEFAULT_SIZE, 22, Short.MAX_VALUE)
                 .addGap(58, 58, 58))
         );
 
-        jPanel1.setBackground(new java.awt.Color(7, 81, 203));
+        pnlButton.setBackground(new java.awt.Color(7, 81, 203));
 
-        btnLogin.setBackground(new java.awt.Color(159, 246, 70));
-        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLogin.setForeground(new java.awt.Color(7, 81, 203));
-        btnLogin.setText("Guardar");
-        btnLogin.setBorder(null);
-        btnLogin.setBorderPainted(false);
-        btnLogin.setEnabled(false);
-        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setBackground(new java.awt.Color(159, 246, 70));
+        btnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSave.setForeground(new java.awt.Color(7, 81, 203));
+        btnSave.setText("Guardar");
+        btnSave.setBorder(null);
+        btnSave.setBorderPainted(false);
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLoginActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
-        btnCancelIncomeCalc.setBackground(new java.awt.Color(255, 101, 98));
-        btnCancelIncomeCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancelIncomeCalc.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelIncomeCalc.setText("Regresar");
-        btnCancelIncomeCalc.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(255, 101, 98));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Regresar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelIncomeCalcActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout pnlButtonLayout = new javax.swing.GroupLayout(pnlButton);
+        pnlButton.setLayout(pnlButtonLayout);
+        pnlButtonLayout.setHorizontalGroup(
+            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCancelIncomeCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(292, 292, 292)
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(87, 87, 87))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        pnlButtonLayout.setVerticalGroup(
+            pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlButtonLayout.createSequentialGroup()
                 .addContainerGap(37, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelIncomeCalc)
-                    .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(pnlButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCancel)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(36, 36, 36))
         );
 
@@ -196,24 +183,24 @@ public class FrmAddUser extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(pnlTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlData, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addContainerGap()))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(pnlTitle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(pnlButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(105, Short.MAX_VALUE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(106, Short.MAX_VALUE)))
         );
 
@@ -221,69 +208,33 @@ public class FrmAddUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserFocusLost
-        if (containsInvalidCharacters(txtUser.getText().trim())) {
-            txtPassIncorrect.setText("Formato de usuario incorrecto");
-        } else if (txtUser.getText().isEmpty()) {
-            txtPassIncorrect.setText("Campos vacios");
-        } else {
-            txtPassIncorrect.setText(null);
-        }
-
+        validateUserText();
     }//GEN-LAST:event_txtUserFocusLost
 
-    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserActionPerformed
-
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isLetterOrDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
-            evt.consume(); // Ignorar el evento
+        char typedChar = evt.getKeyChar();
+        if (isInvalidCharacter(typedChar)) {
+            evt.consume();
         }
     }//GEN-LAST:event_txtUserKeyTyped
 
-    private void btnPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnPasswordFocusGained
+    private void pwdUserPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pwdUserPasswordFocusLost
+        validatePasswordField();
+    }//GEN-LAST:event_pwdUserPasswordFocusLost
 
-    }//GEN-LAST:event_btnPasswordFocusGained
+    private void pwdUserPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyTyped
+        btnSave.setEnabled(true);
+    }//GEN-LAST:event_pwdUserPasswordKeyTyped
 
-    private void btnPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnPasswordFocusLost
-        if (new String(btnPassword.getPassword()).isEmpty()) {
-            txtPassIncorrect.setText("Campos vacios");
-        } else {
-            txtPassIncorrect.setText(null);
-        }
-    }//GEN-LAST:event_btnPasswordFocusLost
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        saveUserData();
+    }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void btnPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPasswordActionPerformed
-
-    private void btnPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPasswordKeyTyped
-
-        btnLogin.setEnabled(true);
-    }//GEN-LAST:event_btnPasswordKeyTyped
-
-    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        String passwor = new String(btnPassword.getPassword());
-        String password = encriptionData(passwor);
-        String user = txtUser.getText().trim();
-
-        if (!utils.MongoDBUtil.validateNameUser(user)) {
-            utils.MongoDBUtil.saveUser(password, user);
-            txtUser.setText("");
-            btnPassword.setText("");
-            JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }//GEN-LAST:event_btnLoginActionPerformed
-
-    private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         FrmMenu frmMenu = new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
-    }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,32 +271,56 @@ public class FrmAddUser extends javax.swing.JFrame {
         });
     }
 
-    public static String encriptionData(String text) {
-        StringBuilder result = new StringBuilder();
-
-        for (int i = 0; i < text.length(); i++) {
-            char letter = text.charAt(i);
-
-            if (Character.isLetter(letter)) {
-                if (letter == 'z') {
-                    result.append('a');
-                } else if (letter == 'Z') {
-                    result.append('A');
-                } else {
-                    result.append((char) (letter + 1));
-                }
-            } else if (Character.isDigit(letter)) {
-                if (letter == '9') {
-                    result.append('0');
-                } else {
-                    result.append((char) (letter + 1));
-                }
-            } else {
-                result.append(letter);
-            }
+    private void validatePasswordField() {
+        if (isPasswordEmpty()) {
+            displayErrorMessage("Campos vacíos");
+        } else {
+            clearErrorMessage();
         }
+    }
 
-        return result.toString();
+    private void validateUserText() {
+        if (containsInvalidCharacters(getUsername())) {
+            displayErrorMessage("Formato de usuario incorrecto");
+        } else if (isUsernameEmpty()) {
+            displayErrorMessage("Campos vacíos");
+        } else {
+            clearErrorMessage();
+        }
+    }
+
+    private void saveUserData() {
+        try {
+            String rawPassword = getPassword();
+            String encryptedPassword = encryptPassword(rawPassword);
+            String username = getUsername();
+
+            if (isUserValid(username)) {
+                saveUser(username, encryptedPassword);
+                clearFields();
+                showSuccessMessage();
+            } else {
+                showErrorMessage("El usuario ya existe");
+            }
+        } catch (Exception e) {
+            showErrorMessage("Ocurrió un error al guardar los datos: " + e.getMessage());
+        }
+    }
+
+    private boolean isUsernameEmpty() {
+        return getUsername().isEmpty();
+    }
+
+    private boolean isPasswordEmpty() {
+        return new String(pwdUserPassword.getPassword()).isEmpty();
+    }
+
+    private void displayErrorMessage(String message) {
+        lblPassIncorrect.setText(message);
+    }
+
+    private void clearErrorMessage() {
+        lblPassIncorrect.setText(null);
     }
 
     public static boolean containsInvalidCharacters(String text) {
@@ -353,18 +328,59 @@ public class FrmAddUser extends javax.swing.JFrame {
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(text).find();
     }
+
+    private boolean isInvalidCharacter(char c) {
+        return !Character.isLetterOrDigit(c) && !isAllowedKey(c);
+    }
+
+    private boolean isAllowedKey(char c) {
+        return c == java.awt.event.KeyEvent.VK_BACK_SPACE || c == java.awt.event.KeyEvent.VK_DELETE;
+    }
+
+    private String getPassword() {
+        return new String(pwdUserPassword.getPassword());
+    }
+
+    private String encryptPassword(String password) {
+        return utils.EncryptData.encriptionData(password);
+    }
+
+    private String getUsername() {
+        return txtUser.getText().trim();
+    }
+
+    private boolean isUserValid(String username) {
+        return !utils.MongoDBUtil.validateNameUser(username);
+    }
+
+    private void saveUser(String username, String encryptedPassword) {
+        utils.MongoDBUtil.saveUser(encryptedPassword, username);
+    }
+
+    private void clearFields() {
+        txtUser.setText("");
+        pwdUserPassword.setText("");
+    }
+
+    private void showSuccessMessage() {
+        JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelIncomeCalc;
-    private javax.swing.JButton btnLogin;
-    private javax.swing.JPasswordField btnPassword;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JLabel txtPassIncorrect;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JLabel lblIcon;
+    private javax.swing.JLabel lblNewPassword;
+    private javax.swing.JLabel lblNewUser;
+    private javax.swing.JLabel lblPassIncorrect;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel pnlButton;
+    private javax.swing.JPanel pnlData;
+    private javax.swing.JPanel pnlTitle;
+    private javax.swing.JPasswordField pwdUserPassword;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
 }

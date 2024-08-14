@@ -2,13 +2,19 @@ package ece.edu.espe.cyberplaneta.view;
 
 import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
+import ec.edu.espe.cyberplaneta.controller.TaxCalculator;
 import ec.edu.espe.cyberplaneta.controller.TaxesAverageController;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.io.IOException;
 import java.text.DecimalFormat;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerNumberModel;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -26,14 +32,17 @@ import org.jfree.ui.TextAnchor;
  * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
  */
 public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
-
+    private JTextField[] monthFields;
+    private TaxCalculator taxCalculator;
+    
     /**
      * Creates new form FrmCalculateAverageMonthlyTaxes
      */
-    public FrmCalculateAverageMonthlyTaxes() {
+    public FrmCalculateAverageMonthlyTaxes(TaxCalculator taxCalculator) {
+        this.taxCalculator = taxCalculator;
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -483,7 +492,8 @@ private double calcularCAGR(double valorInicial, double valorFinal, int años) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCalculateAverageMonthlyTaxes().setVisible(true);
+               TaxCalculator calculator = (TaxCalculator) new TaxesAverageController();
+            new FrmCalculateAverageMonthlyTaxes(calculator).setVisible(true);
             }
         });
     }

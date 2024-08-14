@@ -4,6 +4,8 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.controller.TaxCalculator;
+import ec.edu.espe.cyberplaneta.controller.TaxesAverageController;
 import utils.MongoClientSingleton;
 
 /**
@@ -331,7 +333,8 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmDeleteTaxpayerActionPerformed
 
     private void itmCalculateTaxAverageActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmCalculateTaxAverageActionPerformed
-        FrmCalculateAverageMonthlyTaxes frmCalculateAverageMonthlyTaxes = new FrmCalculateAverageMonthlyTaxes();
+        TaxCalculator calculator = (TaxCalculator) new TaxesAverageController();
+        FrmCalculateAverageMonthlyTaxes frmCalculateAverageMonthlyTaxes = new FrmCalculateAverageMonthlyTaxes(calculator);
         this.setVisible(false);
         frmCalculateAverageMonthlyTaxes.setVisible(true);
     }//GEN-LAST:event_itmCalculateTaxAverageActionPerformed

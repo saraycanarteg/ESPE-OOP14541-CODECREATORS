@@ -1,7 +1,12 @@
 package ec.edu.espe.cyberplaneta.controller;
 
 public class TaxesAverageController {
-
+    private final TaxesAverageController calculator;
+    
+    public TaxesAverageController() {
+        this.calculator = new TaxesAverageController();
+    }
+    
     public double calculateAverage(String[] values) throws InvalidInputException {
         double sum = 0;
         int count = 0;

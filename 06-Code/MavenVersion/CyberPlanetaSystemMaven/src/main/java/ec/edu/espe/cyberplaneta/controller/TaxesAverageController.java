@@ -1,5 +1,10 @@
 package ec.edu.espe.cyberplaneta.controller;
 
+ /**
+ *
+ * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
+ */
+
 public class TaxesAverageController {
     private final TaxesAverageController calculator;
     

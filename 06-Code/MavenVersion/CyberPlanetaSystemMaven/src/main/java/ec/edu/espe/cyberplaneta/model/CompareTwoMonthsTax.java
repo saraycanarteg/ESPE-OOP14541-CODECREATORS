@@ -4,7 +4,7 @@ package ec.edu.espe.cyberplaneta.model;
 /**
  *
  * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE */
-public class CompareTwoMonthsTax {
+public class CompareTwoMonthsTax implements TaxComparison{
 
     private double primerMes;
     private double segundoMes;
@@ -13,8 +13,9 @@ public class CompareTwoMonthsTax {
         this.primerMes = primerMes;
         this.segundoMes = segundoMes;
     }
-
-    public String comparar() {
+    
+    @Override
+    public String compare(double valueMonth1, double valueMonth2) {
         if (primerMes > segundoMes) {
             return "El primer mes es mayor.";
         } else if (primerMes < segundoMes) {

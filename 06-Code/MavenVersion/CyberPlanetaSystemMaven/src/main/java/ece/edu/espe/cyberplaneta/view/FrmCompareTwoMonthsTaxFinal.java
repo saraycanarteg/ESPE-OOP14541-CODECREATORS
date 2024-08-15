@@ -1,5 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.model.SimpleTaxComparison;
+import ec.edu.espe.cyberplaneta.model.TaxComparison;
 import javax.swing.JOptionPane;
 
 /*
@@ -12,7 +14,12 @@ import javax.swing.JOptionPane;
  * @author Nahomi Cedeño,CODECREATORS,DCC0-ESPE
  */
 public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
-
+    private TaxComparison taxComparison;
+    
+    public FrmCompareTwoMonthsTaxFinal(TaxComparison taxComparison) {
+        this.taxComparison = taxComparison;
+        initComponents();
+    }
     /**
      * Creates new form FrmCompareTwoMonthsTaxFinal
      */
@@ -269,7 +276,7 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCompareTwoMonthsTaxFinal().setVisible(true);
+                new FrmCompareTwoMonthsTaxFinal(new SimpleTaxComparison()).setVisible(true);
             }
         });
     }

@@ -120,6 +120,7 @@ public class FrmIncomes extends javax.swing.JFrame {
         btnGenerateReportPdf = new javax.swing.JButton();
         btnBorrar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
+        btnBuscarActionPerformed = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -169,12 +170,12 @@ public class FrmIncomes extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(65, 109, 155));
-        jLabel2.setText("Buscar por:");
+        jLabel2.setText("Ordenar por:");
 
-        btnGenerateReportExcel.setBackground(new java.awt.Color(159, 246, 70));
+        btnGenerateReportExcel.setBackground(new java.awt.Color(7, 81, 203));
         btnGenerateReportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerateReportExcel.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportExcel.setText("Excel");
+        btnGenerateReportExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-xml-40.png"))); // NOI18N
         btnGenerateReportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportExcelActionPerformed(evt);
@@ -213,7 +214,7 @@ public class FrmIncomes extends javax.swing.JFrame {
         btnGenerateReportPdf.setBackground(new java.awt.Color(159, 246, 70));
         btnGenerateReportPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerateReportPdf.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportPdf.setText("PDF");
+        btnGenerateReportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-pdf-20 (1).png"))); // NOI18N
         btnGenerateReportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportPdfActionPerformed(evt);
@@ -223,7 +224,7 @@ public class FrmIncomes extends javax.swing.JFrame {
         btnBorrar.setBackground(new java.awt.Color(159, 246, 70));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(7, 81, 203));
-        btnBorrar.setText("Borrar");
+        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-eliminar-20.png"))); // NOI18N
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -233,10 +234,18 @@ public class FrmIncomes extends javax.swing.JFrame {
         btnEditar.setBackground(new java.awt.Color(159, 246, 70));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(7, 81, 203));
-        btnEditar.setText("Editar");
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-editar-20.png"))); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
+            }
+        });
+
+        btnBuscarActionPerformed.setBackground(new java.awt.Color(159, 246, 70));
+        btnBuscarActionPerformed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-buscar-20 (1).png"))); // NOI18N
+        btnBuscarActionPerformed.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformedActionPerformed(evt);
             }
         });
 
@@ -246,7 +255,7 @@ public class FrmIncomes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -255,13 +264,15 @@ public class FrmIncomes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBuscarActionPerformed)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBorrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGenerateReportPdf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnGenerateReportExcel)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(26, 26, 26))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -273,12 +284,13 @@ public class FrmIncomes extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(cmbAlphabeticalOrder)
                     .addComponent(cmbNumericalOrder)
-                    .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGenerateReportPdf)
                     .addComponent(btnBorrar)
-                    .addComponent(btnEditar))
+                    .addComponent(btnEditar)
+                    .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBuscarActionPerformed))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -506,6 +518,41 @@ public class FrmIncomes extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para editar.");
     }
     }//GEN-LAST:event_btnEditarActionPerformed
+
+    private void btnBuscarActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformedActionPerformed
+        String searchTerm = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
+        if (searchTerm != null && !searchTerm.trim().isEmpty()) {
+            searchInTable(searchTerm);
+    }
+}
+private void searchInTable(String searchTerm) {
+    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+    List<Object[]> foundRows = new ArrayList<>();
+
+    for (int i = 0; i < model.getRowCount(); i++) {
+        String name = (String) model.getValueAt(i, 1); // Suponiendo que el nombre está en la columna 1
+        if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
+            foundRows.add(new Object[]{
+                model.getValueAt(i, 0),
+                model.getValueAt(i, 1),
+                model.getValueAt(i, 2),
+                model.getValueAt(i, 3),
+                model.getValueAt(i, 4),
+                model.getValueAt(i, 5)
+            });
+        }
+    }
+
+    model.setRowCount(0);
+    for (Object[] row : foundRows) {
+        model.addRow(row);
+    }
+
+    if (foundRows.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No se encontraron resultados para: " + searchTerm);
+        loadIncomes(); 
+    }
+    }//GEN-LAST:event_btnBuscarActionPerformedActionPerformed
     private void recalculateTotal(DefaultTableModel model) {
     float totalSum = 0;
 
@@ -560,6 +607,7 @@ public class FrmIncomes extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;
+    private javax.swing.JButton btnBuscarActionPerformed;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnGenerateReportExcel;
     private javax.swing.JButton btnGenerateReportPdf;

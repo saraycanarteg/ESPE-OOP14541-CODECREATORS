@@ -6,15 +6,10 @@ package ece.edu.espe.cyberplaneta.view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Font;
 import static java.awt.Frame.NORMAL;
 import static java.awt.image.ImageObserver.ERROR;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import utils.ChartAndTableUtils;
 
 /**
@@ -22,13 +17,15 @@ import utils.ChartAndTableUtils;
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmDeleteTaxpayer extends javax.swing.JFrame {
- DefaultTableModel modelo;
+
+    DefaultTableModel modelo;
+
     /**
      * Creates new form FrmDeleteTaxpayer
      */
     public FrmDeleteTaxpayer() {
-       initComponents();
-       ChartAndTableUtils.customizeTableHeader(tblDeleteTaxpayer);
+        initComponents();
+        ChartAndTableUtils.customizeTableHeader(tblDeleteTaxpayer);
         modelo = new DefaultTableModel();
         modelo.addColumn("ID");
         modelo.addColumn("Nombre");
@@ -44,7 +41,6 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         this.tblDeleteTaxpayer.setBackground(Color.WHITE);
         this.tblDeleteTaxpayer.isCellEditable(ERROR, NORMAL);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,11 +55,11 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblDeleteTaxpayer = new javax.swing.JTable();
-        btnCalculateIncome = new javax.swing.JButton();
+        btnBuscar = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         btnDelete = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -85,19 +81,9 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+                txtIdKeyTyped(evt);
             }
         });
 
@@ -142,13 +128,13 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnCalculateIncome.setBackground(new java.awt.Color(159, 246, 70));
-        btnCalculateIncome.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateIncome.setForeground(new java.awt.Color(65, 109, 155));
-        btnCalculateIncome.setText("Buscar");
-        btnCalculateIncome.addActionListener(new java.awt.event.ActionListener() {
+        btnBuscar.setBackground(new java.awt.Color(159, 246, 70));
+        btnBuscar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(65, 109, 155));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateIncomeActionPerformed(evt);
+                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -179,9 +165,9 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCalculateIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
@@ -191,9 +177,9 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCalculateIncome)
+                    .addComponent(btnBuscar)
                     .addComponent(btnDelete)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
                 .addGap(35, 35, 35)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -250,59 +236,21 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+        restrictInputToDigits(evt);
+    }//GEN-LAST:event_txtIdKeyTyped
 
-    }//GEN-LAST:event_jTextField1FocusLost
-
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextField1KeyTyped
-
-    private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
-        String[] info = new String[5];
-        String id = jTextField1.getText();
-        if (id.length() != 13) {
-            JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else if (!id.endsWith("001")) {
-            JOptionPane.showMessageDialog(this, "El ID debe terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
-            JOptionPane.showMessageDialog(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else {
-            cleanRow();
-            String[] data = utils.MongoDBUtil.DeleteTaxPayer(id);
-            for (int i = 0; i < data.length - 1; i++) {
-                info[i] = data[i];
-            }
-            modelo.addRow(info);
-            btnDelete.setEnabled(true);
-        }
-    }//GEN-LAST:event_btnCalculateIncomeActionPerformed
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        handleSearch();
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        goToMenu();
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        String idTaxPayer=jTextField1.getText().trim();
-        utils.MongoDBUtil.deleteDocumentById(idTaxPayer);
-        if (modelo.getRowCount() > 0) {
-            modelo.removeRow(0);
-        }
-        btnDelete.setEnabled(false);
-        JOptionPane.showMessageDialog(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
+        handleDelete();
     }//GEN-LAST:event_btnDeleteActionPerformed
-
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -338,16 +286,67 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
             }
         });
     }
-    
+
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+
     private void cleanRow() {
         btnDelete.setEnabled(false);
         if (modelo.getRowCount() > 0) {
             modelo.removeRow(0);
         }
-  }
+    }
+
+    private void restrictInputToDigits(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && !utils.Validation.isAllowedKey(c)) {
+            evt.consume();
+        }
+    }
+
+    private void handleSearch() {
+        String id = txtId.getText();
+        if (!utils.Validation.isIdValid(id)) {
+            showMessage(this, "El ID debe tener 13 dígitos y terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
+            cleanRow();
+        } else if (utils.Validation.isTaxpayerExist(id)) {
+            showMessage(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            cleanRow();
+        } else {
+            cleanRow();
+            String[] data = utils.MongoDBUtil.DeleteTaxPayer(id);
+            addDataToModel(data);
+            btnDelete.setEnabled(true);
+        }
+    }
+
+    private void addDataToModel(String[] data) {
+        String[] info = new String[5];
+        for (int i = 0; i < data.length - 1; i++) {
+            info[i] = data[i];
+        }
+        modelo.addRow(info);
+    }
+
+    private void handleDelete() {
+        String idTaxPayer = txtId.getText().trim();
+        utils.MongoDBUtil.deleteDocumentById(idTaxPayer);
+        if (modelo.getRowCount() > 0) {
+            modelo.removeRow(0);
+        }
+        btnDelete.setEnabled(false);
+        showMessage(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    public static void showMessage(Component parentComponent, String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalculateIncome;
+    private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCancelIncomeCalc;
     private javax.swing.JButton btnDelete;
     private javax.swing.JLabel jLabel1;
@@ -358,7 +357,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTable tblDeleteTaxpayer;
+    private javax.swing.JTextField txtId;
     // End of variables declaration//GEN-END:variables
 }

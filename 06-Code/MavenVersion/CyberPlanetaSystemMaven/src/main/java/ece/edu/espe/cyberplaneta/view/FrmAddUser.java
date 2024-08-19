@@ -4,7 +4,6 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
 /**
@@ -212,8 +211,7 @@ public class FrmAddUser extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUserFocusLost
 
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
-        char typedChar = evt.getKeyChar();
-        if (isInvalidCharacter(typedChar)) {
+        if (utils.Validation.isInvalidCharacter(evt.getKeyChar())) {
             evt.consume();
         }
     }//GEN-LAST:event_txtUserKeyTyped
@@ -231,9 +229,7 @@ public class FrmAddUser extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        goToMenu();
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
@@ -279,8 +275,14 @@ public class FrmAddUser extends javax.swing.JFrame {
         }
     }
 
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+
     private void validateUserText() {
-        if (containsInvalidCharacters(getUsername())) {
+        if (utils.Validation.containsInvalidCharacters(getUsername())) {
             displayErrorMessage("Formato de usuario incorrecto");
         } else if (isUsernameEmpty()) {
             displayErrorMessage("Campos vacíos");
@@ -291,12 +293,8 @@ public class FrmAddUser extends javax.swing.JFrame {
 
     private void saveUserData() {
         try {
-            String rawPassword = getPassword();
-            String encryptedPassword = encryptPassword(rawPassword);
-            String username = getUsername();
-
-            if (isUserValid(username)) {
-                saveUser(username, encryptedPassword);
+            if (isUserValid(getUsername())) {
+                saveUser(getUsername(), utils.EncryptData.encriptionData(getPassword()));
                 clearFields();
                 showSuccessMessage();
             } else {
@@ -323,26 +321,8 @@ public class FrmAddUser extends javax.swing.JFrame {
         lblPassIncorrect.setText(null);
     }
 
-    public static boolean containsInvalidCharacters(String text) {
-        String regex = "[\\s!@#$%^&*(),.?\":{}|<>]";
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(text).find();
-    }
-
-    private boolean isInvalidCharacter(char c) {
-        return !Character.isLetterOrDigit(c) && !isAllowedKey(c);
-    }
-
-    private boolean isAllowedKey(char c) {
-        return c == java.awt.event.KeyEvent.VK_BACK_SPACE || c == java.awt.event.KeyEvent.VK_DELETE;
-    }
-
     private String getPassword() {
         return new String(pwdUserPassword.getPassword());
-    }
-
-    private String encryptPassword(String password) {
-        return utils.EncryptData.encriptionData(password);
     }
 
     private String getUsername() {

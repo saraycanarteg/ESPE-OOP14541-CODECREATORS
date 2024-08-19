@@ -18,9 +18,7 @@ public class FrmAccountSetting extends javax.swing.JFrame {
      */
     public FrmAccountSetting() {
         initComponents();
-        txtNewUser.setEnabled(false);
-        txtNewPassword.setEnabled(false);
-        btnGuardar.setEnabled(false);
+        disableUserEditing();
     }
 
     /**
@@ -176,19 +174,14 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 90, -1, -1));
 
         txtUser.setToolTipText("Ingrese un ID de la tabla");
-        txtUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserActionPerformed(evt);
+        txtUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUserKeyTyped(evt);
             }
         });
         jPanel7.add(txtUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 50, 100, -1));
 
         txtPassword.setToolTipText("Ingrese el número de documentación proporcionado para realizar ese proceso");
-        txtPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPasswordActionPerformed(evt);
-            }
-        });
         jPanel7.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, 100, -1));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -217,19 +210,14 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         jPanel7.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, -1, -1));
 
         txtNewUser.setToolTipText("Ingrese un ID de la tabla");
-        txtNewUser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewUserActionPerformed(evt);
+        txtNewUser.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNewUserKeyTyped(evt);
             }
         });
         jPanel7.add(txtNewUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 150, 100, -1));
 
         txtNewPassword.setToolTipText("Ingrese el número de documentación proporcionado para realizar ese proceso");
-        txtNewPassword.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNewPasswordActionPerformed(evt);
-            }
-        });
         jPanel7.add(txtNewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, 100, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -262,60 +250,28 @@ public class FrmAccountSetting extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackToMainActionPerformed
-        FrmMenu frmMenu= new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        goToMenu();
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        String oldUsername = txtUser.getText();
-        String newUsername = txtNewUser.getText();
-        String newPassword = txtNewPassword.getText();
-
-        boolean updated = MongoDBUtil.updateUser(oldUsername, newUsername, utils.EncryptData.encriptionData(newPassword));
-
-        if (updated) {
-            JOptionPane.showMessageDialog(this, "Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "Error al actualizar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        onSaveUser();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserActionPerformed
-
-    private void txtPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPasswordActionPerformed
-
-    private void txtNewUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewUserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewUserActionPerformed
-
-    private void txtNewPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNewPasswordActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNewPasswordActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-    String username = txtUser.getText();
-        String password = txtPassword.getText();
-
-        boolean validUser = MongoDBUtil.validateUser(username, password);
-
-        if (validUser) {
-            txtNewUser.setText(username);
-            txtNewPassword.setText(password);
-            txtNewUser.setEnabled(true);
-            txtNewPassword.setEnabled(true);
-            btnGuardar.setEnabled(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario no encontrado o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
-            txtNewUser.setEnabled(false);
-            txtNewPassword.setEnabled(false);
-            btnGuardar.setEnabled(false);
-        }
+        onSearchUser();
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
+        if (utils.Validation.isInvalidCharacter(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtUserKeyTyped
+
+    private void txtNewUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNewUserKeyTyped
+        if (utils.Validation.isInvalidCharacter(evt.getKeyChar())) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txtNewUserKeyTyped
 
     /**
      * @param args the command line arguments
@@ -352,6 +308,71 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         });
     }
 
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+
+    private void onSaveUser() {
+        String oldUsername = txtUser.getText();
+        String newUsername = txtNewUser.getText();
+        String newPassword = txtNewPassword.getText();
+
+        boolean isUpdated = MongoDBUtil.updateUser(oldUsername, newUsername, utils.EncryptData.encriptionData(newPassword));
+        showUpdateResult(isUpdated);
+        clearFields();
+    }
+
+    private void onSearchUser() {
+        String username = txtUser.getText();
+        String password = txtPassword.getText();
+
+        boolean isUserValid = MongoDBUtil.validateUser(username, password);
+        handleUserValidation(isUserValid);
+    }
+
+    private void showUpdateResult(boolean isUpdated) {
+        if (isUpdated) {
+            showMessage("Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            showMessage("Error al actualizar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handleUserValidation(boolean isUserValid) {
+        if (isUserValid) {
+            enableUserEditing();
+        } else {
+            disableUserEditing();
+            showMessage("Usuario no encontrado o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void enableUserEditing() {
+        txtNewUser.setText(txtUser.getText());
+        txtNewPassword.setText(txtPassword.getText());
+        txtNewUser.setEnabled(true);
+        txtNewPassword.setEnabled(true);
+        btnGuardar.setEnabled(true);
+    }
+
+    private void disableUserEditing() {
+        txtNewUser.setEnabled(false);
+        txtNewPassword.setEnabled(false);
+        btnGuardar.setEnabled(false);
+    }
+
+    private void showMessage(String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(this, message, title, messageType);
+    }
+
+    private void clearFields() {
+        txtNewPassword.setText("");
+        txtNewUser.setText("");
+        txtPassword.setText("");
+        txtUser.setText("");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGoBackToMain;

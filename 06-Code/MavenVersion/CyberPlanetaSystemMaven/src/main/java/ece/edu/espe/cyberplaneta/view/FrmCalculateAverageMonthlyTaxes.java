@@ -4,28 +4,14 @@ import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
 import ec.edu.espe.cyberplaneta.controller.TaxCalculator;
 import ec.edu.espe.cyberplaneta.controller.TaxesAverageController;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
 import java.io.IOException;
 import java.text.DecimalFormat;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
 import javax.swing.JTextField;
-import javax.swing.SpinnerNumberModel;
-import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.TextAnchor;
+import utils.ChartUtils;
 
 /**
  *
@@ -367,7 +353,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         double average = taxesAverageController.calculateAverage(values);
         DecimalFormat df = new DecimalFormat("#.##");
         txtAverage.setText(df.format(average));
-        createAndDisplayChart(selectedMonth, monthFields, average);
+        generateTaxesChart(selectedMonth, monthFields, average);
         clearFields();
         } catch (TaxesAverageController.InvalidInputException e) {
             JOptionPane.showMessageDialog(this, e.getMessage(), "Error de entrada", JOptionPane.ERROR_MESSAGE);
@@ -376,42 +362,17 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         }
           
     }
- private void createAndDisplayChart(int selectedMonth, JTextField[] monthFields, double average) {
-        DefaultCategoryDataset data = new DefaultCategoryDataset();
-        for (int i = 1; i <= selectedMonth; i++) {
-            String label = "Impuesto " + i;
-            double impuestoValue = Double.parseDouble(monthFields[i - 1].getText());
-            data.setValue(impuestoValue, label, "Impuesto " + i);
-        }
-        data.setValue(average, "Promedio", "Promedio");
-
-        JFreeChart barChart = ChartFactory.createBarChart3D(
-                "Promedio de Impuestos",
-                "Impuestos",
-                "Valor en dólares ($)",
-                data,
-                PlotOrientation.HORIZONTAL,
-                true,
-                true,
-                false);
-
-        CategoryPlot plot = (CategoryPlot) barChart.getPlot();
-        BarRenderer renderer = (BarRenderer) plot.getRenderer();
-        renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-        renderer.setBaseItemLabelsVisible(true);
-        renderer.setItemLabelAnchorOffset(10.0);
-        renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
-
-        ChartPanel panel = new ChartPanel(barChart);
-        panel.setMouseWheelEnabled(false);
-        panel.setPreferredSize(new Dimension(420, 355));
-
-        pnlGraph.removeAll();
-        pnlGraph.setLayout(new BorderLayout());
-        pnlGraph.add(panel, BorderLayout.CENTER);
-        pnlGraph.revalidate();
-        pnlGraph.repaint();
+ private void generateTaxesChart(int selectedMonth, JTextField[] monthFields, double average) {
+    DefaultCategoryDataset data = new DefaultCategoryDataset();
+    for (int i = 1; i <= selectedMonth; i++) {
+        String label = "Impuesto " + i;
+        double impuestoValue = Double.parseDouble(monthFields[i - 1].getText());
+        data.setValue(impuestoValue, label, "Impuesto " + i);
     }
+    data.setValue(average, "Promedio", "Promedio");
+
+    ChartUtils.createAndDisplayChart(pnlGraph, data, "Promedio de Impuestos", "Impuestos", "Valor en dólares ($)");
+}
 
  private void updateTextFields(int selectedMonth) {
         txtmonthJanuary.setEnabled(selectedMonth >= 1);

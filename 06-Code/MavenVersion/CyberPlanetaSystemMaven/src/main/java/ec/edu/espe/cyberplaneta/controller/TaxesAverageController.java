@@ -38,19 +38,18 @@ public class TaxesAverageController {
         return Double.parseDouble(text);
     }
 
-    public class InvalidInputException extends Exception {
+ public class InvalidInputException extends Exception {
+    private int errorIndex;
 
-        private int errorIndex;
-
-        public InvalidInputException(String message, int errorIndex) {
-            super(message);
-            this.errorIndex = errorIndex;
-        }
-
-        public int getErrorIndex() {
-            return errorIndex;
-        }
+    public InvalidInputException(String message, int errorIndex) {
+        super(message);
+        this.errorIndex = errorIndex;
     }
+
+    public int getErrorIndex() {
+        return errorIndex;
+    }
+}
 
     public static double calculateAverageMonthlyTaxes(int numberOfMonths, double[] monthlyTaxes) {
         if (numberOfMonths <= 0 || monthlyTaxes == null || monthlyTaxes.length != numberOfMonths) {

@@ -1,36 +1,25 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import javax.swing.ImageIcon;
+import ec.edu.espe.cyberplaneta.controller.CAGRController;
+import ec.edu.espe.cyberplaneta.controller.CAGRInterface;
 import javax.swing.JOptionPane;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.labels.ItemLabelAnchor;
-import org.jfree.chart.labels.ItemLabelPosition;
-import org.jfree.chart.labels.StandardCategoryItemLabelGenerator;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
-import org.jfree.ui.TextAnchor;
+import utils.ChartUtils;
+import utils.Validation;
 
 /**
  *
  * @author Saray Cañarte, Code Creators, DCCO-ESPE
  */
 public class FrmCalculateCAGR extends javax.swing.JFrame {
-    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmCalculateCAGR.class.getResource("/images/triangle-warning.png"));
+    private final CAGRInterface cagrController;
     /**
      * Creates new form FrmCalculateCAGR
      */
     public FrmCalculateCAGR() {
         initComponents();
+        cagrController = new CAGRController();
     }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,13 +38,11 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         sldCAGRYears = new javax.swing.JSlider();
-        txtInitialIncome = new javax.swing.JTextField();
-        txtFinalIncome = new javax.swing.JTextField();
         lblNumberOfYears = new javax.swing.JLabel();
-        lblInvalidIncome1 = new javax.swing.JLabel();
-        lblInvalidIncome2 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        txtInitialIncome = new javax.swing.JTextField();
+        txtFinalIncome = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -138,36 +125,9 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
             }
         });
 
-        txtInitialIncome.setToolTipText("Ingrese valor de dinero. Ejemplo: 100.34");
-        txtInitialIncome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInitialIncomeFocusLost(evt);
-            }
-        });
-        txtInitialIncome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtInitialIncomeActionPerformed(evt);
-            }
-        });
-
-        txtFinalIncome.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFinalIncomeFocusLost(evt);
-            }
-        });
-        txtFinalIncome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFinalIncomeActionPerformed(evt);
-            }
-        });
-
         lblNumberOfYears.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         lblNumberOfYears.setForeground(new java.awt.Color(7, 81, 203));
         lblNumberOfYears.setText("1");
-
-        lblInvalidIncome1.setForeground(new java.awt.Color(255, 0, 0));
-
-        lblInvalidIncome2.setForeground(new java.awt.Color(255, 0, 0));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(7, 81, 203));
@@ -190,27 +150,20 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
                         .addComponent(sldCAGRYears, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(lblNumberOfYears))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(111, 111, 111)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(txtInitialIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblInvalidIncome1, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(121, 121, 121)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addGap(121, 121, 121)
                             .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(8, 8, 8)
-                                .addComponent(txtFinalIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lblInvalidIncome2, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtFinalIncome))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(111, 111, 111)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtInitialIncome, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(222, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -226,29 +179,24 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblNumberOfYears)
                             .addComponent(sldCAGRYears, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(11, 11, 11)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
+                        .addGap(22, 22, 22)
                         .addComponent(jLabel3))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addComponent(txtInitialIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(lblInvalidIncome1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(20, 20, 20)
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtInitialIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(28, 28, 28)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblInvalidIncome2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtFinalIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(2, 2, 2)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(txtFinalIncome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(8, 8, 8)
+                        .addComponent(jLabel4)))
+                .addGap(26, 26, 26)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -282,10 +230,10 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         );
         pnlGraphLayout.setVerticalGroup(
             pnlGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addGap(0, 170, Short.MAX_VALUE)
         );
 
-        jPanel1.add(pnlGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 880, 180));
+        jPanel1.add(pnlGraph, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 880, 170));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -307,137 +255,20 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
             frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelCAGRCalcActionPerformed
 
-    private void txtInitialIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtInitialIncomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInitialIncomeActionPerformed
-
-    private void txtFinalIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFinalIncomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFinalIncomeActionPerformed
-
     private void sldCAGRYearsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldCAGRYearsStateChanged
         lblNumberOfYears.setText(String.valueOf(sldCAGRYears.getValue()));
     }//GEN-LAST:event_sldCAGRYearsStateChanged
 
-    private void txtInitialIncomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInitialIncomeFocusLost
-        try {
-            String text = txtInitialIncome.getText();
-            if (!text.matches("\\d+(\\.\\d{1,2})?")) {
-                lblInvalidIncome1.setIcon(WARNING_ICON);
-                lblInvalidIncome1.setText("<html>Error: El ingreso no puede ser negativo");
-            }
-
-            float initialIncome = Float.parseFloat(text);
-
-            if (initialIncome < 0) {
-                lblInvalidIncome1.setIcon(WARNING_ICON);
-                lblInvalidIncome1.setText("<html>Error: El ingreso no puede ser negativo");
-            } else {
-                lblInvalidIncome1.setIcon(null);
-                lblInvalidIncome1.setText(null);
-            }
-        } catch (NumberFormatException e) {
-            lblInvalidIncome1.setIcon(WARNING_ICON);
-            lblInvalidIncome1.setText("<html>Error: Ingrese un número válido en formato de dinero (ejemplo: 123.45)");
-        }
-    }//GEN-LAST:event_txtInitialIncomeFocusLost
-
-    private void txtFinalIncomeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFinalIncomeFocusLost
-        try {
-            String text = txtInitialIncome.getText();
-            if (!text.matches("\\d+(\\.\\d{1,2})?")) {
-                lblInvalidIncome2.setIcon(WARNING_ICON);
-                lblInvalidIncome2.setText("<html>Error: El ingreso no puede ser negativo");
-            }
-
-            float initialIncome = Float.parseFloat(text);
-
-            if (initialIncome < 0) {
-                lblInvalidIncome2.setIcon(WARNING_ICON);
-                lblInvalidIncome2.setText("<html>Error: El ingreso no puede ser negativo");
-            } else {
-                lblInvalidIncome2.setIcon(null);
-                lblInvalidIncome2.setText(null);
-            }
-        } catch (NumberFormatException e) {
-            lblInvalidIncome2.setIcon(WARNING_ICON);
-            lblInvalidIncome2.setText("<html>Error: Ingrese un número válido en formato de dinero (ejemplo: 123.45)");
-        }
-    }//GEN-LAST:event_txtFinalIncomeFocusLost
-
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-        if (lblInvalidIncome1.getText() != null && !lblInvalidIncome1.getText().isEmpty()
-                || lblInvalidIncome2.getText() != null && !lblInvalidIncome2.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Error: No se puede continuar con el cálculo hasta corregir los campos señalados", "Error de validación", JOptionPane.ERROR_MESSAGE);
-            return;
+        boolean isInitialIncomeValid = Validation.isValidMoney(txtInitialIncome);     
+        boolean isFinalIncomeValid = Validation.isValidMoney(txtFinalIncome); 
+        if (isInitialIncomeValid  && isFinalIncomeValid) {
+            showCAGRresult ();
+        }else{
+           JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);     
         }
-
-        try {
-            float initialIncome = Float.parseFloat(txtInitialIncome.getText());
-            float finalIncome = Float.parseFloat(txtFinalIncome.getText());
-            int years = sldCAGRYears.getValue();
-
-            if (initialIncome < 0 || finalIncome < 0) {
-                JOptionPane.showMessageDialog(this, "Error: Los valores de ingreso no pueden ser negativos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            double cagr = PricingSystemManager.calculateCAGR(initialIncome, finalIncome, years);
-            double projectedIncome = PricingSystemManager.calculateFutureValue(finalIncome, cagr, years);
-
-            generateChart(initialIncome, finalIncome, projectedIncome);
-
-            String resultMessage = String.format(
-                    "Resultado del cálculo CAGR:\n\n"
-                    + "Ingreso Inicial: $%.2f\n"
-                    + "Ingreso Final: $%.2f\n"
-                    + "Años de Proyección: %d\n"
-                    + "Ingreso Proyectado: $%.2f\n"
-                    + "Porcentaje de CAGR: %.2f%%",
-                    initialIncome, finalIncome, years, projectedIncome, cagr
-            );
-
-            JOptionPane.showMessageDialog(this, resultMessage, "Resultado CAGR", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
-        }
-
     }//GEN-LAST:event_btnCalculateCAGRActionPerformed
-private void generateChart(double initialIncome, double finalIncome, double projectedIncome) {
-    DefaultCategoryDataset data = new DefaultCategoryDataset();
-    data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
-    data.setValue(finalIncome, "Ingreso Final", "Final");
-    data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
-    
-    JFreeChart barChart = ChartFactory.createBarChart3D(
-            "Proyección de Ingresos",
-            "Tipo de Ingreso",
-            "Valor en dólares ($)",
-            data,
-            PlotOrientation.HORIZONTAL,
-            true,
-            true,
-            false);
-    
-    CategoryPlot plot = (CategoryPlot) barChart.getPlot();
-    BarRenderer renderer = (BarRenderer) plot.getRenderer();
-    renderer.setBaseItemLabelGenerator(new StandardCategoryItemLabelGenerator());
-    renderer.setBaseItemLabelsVisible(true);
-    renderer.setItemLabelAnchorOffset(10.0);
-    renderer.setBasePositiveItemLabelPosition(new ItemLabelPosition(ItemLabelAnchor.OUTSIDE12, TextAnchor.BASELINE_LEFT));
-    
-    ChartPanel panel = new ChartPanel(barChart);
-    panel.setMouseWheelEnabled(false);
-    panel.setPreferredSize(new Dimension(100, 500));
-    
-    pnlGraph.removeAll();
-    pnlGraph.setLayout(new BorderLayout());
-    pnlGraph.add(panel, BorderLayout.CENTER);
-    
-    pnlGraph.revalidate();
-    pnlGraph.repaint();
-}
+
     /**
      * @param args the command line arguments
      */
@@ -473,7 +304,37 @@ private void generateChart(double initialIncome, double finalIncome, double proj
             }
         });
     }
+    
+    private void showCAGRresult (){
+        float initialIncome = Float.parseFloat(txtInitialIncome.getText().replace(",", "."));
+        float finalIncome = Float.parseFloat(txtFinalIncome.getText().replace(",", "."));
+        int years = sldCAGRYears.getValue();
 
+        double cagr = cagrController.calculateCAGR(initialIncome, finalIncome, years);
+        double projectedIncome = cagrController.calculateFutureValue(finalIncome, cagr, years);
+        generateCAGRChart(initialIncome, finalIncome, projectedIncome);
+
+        String resultMessage = String.format(
+                "Resultado del cálculo CAGR:\n\n"
+                + "Ingreso Inicial: $%.2f\n"
+                + "Ingreso Final: $%.2f\n"
+                + "Años de Proyección: %d\n"
+                + "Ingreso Proyectado: $%.2f\n"
+                + "Porcentaje de CAGR: %.2f%%",
+                initialIncome, finalIncome, years, projectedIncome, cagr
+        );
+
+        JOptionPane.showMessageDialog(this, resultMessage, "Resultado CAGR", JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+private void generateCAGRChart(double initialIncome, double finalIncome, double projectedIncome) {
+    DefaultCategoryDataset data = new DefaultCategoryDataset();
+    data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
+    data.setValue(finalIncome, "Ingreso Final", "Final");
+    data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
+
+    ChartUtils.createAndDisplayChart(pnlGraph, data, "Proyección de Ingresos", "Tipo de Ingreso", "Valor en dólares ($)");
+}
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculateCAGR;
     private javax.swing.JButton btnCancelCAGRCalc;
@@ -489,8 +350,6 @@ private void generateChart(double initialIncome, double finalIncome, double proj
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JLabel lblInvalidIncome1;
-    private javax.swing.JLabel lblInvalidIncome2;
     private javax.swing.JLabel lblNumberOfYears;
     private javax.swing.JPanel pnlGraph;
     private javax.swing.JSlider sldCAGRYears;

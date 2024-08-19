@@ -332,7 +332,7 @@ public class PricingSystemManagerTest {
         double finalValue = 2000.0;
         int numYears = 5;
         double expResult = 14.86;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -343,7 +343,7 @@ public class PricingSystemManagerTest {
         double finalValue = 340.0;
         int numYears = 3;
         double expResult = 12.31;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -354,7 +354,7 @@ public class PricingSystemManagerTest {
         double finalValue = 340.0;
         int numYears = 4;
         double expResult = 9.09;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -365,7 +365,7 @@ public class PricingSystemManagerTest {
         double finalValue = 140.0;
         int numYears = 4;
         double expResult = 20.47;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -376,7 +376,7 @@ public class PricingSystemManagerTest {
         double finalValue = 100.0;
         int numYears = 4;
         double expResult = 15.91;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -387,7 +387,7 @@ public class PricingSystemManagerTest {
         double finalValue = 700.0;
         int numYears = 1;
         double expResult = 51.17;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -398,7 +398,7 @@ public class PricingSystemManagerTest {
         double finalValue = 1000.0;
         int numYears = 2;
         double expResult = 4.26;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -409,7 +409,7 @@ public class PricingSystemManagerTest {
         double finalValue = 140.0;
         int numYears = 1;
         double expResult = 90.67;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     @Test
@@ -419,7 +419,7 @@ public class PricingSystemManagerTest {
         double finalValue = 15000.0;
         int numYears = 1;
         double expResult = 66.67;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -430,7 +430,7 @@ public class PricingSystemManagerTest {
         double finalValue = 108742.52;
         int numYears = 8;
         double expResult = 4.14;
-        double result = PricingSystemManager.calculateCAGR(initialValue, finalValue, numYears);
+        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -444,7 +444,7 @@ public class PricingSystemManagerTest {
         double cagr = 10.0;
         int numYears = 5;
         double expResult = 1610.51;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -455,7 +455,7 @@ public class PricingSystemManagerTest {
         double cagr = 10.0;
         int numYears = 3;
         double expResult = 1331.00;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -466,7 +466,7 @@ public class PricingSystemManagerTest {
         double cagr = 23.45;
         int numYears = 4;
         double expResult = 80302.83F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -477,7 +477,7 @@ public class PricingSystemManagerTest {
         double cagr = 23.45;
         int numYears = 4;
         double expResult = 10480.37F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -488,7 +488,7 @@ public class PricingSystemManagerTest {
         double cagr = 20.45;
         int numYears = 3;
         double expResult = 7885.56F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -499,7 +499,7 @@ public class PricingSystemManagerTest {
         double cagr = 4.03;
         int numYears = 3;
         double expResult = 383.03F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -510,7 +510,7 @@ public class PricingSystemManagerTest {
         double cagr = 4.03;
         int numYears = 1;
         double expResult = 353.93F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -521,7 +521,7 @@ public class PricingSystemManagerTest {
         double cagr = 0.0;
         int numYears = 1;
         double expResult = 1.00F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -532,7 +532,7 @@ public class PricingSystemManagerTest {
         double cagr = 123.0;
         int numYears = 34;
         double expResult = 695609242235.93F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -543,7 +543,7 @@ public class PricingSystemManagerTest {
         double cagr = 0.01;
         int numYears = 7;
         double expResult = 676.13F;
-        double result = PricingSystemManager.calculateFutureValue(finalValue, cagr, numYears);
+        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 

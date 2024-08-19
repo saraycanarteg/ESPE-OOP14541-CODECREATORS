@@ -50,18 +50,5 @@ public class PricingSystemManager {
         MongoDBUtil.saveTaxProcess(taxProcess, numberOfDocumentation);
     }
     
-    //CAGR CONTROLLER
-    public static double calculateCAGR(double initialValue, double finalValue, int numYears) {
-        double cagr = Math.pow((finalValue / initialValue), (1.0 / (numYears))) - 1;
-        return cagr * 100;
-    }
-    public static boolean isValidValue(double value) {
-        double epsilon = 0.01;
-        return Math.abs(Math.round(value * 100) - value * 100) < epsilon;
-    }
-    public static double calculateFutureValue(double finalValue, double cagr, int numYears) {
-        double futureValue = finalValue * Math.pow(1 + (cagr/100), numYears);
-        return futureValue;
-    }
 }
 

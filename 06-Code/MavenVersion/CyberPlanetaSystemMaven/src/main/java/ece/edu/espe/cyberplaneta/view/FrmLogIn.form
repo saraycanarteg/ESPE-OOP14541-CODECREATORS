@@ -201,6 +201,9 @@
                   <Dimension value="[64, 18]"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="btnPasswordKeyTyped"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

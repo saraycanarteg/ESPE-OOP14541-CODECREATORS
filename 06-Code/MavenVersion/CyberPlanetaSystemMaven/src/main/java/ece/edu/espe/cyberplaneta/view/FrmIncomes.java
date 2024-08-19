@@ -397,9 +397,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     } catch (IOException | DocumentException ex) {
         System.out.println("Error: " + ex.getMessage());
         ex.printStackTrace();
-    }
-
-
+    } 
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed

@@ -1,19 +1,13 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
+import utils.ChartAndTableUtils;
 import utils.MongoDBUtil;
 
 /**
@@ -22,17 +16,17 @@ import utils.MongoDBUtil;
  */
 public class FrmEditTaxProcess extends javax.swing.JFrame {
 
-    private PricingSystemManager controller = new PricingSystemManager();
+    private PricingSystemController controller = new PricingSystemController();
     private static final ImageIcon WARNING_ICON = new ImageIcon(FrmEditTaxProcess.class.getResource("/images/triangle-warning.png"));
 
     /**
      * Creates new form FrmPriceSystem
      */
     public FrmEditTaxProcess() {
-        this.controller = new PricingSystemManager();
+        this.controller = new PricingSystemController();
         initComponents();
         loadPriceListTable();
-        customizeTableHeader();
+        ChartAndTableUtils.customizeTableHeader(tblPriceList);
         txtId.setEnabled(false);
 
         // Añadir validación para permitir solo números en txtId
@@ -57,7 +51,7 @@ public class FrmEditTaxProcess extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
         model.setRowCount(0);
 
-        for (PriceList price : PricingSystemManager.getPriceListArray()) {
+        for (PriceList price : PricingSystemController.getPriceListArray()) {
             model.addRow(new Object[]{
                 price.getProcessId(),
                 price.getProcessName(),
@@ -73,25 +67,6 @@ public class FrmEditTaxProcess extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese solo números en el ID general", "Error", JOptionPane.ERROR_MESSAGE);
             textField.setText(text.replaceAll("[^\\d]", ""));
         }
-    }
-
-    private void customizeTableHeader() {
-        JTableHeader header = tblPriceList.getTableHeader();
-        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        header.setForeground(new Color(255, 255, 255));
-        header.setBackground(new Color(7, 81, 203));
-        tblPriceList.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(new Color(7, 81, 203));
-                c.setForeground(Color.WHITE);
-                c.setFont(c.getFont().deriveFont(Font.BOLD));
-                return c;
-            }
-        });
     }
 
     /**
@@ -381,7 +356,7 @@ public class FrmEditTaxProcess extends javax.swing.JFrame {
         if (!processIdText.isEmpty()) {
             int processId = Integer.parseInt(processIdText);
             PriceList selectedProcess = null;
-            for (PriceList process : PricingSystemManager.getPriceListArray()) {
+            for (PriceList process : PricingSystemController.getPriceListArray()) {
                 if (process.getProcessId() == processId) {
                     selectedProcess = process;
                     break;

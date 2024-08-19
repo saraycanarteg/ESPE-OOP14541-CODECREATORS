@@ -14,7 +14,7 @@ public class PricingSystemManagerTest {
     }
 
     /**
-     * Test of calculateTotalPrice method, of class PricingSystemManager.
+     * Test of calculateTotalPrice method, of class PricingSystemController.
      */
     @Test
     public void testCalculateTotalPrice1() {
@@ -22,7 +22,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.9F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -32,7 +32,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.75F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -42,7 +42,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 30.07F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -52,7 +52,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 10.0F;
         float expResult = 58.07F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -62,7 +62,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 9.0F;
         float expResult = 4.54F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -72,7 +72,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 4.02F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -82,7 +82,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 453.0F;
         float expResult = 31.79F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -92,7 +92,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -102,7 +102,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 25.30F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -112,12 +112,12 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
-        float result = PricingSystemManager.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateBasePrice method, of class PricingSystemManager.
+     * Test of calculateBasePrice method, of class PricingSystemController.
      */
     @Test
     public void testCalculateBasePrice1() {
@@ -125,7 +125,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.0F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -135,7 +135,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.0F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -145,7 +145,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 26.15F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -155,7 +155,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA semestral", 20.0f, 15f);
         float numDocumentation = 50.0F;
         float expResult = 22.5F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -165,7 +165,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 137.0F;
         float expResult = 56.85F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -175,7 +175,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 46.0F;
         float expResult = 52.3F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -185,7 +185,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 81.0F;
         float expResult = 7.55F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -195,7 +195,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 3.5F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -205,7 +205,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 246.0F;
         float expResult = 17.3F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -215,12 +215,12 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 451.0F;
         float expResult = 27.55F;
-        float result = PricingSystemManager.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateTax method, of class PricingSystemManager.
+     * Test of calculateTax method, of class PricingSystemController.
      */
     @Test
     public void testCalculateTax1() {
@@ -228,7 +228,7 @@ public class PricingSystemManagerTest {
         float basePrice = 6.0F;
         float taxRate = 15.0F;
         float expResult = 0.9F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -238,7 +238,7 @@ public class PricingSystemManagerTest {
         float basePrice = 324.34F;
         float taxRate = 15.0F;
         float expResult = 48.65F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -248,7 +248,7 @@ public class PricingSystemManagerTest {
         float basePrice = 15.00F;
         float taxRate = 15.0F;
         float expResult = 2.25F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -258,7 +258,7 @@ public class PricingSystemManagerTest {
         float basePrice = 9755.03F;
         float taxRate = 15.0F;
         float expResult = 1463.25F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -268,7 +268,7 @@ public class PricingSystemManagerTest {
         float basePrice = 1000.03F;
         float taxRate = 15.0F;
         float expResult = 150.00F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -278,7 +278,7 @@ public class PricingSystemManagerTest {
         float basePrice = 25.32F;
         float taxRate = 15.0F;
         float expResult = 3.79F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -288,7 +288,7 @@ public class PricingSystemManagerTest {
         float basePrice = 329.01F;
         float taxRate = 15.0F;
         float expResult = 49.35F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -298,7 +298,7 @@ public class PricingSystemManagerTest {
         float basePrice = 1.11F;
         float taxRate = 15.0F;
         float expResult = 0.16F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -308,7 +308,7 @@ public class PricingSystemManagerTest {
         float basePrice = 0.03F;
         float taxRate = 15.0F;
         float expResult = 0.00F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -318,12 +318,12 @@ public class PricingSystemManagerTest {
         float basePrice = 1500.09F;
         float taxRate = 15.0F;
         float expResult = 225.01F;
-        float result = PricingSystemManager.calculateTax(basePrice, taxRate);
+        float result = PricingSystemController.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateCAGR method, of class PricingSystemManager.
+     * Test of calculateCAGR method, of class PricingSystemController.
      */
     @Test
     public void testCalculateCAGR1() {
@@ -435,7 +435,7 @@ public class PricingSystemManagerTest {
     }
 
     /**
-     * Test of calculateFutureValue method, of class PricingSystemManager.
+     * Test of calculateFutureValue method, of class PricingSystemController.
      */
     @Test
     public void testCalculateFutureValue1() {

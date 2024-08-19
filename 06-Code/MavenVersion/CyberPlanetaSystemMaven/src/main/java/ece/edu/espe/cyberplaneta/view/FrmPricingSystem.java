@@ -1,51 +1,32 @@
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.controller.IncomeController;
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import javax.swing.ImageIcon;
+import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
+import ec.edu.espe.cyberplaneta.controller.PricingSystemInterface;
+import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import utils.ChartAndTableUtils;
+import utils.Validation;
 
 /**
  *
  * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
-    private PricingSystemManager controller = new PricingSystemManager();
-    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmPricingSystem.class.getResource("/images/triangle-warning.png"));
+    private final PricingSystemInterface pricingSystemController;
     /**
      * Creates new form FrmPriceSystem
      */
 
     public FrmPricingSystem() {
-        this.controller = new PricingSystemManager(); 
         initComponents();
         loadPriceListTable();
-        txtInvalidId.setIcon(null);
         ChartAndTableUtils.customizeTableHeader(tblPriceList);
+        pricingSystemController = new PricingSystemController();
     }
 
-    private void loadPriceListTable() {
-        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
-        model.setRowCount(0);
-
-        for (PriceList price : PricingSystemManager.getPriceListArray()) {
-            model.addRow(new Object[]{
-                price.getProcessId(),
-                price.getProcessName(),
-                String.format("%.2f", price.getPrice()),
-                String.format("%.2f", price.getTaxRate())
-            });
-        }
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,11 +48,11 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        txtProcessIdCalc = new javax.swing.JTextField();
-        txtNumberOfDocumentation = new javax.swing.JTextField();
         chbAddCalcToIncomes = new javax.swing.JCheckBox();
         txtInvalidIDocumentation = new javax.swing.JLabel();
         txtInvalidId = new javax.swing.JLabel();
+        txtProcessIdCalc = new javax.swing.JTextField();
+        txtNumberOfDocumentation = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
         btnCalculateIncome = new javax.swing.JButton();
         btnCancelIncomeCalc = new javax.swing.JButton();
@@ -154,32 +135,6 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         jLabel4.setText("¿Desea añadir al registro de ingresos?");
         jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 120, -1, -1));
 
-        txtProcessIdCalc.setToolTipText("Ingrese un ID de la tabla");
-        txtProcessIdCalc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtProcessIdCalcFocusLost(evt);
-            }
-        });
-        txtProcessIdCalc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProcessIdCalcActionPerformed(evt);
-            }
-        });
-        jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 100, -1));
-
-        txtNumberOfDocumentation.setToolTipText("Ingrese el número de documentación proporcionado para realizar ese proceso");
-        txtNumberOfDocumentation.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNumberOfDocumentationFocusLost(evt);
-            }
-        });
-        txtNumberOfDocumentation.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNumberOfDocumentationActionPerformed(evt);
-            }
-        });
-        jPanel4.add(txtNumberOfDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 100, -1));
-
         chbAddCalcToIncomes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         chbAddCalcToIncomes.setForeground(new java.awt.Color(7, 81, 203));
         chbAddCalcToIncomes.setText("Añadir");
@@ -192,6 +147,8 @@ public class FrmPricingSystem extends javax.swing.JFrame {
 
         txtInvalidId.setForeground(new java.awt.Color(255, 0, 0));
         jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 250, 40));
+        jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 40, 100, -1));
+        jPanel4.add(txtNumberOfDocumentation, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 80, 100, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 910, 154));
 
@@ -256,118 +213,22 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtNumberOfDocumentationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumberOfDocumentationActionPerformed
-
-    }//GEN-LAST:event_txtNumberOfDocumentationActionPerformed
-
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
             FrmMenu frmMenu= new FrmMenu();
             this.setVisible(false);
             frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
-    private void txtProcessIdCalcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProcessIdCalcFocusLost
-        try {
-            int processId = Integer.parseInt(txtProcessIdCalc.getText());
-            if (processId < 0) {
-                txtInvalidId.setIcon(WARNING_ICON);
-                txtInvalidId.setText("<html>Error: ID no puede ser negativo");
-            } else if (!controller.isProcessIdAvailable(processId)) {
-                txtInvalidId.setIcon(WARNING_ICON);
-                txtInvalidId.setText("<html>Error: ID no disponible");
-            } else {
-                txtInvalidId.setIcon(null);
-                txtInvalidId.setText(null);
-            }
-        } catch (NumberFormatException e) {
-            txtInvalidId.setIcon(WARNING_ICON);
-            txtInvalidId.setText("<html>Error: Ingrese un número válido");
-        }
-    }//GEN-LAST:event_txtProcessIdCalcFocusLost
-
     private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
-        boolean hasInvalidFields = false;
-
-        if (txtInvalidId != null) {
-            String invalidIdText = txtInvalidId.getText();
-            if (invalidIdText != null && !invalidIdText.isEmpty()) {
-                hasInvalidFields = true;
-            }
-        }
-
-        if (txtInvalidIDocumentation != null) {
-            String invalidDocText = txtInvalidIDocumentation.getText();
-            if (invalidDocText != null && !invalidDocText.isEmpty()) {
-                hasInvalidFields = true;
-            }
-        }
-
-        if (hasInvalidFields) {
-            JOptionPane.showMessageDialog(this,
-                    "No se puede proceder con el cálculo. Por favor, corrija los campos señalados.",
-                    "Error de validación",
-                    JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        String processIdText = txtProcessIdCalc.getText();
-        String numberOfDocumentationText = txtNumberOfDocumentation.getText();
-        boolean addToIncomes = chbAddCalcToIncomes.isSelected();
-
-        if (processIdText.isEmpty() || numberOfDocumentationText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            int processId = Integer.parseInt(processIdText);
-            int numberOfDocumentation = Integer.parseInt(numberOfDocumentationText);
-            PriceList selectedProcess = null;
-            for (PriceList process : PricingSystemManager.getPriceListArray()) {
-                if (process.getProcessId() == processId) {
-                    selectedProcess = process;
-                    break;
-                }
-            }
-            if (selectedProcess == null) {
-                JOptionPane.showMessageDialog(this, "Proceso no encontrado.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            float totalPrice = PricingSystemManager.calculateTotalPrice(selectedProcess, numberOfDocumentation);
-
-            String message = String.format("ID del proceso: %d\nNombre del Proceso: %s\nPrecio Base: $%.2f\nImpuesto: %.2f%%\nNúmero de Documentación: %s\nPrecio Total: $%.2f",
-                    selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate(), numberOfDocumentation, totalPrice);
-            JOptionPane.showMessageDialog(this, message, "Resultados de Cálculo", JOptionPane.INFORMATION_MESSAGE);
-
-            if (addToIncomes) {
-                PricingSystemManager.saveTaxProcessToDatabase(selectedProcess, totalPrice, numberOfDocumentation);
-                JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            }
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Por favor ingrese valores numéricos válidos.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-
+       boolean isProceddIdValid = pricingSystemController.validatePriceId(txtProcessIdCalc); 
+       boolean idNumberOfDocValid = Validation.validatePositiveInteger(txtNumberOfDocumentation);
+       
+       if (isProceddIdValid && idNumberOfDocValid) {
+           showPriceResult();
+       }else{
+           JOptionPane.showMessageDialog(this, "Ingrese valores válidos(ID disponible y número de documentación como entero positivo)", "Error", JOptionPane.ERROR_MESSAGE);
+       }
     }//GEN-LAST:event_btnCalculateIncomeActionPerformed
-
-    private void txtProcessIdCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcessIdCalcActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProcessIdCalcActionPerformed
-
-    private void txtNumberOfDocumentationFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumberOfDocumentationFocusLost
-        try {
-            int numDocumentation = Integer.parseInt(txtNumberOfDocumentation.getText());
-            if (numDocumentation <= 0) {
-                txtInvalidIDocumentation.setIcon(WARNING_ICON);
-                txtInvalidIDocumentation.setText("<html>Error: Número de documentación no puede ser negativo");
-            } else {
-                txtInvalidIDocumentation.setIcon(null);
-                txtInvalidIDocumentation.setText(null);
-            }
-        } catch (NumberFormatException e) {
-            txtInvalidIDocumentation.setIcon(WARNING_ICON);
-            txtInvalidIDocumentation.setText("<html>Error: Por favor ingrese un número válido");
-        }
-    }//GEN-LAST:event_txtNumberOfDocumentationFocusLost
 
     /**
      * @param args the command line arguments
@@ -407,6 +268,42 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         });
     }
 
+    private void loadPriceListTable() {
+        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
+        model.setRowCount(0);
+
+        for (PriceList price : PricingSystemController.getPriceListArray()) {
+            model.addRow(new Object[]{
+                price.getProcessId(),
+                price.getProcessName(),
+                String.format("%.2f", price.getPrice()),
+                String.format("%.2f", price.getTaxRate())
+            });
+        }
+    }
+    
+    private void showPriceResult(){
+        int processId= parseInt(txtProcessIdCalc.getText());
+        int numberOfDocumentation = parseInt(txtNumberOfDocumentation.getText());
+        boolean addToIncomes = chbAddCalcToIncomes.isSelected();
+         PriceList selectedProcess = null;
+            for (PriceList process : PricingSystemController.getPriceListArray()) {
+                if (process.getProcessId() == processId) {
+                    selectedProcess = process;
+                    break;
+                }
+            }
+        float totalPrice = pricingSystemController.calculateTotalPrice(selectedProcess, numberOfDocumentation);
+            String message = String.format("ID del proceso: %d\nNombre del Proceso: %s\nPrecio Base: $%.2f\nImpuesto: %.2f%%\nNúmero de Documentación: %s\nPrecio Total: $%.2f",
+                    selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate(), numberOfDocumentation, totalPrice);
+            JOptionPane.showMessageDialog(this, message, "Resultados de Cálculo", JOptionPane.INFORMATION_MESSAGE);
+
+            if (addToIncomes) {
+                IncomeController.saveTaxProcessToDatabase(selectedProcess, totalPrice, numberOfDocumentation);
+                JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculateIncome;
     private javax.swing.JButton btnCancelIncomeCalc;

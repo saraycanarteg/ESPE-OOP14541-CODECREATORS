@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import utils.ChartAndTableUtils;
 
 /**
  *
@@ -29,7 +30,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         initComponents();
         loadPriceListTable();
         txtInvalidId.setIcon(null);
-        customizeTableHeader();
+        ChartAndTableUtils.customizeTableHeader(tblPriceList);
     }
 
     private void loadPriceListTable() {
@@ -45,24 +46,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             });
         }
     }
-    private void customizeTableHeader() {
-        JTableHeader header = tblPriceList.getTableHeader();
-        DefaultTableCellRenderer headerRenderer = (DefaultTableCellRenderer) header.getDefaultRenderer();
-        headerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        header.setFont(new Font("Segoe UI", Font.BOLD, 14));
-        header.setForeground(new Color(255, 255, 255));
-        header.setBackground(new Color(7, 81, 203));
-        tblPriceList.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(new Color(7, 81, 203)); 
-                c.setForeground(Color.WHITE); 
-                c.setFont(c.getFont().deriveFont(Font.BOLD));
-                return c;
-            }
-        });
-    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

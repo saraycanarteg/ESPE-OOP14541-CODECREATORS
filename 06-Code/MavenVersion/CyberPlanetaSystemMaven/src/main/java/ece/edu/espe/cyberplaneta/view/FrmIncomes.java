@@ -3,10 +3,6 @@ package ece.edu.espe.cyberplaneta.view;
 import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.ExcelReport;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -14,8 +10,7 @@ import org.bson.Document;
 import utils.MongoDBUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableCellRenderer;
+import utils.ChartAndTableUtils;
 
 /**
  *
@@ -29,15 +24,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     public FrmIncomes() {
         initComponents();
         loadIncomes();
-
-        tblTotalIncomes.setShowGrid(true);
-        tblTotalIncomes.setGridColor(Color.LIGHT_GRAY);
-        tblTotalIncomes.setRowHeight(25);
-        tblTotalIncomes.setIntercellSpacing(new Dimension(0, 0));
-        tblTotalIncomes.getTableHeader().setReorderingAllowed(false);
-        tblTotalIncomes.getTableHeader().setResizingAllowed(false);
-        tblTotalIncomes.setSelectionBackground(new java.awt.Color(159, 246, 70));
-        tblTotalIncomes.setSelectionForeground(new java.awt.Color(0, 0, 102));
+        ChartAndTableUtils.customizeTableHeader(tblTotalIncomes);
     }
 
     private void loadIncomes() {
@@ -66,35 +53,7 @@ public class FrmIncomes extends javax.swing.JFrame {
             totalSum += totalPrice;
         }
 
-        model.addRow(new Object[]{"", "", "TOTAL:", "", "", String.format("%.2f", totalSum)});
-
-        tblTotalIncomes.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                if (row == table.getRowCount() - 1) {
-                    c.setBackground(new Color(159, 246, 70)); 
-                    c.setForeground(new Color(7, 81, 203)); 
-                } else {
-                    c.setBackground(Color.WHITE); 
-                    c.setForeground(new Color(0, 0, 102)); 
-                }
-                c.setFont(row == table.getRowCount() - 1 ? c.getFont().deriveFont(Font.BOLD) : table.getFont());
-                return c;
-            }
-        });
-
-   
-        tblTotalIncomes.getTableHeader().setDefaultRenderer(new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
-                c.setBackground(new Color(7, 81, 203)); 
-                c.setForeground(Color.WHITE); 
-                c.setFont(c.getFont().deriveFont(Font.BOLD));
-                return c;
-            }
-        });
+        model.addRow(new Object[]{"", "", "TOTAL:", "", "", String.format("%.2f", totalSum)}); 
     }
 
 

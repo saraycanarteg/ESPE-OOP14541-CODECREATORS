@@ -11,7 +11,7 @@ import javax.swing.JTextField;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
 import org.jfree.data.category.DefaultCategoryDataset;
-import utils.ChartUtils;
+import utils.ChartAndTableUtils;
 
 /**
  *
@@ -371,7 +371,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
     }
     data.setValue(average, "Promedio", "Promedio");
 
-    ChartUtils.createAndDisplayChart(pnlGraph, data, "Promedio de Impuestos", "Impuestos", "Valor en dólares ($)");
+    ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Promedio de Impuestos", "Impuestos", "Valor en dólares ($)");
 }
 
  private void updateTextFields(int selectedMonth) {

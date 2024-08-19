@@ -4,7 +4,7 @@ import ec.edu.espe.cyberplaneta.controller.CAGRController;
 import ec.edu.espe.cyberplaneta.controller.CAGRInterface;
 import javax.swing.JOptionPane;
 import org.jfree.data.category.DefaultCategoryDataset;
-import utils.ChartUtils;
+import utils.ChartAndTableUtils;
 import utils.Validation;
 
 /**
@@ -333,7 +333,7 @@ private void generateCAGRChart(double initialIncome, double finalIncome, double 
     data.setValue(finalIncome, "Ingreso Final", "Final");
     data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
 
-    ChartUtils.createAndDisplayChart(pnlGraph, data, "Proyección de Ingresos", "Tipo de Ingreso", "Valor en dólares ($)");
+    ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Proyección de Ingresos", "Tipo de Ingreso", "Valor en dólares ($)");
 }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculateCAGR;

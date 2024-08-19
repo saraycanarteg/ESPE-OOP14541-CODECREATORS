@@ -2,10 +2,12 @@ package utils;
 
 import javax.swing.JTextField;
 import java.awt.Color;
+import java.awt.Component;
 import java.util.regex.Pattern;
+import javax.swing.JOptionPane;
 
 public class Validation {
-    
+
     public static boolean validateMoneyFields(JTextField textField) {
         String input = textField.getText().trim();
         String regex = "^(\\d+(\\.\\d{1,2})?)$";
@@ -58,8 +60,24 @@ public class Validation {
     public static boolean isIdValid(String id) {
         return id.length() == 13 && id.endsWith("001");
     }
-    
+
     public static boolean isTaxpayerExist(String id) {
         return MongoDBUtil.verificationIdTaxpayer(id);
+    }
+
+    public static void restrictInputToProcessId(java.awt.event.KeyEvent evt, String text) {
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) || text.length() >= 1 || (c < '1' || c > '5')) {
+            evt.consume();
+        }
+    }
+    public static void restrictInputToDigits(java.awt.event.KeyEvent evt) {
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c) && !isAllowedKey(c)) {
+            evt.consume();
+        }
+    }
+    public static void showMessage(Component parentComponent, String message, String title, int messageType) {
+        JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
     }
 }

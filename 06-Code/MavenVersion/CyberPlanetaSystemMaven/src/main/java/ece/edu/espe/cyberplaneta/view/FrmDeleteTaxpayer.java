@@ -1,11 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ece.edu.espe.cyberplaneta.view;
 
 import java.awt.Color;
-import java.awt.Component;
 import static java.awt.Frame.NORMAL;
 import static java.awt.image.ImageObserver.ERROR;
 import javax.swing.JOptionPane;
@@ -237,7 +232,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        restrictInputToDigits(evt);
+        utils.Validation.restrictInputToDigits(evt);
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -300,20 +295,13 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         }
     }
 
-    private void restrictInputToDigits(java.awt.event.KeyEvent evt) {
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && !utils.Validation.isAllowedKey(c)) {
-            evt.consume();
-        }
-    }
-
     private void handleSearch() {
         String id = txtId.getText();
         if (!utils.Validation.isIdValid(id)) {
-            showMessage(this, "El ID debe tener 13 dígitos y terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
+            utils.Validation.showMessage(this, "El ID debe tener 13 dígitos y terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else if (utils.Validation.isTaxpayerExist(id)) {
-            showMessage(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
+            utils.Validation.showMessage(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
             cleanRow();
         } else {
             cleanRow();
@@ -338,11 +326,7 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
             modelo.removeRow(0);
         }
         btnDelete.setEnabled(false);
-        showMessage(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    public static void showMessage(Component parentComponent, String message, String title, int messageType) {
-        JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
+        utils.Validation.showMessage(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

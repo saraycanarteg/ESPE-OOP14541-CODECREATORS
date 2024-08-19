@@ -28,20 +28,6 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         txtId.setEnabled(false);
     }
 
-    private void loadPriceListTable() {
-        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
-        model.setRowCount(0);
-
-        for (PriceList price : PricingSystemController.getPriceListArray()) {
-            model.addRow(new Object[]{
-                price.getProcessId(),
-                price.getProcessName(),
-                String.format("%.2f", price.getPrice()),
-                String.format("%.2f", price.getTaxRate())
-            });
-        }
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -63,11 +49,11 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         txtProcessIdCalc = new javax.swing.JTextField();
         txtIdTaxpayer = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        btnCalculateIncome1 = new javax.swing.JButton();
+        btnSearch = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jPanel5 = new javax.swing.JPanel();
-        btnCancelIncomeCalc = new javax.swing.JButton();
+        btnCancel = new javax.swing.JButton();
         btnAdd = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -140,16 +126,6 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
 
         txtProcessIdCalc.setToolTipText("Ingrese un ID de la tabla");
         txtProcessIdCalc.setEnabled(false);
-        txtProcessIdCalc.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtProcessIdCalcFocusLost(evt);
-            }
-        });
-        txtProcessIdCalc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtProcessIdCalcActionPerformed(evt);
-            }
-        });
         txtProcessIdCalc.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtProcessIdCalcKeyTyped(evt);
@@ -157,16 +133,6 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         });
         jPanel4.add(txtProcessIdCalc, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 130, -1));
 
-        txtIdTaxpayer.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtIdTaxpayerFocusLost(evt);
-            }
-        });
-        txtIdTaxpayer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdTaxpayerActionPerformed(evt);
-            }
-        });
         txtIdTaxpayer.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtIdTaxpayerKeyTyped(evt);
@@ -179,50 +145,34 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         jLabel5.setText("ID del contribuyente:");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, -1, -1));
 
-        btnCalculateIncome1.setBackground(new java.awt.Color(159, 246, 70));
-        btnCalculateIncome1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateIncome1.setForeground(new java.awt.Color(65, 109, 155));
-        btnCalculateIncome1.setText("Buscar");
-        btnCalculateIncome1.addActionListener(new java.awt.event.ActionListener() {
+        btnSearch.setBackground(new java.awt.Color(159, 246, 70));
+        btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSearch.setForeground(new java.awt.Color(65, 109, 155));
+        btnSearch.setText("Buscar");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateIncome1ActionPerformed(evt);
+                btnSearchActionPerformed(evt);
             }
         });
-        jPanel4.add(btnCalculateIncome1, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
+        jPanel4.add(btnSearch, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 0, 153));
         jLabel3.setText("ID del proceso:");
         jPanel4.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, -1, -1));
-
-        txtId.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtIdFocusLost(evt);
-            }
-        });
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
-        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtIdKeyTyped(evt);
-            }
-        });
         jPanel4.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 60, 130, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 250, 910, 140));
 
         jPanel5.setBackground(new java.awt.Color(7, 81, 203));
 
-        btnCancelIncomeCalc.setBackground(new java.awt.Color(255, 101, 98));
-        btnCancelIncomeCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancelIncomeCalc.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelIncomeCalc.setText("Cancelar");
-        btnCancelIncomeCalc.addActionListener(new java.awt.event.ActionListener() {
+        btnCancel.setBackground(new java.awt.Color(255, 101, 98));
+        btnCancel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancel.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancel.setText("Cancelar");
+        btnCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelIncomeCalcActionPerformed(evt);
+                btnCancelActionPerformed(evt);
             }
         });
 
@@ -243,7 +193,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(260, Short.MAX_VALUE)
-                .addComponent(btnCancelIncomeCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100)
                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(237, 237, 237))
@@ -253,7 +203,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelIncomeCalc)
+                    .addComponent(btnCancel)
                     .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -276,106 +226,25 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
-    }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
-
-    private void txtProcessIdCalcFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtProcessIdCalcFocusLost
-
-    }//GEN-LAST:event_txtProcessIdCalcFocusLost
-
-    private void txtProcessIdCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProcessIdCalcActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtProcessIdCalcActionPerformed
-
-    private void txtIdTaxpayerFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdTaxpayerFocusLost
-
-    }//GEN-LAST:event_txtIdTaxpayerFocusLost
+    private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
+        goToMenu();
+    }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtIdTaxpayerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdTaxpayerKeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
-            evt.consume();
-        }
+        utils.Validation.restrictInputToDigits(evt);
     }//GEN-LAST:event_txtIdTaxpayerKeyTyped
 
-    private void btnCalculateIncome1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncome1ActionPerformed
-        String[] info = new String[5];
-        String id = txtIdTaxpayer.getText();
-        if (id.length() != 13) {
-            JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!id.endsWith("001")) {
-            JOptionPane.showMessageDialog(this, "El ID debe terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
-            JOptionPane.showMessageDialog(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            txtProcessIdCalc.setEnabled(true);
-            txtId.setEnabled(true);
-            btnAdd.setEnabled(true);
-        }
-    }//GEN-LAST:event_btnCalculateIncome1ActionPerformed
-
-    private void txtIdTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdTaxpayerActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdTaxpayerActionPerformed
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        handleSearch();
+    }//GEN-LAST:event_btnSearchActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-         String nameCollection = txtIdTaxpayer.getText().trim() + "_process";
-        String processIdText = txtProcessIdCalc.getText();
-        String id = txtId.getText();
-
-        if (!processIdText.isEmpty()) {
-            int processId = Integer.parseInt(processIdText);
-            PriceList selectedProcess = null;
-            for (PriceList process : PricingSystemController.getPriceListArray()) {
-                if (process.getProcessId() == processId) {
-                    selectedProcess = process;
-                    break;
-                }
-            }
-
-            if (selectedProcess != null) {
-                if (MongoDBUtil.generalIdExists(nameCollection, id)) {
-                    JOptionPane.showMessageDialog(this, "El ID general ya existe. Por favor, ingrese un ID diferente.", "Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
-
-                String nameProcess = selectedProcess.getProcessName();
-                float priceProcess = selectedProcess.getPrice();
-                float rateTax = selectedProcess.getTaxRate();
-
-                MongoDBUtil.createCollection(nameCollection, id, processId, nameProcess, priceProcess, rateTax);
-                JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Proceso no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "Complete los campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        handleAdd();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void txtProcessIdCalcKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProcessIdCalcKeyTyped
-        char c = evt.getKeyChar();
-        String text = txtProcessIdCalc.getText();
-
-        if (!Character.isDigit(c) || text.length() >= 1 || (c < '1' || c > '5')) {
-            evt.consume();
-        }
+        utils.Validation.restrictInputToProcessId(evt, txtProcessIdCalc.getText());
     }//GEN-LAST:event_txtProcessIdCalcKeyTyped
-
-    private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdFocusLost
-
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
-    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdKeyTyped
 
     /**
      * @param args the command line arguments
@@ -419,10 +288,81 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         });
     }
 
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+
+    private void loadPriceListTable() {
+        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
+        model.setRowCount(0);
+
+        for (PriceList price : PricingSystemController.getPriceListArray()) {
+            model.addRow(new Object[]{
+                price.getProcessId(),
+                price.getProcessName(),
+                String.format("%.2f", price.getPrice()),
+                String.format("%.2f", price.getTaxRate())
+            });
+        }
+    }
+
+    private void handleSearch() {
+        String id = txtIdTaxpayer.getText().trim();
+        if (!utils.Validation.isIdValid(id)) {
+            utils.Validation.showMessage(this, "El ID debe tener 13 dígitos y terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
+            utils.Validation.showMessage(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            txtProcessIdCalc.setEnabled(true);
+            txtId.setEnabled(true);
+            btnAdd.setEnabled(true);
+        }
+    }
+
+    private void handleAdd() {
+        String nameCollection = txtIdTaxpayer.getText().trim() + "_process";
+        String processIdText = txtProcessIdCalc.getText();
+        String id = txtId.getText();
+
+        if (!processIdText.isEmpty()) {
+            int processId = Integer.parseInt(processIdText);
+            PriceList selectedProcess = findSelectedProcess(processId);
+
+            if (selectedProcess != null) {
+                if (MongoDBUtil.generalIdExists(nameCollection, id)) {
+                    utils.Validation.showMessage(this, "El ID general ya existe. Por favor, ingrese un ID diferente.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                String nameProcess = selectedProcess.getProcessName();
+                float priceProcess = selectedProcess.getPrice();
+                float rateTax = selectedProcess.getTaxRate();
+
+                MongoDBUtil.createCollection(nameCollection, id, processId, nameProcess, priceProcess, rateTax);
+                utils.Validation.showMessage(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                utils.Validation.showMessage(this, "Proceso no encontrado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            utils.Validation.showMessage(this, "Complete los campos vacíos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private PriceList findSelectedProcess(int processId) {
+        for (PriceList process : PricingSystemController.getPriceListArray()) {
+            if (process.getProcessId() == processId) {
+                return process;
+            }
+        }
+        return null;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
-    private javax.swing.JButton btnCalculateIncome1;
-    private javax.swing.JButton btnCancelIncomeCalc;
+    private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnSearch;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

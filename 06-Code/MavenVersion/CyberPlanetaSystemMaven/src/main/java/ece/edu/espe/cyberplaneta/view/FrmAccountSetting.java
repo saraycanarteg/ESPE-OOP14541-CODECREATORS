@@ -334,9 +334,9 @@ public class FrmAccountSetting extends javax.swing.JFrame {
 
     private void showUpdateResult(boolean isUpdated) {
         if (isUpdated) {
-            showMessage("Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+            utils.Validation.showMessage(this,"Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            showMessage("Error al actualizar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
+            utils.Validation.showMessage(this,"Error al actualizar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -345,7 +345,7 @@ public class FrmAccountSetting extends javax.swing.JFrame {
             enableUserEditing();
         } else {
             disableUserEditing();
-            showMessage("Usuario no encontrado o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
+            utils.Validation.showMessage(this,"Usuario no encontrado o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -361,10 +361,6 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         txtNewUser.setEnabled(false);
         txtNewPassword.setEnabled(false);
         btnGuardar.setEnabled(false);
-    }
-
-    private void showMessage(String message, String title, int messageType) {
-        JOptionPane.showMessageDialog(this, message, title, messageType);
     }
 
     private void clearFields() {

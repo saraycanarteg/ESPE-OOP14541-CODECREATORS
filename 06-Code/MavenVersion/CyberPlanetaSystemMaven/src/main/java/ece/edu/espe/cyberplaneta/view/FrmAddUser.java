@@ -293,12 +293,12 @@ public class FrmAddUser extends javax.swing.JFrame {
             if (isUserValid(getUsername())) {
                 saveUser(getUsername(), utils.EncryptData.encriptionData(getPassword()));
                 clearFields();
-                showSuccessMessage();
+                utils.Validation.showMessage(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                showErrorMessage("El usuario ya existe");
-            }
+                utils.Validation.showMessage(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
+            }   
         } catch (Exception e) {
-            showErrorMessage("Ocurrió un error al guardar los datos: " + e.getMessage());
+             utils.Validation.showMessage(this, "Ocurrió un error al guardar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -339,13 +339,6 @@ public class FrmAddUser extends javax.swing.JFrame {
         pwdUserPassword.setText("");
     }
 
-    private void showSuccessMessage() {
-        JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;

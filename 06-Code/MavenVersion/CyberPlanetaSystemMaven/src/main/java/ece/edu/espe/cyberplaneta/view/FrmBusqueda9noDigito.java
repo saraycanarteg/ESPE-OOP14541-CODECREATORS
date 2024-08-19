@@ -27,13 +27,13 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     public FrmBusqueda9noDigito() {
         initComponents();
         ChartAndTableUtils.customizeTableHeader(tblTaxPayers);
-        // loadTaxPayers();
+        
     }
 
     private void loadTaxPayersByNinthDigit(String ninthDigit) {
         DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
         model.setRowCount(0);
-        List<Document> documents = MongoDBUtil.getAllTaxPayers(); // Método para obtener todos los contribuyentes
+        List<Document> documents = MongoDBUtil.getAllTaxPayers(); 
 
         for (Document doc : documents) {
             String id = doc.getString("id");
@@ -238,18 +238,11 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        goToMenu();
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionActionPerformed
-        String ninthDigit = jTextField1.getText().trim();
-        if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
-            loadTaxPayersByNinthDigit(ninthDigit);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
-        }
+        search9digit();
     }//GEN-LAST:event_btnBuscarActionActionPerformed
 
     private void txtInvalidId1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidId1FocusGained
@@ -261,15 +254,7 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInvalidId1FocusLost
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        String PATTERN = "^\\d$"; // Asegurarse de que es un solo dígito numérico
-        Pattern patt = Pattern.compile(PATTERN);
-        Matcher match = patt.matcher(jTextField1.getText().trim());
-
-        if (!match.matches()) {
-            txtInvalidId1.setText("Debe ingresar un solo dígito numérico");
-        } else {
-            txtInvalidId1.setText(null); // Limpiar el texto si es válido
-        }
+        validate9noText();
     }//GEN-LAST:event_jTextField1FocusLost
 
     /**
@@ -306,6 +291,33 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+    private void search9digit(){
+        String ninthDigit = jTextField1.getText().trim();
+        if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
+            loadTaxPayersByNinthDigit(ninthDigit);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
+        }
+    }
+    private void validate9noText() {
+        String PATTERN = "^\\d$"; // Asegurarse de que es un solo dígito numérico
+        Pattern patt = Pattern.compile(PATTERN);
+        Matcher match = patt.matcher(jTextField1.getText().trim());
+
+        if (!match.matches()) {
+            txtInvalidId1.setText("Debe ingresar un solo dígito numérico");
+        } else {
+            txtInvalidId1.setText(null); 
+        }
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscarAction;

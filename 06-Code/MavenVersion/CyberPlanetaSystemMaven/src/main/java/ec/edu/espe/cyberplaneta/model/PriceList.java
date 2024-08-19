@@ -10,11 +10,11 @@ public class PriceList {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    private int id;
-    private int processId;
-    private String processName;
-    private float price;
-    private float taxRate;
+    private final int id;
+    private final int processId;
+    private final String processName;
+    private final float price;
+    private final float taxRate;
 
     public PriceList(int id, int processId, String processName, float price, float taxRate) {
         this.id = id;
@@ -69,30 +69,3 @@ public class PriceList {
 
  
 }
-    
-    
-
-    /*public PriceList(int processId, String processName, float price, float taxRate) {
-        this.processId = processId;
-        this.price = price;
-        this.processName = processName;
-        this.taxRate = taxRate;
-    }
-
-    public int getProcessId() {
-        return processId;
-    }
-
-    public String getProcessName() {
-        return processName;
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public float getTaxRate() {
-        return taxRate;
-    }
-}*/
-

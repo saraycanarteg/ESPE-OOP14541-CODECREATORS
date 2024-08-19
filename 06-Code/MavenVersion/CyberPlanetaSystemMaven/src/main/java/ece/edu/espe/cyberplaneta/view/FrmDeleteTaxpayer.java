@@ -5,16 +5,10 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
 import static java.awt.Frame.NORMAL;
 import static java.awt.image.ImageObserver.ERROR;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import utils.ChartAndTableUtils;
 
 /**

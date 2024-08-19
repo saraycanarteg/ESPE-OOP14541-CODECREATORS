@@ -4,8 +4,8 @@ import javax.swing.JTextField;
 import java.awt.Color;
 
 public class Validation {
-
-    public static boolean isValidMoney(JTextField textField) {
+    
+    public static boolean validateMoneyFields(JTextField textField) {
         String input = textField.getText().trim();
         String regex = "^(\\d+(\\.\\d{1,2})?)$";
         
@@ -20,7 +20,7 @@ public class Validation {
         return false;
     }
 
-    public static boolean isValidPositiveInteger(JTextField textField) {
+    public static boolean validatePositiveInteger(JTextField textField) {
         String input = textField.getText().trim();
         
         try {

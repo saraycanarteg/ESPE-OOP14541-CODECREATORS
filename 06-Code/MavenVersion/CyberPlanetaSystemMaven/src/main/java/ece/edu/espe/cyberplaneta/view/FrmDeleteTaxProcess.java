@@ -1,17 +1,10 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemManager;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
+import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
-import javax.swing.SwingConstants;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
 import org.bson.Document;
 import utils.ChartAndTableUtils;
 import utils.MongoDBUtil;
@@ -22,14 +15,14 @@ import utils.MongoDBUtil;
  */
 public class FrmDeleteTaxProcess extends javax.swing.JFrame {
 
-    private PricingSystemManager controller = new PricingSystemManager();
+    private PricingSystemController controller = new PricingSystemController();
     private static final ImageIcon WARNING_ICON = new ImageIcon(FrmDeleteTaxProcess.class.getResource("/images/triangle-warning.png"));
 
     /**
      * Creates new form FrmPriceSystem
      */
     public FrmDeleteTaxProcess() {
-        this.controller = new PricingSystemManager();
+        this.controller = new PricingSystemController();
         initComponents();
         loadPriceListTable();
         ChartAndTableUtils.customizeTableHeader(tblPriceList);
@@ -39,7 +32,7 @@ public class FrmDeleteTaxProcess extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
         model.setRowCount(0);
 
-        for (PriceList price : PricingSystemManager.getPriceListArray()) {
+        for (PriceList price : PricingSystemController.getPriceListArray()) {
             model.addRow(new Object[]{
                 price.getProcessId(),
                 price.getProcessName(),

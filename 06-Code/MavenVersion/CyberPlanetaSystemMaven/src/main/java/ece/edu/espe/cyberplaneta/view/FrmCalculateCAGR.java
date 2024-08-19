@@ -87,20 +87,20 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(188, 188, 188)
+                .addGap(189, 189, 189)
                 .addComponent(btnCancelCAGRCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCalculateCAGR, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(174, 174, 174))
+                .addGap(176, 176, 176))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelCAGRCalc)
                     .addComponent(btnCalculateCAGR))
-                .addContainerGap())
+                .addContainerGap(28, Short.MAX_VALUE))
         );
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -200,7 +200,7 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 880, 200));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 880, 210));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -260,8 +260,8 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
     }//GEN-LAST:event_sldCAGRYearsStateChanged
 
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-        boolean isInitialIncomeValid = Validation.isValidMoney(txtInitialIncome);     
-        boolean isFinalIncomeValid = Validation.isValidMoney(txtFinalIncome); 
+        boolean isInitialIncomeValid = Validation.validateMoneyFields(txtInitialIncome);     
+        boolean isFinalIncomeValid = Validation.validateMoneyFields(txtFinalIncome); 
         if (isInitialIncomeValid  && isFinalIncomeValid) {
             showCAGRresult ();
         }else{

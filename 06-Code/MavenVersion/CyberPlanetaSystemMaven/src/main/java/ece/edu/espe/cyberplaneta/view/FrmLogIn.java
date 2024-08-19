@@ -74,6 +74,11 @@ public class FrmLogIn extends javax.swing.JFrame {
 
         btnPassword.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(159, 246, 70), 1, true));
         btnPassword.setMaximumSize(new java.awt.Dimension(64, 18));
+        btnPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                btnPasswordKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,6 +156,10 @@ public class FrmLogIn extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Usuiario ó contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void btnPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPasswordKeyTyped
+        btnLogin.setEnabled(true);
+    }//GEN-LAST:event_btnPasswordKeyTyped
 
     /**
      * @param args the command line arguments

@@ -3,6 +3,7 @@ package utils;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -95,4 +96,20 @@ public class Validation {
      public static boolean validateName(String name) {
         return name.matches("[a-zA-Z\\s]+");
     }
+     public static boolean isValidName(String name) {
+    String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(name);
+    return matcher.matches();
+}
+     public static boolean areDatesValid(Date initDate, Date finishDate) {
+    if (initDate == null || finishDate == null) {
+        return false;
+    }
+    return !finishDate.before(initDate);
+}
+     public static boolean isValidCellNumber(String cellNumber) {
+    return cellNumber.length() == 10 && cellNumber.startsWith("09");
+}
+     
 }

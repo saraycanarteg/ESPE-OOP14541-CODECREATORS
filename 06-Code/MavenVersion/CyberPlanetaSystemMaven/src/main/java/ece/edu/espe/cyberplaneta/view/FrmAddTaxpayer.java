@@ -10,6 +10,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.regex.*;
 import javax.swing.JOptionPane;
+import utils.Validation;
 
 /**
  *
@@ -17,26 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FrmAddTaxpayer extends javax.swing.JFrame {
 
-    private boolean isValidEmail(String email) {
-        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailRegex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    private boolean isValidName(String name) {
-        String nameRegex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-        Pattern pattern = Pattern.compile(nameRegex);
-        Matcher matcher = pattern.matcher(name);
-        return matcher.matches();
-    }
-
-    private boolean isValidRUC(String ruc) {
-        String rucRegex = "^\\\\d{10}001$";
-        Pattern pattern = Pattern.compile(rucRegex);
-        Matcher matcher = pattern.matcher(ruc);
-        return matcher.matches();
-    }
+   
 
     /**
      * Creates new form FrmAddTaxpayer
@@ -409,9 +391,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        goToMenu();
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void txtEmailInputMethodTextChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_txtEmailInputMethodTextChanged
@@ -427,100 +407,11 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
-        String PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern patt = Pattern.compile(PATTERN);
-        Matcher match = patt.matcher(txtEmail.getText().trim()); // Añadir trim() para manejar espacios en blanco
-
-        if (!match.matches()) {
-            txtInvalidEmail.setText("Correo Inválido");
-        } else {
-            txtInvalidEmail.setText(null); // Limpiar el texto si es válido
-        }
-
+        validEmail();
     }//GEN-LAST:event_txtEmailFocusLost
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String frmAddId = txtId.getText().trim();
-        String frmEmail = txtEmail.getText().trim();
-        String frmNombre = txtNombre.getText().trim();
-        String frmContrasenia = txtContrasenia.getText().trim();
-        boolean frmDocumentation = ChkDocumentacion.isSelected();
-        String frmCellNumber = txtCelular.getText().trim();
-
-        // Validaciones
-        if (frmAddId.isEmpty() || isValidRUC(frmAddId) || frmAddId.length() != 13) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos que terminen en 001).");
-            return;
-        }
-
-        // Validar si el RUC ya existe en la base de datos
-        if (TaxPayerManager.isRucExist(frmAddId)) {
-            JOptionPane.showMessageDialog(null, "El RUC ya existe en la base de datos.");
-            return;
-        }
-
-        if (frmEmail.isEmpty() || !isValidEmail(frmEmail)) {
-            JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo electrónico válido.");
-            return;
-        }
-
-        if (frmNombre.isEmpty() || !isValidName(frmNombre)) {
-            JOptionPane.showMessageDialog(null, "El nombre no puede tener números ni caracteres especiales.");
-            return;
-        }
-
-        if (frmContrasenia.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "El campo Contraseña no puede estar vacío.");
-            return;
-        }
-
-        if (frmCellNumber.isEmpty() || frmCellNumber.length() != 10 || !frmCellNumber.startsWith("09")) {
-            JOptionPane.showMessageDialog(null, "Informacion de celular incorrecta.");
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String date1 = "";
-        String date2 = "";
-
-        try {
-            Date initDate = jdtInit.getDate();
-            Date finishDate = jdtFinish.getDate();
-
-            if (initDate == null || finishDate == null) {
-                throw new ParseException("Las fechas no pueden ser nulas", 0);
-            }
-
-            if (finishDate.before(initDate)) {
-                JOptionPane.showMessageDialog(null, "La fecha final no puede ser anterior a la fecha inicial.");
-                return;
-            }
-
-            LocalDate localDate = LocalDate.now();
-            Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
-            
-             if (initDate.before(currentDate)) {
-                JOptionPane.showMessageDialog(null, "La fecha inicial no puede ser menor a la fecha de hoy.");
-                return;
-            }
-
-            date1 = sdf.format(initDate);
-            date2 = sdf.format(finishDate);
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Por favor, seleccione fechas válidas.");
-            return;
-        }
-
-        // Crear el objeto TaxPayer y guardar en la base de datos
-        TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, utils.EncryptData.encriptionData(frmContrasenia), frmDocumentation, date1, date2, frmCellNumber);
-
-        try {
-            TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
-            JOptionPane.showMessageDialog(null, "Contribuyente guardado exitosamente.");
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el contribuyente: " + e.getMessage());
-        }
-
+        saveTaxPayer();
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void txtInvalidIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusGained
@@ -536,65 +427,23 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtInvalidNameFocusLost
 
     private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
-        String PATTERN = "^\\d{10}001$"; // Cambiado para validar que el RUC termine en '001'
-        Pattern patt = Pattern.compile(PATTERN);
-        Matcher match = patt.matcher(txtId.getText().trim());
-
-        if (!match.matches()) {
-            txtInvalidId.setText("ID (RUC) Inválido");
-        } else {
-            txtInvalidId.setText(null); // Limpiar el texto si es válido
-        }
+        validId();
     }//GEN-LAST:event_txtIdFocusLost
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        String PATTERN = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-        Pattern patt = Pattern.compile(PATTERN);
-        Matcher match = patt.matcher(txtNombre.getText().trim());
-
-        if (!match.matches()) {
-            txtInvalidName.setText("Nombre Inválido");
-        } else {
-            txtInvalidName.setText(null); // Limpiar el texto si es válido
-        }
+        validName();
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void jdtFinishFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdtFinishFocusLost
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date initDate = jdtInit.getDate();
-        Date finishDate = jdtFinish.getDate();
-
-        if (initDate == null || finishDate == null) {
-            txtInvalidDates.setText("Seleccione ambas fechas");
-        } else if (finishDate.before(initDate)) {
-            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
-        } else {
-            txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
-        }
+        validFinish();
     }//GEN-LAST:event_jdtFinishFocusLost
 
     private void jdtInitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jdtInitFocusLost
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Date initDate = jdtInit.getDate();
-        Date finishDate = jdtFinish.getDate();
-
-        if (initDate == null || finishDate == null) {
-            txtInvalidDates.setText("Seleccione ambas fechas");
-        } else if (finishDate.before(initDate)) {
-            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
-        } else {
-            txtInvalidDates.setText(null); // Limpiar el texto si las fechas son válidas
-        }
+        validInit();
     }//GEN-LAST:event_jdtInitFocusLost
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
-        if (txtCelular.getText().trim().length() != 10) {
-            txtInvalidCell.setText("Debe tener 10 dígitos");
-        } else if (!txtCelular.getText().trim().startsWith("09")) {
-            txtInvalidCell.setText("Debe empezar con 09");
-        } else {
-            txtInvalidCell.setText(null);
-        }
+        validCellphone();
     }//GEN-LAST:event_txtCelularFocusLost
 
     private void txtCelularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCelularActionPerformed
@@ -657,6 +506,170 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
                 new FrmAddTaxpayer().setVisible(true);
             }
         });
+    }
+    private void goToMenu() {
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+    private void saveTaxPayer() {
+    String frmAddId = txtId.getText().trim();
+    String frmEmail = txtEmail.getText().trim();
+    String frmNombre = txtNombre.getText().trim();
+    String frmContrasenia = txtContrasenia.getText().trim();
+    boolean frmDocumentation = ChkDocumentacion.isSelected();
+    String frmCellNumber = txtCelular.getText().trim();
+
+    // Validaciones
+    if (!Validation.isIdValid(frmAddId)) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un RUC válido (13 dígitos numéricos que terminen en 001).");
+        return;
+    }
+
+    // Validar si el RUC ya existe en la base de datos
+    if (TaxPayerManager.isRucExist(frmAddId)) {
+        JOptionPane.showMessageDialog(null, "El RUC ya existe en la base de datos.");
+        return;
+    }
+
+    if (frmEmail.isEmpty() || !Validation.validateEmail(txtEmail)) {
+        JOptionPane.showMessageDialog(null, "Por favor, ingrese un correo electrónico válido.");
+        return;
+    }
+
+    if (frmNombre.isEmpty() || !Validation.isValidName(frmNombre)) {
+        JOptionPane.showMessageDialog(null, "El nombre no puede tener números ni caracteres especiales.");
+        return;
+    }
+
+    if (frmContrasenia.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "El campo Contraseña no puede estar vacío.");
+        return;
+    }
+
+    if (!Validation.isValidCellNumber(frmCellNumber)) {
+        JOptionPane.showMessageDialog(null, "Información de celular incorrecta.");
+        return;
+    }
+
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String date1 = "";
+    String date2 = "";
+
+    try {
+        Date initDate = jdtInit.getDate();
+        Date finishDate = jdtFinish.getDate();
+
+        if (initDate == null || finishDate == null) {
+            throw new ParseException("Las fechas no pueden ser nulas", 0);
+        }
+
+        if (finishDate.before(initDate)) {
+            JOptionPane.showMessageDialog(null, "La fecha final no puede ser anterior a la fecha inicial.");
+            return;
+        }
+
+        LocalDate localDate = LocalDate.now();
+        Date currentDate = Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+        if (initDate.before(currentDate)) {
+            JOptionPane.showMessageDialog(null, "La fecha inicial no puede ser menor a la fecha de hoy.");
+            return;
+        }
+
+        date1 = sdf.format(initDate);
+        date2 = sdf.format(finishDate);
+    } catch (ParseException e) {
+        JOptionPane.showMessageDialog(null, "Por favor, seleccione fechas válidas.");
+        return;
+    }
+
+    // Crear el objeto TaxPayer y guardar en la base de datos
+    TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, utils.EncryptData.encriptionData(frmContrasenia), frmDocumentation, date1, date2, frmCellNumber);
+
+    try {
+        TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
+        JOptionPane.showMessageDialog(null, "Contribuyente guardado exitosamente.");
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el contribuyente: " + e.getMessage());
+    }
+}
+    private void validEmail(){
+        String email = txtEmail.getText().trim();
+
+    if (!Validation.validateEmail(txtEmail)) {
+        txtInvalidEmail.setText("Correo Inválido");
+    } else {
+        txtInvalidEmail.setText(null); 
+    }
+    }
+    private void validId(){
+        String id = txtId.getText().trim();
+    
+    
+    if (!Validation.isIdValid(id)) {
+        txtInvalidId.setText("ID (RUC) Inválido");
+    } else {
+        txtInvalidId.setText(null); 
+    }
+    }
+    private void validName(){
+        String name = txtNombre.getText().trim();
+
+    
+    if (!Validation.isValidName(name)) {
+        txtInvalidName.setText("Nombre Inválido");
+    } else {
+        txtInvalidName.setText(null); 
+    }
+    }
+    private void validFinish(){
+        Date initDate = jdtInit.getDate();
+    Date finishDate = jdtFinish.getDate();
+
+    
+    if (!Validation.areDatesValid(initDate, finishDate)) {
+        if (initDate == null || finishDate == null) {
+            txtInvalidDates.setText("Seleccione ambas fechas");
+        } else {
+            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+        }
+    } else {
+        txtInvalidDates.setText(null); 
+    }
+    }
+    private void validInit(){
+        Date initDate = jdtInit.getDate();
+    Date finishDate = jdtFinish.getDate();
+
+    
+    if (!Validation.areDatesValid(initDate, finishDate)) {
+        if (initDate == null || finishDate == null) {
+            txtInvalidDates.setText("Seleccione ambas fechas");
+        } else {
+            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+        }
+    } else {
+        txtInvalidDates.setText(null); 
+    }
+    }
+    private void validCellphone(){
+      String cellNumber = txtCelular.getText().trim();
+
+    if (!Validation.isValidCellNumber(cellNumber)) {
+        if (cellNumber.length() != 10) {
+            txtInvalidCell.setText("Debe tener 10 dígitos");
+        } else if (!cellNumber.startsWith("09")) {
+            txtInvalidCell.setText("Debe empezar con 09");
+        } else {
+            txtInvalidCell.setText("Número de celular inválido");
+        }
+    } else {
+        txtInvalidCell.setText(null); // Limpiar el texto si es válido
+    }  
+    }
+    private void validKey(){
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

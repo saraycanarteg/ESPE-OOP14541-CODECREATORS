@@ -3,6 +3,7 @@ package utils;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Component;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 
@@ -79,5 +80,19 @@ public class Validation {
     }
     public static void showMessage(Component parentComponent, String message, String title, int messageType) {
         JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
+    }
+
+    public static boolean validateEmail(JTextField textField) {
+        String input = textField.getText().trim();
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+        if (input.matches(emailRegex)) {
+            textField.setBackground(Color.WHITE);
+            return true;
+        }
+        highlightError(textField);
+        return false;
+    }
+     public static boolean validateName(String name) {
+        return name.matches("[a-zA-Z\\s]+");
     }
 }

@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import org.bson.Document;
 import utils.MongoDBUtil;
+import utils.Validation;
 
 /**
  *
@@ -48,7 +49,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     }
 
     private void saveTaxPayerChanges() {
-        String id = txtId.getText().trim();
+         String id = txtId.getText().trim();
         String email = txtEmail.getText().trim();
         String name = txtNombre.getText().trim();
         String password = txtContrasenia.getText().trim();
@@ -57,17 +58,17 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         Date deliveryDate = dateChooserEnd.getDate();
         String cellNumber = txtCelular1.getText().trim();
        
-        if (!isValidId(id)) {
+         if (!Validation.isIdValid(id)) {
             JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
             return;
         }
 
-        if (!isValidName(name)) {
+        if (!Validation.validateName(name)) {
             JOptionPane.showMessageDialog(this, "Nombre inválido. No debe contener números ni caracteres especiales.");
             return;
         }
 
-        if (!isValidEmail(email)) {
+        if (!Validation.validateEmail(txtEmail)) {
             JOptionPane.showMessageDialog(this, "Correo electrónico inválido.");
             return;
         }
@@ -88,7 +89,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         }
 
         if (cellNumber.isEmpty() || cellNumber.length() != 10 || !cellNumber.startsWith("09")) {
-            JOptionPane.showMessageDialog(null, "Informacion de celular incorrecta.");
+            JOptionPane.showMessageDialog(this, "Información de celular incorrecta.");
             return;
         }
 
@@ -107,21 +108,6 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
 
         MongoDBUtil.updateTaxPayer(updatedTaxPayer);
         JOptionPane.showMessageDialog(this, "Contribuyente actualizado correctamente.");
-    }
-
-    private boolean isValidId(String id) {
-        return id.matches("\\d{13}");
-    }
-
-    private boolean isValidName(String name) {
-        return name.matches("[a-zA-Z\\s]+");
-    }
-
-    private boolean isValidEmail(String email) {
-        String emailPattern = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(emailPattern);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 
     private Date parseDate(String dateString) {
@@ -409,15 +395,13 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
-        String PATTERN = "^\\d{13}$";
-        Pattern patt = Pattern.compile(PATTERN);
-        Matcher match = patt.matcher(txtId.getText().trim());
-
-        if (!match.matches()) {
-            txtInvalidId.setText("ID (RUC) Inválido");
-        } else {
-            txtInvalidId.setText(null); // Limpiar el texto si es válido
-        }
+        String id = txtId.getText().trim();
+    
+    if (!Validation.isIdValid(id)) {
+        txtInvalidId.setText("ID (RUC) Inválido");
+    } else {
+        txtInvalidId.setText(null); 
+    }
     }//GEN-LAST:event_txtIdFocusLost
 
     private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed

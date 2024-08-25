@@ -1,14 +1,13 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import java.util.regex.Pattern;
-import javax.swing.JOptionPane;
+import ec.edu.espe.cyberplaneta.controller.AccountController;
 
 /**
  *
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmLogIn extends javax.swing.JFrame {
-
+    AccountController accountController = new AccountController();
     /**
      * Creates new form FrmCyberPlanetaLogIn
      */
@@ -143,18 +142,7 @@ public class FrmLogIn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-
-        String password = new String(btnPassword.getPassword());
-        String user = txtUser.getText().trim();
-        if (containsInvalidCharacters(txtUser.getText().trim()) || new String(btnPassword.getPassword()).isEmpty()) {
-            txtPassIncorrect.setText("Campos vacios");
-        } else if (utils.MongoDBUtil.validateUser(user, password)) {
-            FrmMenu frmMain = new FrmMenu();
-            this.setVisible(false);
-            frmMain.setVisible(true);
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuiario ó contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        accountController.handleLogin(txtUser, btnPassword, txtPassIncorrect);
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnPasswordKeyTyped
@@ -199,11 +187,6 @@ public class FrmLogIn extends javax.swing.JFrame {
         });
     }
 
-    public static boolean containsInvalidCharacters(String text) {
-        String regex = "[\\s!@#$%^&*(),.?\":{}|<>]";
-        Pattern pattern = Pattern.compile(regex);
-        return pattern.matcher(text).find();
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;

@@ -1,20 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package ec.edu.espe.cyberplaneta.controller;
 
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import org.bson.Document;
 import utils.MongoDBUtil;
+import javax.swing.table.DefaultTableModel;
+import org.bson.Document;
+import java.util.List;
+import javax.swing.JTable;
 
 /**
  *
- * @author Andres Cedeno,Code Creators,DCCO-ESPE
+ * @author Andres Cedeno & Saray  Cañarte,Code Creators,DCCO-ESPE
  */
-public class TaxPayerManager {
+public class TaxPayerController implements TableInterface{
 
     public static boolean isRucExist(String ruc) {
         MongoDatabase database = MongoDBUtil.getDatabase();
@@ -38,5 +37,26 @@ public class TaxPayerManager {
                 .append("cellNumber", taxpayer.getCellNumber());
 
         collection.insertOne(document);
+    }
+     
+    @Override
+    public void loadDataToTable(JTable table) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
+        model.setRowCount(0); 
+
+        List<Document> taxPayers = MongoDBUtil.getAllTaxPayers(); 
+        for (Document taxPayer : taxPayers) {
+            Object[] rowData = new Object[8];
+            rowData[0] = taxPayer.getString("id");
+            rowData[1] = taxPayer.getString("email");
+            rowData[2] = taxPayer.getString("name");
+            rowData[3] = utils.EncryptData.decryptData(taxPayer.getString("password"));
+            rowData[4] = taxPayer.getBoolean("accountingDocumentation");
+            rowData[5] = taxPayer.getString("startDate");
+            rowData[6] = taxPayer.getString("deliveryDate");
+            rowData[7] = taxPayer.getString("cellNumber");
+
+            model.addRow(rowData);
+        }
     }
 }

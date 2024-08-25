@@ -1,7 +1,7 @@
 
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.TaxPayerManager;
+import ec.edu.espe.cyberplaneta.controller.TaxPayerController;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -527,7 +527,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     }
 
     // Validar si el RUC ya existe en la base de datos
-    if (TaxPayerManager.isRucExist(frmAddId)) {
+    if (TaxPayerController.isRucExist(frmAddId)) {
         JOptionPane.showMessageDialog(null, "El RUC ya existe en la base de datos.");
         return;
     }
@@ -588,7 +588,7 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
     TaxPayer taxpayer = new TaxPayer(frmAddId, frmEmail, frmNombre, utils.EncryptData.encriptionData(frmContrasenia), frmDocumentation, date1, date2, frmCellNumber);
 
     try {
-        TaxPayerManager.saveTaxPayerToDatabase(taxpayer);
+        TaxPayerController.saveTaxPayerToDatabase(taxpayer);
         JOptionPane.showMessageDialog(null, "Contribuyente guardado exitosamente.");
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, "Ocurrió un error al guardar el contribuyente: " + e.getMessage());

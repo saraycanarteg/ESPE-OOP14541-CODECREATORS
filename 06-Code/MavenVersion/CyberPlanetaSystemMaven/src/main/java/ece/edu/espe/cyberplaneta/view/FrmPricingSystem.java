@@ -3,10 +3,8 @@ package ece.edu.espe.cyberplaneta.view;
 import ec.edu.espe.cyberplaneta.controller.IncomeController;
 import ec.edu.espe.cyberplaneta.model.PriceList;
 import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemInterface;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 import utils.ChartAndTableUtils;
 import utils.Validation;
 
@@ -15,8 +13,8 @@ import utils.Validation;
  * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
-    private final PricingSystemInterface pricingSystemController;
-    /**
+    private final PricingSystemController controller = new PricingSystemController();
+        /**
      * Creates new form FrmPriceSystem
      */
 
@@ -24,7 +22,6 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         initComponents();
         loadPriceListTable();
         ChartAndTableUtils.customizeTableHeader(tblPriceList);
-        pricingSystemController = new PricingSystemController();
     }
 
 
@@ -220,7 +217,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnCalculateIncomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateIncomeActionPerformed
-       boolean isProceddIdValid = pricingSystemController.validatePriceId(txtProcessIdCalc); 
+       boolean isProceddIdValid = controller.validatePriceId(txtProcessIdCalc); 
        boolean idNumberOfDocValid = Validation.validatePositiveInteger(txtNumberOfDocumentation);
        
        if (isProceddIdValid && idNumberOfDocValid) {
@@ -269,17 +266,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
     }
 
     private void loadPriceListTable() {
-        DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
-        model.setRowCount(0);
-
-        for (PriceList price : PricingSystemController.getPriceListArray()) {
-            model.addRow(new Object[]{
-                price.getProcessId(),
-                price.getProcessName(),
-                String.format("%.2f", price.getPrice()),
-                String.format("%.2f", price.getTaxRate())
-            });
-        }
+        controller.loadDataToTable(tblPriceList);
     }
     
     private void showPriceResult(){
@@ -293,7 +280,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
                     break;
                 }
             }
-        float totalPrice = pricingSystemController.calculateTotalPrice(selectedProcess, numberOfDocumentation);
+        float totalPrice = controller.calculateTotalPrice(selectedProcess, numberOfDocumentation);
             String message = String.format("ID del proceso: %d\nNombre del Proceso: %s\nPrecio Base: $%.2f\nImpuesto: %.2f%%\nNúmero de Documentación: %s\nPrecio Total: $%.2f",
                     selectedProcess.getProcessId(), selectedProcess.getProcessName(), selectedProcess.getPrice(), selectedProcess.getTaxRate(), numberOfDocumentation, totalPrice);
             JOptionPane.showMessageDialog(this, message, "Resultados de Cálculo", JOptionPane.INFORMATION_MESSAGE);

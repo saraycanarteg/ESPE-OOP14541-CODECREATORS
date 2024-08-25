@@ -3,13 +3,10 @@ package ece.edu.espe.cyberplaneta.view;
 import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.ExcelReport;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
+import ec.edu.espe.cyberplaneta.controller.TaxPayerController;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
 import utils.ChartAndTableUtils;
-import utils.MongoDBUtil;
 
 /**
  *
@@ -17,34 +14,18 @@ import utils.MongoDBUtil;
  */
 public class FrmSeeTaxpayer extends javax.swing.JFrame {
 
+    private final TaxPayerController controller = new TaxPayerController();
+    private final ChartAndTableUtils utils = new ChartAndTableUtils();
+
     /**
      * Creates new form FrmSeeTaxpayer
      */
     public FrmSeeTaxpayer() {
         initComponents();
-        ChartAndTableUtils.customizeTableHeader(tblTaxpayers);
+        utils.customizeTableHeader(tblTaxpayers);
         loadTaxPayers();
     }
 
-     private void loadTaxPayers() {
-        DefaultTableModel model = (DefaultTableModel) tblTaxpayers.getModel();
-        model.setRowCount(0); 
-
-        List<Document> taxPayers = MongoDBUtil.getAllTaxPayers();
-        for (Document taxPayer : taxPayers) {
-            Object[] rowData = new Object[8];
-            rowData[0] = taxPayer.getString("id");
-            rowData[1] = taxPayer.getString("email");
-            rowData[2] = taxPayer.getString("name");
-            rowData[3] = utils.EncryptData.decryptData(taxPayer.getString("password"));
-            rowData[4] = taxPayer.getBoolean("accountingDocumentation");
-            rowData[5] = taxPayer.getString("startDate");
-            rowData[6] = taxPayer.getString("deliveryDate");
-            rowData[7] = taxPayer.getString("cellNumber");
-
-            model.addRow(rowData);
-        }
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -234,14 +215,13 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-            FrmMenu frmMenu= new FrmMenu();
-            this.setVisible(false);
-            frmMenu.setVisible(true);
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
         ExcelReport excelReport = new ExcelReport();
-
         try {
             excelReport.exportToExcel(tblTaxpayers);
         } catch (IOException ex) {
@@ -250,55 +230,20 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGenerateReportActionPerformed
 
     private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
-    
-    DefaultTableModel model = (DefaultTableModel) tblTaxpayers.getModel();
-    int columnIndex = 2; 
-
-    if (model.getRowCount() > 0) {
-
-        List<Object[]> rowData = new ArrayList<>();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            Object[] row = new Object[model.getColumnCount()];
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                row[j] = model.getValueAt(i, j);
-            }
-            rowData.add(row);
-        }
-
+        DefaultTableModel model = (DefaultTableModel) tblTaxpayers.getModel();
         String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
-        
-        
-        rowData.sort((row1, row2) -> {
-            String name1 = row1[columnIndex] != null ? row1[columnIndex].toString() : "";
-            String name2 = row2[columnIndex] != null ? row2[columnIndex].toString() : "";
-
-            if (selectedOrder.equals("A-Z")) {
-                return name1.compareTo(name2);
-            } else if (selectedOrder.equals("Z-A")) {
-                return name2.compareTo(name1);
-            }
-            return 0;
-        });
-
-        model.setRowCount(0);
-        for (Object[] row : rowData) {
-            model.addRow(row);
-        }
-    }
+        utils.sortTablebyAlphabeticalOrder(model, 2, selectedOrder);
 
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
-
         PdfReport pdfReport = new PdfReport();
-
         try {
             pdfReport.exportTableToPDF(tblTaxpayers);
         } catch (IOException | DocumentException ex) {
             System.out.println("Error: " + ex.getMessage());
             ex.printStackTrace();
         }
-
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
 
     /**
@@ -335,7 +280,11 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
             }
         });
     }
-
+    
+     private void loadTaxPayers() {
+        controller.loadDataToTable(tblTaxpayers);
+    }
+     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelIncomeCalc;
     private javax.swing.JButton btnGenerateReport;

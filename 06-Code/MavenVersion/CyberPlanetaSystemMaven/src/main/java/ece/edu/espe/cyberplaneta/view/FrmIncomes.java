@@ -3,10 +3,10 @@ package ece.edu.espe.cyberplaneta.view;
 import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.ExcelReport;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
+import ec.edu.espe.cyberplaneta.controller.IncomeController;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import org.bson.Document;
 import utils.MongoDBUtil;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -17,43 +17,19 @@ import utils.ChartAndTableUtils;
  * @author Saray Cañarte, Code Creators, DCCO-ESPE
  */
 public class FrmIncomes extends javax.swing.JFrame {
-
+private final ChartAndTableUtils utils = new ChartAndTableUtils();
+private final IncomeController controller = new IncomeController();
     /**
      * Creates new form FrmIncomes
      */
     public FrmIncomes() {
         initComponents();
         loadIncomes();
-        ChartAndTableUtils.customizeTableHeader(tblTotalIncomes);
+        utils.customizeTableHeader(tblTotalIncomes);
     }
 
     private void loadIncomes() {
-        DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-        model.setRowCount(0);
-        List<Document> documents = MongoDBUtil.getAllIncomes();
-        float totalSum = 0;
-       
-        for (Document doc : documents) {
-            int id = doc.getInteger("processId");
-            String name = doc.getString("processName");
-            int numberOfDocumentation = doc.getInteger("numberOfDocumentation");
-            float priceBase = doc.getDouble("price").floatValue();
-            float taxRate = doc.getDouble("taxRate").floatValue();
-            float totalPrice = doc.getDouble("total").floatValue();
-
-        model.addRow(new Object[]{
-            id,
-            name,
-            numberOfDocumentation,
-            String.format("%.2f", priceBase),
-            String.format("%.2f", taxRate),
-            String.format("%.2f", totalPrice)
-        });
-
-            totalSum += totalPrice;
-        }
-
-        model.addRow(new Object[]{"", "", "TOTAL:", "", "", String.format("%.2f", totalSum)}); 
+        controller.loadDataToTable(tblTotalIncomes);
     }
 
 
@@ -293,99 +269,29 @@ public class FrmIncomes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGenerateReportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportExcelActionPerformed
-    ExcelReport excelReport = new ExcelReport();
-    
-    try {
-        excelReport.exportToExcel(tblTotalIncomes); 
-    } catch (IOException ex) {
-        System.out.println("Error: " + ex);
-    }    
+        ExcelReport excelReport = new ExcelReport();
+
+        try {
+            excelReport.exportToExcel(tblTotalIncomes);
+        } catch (IOException ex) {
+            System.out.println("Error: " + ex);
+        }
     }//GEN-LAST:event_btnGenerateReportExcelActionPerformed
 
     private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
-                                                
-    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-    int columnIndex = 1; 
 
-    if (model.getRowCount() > 1) {
-      
-        List<Object[]> rowData = new ArrayList<>();
-        Object[] totalRow = model.getDataVector().lastElement().toArray(); 
-        for (int i = 0; i < model.getRowCount() - 1; i++) {
-            Object[] row = new Object[model.getColumnCount()];
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                row[j] = model.getValueAt(i, j);
-            }
-            rowData.add(row);
-        }
-
+        DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
         String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
-        rowData.sort((row1, row2) -> {
-            String name1 = (String) row1[columnIndex];
-            String name2 = (String) row2[columnIndex];
-            
-            if (selectedOrder.equals("A-Z")) {
-                return name1.compareTo(name2);
-            } else if (selectedOrder.equals("Z-A")) {
-                return name2.compareTo(name1);
-            }
-            return 0;
-        });
-        
-        model.setRowCount(0);
-        for (Object[] row : rowData) {
-            model.addRow(row);
-        }
-        model.addRow(totalRow);
-    }
-
+        utils.sortTablebyAlphabeticalOrder(model, 1, selectedOrder);
 
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
     private void cmbNumericalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNumericalOrderActionPerformed
-                                                                                                  
+                                                                                               
     DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-    int columnIndex = 5; 
-
-    if (model.getRowCount() > 1) {
-        List<Object[]> rowData = new ArrayList<>();
-        Object[] totalRow = new Object[model.getColumnCount()];
-        
-        if (model.getRowCount() > 0) {
-            totalRow = model.getDataVector().get(model.getRowCount() - 1).toArray(); 
-        }
-        
-        for (int i = 0; i < model.getRowCount() - 1; i++) {
-            Object[] row = new Object[model.getColumnCount()];
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                row[j] = model.getValueAt(i, j);
-            }
-            rowData.add(row);
-        }
-        
-        String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
-        rowData.sort((row1, row2) -> {
-            Double value1 = parseDouble(row1[columnIndex]);
-            Double value2 = parseDouble(row2[columnIndex]);
-            
-            if (selectedOrder.equals("Mayor a Menor")) {
-                return value2.compareTo(value1); 
-            } else if (selectedOrder.equals("Menor a Mayor")) {
-                return value1.compareTo(value2); 
-            }
-            return 0;
-        });
-           
-        model.setRowCount(0);
-        for (Object[] row : rowData) {
-            model.addRow(row);
-        }
-        if (totalRow != null) {
-            model.addRow(totalRow);
-        }
-    }
-
-
+    String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
+    utils.sortTablebyNumericalOrder(model, 5, selectedOrder);
+ 
     }//GEN-LAST:event_cmbNumericalOrderActionPerformed
 
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
@@ -520,13 +426,6 @@ private void searchInTable(String searchTerm) {
 
     model.setValueAt(String.format("%.2f", totalSum), model.getRowCount() - 1, 5);
 }
-    private Double parseDouble(Object value) {
-        try {
-            return Double.parseDouble(value.toString().replace(",", ""));
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
-    }
     /**
      * @param args the command line arguments
      */

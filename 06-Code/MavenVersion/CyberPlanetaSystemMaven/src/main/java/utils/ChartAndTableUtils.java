@@ -100,52 +100,50 @@ public class ChartAndTableUtils {
         }
     }
 
-    public void sortTablebyNumericalOrder(DefaultTableModel model, int columnIndex, String selectedOrder) {
+    public void sortTableByNumericalOrder(DefaultTableModel model, int columnIndex, String selectedOrder) {
         if (model.getRowCount() > 1) {
-            if (model.getRowCount() > 1) {
-                List<Object[]> rowData = new ArrayList<>();
-                Object[] totalRow = new Object[model.getColumnCount()];
+            List<Object[]> rowData = new ArrayList<>();
+            Object[] totalRow = new Object[model.getColumnCount()];
 
-                if (model.getRowCount() > 0) {
-                    totalRow = model.getDataVector().get(model.getRowCount() - 1).toArray();
+            if (model.getRowCount() > 0) {
+                totalRow = model.getDataVector().get(model.getRowCount() - 1).toArray();
+            }
+
+            for (int i = 0; i < model.getRowCount() - 1; i++) {
+                Object[] row = new Object[model.getColumnCount()];
+                for (int j = 0; j < model.getColumnCount(); j++) {
+                    row[j] = model.getValueAt(i, j);
                 }
-
-                for (int i = 0; i < model.getRowCount() - 1; i++) {
-                    Object[] row = new Object[model.getColumnCount()];
-                    for (int j = 0; j < model.getColumnCount(); j++) {
-                        row[j] = model.getValueAt(i, j);
-                    }
-                    rowData.add(row);
-                }
-
+                rowData.add(row);
+            }
                 rowData.sort((row1, row2) -> {
-                    Double value1 = parseDouble(row1[columnIndex]);
-                    Double value2 = parseDouble(row2[columnIndex]);
+                Double value1 = parseDouble(row1[columnIndex]);
+                Double value2 = parseDouble(row2[columnIndex]);
 
-                    if (selectedOrder.equals("Mayor a Menor")) {
-                        return value2.compareTo(value1);
-                    } else if (selectedOrder.equals("Menor a Mayor")) {
-                        return value1.compareTo(value2);
-                    }
-                    return 0;
-                });
+                if (selectedOrder.equals("Mayor a Menor")) {
+                    return value2.compareTo(value1);
+                } else if (selectedOrder.equals("Menor a Mayor")) {
+                    return value1.compareTo(value2);
+                }
+                return 0;
+            });
 
-                model.setRowCount(0);
-                for (Object[] row : rowData) {
-                    model.addRow(row);
-                }
-                if (totalRow != null) {
-                    model.addRow(totalRow);
-                }
+            model.setRowCount(0);
+            for (Object[] row : rowData) {
+                model.addRow(row);
+            }
+            if (totalRow != null) {
+                model.addRow(totalRow);
             }
         }
     }
 
-    private Double parseDouble(Object value) {
+private Double parseDouble(Object value) {
         try {
             return Double.parseDouble(value.toString().replace(",", ""));
         } catch (NumberFormatException e) {
             return 0.0;
         }
     }
+
 }

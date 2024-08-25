@@ -279,7 +279,7 @@ public class FrmAddUser extends javax.swing.JFrame {
     }
 
     private void validateUserText() {
-        if (utils.Validation.containsInvalidCharacters(getUsername())) {
+        if (utils.Validation.validateInvalidCharacters(getUsername())) {
             displayErrorMessage("Formato de usuario incorrecto");
         } else if (isUsernameEmpty()) {
             displayErrorMessage("Campos vacíos");

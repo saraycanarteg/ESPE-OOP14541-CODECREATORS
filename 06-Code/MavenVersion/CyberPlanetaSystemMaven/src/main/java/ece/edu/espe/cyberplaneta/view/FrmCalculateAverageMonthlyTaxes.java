@@ -2,33 +2,43 @@ package ece.edu.espe.cyberplaneta.view;
 
 import com.itextpdf.text.DocumentException;
 import ec.edu.espe.cyberplaneta.controller.PdfReport;
-import ec.edu.espe.cyberplaneta.controller.TaxCalculator;
 import ec.edu.espe.cyberplaneta.controller.TaxesAverageController;
 import java.io.IOException;
-import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
-import org.jfree.data.category.DefaultCategoryDataset;
-import utils.ChartAndTableUtils;
+import utils.Validation;
 
 /**
  *
- * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
+ * @author Nahomi Cedeño & Saray Cañarte, CODECREATORS, DCCO-ESPE
  */
 public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
+
     private JTextField[] monthFields;
-    private TaxCalculator taxCalculator;
-    
+    private TaxesAverageController taxesAverageController;
+
     /**
      * Creates new form FrmCalculateAverageMonthlyTaxes
      */
-    public FrmCalculateAverageMonthlyTaxes(TaxCalculator taxCalculator) {
-        this.taxCalculator = taxCalculator;
+    public FrmCalculateAverageMonthlyTaxes() {
+        this.taxesAverageController = new TaxesAverageController();
         initComponents();
+        initMonthFields();
     }
-    
+
+    private void initMonthFields() {
+        monthFields = new JTextField[]{
+            txtmonthJanuary, txtmonthFebruary, txtmonthMarch,
+            txtmonthApril, txtmonthMay, txtmonthJune,
+            txtmonthJuly, txtmonthAugust, txtmonthSeptember,
+            txtmonthOctober, txtmonthNovember, txtmonthDecember
+        };
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,8 +79,8 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         txtAverage = new javax.swing.JTextField();
         jLabel18 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        btnCancelCAGRCalc = new javax.swing.JButton();
-        btnCalculateCAGR = new javax.swing.JButton();
+        btnCancelAverageCalc = new javax.swing.JButton();
+        btnCalculateAverageOFICIAL = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
@@ -215,23 +225,23 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(7, 81, 203));
 
-        btnCancelCAGRCalc.setBackground(new java.awt.Color(255, 0, 0));
-        btnCancelCAGRCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCancelCAGRCalc.setForeground(new java.awt.Color(255, 255, 255));
-        btnCancelCAGRCalc.setText("Cancelar");
-        btnCancelCAGRCalc.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelAverageCalc.setBackground(new java.awt.Color(255, 0, 0));
+        btnCancelAverageCalc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCancelAverageCalc.setForeground(new java.awt.Color(255, 255, 255));
+        btnCancelAverageCalc.setText("Cancelar");
+        btnCancelAverageCalc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelCAGRCalcActionPerformed(evt);
+                btnCancelAverageCalcActionPerformed(evt);
             }
         });
 
-        btnCalculateCAGR.setBackground(new java.awt.Color(159, 246, 70));
-        btnCalculateCAGR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnCalculateCAGR.setForeground(new java.awt.Color(65, 109, 155));
-        btnCalculateCAGR.setText("Calcular");
-        btnCalculateCAGR.addActionListener(new java.awt.event.ActionListener() {
+        btnCalculateAverageOFICIAL.setBackground(new java.awt.Color(159, 246, 70));
+        btnCalculateAverageOFICIAL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnCalculateAverageOFICIAL.setForeground(new java.awt.Color(65, 109, 155));
+        btnCalculateAverageOFICIAL.setText("Calcular");
+        btnCalculateAverageOFICIAL.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCalculateCAGRActionPerformed(evt);
+                btnCalculateAverageOFICIALActionPerformed(evt);
             }
         });
 
@@ -241,18 +251,18 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(202, 202, 202)
-                .addComponent(btnCancelCAGRCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCalculateCAGR, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(190, 190, 190))
+                .addComponent(btnCancelAverageCalc, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(157, 157, 157)
+                .addComponent(btnCalculateAverageOFICIAL, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCancelCAGRCalc)
-                    .addComponent(btnCalculateCAGR))
+                    .addComponent(btnCancelAverageCalc)
+                    .addComponent(btnCalculateAverageOFICIAL))
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
@@ -328,86 +338,14 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelCAGRCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCAGRCalcActionPerformed
-        FrmMenu frmMenu= new FrmMenu();
+    private void btnCancelAverageCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAverageCalcActionPerformed
+        FrmMenu frmMenu = new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
-    }//GEN-LAST:event_btnCancelCAGRCalcActionPerformed
-
-    private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
- JTextField[] monthFields = {
-            txtmonthJanuary, txtmonthFebruary, txtmonthMarch,
-            txtmonthApril, txtmonthMay, txtmonthJune,
-            txtmonthJuly, txtmonthAugust, txtmonthSeptember,
-            txtmonthOctober, txtmonthNovember, txtmonthDecember
-    };
-    int selectedMonth = (int) monthSpinner.getValue();
-          
-    String[] values = new String[selectedMonth];
-    for (int i = 0; i < selectedMonth; i++) {
-        values[i] = monthFields[i].getText();
-    }
-    
-    try {
-        TaxesAverageController taxesAverageController = new TaxesAverageController();    
-        double average = taxesAverageController.calculateAverage(values);
-        DecimalFormat df = new DecimalFormat("#.##");
-        txtAverage.setText(df.format(average));
-        generateTaxesChart(selectedMonth, monthFields, average);
-        clearFields();
-        } catch (TaxesAverageController.InvalidInputException e) {
-            JOptionPane.showMessageDialog(this, e.getMessage(), "Error de entrada", JOptionPane.ERROR_MESSAGE);
-            monthFields[e.getErrorIndex()].setText("");
-            monthFields[e.getErrorIndex()].requestFocus();
-        }
-          
-    }
- private void generateTaxesChart(int selectedMonth, JTextField[] monthFields, double average) {
-    DefaultCategoryDataset data = new DefaultCategoryDataset();
-    for (int i = 1; i <= selectedMonth; i++) {
-        String label = "Impuesto " + i;
-        double impuestoValue = Double.parseDouble(monthFields[i - 1].getText());
-        data.setValue(impuestoValue, label, "Impuesto " + i);
-    }
-    data.setValue(average, "Promedio", "Promedio");
-
-    ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Promedio de Impuestos", "Impuestos", "Valor en dólares ($)");
-}
-
- private void updateTextFields(int selectedMonth) {
-        txtmonthJanuary.setEnabled(selectedMonth >= 1);
-        txtmonthFebruary.setEnabled(selectedMonth >= 2);
-        txtmonthMarch.setEnabled(selectedMonth >= 3);
-        txtmonthApril.setEnabled(selectedMonth >= 4);
-        txtmonthMay.setEnabled(selectedMonth >= 5);
-        txtmonthJune.setEnabled(selectedMonth >= 6);
-        txtmonthJuly.setEnabled(selectedMonth >= 7);
-        txtmonthAugust.setEnabled(selectedMonth >= 8);
-        txtmonthSeptember.setEnabled(selectedMonth >= 9);
-        txtmonthOctober.setEnabled(selectedMonth >= 10);
-        txtmonthNovember.setEnabled(selectedMonth >= 11);
-        txtmonthDecember.setEnabled(selectedMonth >= 12);
-}
-
-private void clearFields() {
-    JTextField[] monthFields = {
-        txtmonthJanuary, txtmonthFebruary, txtmonthMarch, 
-        txtmonthApril, txtmonthMay, txtmonthJune, 
-        txtmonthJuly, txtmonthAugust, txtmonthSeptember, 
-        txtmonthOctober, txtmonthNovember, txtmonthDecember
-    };
-
-    for (JTextField field : monthFields) {
-        field.setText("");
-    }
-}
-
-private double calcularCAGR(double valorInicial, double valorFinal, int años) {
-    return Math.pow(valorFinal / valorInicial, 1.0 / años) - 1;
-    }//GEN-LAST:event_btnCalculateCAGRActionPerformed
+    }//GEN-LAST:event_btnCancelAverageCalcActionPerformed
 
     private void monthSpinnerStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_monthSpinnerStateChanged
-         int selectedMonth = (int) monthSpinner.getValue();
+        int selectedMonth = (int) monthSpinner.getValue();
         updateTextFields(selectedMonth);
     }//GEN-LAST:event_monthSpinnerStateChanged
 
@@ -422,6 +360,18 @@ private double calcularCAGR(double valorInicial, double valorFinal, int años) {
             ex.printStackTrace();
         }
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
+
+    private void btnCalculateAverageOFICIALActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateAverageOFICIALActionPerformed
+        int selectedMonth = (int) monthSpinner.getValue();
+
+        if (!taxesAverageController.isValidMonthSelection(selectedMonth)) {
+            Validation.showMessage(this, "Por favor, seleccione un número válido de meses.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        List<JTextField> activeMonthFields = Arrays.asList(monthFields).subList(0, selectedMonth);
+        taxesAverageController.validateFields(selectedMonth, activeMonthFields, txtAverage, monthFields, pnlGraph);
+    }//GEN-LAST:event_btnCalculateAverageOFICIALActionPerformed
 
     /**
      * @param args the command line arguments
@@ -453,15 +403,31 @@ private double calcularCAGR(double valorInicial, double valorFinal, int años) {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               TaxCalculator calculator = (TaxCalculator) new TaxesAverageController();
-            new FrmCalculateAverageMonthlyTaxes(calculator).setVisible(true);
+                new FrmCalculateAverageMonthlyTaxes().setVisible(true);
             }
         });
     }
 
+    private void updateTextFields(int selectedMonth) {
+        txtmonthJanuary.setEnabled(selectedMonth >= 1);
+        txtmonthFebruary.setEnabled(selectedMonth >= 2);
+        txtmonthMarch.setEnabled(selectedMonth >= 3);
+        txtmonthApril.setEnabled(selectedMonth >= 4);
+        txtmonthMay.setEnabled(selectedMonth >= 5);
+        txtmonthJune.setEnabled(selectedMonth >= 6);
+        txtmonthJuly.setEnabled(selectedMonth >= 7);
+        txtmonthAugust.setEnabled(selectedMonth >= 8);
+        txtmonthSeptember.setEnabled(selectedMonth >= 9);
+        txtmonthOctober.setEnabled(selectedMonth >= 10);
+        txtmonthNovember.setEnabled(selectedMonth >= 11);
+        txtmonthDecember.setEnabled(selectedMonth >= 12);
+    }
+
+
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCalculateCAGR;
-    private javax.swing.JButton btnCancelCAGRCalc;
+    private javax.swing.JButton btnCalculateAverageOFICIAL;
+    private javax.swing.JButton btnCancelAverageCalc;
     private javax.swing.JButton btnGenerateReportPdf;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

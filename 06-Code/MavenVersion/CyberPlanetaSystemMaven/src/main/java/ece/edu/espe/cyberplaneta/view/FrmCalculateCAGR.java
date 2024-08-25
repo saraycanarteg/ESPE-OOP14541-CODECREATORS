@@ -12,7 +12,9 @@ import utils.Validation;
  * @author Saray Cañarte, Code Creators, DCCO-ESPE
  */
 public class FrmCalculateCAGR extends javax.swing.JFrame {
+
     private final CAGRInterface cagrController;
+
     /**
      * Creates new form FrmCalculateCAGR
      */
@@ -20,6 +22,7 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
         initComponents();
         cagrController = new CAGRController();
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -250,9 +253,9 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelCAGRCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelCAGRCalcActionPerformed
-            FrmMenu frmMenu= new FrmMenu();
-            this.setVisible(false);
-            frmMenu.setVisible(true);
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
     }//GEN-LAST:event_btnCancelCAGRCalcActionPerformed
 
     private void sldCAGRYearsStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sldCAGRYearsStateChanged
@@ -260,12 +263,12 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
     }//GEN-LAST:event_sldCAGRYearsStateChanged
 
     private void btnCalculateCAGRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCalculateCAGRActionPerformed
-        boolean isInitialIncomeValid = Validation.validateMoneyFields(txtInitialIncome);     
-        boolean isFinalIncomeValid = Validation.validateMoneyFields(txtFinalIncome); 
-        if (isInitialIncomeValid  && isFinalIncomeValid) {
-            showCAGRresult ();
-        }else{
-           JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);     
+        boolean isInitialIncomeValid = Validation.validateMoneyFields(txtInitialIncome);
+        boolean isFinalIncomeValid = Validation.validateMoneyFields(txtFinalIncome);
+        if (isInitialIncomeValid && isFinalIncomeValid) {
+            showCAGRresult();
+        } else {
+            JOptionPane.showMessageDialog(this, "Error: Asegúrese de ingresar valores numéricos válidos", "Error de entrada", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnCalculateCAGRActionPerformed
 
@@ -304,8 +307,8 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
             }
         });
     }
-    
-    private void showCAGRresult (){
+
+    private void showCAGRresult() {
         float initialIncome = Float.parseFloat(txtInitialIncome.getText().replace(",", "."));
         float finalIncome = Float.parseFloat(txtFinalIncome.getText().replace(",", "."));
         int years = sldCAGRYears.getValue();
@@ -326,15 +329,15 @@ public class FrmCalculateCAGR extends javax.swing.JFrame {
 
         JOptionPane.showMessageDialog(this, resultMessage, "Resultado CAGR", JOptionPane.INFORMATION_MESSAGE);
     }
-    
-private void generateCAGRChart(double initialIncome, double finalIncome, double projectedIncome) {
-    DefaultCategoryDataset data = new DefaultCategoryDataset();
-    data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
-    data.setValue(finalIncome, "Ingreso Final", "Final");
-    data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
 
-    ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Proyección de Ingresos", "Tipo de Ingreso", "Valor en dólares ($)");
-}
+    private void generateCAGRChart(double initialIncome, double finalIncome, double projectedIncome) {
+        DefaultCategoryDataset data = new DefaultCategoryDataset();
+        data.setValue(initialIncome, "Ingreso Inicial", "Inicial");
+        data.setValue(finalIncome, "Ingreso Final", "Final");
+        data.setValue(projectedIncome, "Ingreso Proyectado", "Proyectado");
+
+        ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Proyección de Ingresos", "Tipo de Ingreso", "Valor en dólares ($)");
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCalculateCAGR;
     private javax.swing.JButton btnCancelCAGRCalc;

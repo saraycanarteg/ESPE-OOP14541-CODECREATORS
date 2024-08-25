@@ -1,78 +1,71 @@
 package ec.edu.espe.cyberplaneta.controller;
 
- /**
- *
- * @author Nahomi Cedeño, CODECREATORS, DCCO-ESPE
- */
+import javax.swing.JTextField;
+import utils.Validation;
+import java.text.DecimalFormat;
+import java.util.List;
+import javax.swing.JOptionPane;
+import org.jfree.data.category.DefaultCategoryDataset;
+import utils.ChartAndTableUtils;
 
+/**
+ *
+ * @author Nahomi Cedeño & Saray Cañarte, CODECREATORS, DCCO-ESPE
+ */
 public class TaxesAverageController {
-    private final TaxesAverageController calculator;
-    
-    public TaxesAverageController() {
-        this.calculator = new TaxesAverageController();
-    }
-    
-    public double calculateAverage(String[] values) throws InvalidInputException {
+
+    public double calculateAverage(List<JTextField> monthFields) {
         double sum = 0;
         int count = 0;
 
-        for (int i = 0; i < values.length; i++) {
-            try {
-                sum += validateAndParseValue(values[i], i);
+        for (JTextField field : monthFields) {
+            if (Validation.validateMoneyFields(field)) {
+                sum += Double.parseDouble(field.getText());
                 count++;
-            } catch (InvalidInputException e) {
-                throw e;
             }
         }
 
         return count == 0 ? 0 : sum / count;
     }
 
-    private double validateAndParseValue(String text, int index) throws InvalidInputException {
-        if (text.isEmpty()) {
-            return 0;
-        }
-        if (!text.matches("\\d+(\\.\\d+)?")) {
-            throw new InvalidInputException("Por favor, ingrese solo números con decimales separados por punto (.)", index);
-        }
-        return Double.parseDouble(text);
+    public String formatAverage(double average) {
+        return new DecimalFormat("#.##").format(average);
     }
 
- public class InvalidInputException extends Exception {
-    private int errorIndex;
-
-    public InvalidInputException(String message, int errorIndex) {
-        super(message);
-        this.errorIndex = errorIndex;
+    public boolean isValidMonthSelection(int selectedMonth) {
+        return selectedMonth >= 1 && selectedMonth <= 12;
     }
 
-    public int getErrorIndex() {
-        return errorIndex;
+    public void validateFields(int selectedMonth, List<JTextField> activeMonthFields, JTextField txtAverage, JTextField[] monthFields, javax.swing.JPanel pnlGraph) {
+        double average = calculateAverage(activeMonthFields);
+
+        if (average > 0) {
+            txtAverage.setText(formatAverage(average));
+            generateTaxesChart(selectedMonth, monthFields, average, pnlGraph);
+            clearFields(activeMonthFields);
+        } else {
+            Validation.showMessage(null, "Por favor, ingrese valores válidos en todos los campos.", "Error de entrada", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public void generateTaxesChart(int selectedMonth, JTextField[] monthFields, double average, javax.swing.JPanel pnlGraph) {
+        DefaultCategoryDataset data = new DefaultCategoryDataset();
+        for (int i = 1; i <= selectedMonth; i++) {
+            String label = "Impuesto " + i;
+            double impuestoValue = Double.parseDouble(monthFields[i - 1].getText());
+            data.setValue(impuestoValue, label, "Impuesto " + i);
+        }
+        data.setValue(average, "Promedio", "Promedio");
+
+        ChartAndTableUtils.createAndDisplayChart(pnlGraph, data, "Promedio de Impuestos", "Impuestos", "Valor en dólares ($)");
+    }
+
+    private void clearFields(List<JTextField> activeMonthFields) {
+        for (JTextField field : activeMonthFields) {
+            field.setText("");
+        }
     }
 }
-
-    public static double calculateAverageMonthlyTaxes(int numberOfMonths, double[] monthlyTaxes) {
-        if (numberOfMonths <= 0 || monthlyTaxes == null || monthlyTaxes.length != numberOfMonths) {
-            throw new IllegalArgumentException("Número de meses inválido o arreglo de impuestos no coincide.");
-        }
-
-        double totalTaxes = 0;
-        for (double tax : monthlyTaxes) {
-            totalTaxes += tax;
-        }
-
-        return calculateAverage(totalTaxes, numberOfMonths);
-    }
-
-    private static double calculateAverage(double totalTaxes, int numberOfMonths) {
-        return totalTaxes / numberOfMonths;
-    }
-}
-
-
-
-
-
 
 
 

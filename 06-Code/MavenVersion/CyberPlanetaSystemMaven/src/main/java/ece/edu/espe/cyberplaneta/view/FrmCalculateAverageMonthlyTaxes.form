@@ -487,10 +487,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace min="-2" pref="202" max="-2" attributes="0"/>
-                  <Component id="btnCancelCAGRCalc" min="-2" pref="154" max="-2" attributes="0"/>
+                  <Component id="btnCancelAverageCalc" min="-2" pref="154" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
+                  <Component id="btnCalculateAverageOFICIAL" min="-2" pref="148" max="-2" attributes="0"/>
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnCalculateCAGR" min="-2" pref="148" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="190" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -499,8 +499,8 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="btnCancelCAGRCalc" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="btnCalculateCAGR" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCancelAverageCalc" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCalculateAverageOFICIAL" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="17" max="32767" attributes="0"/>
               </Group>
@@ -508,7 +508,7 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JButton" name="btnCancelCAGRCalc">
+        <Component class="javax.swing.JButton" name="btnCancelAverageCalc">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="ff" type="rgb"/>
@@ -522,10 +522,10 @@
             <Property name="text" type="java.lang.String" value="Cancelar"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelCAGRCalcActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelAverageCalcActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnCalculateCAGR">
+        <Component class="javax.swing.JButton" name="btnCalculateAverageOFICIAL">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="46" green="f6" red="9f" type="rgb"/>
@@ -539,7 +539,7 @@
             <Property name="text" type="java.lang.String" value="Calcular"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalculateCAGRActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCalculateAverageOFICIALActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

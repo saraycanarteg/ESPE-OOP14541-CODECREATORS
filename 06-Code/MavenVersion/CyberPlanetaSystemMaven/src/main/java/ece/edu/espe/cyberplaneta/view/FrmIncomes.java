@@ -289,8 +289,8 @@ private final IncomeController controller = new IncomeController();
     private void cmbNumericalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNumericalOrderActionPerformed
                                                                                                
     DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-    String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
-    utils.sortTablebyNumericalOrder(model, 5, selectedOrder);
+    String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
+    utils.sortTableByNumericalOrder(model, 5, selectedOrder);
  
     }//GEN-LAST:event_cmbNumericalOrderActionPerformed
 

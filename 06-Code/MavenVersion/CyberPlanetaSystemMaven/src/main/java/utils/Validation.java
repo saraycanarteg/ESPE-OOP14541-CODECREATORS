@@ -45,7 +45,7 @@ public class Validation {
         textField.setBackground(Color.PINK);
     }
 
-    public static boolean containsInvalidCharacters(String text) {
+    public static boolean validateInvalidCharacters(String text) {
         String regex = "[\\s!@#$%^&*(),.?\":{}|<>]";
         Pattern pattern = Pattern.compile(regex);
         return pattern.matcher(text).find();
@@ -73,12 +73,14 @@ public class Validation {
             evt.consume();
         }
     }
+
     public static void restrictInputToDigits(java.awt.event.KeyEvent evt) {
         char c = evt.getKeyChar();
         if (!Character.isDigit(c) && !isAllowedKey(c)) {
             evt.consume();
         }
     }
+
     public static void showMessage(Component parentComponent, String message, String title, int messageType) {
         JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
     }
@@ -93,23 +95,27 @@ public class Validation {
         highlightError(textField);
         return false;
     }
-     public static boolean validateName(String name) {
+
+    public static boolean validateName(String name) {
         return name.matches("[a-zA-Z\\s]+");
     }
-     public static boolean isValidName(String name) {
-    String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
-    Pattern pattern = Pattern.compile(regex);
-    Matcher matcher = pattern.matcher(name);
-    return matcher.matches();
-}
-     public static boolean areDatesValid(Date initDate, Date finishDate) {
-    if (initDate == null || finishDate == null) {
-        return false;
+
+    public static boolean isValidName(String name) {
+        String regex = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(name);
+        return matcher.matches();
     }
-    return !finishDate.before(initDate);
-}
-     public static boolean isValidCellNumber(String cellNumber) {
-    return cellNumber.length() == 10 && cellNumber.startsWith("09");
-}
-     
+
+    public static boolean areDatesValid(Date initDate, Date finishDate) {
+        if (initDate == null || finishDate == null) {
+            return false;
+        }
+        return !finishDate.before(initDate);
+    }
+
+    public static boolean isValidCellNumber(String cellNumber) {
+        return cellNumber.length() == 10 && cellNumber.startsWith("09");
+    }
+
 }

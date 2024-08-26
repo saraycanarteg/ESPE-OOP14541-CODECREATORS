@@ -2,6 +2,7 @@ package ece.edu.espe.cyberplaneta.view;
 
 import ec.edu.espe.cyberplaneta.controller.AccountSettingController;
 import ec.edu.espe.cyberplaneta.controller.AccountSettingInterface;
+
 /**
  *
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
@@ -9,7 +10,8 @@ import ec.edu.espe.cyberplaneta.controller.AccountSettingInterface;
 public class FrmAccountSetting extends javax.swing.JFrame {
 
     AccountSettingInterface accountSetting = new AccountSettingController();
-            /**
+
+    /**
      * Creates new form FrmAccountSetting
      */
     public FrmAccountSetting() {
@@ -250,11 +252,11 @@ public class FrmAccountSetting extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-       accountSetting.onSaveUser(txtUser, txtNewUser, txtNewPassword, txtPassword, btnGuardar);
+        accountSetting.onSaveUser(txtUser, txtNewUser, txtNewPassword, txtPassword, btnGuardar);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-       accountSetting.onSearchUser(txtUser, txtPassword, txtNewUser, txtNewPassword, btnGuardar);
+        accountSetting.onSearchUser(txtUser, txtPassword, txtNewUser, txtNewPassword, btnGuardar);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped

@@ -1,14 +1,14 @@
-
 package ece.edu.espe.cyberplaneta.view;
 
-import javax.swing.JOptionPane;
+import ec.edu.espe.cyberplaneta.controller.UserAddController;
+import ec.edu.espe.cyberplaneta.controller.UserAddInterface;
 
 /**
  *
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmAddUser extends javax.swing.JFrame {
-
+    UserAddInterface userController = new UserAddController();
     /**
      * Creates new form FrmAddUser
      */
@@ -204,29 +204,31 @@ public class FrmAddUser extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtUserFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUserFocusLost
-        validateUserText();
+        userController.validateUserText(txtUser, lblPassIncorrect);
+        userController.validatePasswordField(txtUser, pwdUserPassword, btnSave, lblPassIncorrect);
     }//GEN-LAST:event_txtUserFocusLost
 
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
         if (utils.Validation.isInvalidCharacter(evt.getKeyChar())) {
             evt.consume();
         }
+        userController.validateField(txtUser.getText().trim(), btnSave, lblPassIncorrect);
     }//GEN-LAST:event_txtUserKeyTyped
 
     private void pwdUserPasswordFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pwdUserPasswordFocusLost
-        validatePasswordField();
+        userController.validatePasswordField(txtUser, pwdUserPassword, btnSave, lblPassIncorrect);
     }//GEN-LAST:event_pwdUserPasswordFocusLost
 
     private void pwdUserPasswordKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_pwdUserPasswordKeyTyped
-        btnSave.setEnabled(true);
+        userController.validateField(new String(pwdUserPassword.getPassword()), btnSave, lblPassIncorrect);
     }//GEN-LAST:event_pwdUserPasswordKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        saveUserData();
+        userController.saveUserData(txtUser, pwdUserPassword);
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        goToMenu();
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     /**
@@ -262,81 +264,6 @@ public class FrmAddUser extends javax.swing.JFrame {
                 new FrmAddUser().setVisible(true);
             }
         });
-    }
-
-    private void validatePasswordField() {
-        if (isPasswordEmpty()) {
-            displayErrorMessage("Campos vacíos");
-        } else {
-            clearErrorMessage();
-        }
-    }
-
-    private void goToMenu() {
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
-    }
-
-    private void validateUserText() {
-        if (utils.Validation.validateInvalidCharacters(getUsername())) {
-            displayErrorMessage("Formato de usuario incorrecto");
-        } else if (isUsernameEmpty()) {
-            displayErrorMessage("Campos vacíos");
-        } else {
-            clearErrorMessage();
-        }
-    }
-
-    private void saveUserData() {
-        try {
-            if (isUserValid(getUsername())) {
-                saveUser(getUsername(), utils.EncryptData.encriptionData(getPassword()));
-                clearFields();
-                utils.Validation.showMessage(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                utils.Validation.showMessage(this, "El usuario ya existe", "Error", JOptionPane.ERROR_MESSAGE);
-            }   
-        } catch (Exception e) {
-             utils.Validation.showMessage(this, "Ocurrió un error al guardar los datos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private boolean isUsernameEmpty() {
-        return getUsername().isEmpty();
-    }
-
-    private boolean isPasswordEmpty() {
-        return new String(pwdUserPassword.getPassword()).isEmpty();
-    }
-
-    private void displayErrorMessage(String message) {
-        lblPassIncorrect.setText(message);
-    }
-
-    private void clearErrorMessage() {
-        lblPassIncorrect.setText(null);
-    }
-
-    private String getPassword() {
-        return new String(pwdUserPassword.getPassword());
-    }
-
-    private String getUsername() {
-        return txtUser.getText().trim();
-    }
-
-    private boolean isUserValid(String username) {
-        return !utils.MongoDBUtil.validateNameUser(username);
-    }
-
-    private void saveUser(String username, String encryptedPassword) {
-        utils.MongoDBUtil.saveUser(encryptedPassword, username);
-    }
-
-    private void clearFields() {
-        txtUser.setText("");
-        pwdUserPassword.setText("");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

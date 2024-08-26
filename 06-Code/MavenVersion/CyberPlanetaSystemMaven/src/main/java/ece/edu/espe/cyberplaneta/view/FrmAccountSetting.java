@@ -1,20 +1,20 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import javax.swing.JOptionPane;
-import utils.MongoDBUtil;
-
+import ec.edu.espe.cyberplaneta.controller.AccountSettingController;
+import ec.edu.espe.cyberplaneta.controller.AccountSettingInterface;
 /**
  *
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
  */
 public class FrmAccountSetting extends javax.swing.JFrame {
 
-    /**
+    AccountSettingInterface accountSetting = new AccountSettingController();
+            /**
      * Creates new form FrmAccountSetting
      */
     public FrmAccountSetting() {
         initComponents();
-        disableUserEditing();
+        accountSetting.disableUserEditing(txtNewUser, txtNewPassword, btnGuardar);
     }
 
     /**
@@ -246,15 +246,15 @@ public class FrmAccountSetting extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackToMainActionPerformed
-        goToMenu();
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        onSaveUser();
+       accountSetting.onSaveUser(txtUser, txtNewUser, txtNewPassword, txtPassword, btnGuardar);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        onSearchUser();
+       accountSetting.onSearchUser(txtUser, txtPassword, txtNewUser, txtNewPassword, btnGuardar);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void txtUserKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUserKeyTyped
@@ -304,67 +304,7 @@ public class FrmAccountSetting extends javax.swing.JFrame {
         });
     }
 
-    private void goToMenu() {
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
-    }
 
-    private void onSaveUser() {
-        String oldUsername = txtUser.getText();
-        String newUsername = txtNewUser.getText();
-        String newPassword = txtNewPassword.getText();
-
-        boolean isUpdated = MongoDBUtil.updateUser(oldUsername, newUsername, utils.EncryptData.encriptionData(newPassword));
-        showUpdateResult(isUpdated);
-        clearFields();
-    }
-
-    private void onSearchUser() {
-        String username = txtUser.getText();
-        String password = txtPassword.getText();
-
-        boolean isUserValid = MongoDBUtil.validateUser(username, password);
-        handleUserValidation(isUserValid);
-    }
-
-    private void showUpdateResult(boolean isUpdated) {
-        if (isUpdated) {
-            utils.Validation.showMessage(this,"Usuario actualizado exitosamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            utils.Validation.showMessage(this,"Error al actualizar el usuario", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void handleUserValidation(boolean isUserValid) {
-        if (isUserValid) {
-            enableUserEditing();
-        } else {
-            disableUserEditing();
-            utils.Validation.showMessage(this,"Usuario no encontrado o contraseña incorrecta", "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
-    private void enableUserEditing() {
-        txtNewUser.setText(txtUser.getText());
-        txtNewPassword.setText(txtPassword.getText());
-        txtNewUser.setEnabled(true);
-        txtNewPassword.setEnabled(true);
-        btnGuardar.setEnabled(true);
-    }
-
-    private void disableUserEditing() {
-        txtNewUser.setEnabled(false);
-        txtNewPassword.setEnabled(false);
-        btnGuardar.setEnabled(false);
-    }
-
-    private void clearFields() {
-        txtNewPassword.setText("");
-        txtNewUser.setText("");
-        txtPassword.setText("");
-        txtUser.setText("");
-    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnGoBackToMain;

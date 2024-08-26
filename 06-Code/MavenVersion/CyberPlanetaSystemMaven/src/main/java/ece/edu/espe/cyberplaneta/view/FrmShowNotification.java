@@ -247,9 +247,8 @@ public class FrmShowNotification extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String id = jTextField1.getText();  
         NotificationControlInterface notificationControl = new NotificationControl();
-        notificationControl.controlNotification(id, txtNotification, modelo);
+        notificationControl.controlNotification(jTextField1.getText(), txtNotification, modelo);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped

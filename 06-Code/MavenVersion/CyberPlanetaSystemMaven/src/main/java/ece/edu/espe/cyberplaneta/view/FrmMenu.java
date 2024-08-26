@@ -309,7 +309,7 @@ public class FrmMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_itmNotificationsActionPerformed
 
     private void itmSearch9thDigitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmSearch9thDigitActionPerformed
-        FrmBusqueda9noDigito frmBusqueda9noDigito = new FrmBusqueda9noDigito();
+        FrmSearch9Digit frmBusqueda9noDigito = new FrmSearch9Digit();
         this.setVisible(false);
         frmBusqueda9noDigito.setVisible(true);
     }//GEN-LAST:event_itmSearch9thDigitActionPerformed

@@ -87,16 +87,15 @@ public class Validation {
         JOptionPane.showMessageDialog(parentComponent, message, title, messageType);
     }
 
-    public static boolean validateEmail(JTextField textField) {
-        String input = textField.getText().trim();
-        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
-        if (input.matches(emailRegex)) {
-            textField.setBackground(Color.WHITE);
-            return true;
-        }
-        highlightError(textField);
-        return false;
+    public static boolean validateEmail(String email) {
+    String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$";
+    if (email.matches(emailRegex)) {
+        return true;
     }
+    System.out.println("Correo electrónico no válido.");
+    
+    return false;
+}
 
     public static boolean validateName(String name) {
         return name.matches("[a-zA-Z\\s]+");

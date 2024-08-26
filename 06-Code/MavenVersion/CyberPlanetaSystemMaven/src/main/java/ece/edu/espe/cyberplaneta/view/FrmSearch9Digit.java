@@ -1,6 +1,7 @@
 
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.controller.Search9DigitController;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -19,42 +20,29 @@ import utils.MongoDBUtil;
  *
  * @author Andres Cedeno,Code Creators,DCCO-ESPE
  */
-public class FrmBusqueda9noDigito extends javax.swing.JFrame {
+public class FrmSearch9Digit extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmBusqueda9noDigito
-     */
-    public FrmBusqueda9noDigito() {
+     private final Search9DigitController controller;
+    
+    public FrmSearch9Digit() {
         initComponents();
+        controller = new Search9DigitController();
         ChartAndTableUtils.customizeTableHeader(tblTaxPayers);
         
     }
 
-    private void loadTaxPayersByNinthDigit(String ninthDigit) {
-        DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
-        model.setRowCount(0);
-        List<Document> documents = MongoDBUtil.getAllTaxPayers(); 
-
-        for (Document doc : documents) {
-            String id = doc.getString("id");
-            if (id != null && id.length() >= 9 && id.charAt(8) == ninthDigit.charAt(0)) {
-                String email = doc.getString("email");
-                String name = doc.getString("name");
-                String password = doc.getString("password");
-                boolean documentation = doc.getBoolean("accountingDocumentation");
-                String celNumber = doc.getString("cellNumber");
-
-                model.addRow(new Object[]{
-                    id,
-                    email,
-                    name,
-                    utils.EncryptData.decryptData(password),
-                    documentation ? "Sí" : "No",
-                    celNumber
-                });
-            }
+    private void search9digit() {
+        String ninthDigit = jTextField1.getText().trim();
+        if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
+            DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
+            controller.loadTaxPayersByNinthDigit(ninthDigit, model);
+            customizeTableRendering();
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
         }
+    }
 
+    private void customizeTableRendering() {
         tblTaxPayers.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
@@ -177,14 +165,6 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
         jPanel4.add(btnBuscarAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 148, -1));
 
         txtInvalidId1.setForeground(new java.awt.Color(204, 0, 0));
-        txtInvalidId1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtInvalidId1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInvalidId1FocusLost(evt);
-            }
-        });
         jPanel4.add(txtInvalidId1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 237, 23));
 
         jPanel3.setBackground(new java.awt.Color(7, 81, 203));
@@ -242,16 +222,8 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionActionPerformed
-        search9digit();
+        gosearch9digit();
     }//GEN-LAST:event_btnBuscarActionActionPerformed
-
-    private void txtInvalidId1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidId1FocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidId1FocusGained
-
-    private void txtInvalidId1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidId1FocusLost
-
-    }//GEN-LAST:event_txtInvalidId1FocusLost
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         validate9noText();
@@ -274,20 +246,23 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrmBusqueda9noDigito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearch9Digit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrmBusqueda9noDigito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearch9Digit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrmBusqueda9noDigito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearch9Digit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrmBusqueda9noDigito.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrmSearch9Digit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmBusqueda9noDigito().setVisible(true);
+                new FrmSearch9Digit().setVisible(true);
             }
         });
     }
@@ -297,14 +272,16 @@ public class FrmBusqueda9noDigito extends javax.swing.JFrame {
         this.setVisible(false);
         frmMenu.setVisible(true);
     }
-    private void search9digit(){
-        String ninthDigit = jTextField1.getText().trim();
-        if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
-            loadTaxPayersByNinthDigit(ninthDigit);
-        } else {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
-        }
+    private void gosearch9digit() {
+    String ninthDigit = jTextField1.getText().trim();
+    if (ninthDigit.length() == 1 && Character.isDigit(ninthDigit.charAt(0))) {
+        DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel(); 
+        controller.loadTaxPayersByNinthDigit(ninthDigit, model); 
+        customizeTableRendering(); 
+    } else {
+        JOptionPane.showMessageDialog(this, "Por favor, ingrese un solo dígito numérico.");
     }
+}
     private void validate9noText() {
         String PATTERN = "^\\d$"; // Asegurarse de que es un solo dígito numérico
         Pattern patt = Pattern.compile(PATTERN);

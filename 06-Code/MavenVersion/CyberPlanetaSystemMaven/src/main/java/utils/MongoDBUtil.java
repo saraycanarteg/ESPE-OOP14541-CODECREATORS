@@ -307,14 +307,14 @@ public class MongoDBUtil {
     }
     public static Document getIncomeById(int processId) {
         MongoDatabase database = getDatabase();
-        MongoCollection<Document> collection = database.getCollection("income_calculated"); 
+        MongoCollection<Document> collection = database.getCollection("Incomes"); 
         Document document = collection.find(eq("Id", processId)).first();
         return document;
     }
     public static boolean updateIncome(int processId, String name, int numberOfDocumentation, float priceBase, float taxRate, float totalPrice) {
     try {
         MongoDatabase database = getDatabase();
-        MongoCollection<Document> collection = database.getCollection("income_calculated"); 
+        MongoCollection<Document> collection = database.getCollection("Incomes"); 
 
         
         Document updatedDocument = new Document("processName", name)
@@ -335,7 +335,7 @@ public class MongoDBUtil {
 
     public static void deleteIncome(int processId) {
         MongoDatabase database = getDatabase();
-        MongoCollection<Document> collection = database.getCollection("income_calculated");
+        MongoCollection<Document> collection = database.getCollection("Incomes");
         collection.deleteOne(eq("processId", processId));
     }
 }

@@ -1,14 +1,10 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import com.itextpdf.text.DocumentException;
-import ec.edu.espe.cyberplaneta.controller.ExcelReport;
-import ec.edu.espe.cyberplaneta.controller.PdfReport;
 import ec.edu.espe.cyberplaneta.controller.IncomeController;
-import java.io.IOException;
-import java.util.ArrayList;
+import ec.edu.espe.cyberplaneta.controller.IncomeFrmController;
+import ec.edu.espe.cyberplaneta.controller.IncomeFrmInterface;
 import javax.swing.table.DefaultTableModel;
 import utils.MongoDBUtil;
-import java.util.List;
 import javax.swing.JOptionPane;
 import utils.ChartAndTableUtils;
 
@@ -17,21 +13,23 @@ import utils.ChartAndTableUtils;
  * @author Saray Cañarte, Code Creators, DCCO-ESPE
  */
 public class FrmIncomes extends javax.swing.JFrame {
-private final ChartAndTableUtils utils = new ChartAndTableUtils();
-private final IncomeController controller = new IncomeController();
+
+    private final ChartAndTableUtils utilsl = new ChartAndTableUtils();
+    private final IncomeController controller = new IncomeController();
+    IncomeFrmInterface incomeController = new IncomeFrmController();
+
     /**
      * Creates new form FrmIncomes
      */
     public FrmIncomes() {
         initComponents();
         loadIncomes();
-        utils.customizeTableHeader(tblTotalIncomes);
+        utilsl.customizeTableHeader(tblTotalIncomes);
     }
 
     private void loadIncomes() {
         controller.loadDataToTable(tblTotalIncomes);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -109,8 +107,8 @@ private final IncomeController controller = new IncomeController();
 
         btnGenerateReportExcel.setBackground(new java.awt.Color(7, 81, 203));
         btnGenerateReportExcel.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnGenerateReportExcel.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportExcel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-xml-40.png"))); // NOI18N
+        btnGenerateReportExcel.setForeground(new java.awt.Color(255, 255, 255));
+        btnGenerateReportExcel.setText("XML");
         btnGenerateReportExcel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportExcelActionPerformed(evt);
@@ -149,7 +147,7 @@ private final IncomeController controller = new IncomeController();
         btnGenerateReportPdf.setBackground(new java.awt.Color(159, 246, 70));
         btnGenerateReportPdf.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnGenerateReportPdf.setForeground(new java.awt.Color(7, 81, 203));
-        btnGenerateReportPdf.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-pdf-20 (1).png"))); // NOI18N
+        btnGenerateReportPdf.setText("PDF");
         btnGenerateReportPdf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerateReportPdfActionPerformed(evt);
@@ -159,7 +157,7 @@ private final IncomeController controller = new IncomeController();
         btnBorrar.setBackground(new java.awt.Color(159, 246, 70));
         btnBorrar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnBorrar.setForeground(new java.awt.Color(7, 81, 203));
-        btnBorrar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-eliminar-20.png"))); // NOI18N
+        btnBorrar.setText("Borrar");
         btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBorrarActionPerformed(evt);
@@ -169,7 +167,7 @@ private final IncomeController controller = new IncomeController();
         btnEditar.setBackground(new java.awt.Color(159, 246, 70));
         btnEditar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(7, 81, 203));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-editar-20.png"))); // NOI18N
+        btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
@@ -177,7 +175,9 @@ private final IncomeController controller = new IncomeController();
         });
 
         btnBuscarActionPerformed.setBackground(new java.awt.Color(159, 246, 70));
-        btnBuscarActionPerformed.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons8-buscar-20 (1).png"))); // NOI18N
+        btnBuscarActionPerformed.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnBuscarActionPerformed.setForeground(new java.awt.Color(7, 81, 203));
+        btnBuscarActionPerformed.setText("Buscar");
         btnBuscarActionPerformed.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformedActionPerformed(evt);
@@ -188,29 +188,31 @@ private final IncomeController controller = new IncomeController();
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnBuscarActionPerformed)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnEditar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBorrar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGenerateReportPdf)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addContainerGap(10, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbAlphabeticalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cmbNumericalOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                                .addComponent(btnBuscarActionPerformed)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnEditar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnBorrar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 877, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -218,16 +220,22 @@ private final IncomeController controller = new IncomeController();
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnGenerateReportPdf)
-                    .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel2)
-                        .addComponent(cmbAlphabeticalOrder)
-                        .addComponent(cmbNumericalOrder)
-                        .addComponent(btnBorrar)
-                        .addComponent(btnEditar)
-                        .addComponent(btnBuscarActionPerformed)))
-                .addGap(15, 15, 15)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel2)
+                                .addComponent(cmbAlphabeticalOrder)
+                                .addComponent(cmbNumericalOrder))
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(btnGenerateReportPdf, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnGenerateReportExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnBuscarActionPerformed, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -252,7 +260,9 @@ private final IncomeController controller = new IncomeController();
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 910, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -263,169 +273,88 @@ private final IncomeController controller = new IncomeController();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGoBackToMainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGoBackToMainActionPerformed
-            FrmMenu frmMenu= new FrmMenu();
-            this.setVisible(false);
-            frmMenu.setVisible(true);
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGenerateReportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportExcelActionPerformed
-        ExcelReport excelReport = new ExcelReport();
-
-        try {
-            excelReport.exportToExcel(tblTotalIncomes);
-        } catch (IOException ex) {
-            System.out.println("Error: " + ex);
-        }
+        incomeController.generateExcelReport(tblTotalIncomes);
     }//GEN-LAST:event_btnGenerateReportExcelActionPerformed
 
     private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
-
         DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
         String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
-        utils.sortTablebyAlphabeticalOrder(model, 1, selectedOrder);
+        utilsl.sortTablebyAlphabeticalOrder(model, 1, selectedOrder);
 
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
     private void cmbNumericalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNumericalOrderActionPerformed
-                                                                                               
-    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-    String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
-    utils.sortTableByNumericalOrder(model, 5, selectedOrder);
- 
+        DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+        String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
+        utilsl.sortTableByNumericalOrder(model, 5, selectedOrder);
+
     }//GEN-LAST:event_cmbNumericalOrderActionPerformed
 
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
-                                                 
-    PdfReport pdfReport = new PdfReport();
-    
-    try {
-        pdfReport.exportTableToPDF(tblTotalIncomes);
-    } catch (IOException | DocumentException ex) {
-        System.out.println("Error: " + ex.getMessage());
-        ex.printStackTrace();
-    } 
+        incomeController.generatePdfReport(tblTotalIncomes);
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        int selectedRow = tblTotalIncomes.getSelectedRow();
-        System.out.println("Fila seleccionada: " + selectedRow);
-
-    if (selectedRow >= 0) {
-        int processId = (int) tblTotalIncomes.getValueAt(selectedRow, 0);
-        int confirm = JOptionPane.showConfirmDialog(this, 
-            "¿Está seguro de borrar este ingreso?", 
-            "Confirmar eliminación", 
-            JOptionPane.YES_NO_OPTION, 
-            JOptionPane.QUESTION_MESSAGE);
-
-        if (confirm == JOptionPane.YES_OPTION) {
-            MongoDBUtil.deleteIncome(processId);
-            DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-            model.removeRow(selectedRow);
-            recalculateTotal(model);
-            
-            JOptionPane.showMessageDialog(this, "Ingreso eliminado exitosamente.");
-        }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para borrar.");
-    }
+        incomeController.deleteSelectedRow(tblTotalIncomes);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         int selectedRow = tblTotalIncomes.getSelectedRow();
-    
-    if (selectedRow >= 0) {
-        // Obtener los valores actuales de la fila seleccionada
-        int processId = (int) tblTotalIncomes.getValueAt(selectedRow, 0);
-        String name = (String) tblTotalIncomes.getValueAt(selectedRow, 1);
-        int numberOfDocumentation = (int) tblTotalIncomes.getValueAt(selectedRow, 2);
-        float priceBase = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 3).toString().replace(",", "."));
-        float taxRate = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 4).toString().replace(",", "."));
-        float totalPrice = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 5).toString().replace(",", "."));
 
-        // Mostrar un cuadro de diálogo para editar los valores
-        String newName = JOptionPane.showInputDialog(this, "Editar nombre:", name);
-        String newNumberOfDocumentation = JOptionPane.showInputDialog(this, "Editar número de documentación:", numberOfDocumentation);
-        String newPriceBase = JOptionPane.showInputDialog(this, "Editar precio base:", priceBase);
-        String newTaxRate = JOptionPane.showInputDialog(this, "Editar tasa de impuesto:", taxRate);
+        if (selectedRow >= 0) {
+            int processId = (int) tblTotalIncomes.getValueAt(selectedRow, 0);
+            String name = (String) tblTotalIncomes.getValueAt(selectedRow, 1);
+            int numberOfDocumentation = (int) tblTotalIncomes.getValueAt(selectedRow, 2);
+            float priceBase = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 3).toString().replace(",", "."));
+            float taxRate = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 4).toString().replace(",", "."));
+            float totalPrice = Float.parseFloat(tblTotalIncomes.getValueAt(selectedRow, 5).toString().replace(",", "."));
 
-        // Validar y actualizar los valores
-        if (newName != null && newNumberOfDocumentation != null && newPriceBase != null && newTaxRate != null) {
-            try {
-                numberOfDocumentation = Integer.parseInt(newNumberOfDocumentation);
-                priceBase = Float.parseFloat(newPriceBase.replace(",", "."));
-                taxRate = Float.parseFloat(newTaxRate.replace(",", "."));
+            String newName = JOptionPane.showInputDialog(this, "Editar nombre:", name);
+            String newNumberOfDocumentation = JOptionPane.showInputDialog(this, "Editar número de documentación:", numberOfDocumentation);
+            String newPriceBase = JOptionPane.showInputDialog(this, "Editar precio base:", priceBase);
+            String newTaxRate = JOptionPane.showInputDialog(this, "Editar tasa de impuesto:", taxRate);
 
-                // Actualizar la tabla
-                DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-                model.setValueAt(newName, selectedRow, 1);
-                model.setValueAt(numberOfDocumentation, selectedRow, 2);
-                model.setValueAt(String.format("%.2f", priceBase), selectedRow, 3);
-                model.setValueAt(String.format("%.2f", taxRate), selectedRow, 4);
-                
-                // Calcular el nuevo total y actualizar la base de datos
-                float newTotalPrice = priceBase + (priceBase * taxRate / 100); // Ajusta según tu lógica
-                model.setValueAt(String.format("%.2f", newTotalPrice), selectedRow, 5);
-                
-                // Guardar cambios en la base de datos
-                boolean success = MongoDBUtil.updateIncome(processId, newName, numberOfDocumentation, priceBase, taxRate, newTotalPrice);
-                if (success) {
-                    JOptionPane.showMessageDialog(this, "Cambios guardados exitosamente.");
-                } else {
-                    JOptionPane.showMessageDialog(this, "Error al guardar los cambios.");
+            if (newName != null && newNumberOfDocumentation != null && newPriceBase != null && newTaxRate != null) {
+                try {
+                    numberOfDocumentation = Integer.parseInt(newNumberOfDocumentation);
+                    priceBase = Float.parseFloat(newPriceBase.replace(",", "."));
+                    taxRate = Float.parseFloat(newTaxRate.replace(",", "."));
+
+                    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
+                    model.setValueAt(newName, selectedRow, 1);
+                    model.setValueAt(numberOfDocumentation, selectedRow, 2);
+                    model.setValueAt(String.format("%.2f", priceBase), selectedRow, 3);
+                    model.setValueAt(String.format("%.2f", taxRate), selectedRow, 4);
+
+                    float newTotalPrice = priceBase + (priceBase * taxRate / 100);
+                    model.setValueAt(String.format("%.2f", newTotalPrice), selectedRow, 5);
+
+                    boolean success = MongoDBUtil.updateIncome(processId, newName, numberOfDocumentation, priceBase, taxRate, newTotalPrice);
+                    if (success) {
+                        JOptionPane.showMessageDialog(this, "Cambios guardados exitosamente.");
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Error al guardar los cambios.");
+                    }
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos.");
                 }
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(this, "Por favor, ingrese valores válidos.");
             }
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para editar.");
         }
-    } else {
-        JOptionPane.showMessageDialog(this, "Por favor, seleccione una fila para editar.");
-    }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnBuscarActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformedActionPerformed
         String searchTerm = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-            searchInTable(searchTerm);
-    }
-}
-private void searchInTable(String searchTerm) {
-    DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
-    List<Object[]> foundRows = new ArrayList<>();
-
-    for (int i = 0; i < model.getRowCount(); i++) {
-        String name = (String) model.getValueAt(i, 1); // Suponiendo que el nombre está en la columna 1
-        if (name.toLowerCase().contains(searchTerm.toLowerCase())) {
-            foundRows.add(new Object[]{
-                model.getValueAt(i, 0),
-                model.getValueAt(i, 1),
-                model.getValueAt(i, 2),
-                model.getValueAt(i, 3),
-                model.getValueAt(i, 4),
-                model.getValueAt(i, 5)
-            });
+            incomeController.searchInTable(tblTotalIncomes, searchTerm);
         }
-    }
-
-    model.setRowCount(0);
-    for (Object[] row : foundRows) {
-        model.addRow(row);
-    }
-
-    if (foundRows.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No se encontraron resultados para: " + searchTerm);
-        loadIncomes(); 
-    }
     }//GEN-LAST:event_btnBuscarActionPerformedActionPerformed
-    private void recalculateTotal(DefaultTableModel model) {
-    float totalSum = 0;
 
-    for (int i = 0; i < model.getRowCount() - 1; i++) {
-        totalSum += Float.parseFloat(model.getValueAt(i, 5).toString().replace(",", ""));
-    }
-
-    model.setValueAt(String.format("%.2f", totalSum), model.getRowCount() - 1, 5);
-}
     /**
      * @param args the command line arguments
      */
@@ -461,6 +390,7 @@ private void searchInTable(String searchTerm) {
             }
         });
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBorrar;

@@ -4,6 +4,7 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
+import ec.edu.espe.cyberplaneta.controller.EditTaxPayerController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -19,95 +20,10 @@ import utils.Validation;
  */
 public class FrmEditTaxpayer extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEditTaxpayer
-     */
+    private EditTaxPayerController controller = new EditTaxPayerController();
+    
     public FrmEditTaxpayer() {
         initComponents();
-    }
-
-    private void cargarTaxPayer() {
-        String id = txtId.getText().trim();
-
-        if (id.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID.");
-            return;
-        }
-
-        Document taxPayer = MongoDBUtil.getTaxPayerById(id);
-        if (taxPayer != null) {
-            txtEmail.setText(taxPayer.getString("email"));
-            txtNombre.setText(taxPayer.getString("name"));
-            txtContrasenia.setText(utils.EncryptData.decryptData(taxPayer.getString("password")));
-            chkDocumentacion.setSelected(taxPayer.getBoolean("accountingDocumentation"));
-            dateChooserStart.setDate(parseDate(taxPayer.getString("startDate")));
-            dateChooserEnd.setDate(parseDate(taxPayer.getString("deliveryDate")));
-            txtCelular1.setText(taxPayer.getString("cellNumber"));
-        } else {
-            JOptionPane.showMessageDialog(this, "Contribuyente no encontrado.");
-        }
-    }
-
-    private void saveTaxPayerChanges() {
-         String id = txtId.getText().trim();
-        String email = txtEmail.getText().trim();
-        String name = txtNombre.getText().trim();
-        String password = txtContrasenia.getText().trim();
-        boolean documentation = chkDocumentacion.isSelected();
-        Date startDate = dateChooserStart.getDate();
-        Date deliveryDate = dateChooserEnd.getDate();
-        String cellNumber = txtCelular1.getText().trim();
-       
-         if (!Validation.isIdValid(id)) {
-            JOptionPane.showMessageDialog(this, "ID (RUC) inválido. Debe contener 13 dígitos numéricos.");
-            return;
-        }
-
-        if (!Validation.validateName(name)) {
-            JOptionPane.showMessageDialog(this, "Nombre inválido. No debe contener números ni caracteres especiales.");
-            return;
-        }
-
-        if (!Validation.validateEmail(txtEmail)) {
-            JOptionPane.showMessageDialog(this, "Correo electrónico inválido.");
-            return;
-        }
-
-        if (password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "La contraseña no puede estar vacía.");
-            return;
-        }
-
-        if (startDate == null || deliveryDate == null) {
-            JOptionPane.showMessageDialog(this, "Por favor, seleccione las fechas de inicio y entrega.");
-            return;
-        }
-
-        if (startDate.after(deliveryDate)) {
-            JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de entrega.");
-            return;
-        }
-
-        if (cellNumber.isEmpty() || cellNumber.length() != 10 || !cellNumber.startsWith("09")) {
-            JOptionPane.showMessageDialog(this, "Información de celular incorrecta.");
-            return;
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String startDateString = sdf.format(startDate);
-        String deliveryDateString = sdf.format(deliveryDate);
-
-        Document updatedTaxPayer = new Document("id", id)
-                .append("email", email)
-                .append("name", name)
-                .append("password", utils.EncryptData.encriptionData(password))
-                .append("accountingDocumentation", documentation)
-                .append("startDate", startDateString)
-                .append("deliveryDate", deliveryDateString)
-                .append("cellNumber", cellNumber);
-
-        MongoDBUtil.updateTaxPayer(updatedTaxPayer);
-        JOptionPane.showMessageDialog(this, "Contribuyente actualizado correctamente.");
     }
 
     private Date parseDate(String dateString) {
@@ -196,18 +112,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
                 txtIdFocusLost(evt);
             }
         });
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
         jPanel4.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 170, -1));
-
-        txtContrasenia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtContraseniaActionPerformed(evt);
-            }
-        });
         jPanel4.add(txtContrasenia, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 70, 170, -1));
 
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -215,21 +120,11 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
                 txtNombreFocusLost(evt);
             }
         });
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
         jPanel4.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 140, 170, -1));
 
         txtEmail.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtEmailFocusLost(evt);
-            }
-        });
-        txtEmail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailActionPerformed(evt);
             }
         });
         jPanel4.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 180, 170, -1));
@@ -258,12 +153,6 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         chkDocumentacion.setForeground(new java.awt.Color(7, 81, 203));
         chkDocumentacion.setText("Se entregó documentación");
         jPanel4.add(chkDocumentacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 100, -1, -1));
-
-        dateChooserEnd.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dateChooserEndFocusLost(evt);
-            }
-        });
         jPanel4.add(dateChooserEnd, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, 170, -1));
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -275,45 +164,15 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(0, 51, 204));
         jLabel10.setText("Fecha de entrega:");
         jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 260, -1, -1));
-
-        dateChooserStart.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                dateChooserStartFocusLost(evt);
-            }
-        });
         jPanel4.add(dateChooserStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 170, -1));
 
         txtInvalidId.setForeground(new java.awt.Color(204, 0, 0));
-        txtInvalidId.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtInvalidIdFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInvalidIdFocusLost(evt);
-            }
-        });
         jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 160, 23));
 
         txtInvalidName.setForeground(new java.awt.Color(204, 0, 0));
-        txtInvalidName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtInvalidNameFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInvalidNameFocusLost(evt);
-            }
-        });
         jPanel4.add(txtInvalidName, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 140, 160, 23));
 
         txtInvalidEmail.setForeground(new java.awt.Color(204, 0, 0));
-        txtInvalidEmail.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtInvalidEmailFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInvalidEmailFocusLost(evt);
-            }
-        });
         jPanel4.add(txtInvalidEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, 160, 23));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -326,22 +185,9 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
                 txtCelular1FocusLost(evt);
             }
         });
-        txtCelular1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCelular1KeyTyped(evt);
-            }
-        });
         jPanel4.add(txtCelular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 290, 180, -1));
 
         txtInvalidCell.setForeground(new java.awt.Color(204, 0, 0));
-        txtInvalidCell.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtInvalidCellFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtInvalidCellFocusLost(evt);
-            }
-        });
         jPanel4.add(txtInvalidCell, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 290, 210, 20));
 
         getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 106, 920, 321));
@@ -395,24 +241,39 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdFocusLost
-        String id = txtId.getText().trim();
-    
-    if (!Validation.isIdValid(id)) {
-        txtInvalidId.setText("ID (RUC) Inválido");
-    } else {
-        txtInvalidId.setText(null); 
-    }
+        validId();
     }//GEN-LAST:event_txtIdFocusLost
 
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
-    private void txtContraseniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtContraseniaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtContraseniaActionPerformed
-
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        validName();
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+        validEmal();
+    }//GEN-LAST:event_txtEmailFocusLost
+
+    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
+        loadTaxPayer();
+    }//GEN-LAST:event_btnCargarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        saveTaxPayerChanges();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
+        goToMenu();
+    }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
+
+    private void txtCelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelular1FocusLost
+        validPhone();
+    }//GEN-LAST:event_txtCelular1FocusLost
+
+    private void goToMenu(){
+        FrmMenu frmMenu = new FrmMenu();
+        this.setVisible(false);
+        frmMenu.setVisible(true);
+    }
+    private void validName(){
         String PATTERN = "^[a-zA-ZáéíóúÁÉÍÓÚñÑ\\s]+$";
         Pattern patt = Pattern.compile(PATTERN);
         Matcher match = patt.matcher(txtNombre.getText().trim());
@@ -422,13 +283,17 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         } else {
             txtInvalidName.setText(null); // Limpiar el texto si es válido
         }
-    }//GEN-LAST:event_txtNombreFocusLost
-
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void txtEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtEmailFocusLost
+    }
+    private void validId(){
+        String id = txtId.getText().trim();
+    
+    if (!Validation.isIdValid(id)) {
+        txtInvalidId.setText("ID (RUC) Inválido");
+    } else {
+        txtInvalidId.setText(null); 
+    }
+    }
+    private void validEmal(){
         String PATTERN = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern patt = Pattern.compile(PATTERN);
         Matcher match = patt.matcher(txtEmail.getText().trim()); // Añadir trim() para manejar espacios en blanco
@@ -438,71 +303,8 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         } else {
             txtInvalidEmail.setText(null); // Limpiar el texto si es válido
         }
-    }//GEN-LAST:event_txtEmailFocusLost
-
-    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailActionPerformed
-
-    private void btnCargarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargarActionPerformed
-        cargarTaxPayer();
-    }//GEN-LAST:event_btnCargarActionPerformed
-
-    private void dateChooserEndFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserEndFocusLost
-
-    }//GEN-LAST:event_dateChooserEndFocusLost
-
-    private void dateChooserStartFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_dateChooserStartFocusLost
-
-    }//GEN-LAST:event_dateChooserStartFocusLost
-
-    private void txtInvalidIdFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidIdFocusGained
-
-    private void txtInvalidIdFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidIdFocusLost
-
-    }//GEN-LAST:event_txtInvalidIdFocusLost
-
-    private void txtInvalidNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidNameFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidNameFocusGained
-
-    private void txtInvalidNameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidNameFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidNameFocusLost
-
-    private void txtInvalidEmailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidEmailFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidEmailFocusGained
-
-    private void txtInvalidEmailFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidEmailFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidEmailFocusLost
-
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        saveTaxPayerChanges();
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
-    }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
-
-    private void txtCelular1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelular1KeyTyped
-
-    }//GEN-LAST:event_txtCelular1KeyTyped
-
-    private void txtInvalidCellFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusGained
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidCellFocusGained
-
-    private void txtInvalidCellFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtInvalidCellFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtInvalidCellFocusLost
-
-    private void txtCelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelular1FocusLost
+    }
+    private void validPhone(){
         if (txtCelular1.getText().trim().length() != 10) {
             txtInvalidCell.setText("Debe tener 10 dígitos");
         } else if (!txtCelular1.getText().trim().startsWith("09")) {
@@ -510,8 +312,27 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
         } else {
             txtInvalidCell.setText(null);
         }
-    }//GEN-LAST:event_txtCelular1FocusLost
+    }
+    private void loadTaxPayer(){
+        String id = txtId.getText().trim();
+        if (!id.isEmpty()) {
+            controller.cargarTaxPayer(id, txtEmail, txtNombre, txtContrasenia, chkDocumentacion, dateChooserStart, dateChooserEnd, txtCelular1);
+        } else {
+            JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID.");
+        }
+    }
+    private void saveTaxPayerChanges(){
+    String id = txtId.getText().trim();
+        String email = txtEmail.getText().trim();
+        String name = txtNombre.getText().trim();
+        String password = txtContrasenia.getText().trim();
+        boolean documentation = chkDocumentacion.isSelected();
+        Date startDate = dateChooserStart.getDate();
+        Date deliveryDate = dateChooserEnd.getDate();
+        String cellNumber = txtCelular1.getText().trim();
 
+        controller.saveTaxPayerChanges(id, email, name, password, documentation, startDate, deliveryDate, cellNumber);
+    }
     /**
      * @param args the command line arguments
      */

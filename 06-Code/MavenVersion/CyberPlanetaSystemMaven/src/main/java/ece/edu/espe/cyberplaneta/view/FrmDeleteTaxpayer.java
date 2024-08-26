@@ -1,9 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import java.awt.Color;
-import static java.awt.Frame.NORMAL;
-import static java.awt.image.ImageObserver.ERROR;
-import javax.swing.JOptionPane;
+import ec.edu.espe.cyberplaneta.controller.TaxpayerDeleteController;
+import ec.edu.espe.cyberplaneta.controller.TaxpayerDeleteInterface;
 import javax.swing.table.DefaultTableModel;
 import utils.ChartAndTableUtils;
 
@@ -14,7 +12,7 @@ import utils.ChartAndTableUtils;
 public class FrmDeleteTaxpayer extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
-
+    TaxpayerDeleteInterface taxpayerDeleteController = new TaxpayerDeleteController();
     /**
      * Creates new form FrmDeleteTaxpayer
      */
@@ -29,12 +27,6 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
         modelo.addColumn("Celular");
 
         this.tblDeleteTaxpayer.setModel(modelo);
-        this.tblDeleteTaxpayer.setCellSelectionEnabled(false);
-        this.tblDeleteTaxpayer.setRowSelectionAllowed(false);
-        this.tblDeleteTaxpayer.setColumnSelectionAllowed(false);
-        this.tblDeleteTaxpayer.getTableHeader().setReorderingAllowed(false);
-        this.tblDeleteTaxpayer.setBackground(Color.WHITE);
-        this.tblDeleteTaxpayer.isCellEditable(ERROR, NORMAL);
     }
 
     /**
@@ -236,15 +228,15 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdKeyTyped
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        handleSearch();
+        taxpayerDeleteController.handleSearch(txtId, btnDelete, modelo);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        goToMenu();
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        handleDelete();
+        taxpayerDeleteController.handleDelete(txtId, btnDelete, modelo);
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
@@ -280,53 +272,6 @@ public class FrmDeleteTaxpayer extends javax.swing.JFrame {
                 new FrmDeleteTaxpayer().setVisible(true);
             }
         });
-    }
-
-    private void goToMenu() {
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
-    }
-
-    private void cleanRow() {
-        btnDelete.setEnabled(false);
-        if (modelo.getRowCount() > 0) {
-            modelo.removeRow(0);
-        }
-    }
-
-    private void handleSearch() {
-        String id = txtId.getText();
-        if (!utils.Validation.isIdValid(id)) {
-            utils.Validation.showMessage(this, "El ID debe tener 13 dígitos y terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else if (utils.Validation.isTaxpayerExist(id)) {
-            utils.Validation.showMessage(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else {
-            cleanRow();
-            String[] data = utils.MongoDBUtil.DeleteTaxPayer(id);
-            addDataToModel(data);
-            btnDelete.setEnabled(true);
-        }
-    }
-
-    private void addDataToModel(String[] data) {
-        String[] info = new String[5];
-        for (int i = 0; i < data.length - 1; i++) {
-            info[i] = data[i];
-        }
-        modelo.addRow(info);
-    }
-
-    private void handleDelete() {
-        String idTaxPayer = txtId.getText().trim();
-        utils.MongoDBUtil.deleteDocumentById(idTaxPayer);
-        if (modelo.getRowCount() > 0) {
-            modelo.removeRow(0);
-        }
-        btnDelete.setEnabled(false);
-        utils.Validation.showMessage(this, "Contribuyente eliminado", "Información", JOptionPane.INFORMATION_MESSAGE);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

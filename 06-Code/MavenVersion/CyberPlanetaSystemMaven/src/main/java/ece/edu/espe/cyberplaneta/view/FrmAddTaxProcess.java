@@ -227,7 +227,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
-        goToMenu();
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtIdTaxpayerKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdTaxpayerKeyTyped
@@ -286,12 +286,6 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
                 new FrmAddTaxProcess().setVisible(true);
             }
         });
-    }
-
-    private void goToMenu() {
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
     }
 
     private void loadPriceListTable() {

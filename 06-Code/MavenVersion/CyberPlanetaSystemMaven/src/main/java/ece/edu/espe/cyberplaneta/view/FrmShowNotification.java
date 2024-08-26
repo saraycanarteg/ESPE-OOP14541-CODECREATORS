@@ -1,8 +1,9 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import java.awt.Color;
-import javax.swing.JOptionPane;
+import ec.edu.espe.cyberplaneta.controller.NotificationControl;
+import ec.edu.espe.cyberplaneta.controller.NotificationControlInterface;
 import javax.swing.table.DefaultTableModel;
+import utils.ChartAndTableUtils;
 
 /**
  *
@@ -24,17 +25,10 @@ public class FrmShowNotification extends javax.swing.JFrame {
         modelo.addColumn("Fecha de entrega");
         modelo.addColumn("Dias Restantes");
         modelo.addColumn("Celular");
-
         this.jTable2.setModel(modelo);
-        this.jTable2.setCellSelectionEnabled(false);
-        this.jTable2.setRowSelectionAllowed(false);
-        this.jTable2.setColumnSelectionAllowed(false);
-        this.jTable2.getTableHeader().setReorderingAllowed(false);
-        this.jTable2.setBackground(Color.WHITE);
-        this.jTable2.isCellEditable(ERROR, NORMAL);
-
+        ChartAndTableUtils utils = new ChartAndTableUtils();
+        utils.customizeTableHeader(jTable2);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,11 +59,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField1KeyTyped(evt);
@@ -254,43 +243,17 @@ public class FrmShowNotification extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelIncomeCalcActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelIncomeCalcActionPerformed
-        FrmMenu frmMenu = new FrmMenu();
-        this.setVisible(false);
-        frmMenu.setVisible(true);
+        utils.Validation.goToMenu(this);
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        String[] info = new String[6];
-        String id = jTextField1.getText();
-        if (id.length() != 13) {
-            JOptionPane.showMessageDialog(this, "El ID debe tener 13 digitos", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else if (!id.endsWith("001")) {
-           JOptionPane.showMessageDialog(this, "El ID debe terminar en '001'", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else if (utils.MongoDBUtil.verificationIdTaxpayer(id)) {
-            JOptionPane.showMessageDialog(this, "El contribuyente no existe", "Error", JOptionPane.ERROR_MESSAGE);
-            cleanRow();
-        } else {
-            cleanRow();
-            String[] data = utils.MongoDBUtil.notificaionTaxPayer(id);
-            for (int i = 0; i < data.length - 1; i++) {
-                info[i] = data[i];
-            }
-            modelo.addRow(info);
-            txtNotification.setText(data[6]);
-        }
+        String id = jTextField1.getText();  
+        NotificationControlInterface notificationControl = new NotificationControl();
+        notificationControl.controlNotification(id, txtNotification, modelo);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-
-    }//GEN-LAST:event_jTextField1FocusLost
-
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-        char c = evt.getKeyChar();
-        if (!Character.isDigit(c) && c != java.awt.event.KeyEvent.VK_BACK_SPACE && c != java.awt.event.KeyEvent.VK_DELETE) {
-            evt.consume(); 
-        }
+        utils.Validation.restrictInputToDigits(evt);
     }//GEN-LAST:event_jTextField1KeyTyped
 
     /**
@@ -326,13 +289,6 @@ public class FrmShowNotification extends javax.swing.JFrame {
                 new FrmShowNotification().setVisible(true);
             }
         });
-    }
-
-    private void cleanRow() {
-        txtNotification.setText(null);
-        if (modelo.getRowCount() > 0) {
-            modelo.removeRow(0);
-        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,11 +1,13 @@
 package utils;
 
+import ece.edu.espe.cyberplaneta.view.FrmMenu;
 import javax.swing.JTextField;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 public class Validation {
@@ -117,5 +119,11 @@ public class Validation {
     public static boolean isValidCellNumber(String cellNumber) {
         return cellNumber.length() == 10 && cellNumber.startsWith("09");
     }
+    
+    public static void goToMenu(JFrame currentFrame) {
+    FrmMenu frmMenu = new FrmMenu();
+    currentFrame.setVisible(false);
+    frmMenu.setVisible(true);
+}
 
 }

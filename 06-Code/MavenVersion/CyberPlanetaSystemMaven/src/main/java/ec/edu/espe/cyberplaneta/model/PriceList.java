@@ -31,16 +31,12 @@ public class PriceList {
         return id;
     }
 
-    
-
     /**
      * @return the processId
      */
     public int getProcessId() {
         return processId;
     }
-
-   
 
     /**
      * @return the processName
@@ -49,16 +45,12 @@ public class PriceList {
         return processName;
     }
 
-   
-
     /**
      * @return the price
      */
     public float getPrice() {
         return price;
     }
-
-    
 
     /**
      * @return the taxRate
@@ -67,5 +59,4 @@ public class PriceList {
         return taxRate;
     }
 
- 
 }

@@ -1,15 +1,8 @@
-
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.AddTaxPayerController;
-import ec.edu.espe.cyberplaneta.model.TaxPayer;
-import java.text.ParseException;
+import ec.edu.espe.cyberplaneta.controller.C_AddTaxPayer;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.Date;
-import java.util.regex.*;
-import javax.swing.JOptionPane;
 import utils.Validation;
 
 /**
@@ -17,13 +10,14 @@ import utils.Validation;
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmAddTaxpayer extends javax.swing.JFrame {
-    
-    private final AddTaxPayerController addTaxPayerController;
+
+    private final C_AddTaxPayer addTaxPayerController;
 
     public FrmAddTaxpayer() {
         initComponents();
-        addTaxPayerController = new AddTaxPayerController();
+        addTaxPayerController = new C_AddTaxPayer();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -367,119 +361,119 @@ public class FrmAddTaxpayer extends javax.swing.JFrame {
             }
         });
     }
-    
+
     private void goToMenu() {
         FrmMenu frmMenu = new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
     }
+
     private void saveTaxPayer() {
-         String frmAddId = txtId.getText().trim();
-    String frmEmail = txtEmail.getText().trim();
-    String frmNombre = txtNombre.getText().trim();
-    String frmContrasenia = txtContrasenia.getText().trim();
-    boolean frmDocumentation = ChkDocumentacion.isSelected();
-    String frmCellNumber = txtCelular.getText().trim();
+        String frmAddId = txtId.getText().trim();
+        String frmEmail = txtEmail.getText().trim();
+        String frmNombre = txtNombre.getText().trim();
+        String frmContrasenia = txtContrasenia.getText().trim();
+        boolean frmDocumentation = ChkDocumentacion.isSelected();
+        String frmCellNumber = txtCelular.getText().trim();
 
-    // Fechas formateadas
-    String date1 = "";
-    String date2 = "";
+        // Fechas formateadas
+        String date1 = "";
+        String date2 = "";
 
-    try {
+        try {
+            Date initDate = jdtInit.getDate();
+            Date finishDate = jdtFinish.getDate();
+
+            if (initDate != null && finishDate != null) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                date1 = sdf.format(initDate);
+                date2 = sdf.format(finishDate);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        C_AddTaxPayer controller = new C_AddTaxPayer();
+        controller.saveTaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2, frmCellNumber);
+
+    }
+
+    private void validEmail() {
+        String email = txtEmail.getText().trim();
+
+        if (!Validation.validateEmail(email)) {
+            txtInvalidEmail.setText("Correo Inválido");
+        } else {
+            txtInvalidEmail.setText(null);
+        }
+    }
+
+    private void validId() {
+        String id = txtId.getText().trim();
+
+        if (!Validation.isIdValid(id)) {
+            txtInvalidId.setText("ID (RUC) Inválido");
+        } else {
+            txtInvalidId.setText(null);
+        }
+    }
+
+    private void validName() {
+        String name = txtNombre.getText().trim();
+
+        if (!Validation.isValidName(name)) {
+            txtInvalidName.setText("Nombre Inválido");
+        } else {
+            txtInvalidName.setText(null);
+        }
+    }
+
+    private void validFinish() {
         Date initDate = jdtInit.getDate();
         Date finishDate = jdtFinish.getDate();
 
-        if (initDate != null && finishDate != null) {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            date1 = sdf.format(initDate);
-            date2 = sdf.format(finishDate);
+        if (!Validation.areDatesValid(initDate, finishDate)) {
+            if (initDate == null || finishDate == null) {
+                txtInvalidDates.setText("Seleccione ambas fechas");
+            } else {
+                txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+            }
+        } else {
+            txtInvalidDates.setText(null);
         }
-    } catch (Exception e) {
-        e.printStackTrace();  
     }
 
-    
-    AddTaxPayerController controller = new AddTaxPayerController();
-    controller.saveTaxPayer(frmAddId, frmEmail, frmNombre, frmContrasenia, frmDocumentation, date1, date2, frmCellNumber);
-
-    }
-    private void validEmail(){
-        String email = txtEmail.getText().trim();
-
-    if (!Validation.validateEmail(email)) {
-        txtInvalidEmail.setText("Correo Inválido");
-    } else {
-        txtInvalidEmail.setText(null); 
-    }
-    }
-    private void validId(){
-        String id = txtId.getText().trim();
-    
-    
-    if (!Validation.isIdValid(id)) {
-        txtInvalidId.setText("ID (RUC) Inválido");
-    } else {
-        txtInvalidId.setText(null); 
-    }
-    }
-    private void validName(){
-        String name = txtNombre.getText().trim();
-
-    
-    if (!Validation.isValidName(name)) {
-        txtInvalidName.setText("Nombre Inválido");
-    } else {
-        txtInvalidName.setText(null); 
-    }
-    }
-    private void validFinish(){
+    private void validInit() {
         Date initDate = jdtInit.getDate();
-    Date finishDate = jdtFinish.getDate();
+        Date finishDate = jdtFinish.getDate();
 
-    
-    if (!Validation.areDatesValid(initDate, finishDate)) {
-        if (initDate == null || finishDate == null) {
-            txtInvalidDates.setText("Seleccione ambas fechas");
+        if (!Validation.areDatesValid(initDate, finishDate)) {
+            if (initDate == null || finishDate == null) {
+                txtInvalidDates.setText("Seleccione ambas fechas");
+            } else {
+                txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+            }
         } else {
-            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
+            txtInvalidDates.setText(null);
         }
-    } else {
-        txtInvalidDates.setText(null); 
     }
-    }
-    private void validInit(){
-        Date initDate = jdtInit.getDate();
-    Date finishDate = jdtFinish.getDate();
 
-    
-    if (!Validation.areDatesValid(initDate, finishDate)) {
-        if (initDate == null || finishDate == null) {
-            txtInvalidDates.setText("Seleccione ambas fechas");
-        } else {
-            txtInvalidDates.setText("La fecha final no puede ser anterior a la fecha inicial");
-        }
-    } else {
-        txtInvalidDates.setText(null); 
-    }
-    }
-    private void validCellphone(){
-      String cellNumber = txtCelular.getText().trim();
+    private void validCellphone() {
+        String cellNumber = txtCelular.getText().trim();
 
-    if (!Validation.isValidCellNumber(cellNumber)) {
-        if (cellNumber.length() != 10) {
-            txtInvalidCell.setText("Debe tener 10 dígitos");
-        } else if (!cellNumber.startsWith("09")) {
-            txtInvalidCell.setText("Debe empezar con 09");
+        if (!Validation.isValidCellNumber(cellNumber)) {
+            if (cellNumber.length() != 10) {
+                txtInvalidCell.setText("Debe tener 10 dígitos");
+            } else if (!cellNumber.startsWith("09")) {
+                txtInvalidCell.setText("Debe empezar con 09");
+            } else {
+                txtInvalidCell.setText("Número de celular inválido");
+            }
         } else {
-            txtInvalidCell.setText("Número de celular inválido");
+            txtInvalidCell.setText(null); // Limpiar el texto si es válido
         }
-    } else {
-        txtInvalidCell.setText(null); // Limpiar el texto si es válido
-    }  
     }
-    private void validKey(){
-        
-    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox ChkDocumentacion;

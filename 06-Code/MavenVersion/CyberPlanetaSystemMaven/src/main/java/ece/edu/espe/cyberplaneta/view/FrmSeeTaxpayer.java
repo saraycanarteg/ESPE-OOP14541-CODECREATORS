@@ -1,9 +1,9 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import com.itextpdf.text.DocumentException;
-import ec.edu.espe.cyberplaneta.controller.ExcelReport;
-import ec.edu.espe.cyberplaneta.controller.PdfReport;
-import ec.edu.espe.cyberplaneta.controller.TaxPayerController;
+import ec.edu.espe.cyberplaneta.controller.C_ExcelReportGenerator;
+import ec.edu.espe.cyberplaneta.controller.C_PdfReportGenerator;
+import ec.edu.espe.cyberplaneta.controller.C_Taxpayer;
 import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import utils.ChartAndTableUtils;
@@ -14,7 +14,7 @@ import utils.ChartAndTableUtils;
  */
 public class FrmSeeTaxpayer extends javax.swing.JFrame {
 
-    private final TaxPayerController controller = new TaxPayerController();
+    private final C_Taxpayer controller = new C_Taxpayer();
     private final ChartAndTableUtils utils = new ChartAndTableUtils();
 
     /**
@@ -221,7 +221,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnGenerateReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportActionPerformed
-        ExcelReport excelReport = new ExcelReport();
+        C_ExcelReportGenerator excelReport = new C_ExcelReportGenerator();
         try {
             excelReport.exportToExcel(tblTaxpayers);
         } catch (IOException ex) {
@@ -237,7 +237,7 @@ public class FrmSeeTaxpayer extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
-        PdfReport pdfReport = new PdfReport();
+        C_PdfReportGenerator pdfReport = new C_PdfReportGenerator();
         try {
             pdfReport.exportTableToPDF(tblTaxpayers);
         } catch (IOException | DocumentException ex) {

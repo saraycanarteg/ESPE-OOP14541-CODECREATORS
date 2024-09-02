@@ -1,14 +1,14 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.UserAddController;
-import ec.edu.espe.cyberplaneta.controller.UserAddInterface;
+import ec.edu.espe.cyberplaneta.controller.C_UserHandling;
+import ec.edu.espe.cyberplaneta.controller.I_UserHandling;
 
 /**
  *
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmAddUser extends javax.swing.JFrame {
-    UserAddInterface userController = new UserAddController();
+    I_UserHandling userController = new C_UserHandling();
     /**
      * Creates new form FrmAddUser
      */

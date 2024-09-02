@@ -1,22 +1,25 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.IncomeController;
-import ec.edu.espe.cyberplaneta.controller.IncomeFrmController;
-import ec.edu.espe.cyberplaneta.controller.IncomeFrmInterface;
+import com.itextpdf.text.DocumentException;
+import ec.edu.espe.cyberplaneta.controller.C_ExcelReportGenerator;
+import ec.edu.espe.cyberplaneta.controller.C_IncomeHandle;
+import ec.edu.espe.cyberplaneta.controller.C_PdfReportGenerator;
+import java.io.IOException;
 import javax.swing.table.DefaultTableModel;
 import utils.MongoDBUtil;
 import javax.swing.JOptionPane;
 import utils.ChartAndTableUtils;
 
+
 /**
  *
- * @author Saray Cañarte, Code Creators, DCCO-ESPE
+ * @author Saray Cañarte & Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmIncomes extends javax.swing.JFrame {
 
-    private final ChartAndTableUtils utilsl = new ChartAndTableUtils();
-    private final IncomeController controller = new IncomeController();
-    IncomeFrmInterface incomeController = new IncomeFrmController();
+    private final ChartAndTableUtils tableUtils = new ChartAndTableUtils();
+    private final C_IncomeHandle controller = new C_IncomeHandle();
+    
 
     /**
      * Creates new form FrmIncomes
@@ -24,7 +27,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     public FrmIncomes() {
         initComponents();
         loadIncomes();
-        utilsl.customizeTableHeader(tblTotalIncomes);
+        tableUtils.customizeTableHeader(tblTotalIncomes);
     }
 
     private void loadIncomes() {
@@ -277,29 +280,40 @@ public class FrmIncomes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGoBackToMainActionPerformed
 
     private void btnGenerateReportExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportExcelActionPerformed
-        incomeController.generateExcelReport(tblTotalIncomes);
+        C_ExcelReportGenerator excelReport = new C_ExcelReportGenerator();
+        try {
+            excelReport.exportToExcel(tblTotalIncomes);
+        } catch (IOException ex) {
+            System.err.println("Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_btnGenerateReportExcelActionPerformed
 
     private void cmbAlphabeticalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbAlphabeticalOrderActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
         String selectedOrder = (String) cmbAlphabeticalOrder.getSelectedItem();
-        utilsl.sortTablebyAlphabeticalOrder(model, 1, selectedOrder);
+        tableUtils.sortTablebyAlphabeticalOrder(model, 1, selectedOrder);
 
     }//GEN-LAST:event_cmbAlphabeticalOrderActionPerformed
 
     private void cmbNumericalOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbNumericalOrderActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblTotalIncomes.getModel();
         String selectedOrder = (String) cmbNumericalOrder.getSelectedItem();
-        utilsl.sortTableByNumericalOrder(model, 5, selectedOrder);
+        tableUtils.sortTableByNumericalOrder(model, 5, selectedOrder);
 
     }//GEN-LAST:event_cmbNumericalOrderActionPerformed
 
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
-        incomeController.generatePdfReport(tblTotalIncomes);
+        C_PdfReportGenerator pdfReport = new C_PdfReportGenerator();
+        try {
+            pdfReport.exportTableToPDF(tblTotalIncomes);
+        } catch (IOException | DocumentException ex) {
+            System.err.println("Error: " + ex.getMessage());
+            ex.printStackTrace();
+        }
     }//GEN-LAST:event_btnGenerateReportPdfActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
-        incomeController.deleteSelectedRow(tblTotalIncomes);
+        controller.deleteSelectedRow(tblTotalIncomes);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -351,7 +365,7 @@ public class FrmIncomes extends javax.swing.JFrame {
     private void btnBuscarActionPerformedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformedActionPerformed
         String searchTerm = JOptionPane.showInputDialog(this, "Ingrese el término de búsqueda:");
         if (searchTerm != null && !searchTerm.trim().isEmpty()) {
-            incomeController.searchInTable(tblTotalIncomes, searchTerm);
+            controller.searchInIncomeTable(tblTotalIncomes, searchTerm);
         }
     }//GEN-LAST:event_btnBuscarActionPerformedActionPerformed
 

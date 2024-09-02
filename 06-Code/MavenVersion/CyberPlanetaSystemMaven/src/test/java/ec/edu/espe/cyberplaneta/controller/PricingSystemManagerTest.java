@@ -14,7 +14,7 @@ public class PricingSystemManagerTest {
     }
 
     /**
-     * Test of calculateTotalPrice method, of class PricingSystemController.
+     * Test of calculateTotalPrice method, of class C_PricingSystem.
      */
     @Test
     public void testCalculateTotalPrice1() {
@@ -22,7 +22,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.9F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -32,7 +32,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.75F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -42,7 +42,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 30.07F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -52,7 +52,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 10.0F;
         float expResult = 58.07F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -62,7 +62,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 9.0F;
         float expResult = 4.54F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -72,7 +72,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Devolución Impuesto a la Renta", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 4.02F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -82,7 +82,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 453.0F;
         float expResult = 31.79F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -92,7 +92,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Anexo de Accionista", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -102,7 +102,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 25.30F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -112,12 +112,12 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 40.0F;
         float expResult = 8.05F;
-        float result = PricingSystemController.calculateTotalPrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateTotalPrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateBasePrice method, of class PricingSystemController.
+     * Test of calculateBasePrice method, of class C_PricingSystem.
      */
     @Test
     public void testCalculateBasePrice1() {
@@ -125,7 +125,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 20.0F;
         float expResult = 6.0F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -135,7 +135,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,1, "Declaración de IVA en 0", 5.0f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 5.0F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -145,7 +145,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA mensual", 20.0f, 15f);
         float numDocumentation = 123.0F;
         float expResult = 26.15F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -155,7 +155,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,2, "Declaración de IVA semestral", 20.0f, 15f);
         float numDocumentation = 50.0F;
         float expResult = 22.5F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -165,7 +165,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 137.0F;
         float expResult = 56.85F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -175,7 +175,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,3, "Declaración de IVA semestral", 50.0f, 15f);
         float numDocumentation = 46.0F;
         float expResult = 52.3F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -185,7 +185,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 81.0F;
         float expResult = 7.55F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -195,7 +195,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,4, "Declaración de IVA semestral", 3.5f, 15f);
         float numDocumentation = 0.0F;
         float expResult = 3.5F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -205,7 +205,7 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 246.0F;
         float expResult = 17.3F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -215,12 +215,12 @@ public class PricingSystemManagerTest {
         PriceList selectedProcess = new PriceList(1,5, "Declaración de IVA semestral", 5.0f, 15f);
         float numDocumentation = 451.0F;
         float expResult = 27.55F;
-        float result = PricingSystemController.calculateBasePrice(selectedProcess, numDocumentation);
+        float result = C_PricingSystem.calculateBasePrice(selectedProcess, numDocumentation);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateTax method, of class PricingSystemController.
+     * Test of calculateTax method, of class C_PricingSystem.
      */
     @Test
     public void testCalculateTax1() {
@@ -228,7 +228,7 @@ public class PricingSystemManagerTest {
         float basePrice = 6.0F;
         float taxRate = 15.0F;
         float expResult = 0.9F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -238,7 +238,7 @@ public class PricingSystemManagerTest {
         float basePrice = 324.34F;
         float taxRate = 15.0F;
         float expResult = 48.65F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -248,7 +248,7 @@ public class PricingSystemManagerTest {
         float basePrice = 15.00F;
         float taxRate = 15.0F;
         float expResult = 2.25F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -258,7 +258,7 @@ public class PricingSystemManagerTest {
         float basePrice = 9755.03F;
         float taxRate = 15.0F;
         float expResult = 1463.25F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -268,7 +268,7 @@ public class PricingSystemManagerTest {
         float basePrice = 1000.03F;
         float taxRate = 15.0F;
         float expResult = 150.00F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -278,7 +278,7 @@ public class PricingSystemManagerTest {
         float basePrice = 25.32F;
         float taxRate = 15.0F;
         float expResult = 3.79F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -288,7 +288,7 @@ public class PricingSystemManagerTest {
         float basePrice = 329.01F;
         float taxRate = 15.0F;
         float expResult = 49.35F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -298,7 +298,7 @@ public class PricingSystemManagerTest {
         float basePrice = 1.11F;
         float taxRate = 15.0F;
         float expResult = 0.16F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -308,7 +308,7 @@ public class PricingSystemManagerTest {
         float basePrice = 0.03F;
         float taxRate = 15.0F;
         float expResult = 0.00F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -318,12 +318,12 @@ public class PricingSystemManagerTest {
         float basePrice = 1500.09F;
         float taxRate = 15.0F;
         float expResult = 225.01F;
-        float result = PricingSystemController.calculateTax(basePrice, taxRate);
+        float result = C_PricingSystem.calculateTax(basePrice, taxRate);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateCAGR method, of class PricingSystemController.
+     * Test of calculateCAGR method, of class C_PricingSystem.
      */
     @Test
     public void testCalculateCAGR1() {
@@ -332,7 +332,7 @@ public class PricingSystemManagerTest {
         double finalValue = 2000.0;
         int numYears = 5;
         double expResult = 14.86;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -343,7 +343,7 @@ public class PricingSystemManagerTest {
         double finalValue = 340.0;
         int numYears = 3;
         double expResult = 12.31;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -354,7 +354,7 @@ public class PricingSystemManagerTest {
         double finalValue = 340.0;
         int numYears = 4;
         double expResult = 9.09;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -365,7 +365,7 @@ public class PricingSystemManagerTest {
         double finalValue = 140.0;
         int numYears = 4;
         double expResult = 20.47;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -376,7 +376,7 @@ public class PricingSystemManagerTest {
         double finalValue = 100.0;
         int numYears = 4;
         double expResult = 15.91;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -387,7 +387,7 @@ public class PricingSystemManagerTest {
         double finalValue = 700.0;
         int numYears = 1;
         double expResult = 51.17;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -398,7 +398,7 @@ public class PricingSystemManagerTest {
         double finalValue = 1000.0;
         int numYears = 2;
         double expResult = 4.26;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -409,7 +409,7 @@ public class PricingSystemManagerTest {
         double finalValue = 140.0;
         int numYears = 1;
         double expResult = 90.67;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     @Test
@@ -419,7 +419,7 @@ public class PricingSystemManagerTest {
         double finalValue = 15000.0;
         int numYears = 1;
         double expResult = 66.67;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
     
@@ -430,12 +430,12 @@ public class PricingSystemManagerTest {
         double finalValue = 108742.52;
         int numYears = 8;
         double expResult = 4.14;
-        double result = CAGRController.calculateCAGR(initialValue, finalValue, numYears);
+        double result = C_CompoundAnualGrowth.calculateCAGR(initialValue, finalValue, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
     /**
-     * Test of calculateFutureValue method, of class PricingSystemController.
+     * Test of calculateFutureValue method, of class C_PricingSystem.
      */
     @Test
     public void testCalculateFutureValue1() {
@@ -444,7 +444,7 @@ public class PricingSystemManagerTest {
         double cagr = 10.0;
         int numYears = 5;
         double expResult = 1610.51;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -455,7 +455,7 @@ public class PricingSystemManagerTest {
         double cagr = 10.0;
         int numYears = 3;
         double expResult = 1331.00;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -466,7 +466,7 @@ public class PricingSystemManagerTest {
         double cagr = 23.45;
         int numYears = 4;
         double expResult = 80302.83F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -477,7 +477,7 @@ public class PricingSystemManagerTest {
         double cagr = 23.45;
         int numYears = 4;
         double expResult = 10480.37F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -488,7 +488,7 @@ public class PricingSystemManagerTest {
         double cagr = 20.45;
         int numYears = 3;
         double expResult = 7885.56F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -499,7 +499,7 @@ public class PricingSystemManagerTest {
         double cagr = 4.03;
         int numYears = 3;
         double expResult = 383.03F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -510,7 +510,7 @@ public class PricingSystemManagerTest {
         double cagr = 4.03;
         int numYears = 1;
         double expResult = 353.93F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -521,7 +521,7 @@ public class PricingSystemManagerTest {
         double cagr = 0.0;
         int numYears = 1;
         double expResult = 1.00F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -532,7 +532,7 @@ public class PricingSystemManagerTest {
         double cagr = 123.0;
         int numYears = 34;
         double expResult = 695609242235.93F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 
@@ -543,7 +543,7 @@ public class PricingSystemManagerTest {
         double cagr = 0.01;
         int numYears = 7;
         double expResult = 676.13F;
-        double result = CAGRController.calculateFutureValue(finalValue, cagr, numYears);
+        double result = C_CompoundAnualGrowth.calculateFutureValue(finalValue, cagr, numYears);
         assertEquals(expResult, result, 0.01);
     }
 

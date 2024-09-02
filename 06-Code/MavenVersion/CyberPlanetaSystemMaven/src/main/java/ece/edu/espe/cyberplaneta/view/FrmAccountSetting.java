@@ -1,7 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.AccountSettingController;
-import ec.edu.espe.cyberplaneta.controller.AccountSettingInterface;
+import ec.edu.espe.cyberplaneta.controller.C_AccountSetting;
+import ec.edu.espe.cyberplaneta.controller.I_AccountSetting;
 
 /**
  *
@@ -9,7 +9,7 @@ import ec.edu.espe.cyberplaneta.controller.AccountSettingInterface;
  */
 public class FrmAccountSetting extends javax.swing.JFrame {
 
-    AccountSettingInterface accountSetting = new AccountSettingController();
+    I_AccountSetting accountSetting = new C_AccountSetting();
 
     /**
      * Creates new form FrmAccountSetting

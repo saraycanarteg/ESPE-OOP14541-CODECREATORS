@@ -1,8 +1,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.IncomeController;
+import ec.edu.espe.cyberplaneta.controller.C_IncomeHandle;
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
+import ec.edu.espe.cyberplaneta.controller.C_PricingSystem;
 import static java.lang.Integer.parseInt;
 import javax.swing.JOptionPane;
 import utils.ChartAndTableUtils;
@@ -13,7 +13,7 @@ import utils.Validation;
  * @author Saray Canarte, Code Creators, DCCO-ESPE
  */
 public class FrmPricingSystem extends javax.swing.JFrame {
-    private final PricingSystemController controller = new PricingSystemController();
+    private final C_PricingSystem controller = new C_PricingSystem();
         /**
      * Creates new form FrmPriceSystem
      */
@@ -274,7 +274,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
         int numberOfDocumentation = parseInt(txtNumberOfDocumentation.getText());
         boolean addToIncomes = chbAddCalcToIncomes.isSelected();
          PriceList selectedProcess = null;
-            for (PriceList process : PricingSystemController.getPriceListArray()) {
+            for (PriceList process : C_PricingSystem.getPriceListArray()) {
                 if (process.getProcessId() == processId) {
                     selectedProcess = process;
                     break;
@@ -286,7 +286,7 @@ public class FrmPricingSystem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, message, "Resultados de Cálculo", JOptionPane.INFORMATION_MESSAGE);
 
             if (addToIncomes) {
-                IncomeController.saveTaxProcessToDatabase(selectedProcess, totalPrice, numberOfDocumentation);
+                C_IncomeHandle.saveTaxProcessToDatabase(selectedProcess, totalPrice, numberOfDocumentation);
                 JOptionPane.showMessageDialog(this, "Datos guardados en la nube.", "Información", JOptionPane.INFORMATION_MESSAGE);
             }
     }

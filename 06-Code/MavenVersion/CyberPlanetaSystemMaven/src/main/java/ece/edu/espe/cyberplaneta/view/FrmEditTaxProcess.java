@@ -1,8 +1,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.EditTaxProcessController;
+import ec.edu.espe.cyberplaneta.controller.C_TaxProcess;
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
+import ec.edu.espe.cyberplaneta.controller.C_PricingSystem;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -17,14 +17,13 @@ import utils.MongoDBUtil;
  */
 public class FrmEditTaxProcess extends javax.swing.JFrame {
 
-    private EditTaxProcessController controller;
-    private static final ImageIcon WARNING_ICON = new ImageIcon(FrmEditTaxProcess.class.getResource("/images/triangle-warning.png"));
+    private C_TaxProcess controller;
 
     /**
      * Creates new form FrmPriceSystem
      */
     public FrmEditTaxProcess() {
-        controller = new EditTaxProcessController();
+        controller = new C_TaxProcess();
         initComponents();
         loadPriceListTable();
         ChartAndTableUtils.customizeTableHeader(tblPriceList);
@@ -52,7 +51,7 @@ public class FrmEditTaxProcess extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
         model.setRowCount(0);
 
-        for (PriceList price : PricingSystemController.getPriceListArray()) {
+        for (PriceList price : C_PricingSystem.getPriceListArray()) {
             model.addRow(new Object[]{
                 price.getProcessId(),
                 price.getProcessName(),

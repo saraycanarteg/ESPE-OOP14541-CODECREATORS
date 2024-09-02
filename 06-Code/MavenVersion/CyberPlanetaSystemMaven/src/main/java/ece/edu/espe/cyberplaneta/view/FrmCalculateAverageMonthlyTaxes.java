@@ -1,8 +1,8 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import com.itextpdf.text.DocumentException;
-import ec.edu.espe.cyberplaneta.controller.PdfReport;
-import ec.edu.espe.cyberplaneta.controller.TaxesAverageController;
+import ec.edu.espe.cyberplaneta.controller.C_PdfReportGenerator;
+import ec.edu.espe.cyberplaneta.controller.C_TaxesOperation;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -19,13 +19,13 @@ import utils.Validation;
 public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
 
     private JTextField[] monthFields;
-    private TaxesAverageController taxesAverageController;
+    private C_TaxesOperation taxesAverageController;
 
     /**
      * Creates new form FrmCalculateAverageMonthlyTaxes
      */
     public FrmCalculateAverageMonthlyTaxes() {
-        this.taxesAverageController = new TaxesAverageController();
+        this.taxesAverageController = new C_TaxesOperation();
         initComponents();
         initMonthFields();
     }
@@ -352,7 +352,7 @@ public class FrmCalculateAverageMonthlyTaxes extends javax.swing.JFrame {
     private void btnGenerateReportPdfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerateReportPdfActionPerformed
         JFreeChart currentChart = (JFreeChart) ((ChartPanel) pnlGraph.getComponent(0)).getChart();
 
-        PdfReport pdfReport = new PdfReport();
+        C_PdfReportGenerator pdfReport = new C_PdfReportGenerator();
         try {
             pdfReport.exportChartToPDF(currentChart);
         } catch (IOException | DocumentException ex) {

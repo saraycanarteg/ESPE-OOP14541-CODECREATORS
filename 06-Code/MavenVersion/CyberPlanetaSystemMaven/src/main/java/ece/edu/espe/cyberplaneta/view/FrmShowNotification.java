@@ -1,9 +1,9 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.NotificationControl;
-import ec.edu.espe.cyberplaneta.controller.NotificationControlInterface;
+import ec.edu.espe.cyberplaneta.controller.C_NotificationHandle;
 import javax.swing.table.DefaultTableModel;
 import utils.ChartAndTableUtils;
+import ec.edu.espe.cyberplaneta.controller.I_NotificationHandle;
 
 /**
  *
@@ -247,7 +247,7 @@ public class FrmShowNotification extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelIncomeCalcActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        NotificationControlInterface notificationControl = new NotificationControl();
+        I_NotificationHandle notificationControl = new C_NotificationHandle();
         notificationControl.controlNotification(jTextField1.getText(), txtNotification, modelo);
     }//GEN-LAST:event_btnBuscarActionPerformed
 

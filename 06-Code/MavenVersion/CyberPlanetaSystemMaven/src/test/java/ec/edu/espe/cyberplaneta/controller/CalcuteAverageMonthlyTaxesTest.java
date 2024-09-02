@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
- */
 package ec.edu.espe.cyberplaneta.controller;
 
 import org.junit.jupiter.api.AfterEach;
@@ -47,7 +43,7 @@ public class CalcuteAverageMonthlyTaxesTest {
         int numberOfMonths = 2;
         double[] monthlyTaxes = {100.0, 50.0};
         double expResult = 75.0;
-        double result = TaxesAverageController.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
+        double result = C_TaxesOperation.calculateAverageMonthlyTaxes(numberOfMonths, monthlyTaxes);
         assertEquals(expResult, result, 0.01);
     }
 

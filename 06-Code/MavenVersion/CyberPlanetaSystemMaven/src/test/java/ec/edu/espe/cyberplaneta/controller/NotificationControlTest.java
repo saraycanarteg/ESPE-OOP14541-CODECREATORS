@@ -23,7 +23,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2023, 1, 2);
         LocalDate endDate = LocalDate.of(2023, 1, 1);
         long expResult = -1L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -33,7 +33,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2021, 2, 28);
         LocalDate endDate = LocalDate.of(2021, 3, 1);
         long expResult = 1L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -43,7 +43,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(1999, 12, 31);
         LocalDate endDate = LocalDate.of(2000, 1, 1);
         long expResult = 1L;
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -53,7 +53,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(1900, 1, 1);
         LocalDate endDate = LocalDate.of(2000, 1, 1);
         long expResult = 36524L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -63,7 +63,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2020, 2, 28);
         LocalDate endDate = LocalDate.of(2020, 3, 1);
         long expResult = 2L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -73,7 +73,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2020, 1, 1);
         LocalDate endDate = LocalDate.of(1900, 1, 1);
         long expResult = -43829L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -83,7 +83,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2021, 1, 10);
         LocalDate endDate = LocalDate.of(2021, 1, 15);
         long expResult = 5L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -93,7 +93,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2021, 3, 31);
         LocalDate endDate = LocalDate.of(2021, 4, 1);
         long expResult = 1L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -103,7 +103,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2021, 3, 13);
         LocalDate endDate = LocalDate.of(2021, 3, 15);
         long expResult = 2L; 
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 
@@ -113,7 +113,7 @@ public class NotificationControlTest {
         LocalDate startDate = LocalDate.of(2021, 12, 31);
         LocalDate endDate = LocalDate.of(2022, 1, 1);
         long expResult = 1L;
-        long result = NotificationControl.getDaysBetweenDates(startDate, endDate);
+        long result = C_NotificationHandle.getDaysBetweenDates(startDate, endDate);
         assertEquals(expResult, result);
     }
 }

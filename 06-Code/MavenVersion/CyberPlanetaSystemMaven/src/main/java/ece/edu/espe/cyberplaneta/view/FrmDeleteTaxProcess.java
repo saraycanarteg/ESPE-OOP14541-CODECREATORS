@@ -1,7 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
-import ec.edu.espe.cyberplaneta.controller.TaxProcessController;
+import ec.edu.espe.cyberplaneta.controller.C_PricingSystem;
+import ec.edu.espe.cyberplaneta.controller.C_TaxProcess;
 import javax.swing.JOptionPane;
 import utils.ChartAndTableUtils;
 import utils.Validation;
@@ -12,7 +12,7 @@ import utils.Validation;
  */
 public class FrmDeleteTaxProcess extends javax.swing.JFrame {
 
-    private TaxProcessController controller = new TaxProcessController();
+    private C_TaxProcess controller = new C_TaxProcess();
     private final ChartAndTableUtils utilstable = new ChartAndTableUtils();
 
     /**
@@ -296,7 +296,7 @@ public class FrmDeleteTaxProcess extends javax.swing.JFrame {
         });
     }
     private void loadPriceListTable() {
-        PricingSystemController tablecontroller = new PricingSystemController();
+        C_PricingSystem tablecontroller = new C_PricingSystem();
         tablecontroller.loadDataToTable(tblPriceList);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables

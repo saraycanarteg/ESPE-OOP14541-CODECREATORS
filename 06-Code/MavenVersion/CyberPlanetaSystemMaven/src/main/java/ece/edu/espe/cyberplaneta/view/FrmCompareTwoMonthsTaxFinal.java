@@ -1,31 +1,24 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.CompareTwoMonthsTax;
-import ec.edu.espe.cyberplaneta.model.SimpleTaxComparison;
-import ec.edu.espe.cyberplaneta.model.TaxComparison;
+import ec.edu.espe.cyberplaneta.controller.C_TaxesOperation;
 import javax.swing.JOptionPane;
-
 
 /**
  *
  * @author Nahomi Cedeño,CODECREATORS,DCC0-ESPE
  */
 public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
-    private CompareTwoMonthsTax compareTwoMonthsTax;
-    
-    public FrmCompareTwoMonthsTaxFinal(TaxComparison taxComparison) {
+
+    C_TaxesOperation controller = new C_TaxesOperation();
+
+    public FrmCompareTwoMonthsTaxFinal() {
         initComponents();
-        compareTwoMonthsTax = new CompareTwoMonthsTax();
     }
+
     /**
      * Creates new form FrmCompareTwoMonthsTaxFinal
      */
-    public FrmCompareTwoMonthsTaxFinal() {
-        initComponents();
-        compareTwoMonthsTax = new CompareTwoMonthsTax();
-    }
-
-    
+ 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -210,12 +203,13 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
         goToMenu();
     }//GEN-LAST:event_btnCancelActionPerformed
 
-    private void goToMenu(){
+    private void goToMenu() {
         FrmMenu frmMenu = new FrmMenu();
         this.setVisible(false);
         frmMenu.setVisible(true);
     }
-    private void compareTwoMonths(){
+
+    private void compareTwoMonths() {
         String valueMonth1Str = txtValueMonth1.getText().replace(",", ".");
         String valueMonth2Str = txtValueMonth2.getText().replace(",", ".");
 
@@ -227,7 +221,7 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
             double valueMonth1 = Double.parseDouble(valueMonth1Str);
             double valueMonth2 = Double.parseDouble(valueMonth2Str);
 
-            String result = compareTwoMonthsTax.compareMonths(valueMonth1, valueMonth2);
+            String result = controller.compareMonths(valueMonth1, valueMonth2);
 
             txtComparation.setText(result);
 
@@ -235,6 +229,7 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
             txtValueMonth2.setText("");
         }
     }
+
     /**
      * @param args the command line arguments
      */
@@ -265,7 +260,7 @@ public class FrmCompareTwoMonthsTaxFinal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrmCompareTwoMonthsTaxFinal(new SimpleTaxComparison()).setVisible(true);
+                new FrmCompareTwoMonthsTaxFinal().setVisible(true);
             }
         });
     }

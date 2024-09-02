@@ -1,7 +1,7 @@
 package ece.edu.espe.cyberplaneta.view;
 
 import ec.edu.espe.cyberplaneta.model.PriceList;
-import ec.edu.espe.cyberplaneta.controller.PricingSystemController;
+import ec.edu.espe.cyberplaneta.controller.C_PricingSystem;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -14,14 +14,14 @@ import utils.MongoDBUtil;
  */
 public class FrmAddTaxProcess extends javax.swing.JFrame {
 
-    private PricingSystemController controller = new PricingSystemController();
+    private C_PricingSystem controller = new C_PricingSystem();
     private static final ImageIcon WARNING_ICON = new ImageIcon(FrmAddTaxProcess.class.getResource("/images/triangle-warning.png"));
 
     /**
      * Creates new form FrmPriceSystem
      */
     public FrmAddTaxProcess() {
-        this.controller = new PricingSystemController();
+        this.controller = new C_PricingSystem();
         initComponents();
         loadPriceListTable();
         ChartAndTableUtils.customizeTableHeader(tblPriceList);
@@ -292,7 +292,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tblPriceList.getModel();
         model.setRowCount(0);
 
-        for (PriceList price : PricingSystemController.getPriceListArray()) {
+        for (PriceList price : C_PricingSystem.getPriceListArray()) {
             model.addRow(new Object[]{
                 price.getProcessId(),
                 price.getProcessName(),
@@ -344,7 +344,7 @@ public class FrmAddTaxProcess extends javax.swing.JFrame {
     }
 
     private PriceList findSelectedProcess(int processId) {
-        for (PriceList process : PricingSystemController.getPriceListArray()) {
+        for (PriceList process : C_PricingSystem.getPriceListArray()) {
             if (process.getProcessId() == processId) {
                 return process;
             }

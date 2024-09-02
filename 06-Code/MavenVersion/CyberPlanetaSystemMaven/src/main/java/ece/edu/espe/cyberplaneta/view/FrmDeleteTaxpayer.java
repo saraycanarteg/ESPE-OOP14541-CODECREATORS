@@ -1,9 +1,9 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.TaxpayerDeleteController;
-import ec.edu.espe.cyberplaneta.controller.TaxpayerDeleteInterface;
+import ec.edu.espe.cyberplaneta.controller.C_TaxpayerDeletion;
 import javax.swing.table.DefaultTableModel;
 import utils.ChartAndTableUtils;
+import ec.edu.espe.cyberplaneta.controller.I_TaxpayerDeletion;
 
 /**
  *
@@ -12,7 +12,7 @@ import utils.ChartAndTableUtils;
 public class FrmDeleteTaxpayer extends javax.swing.JFrame {
 
     DefaultTableModel modelo;
-    TaxpayerDeleteInterface taxpayerDeleteController = new TaxpayerDeleteController();
+    I_TaxpayerDeletion taxpayerDeleteController = new C_TaxpayerDeletion();
     /**
      * Creates new form FrmDeleteTaxpayer
      */

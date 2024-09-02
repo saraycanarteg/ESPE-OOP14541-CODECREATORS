@@ -8,8 +8,7 @@ import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
 import com.mongodb.client.result.UpdateResult;
-import ec.edu.espe.cyberplaneta.controller.NotificationControl;
-import ec.edu.espe.cyberplaneta.controller.NotificationControlInterface;
+import ec.edu.espe.cyberplaneta.controller.C_NotificationHandle;
 import ec.edu.espe.cyberplaneta.model.TaxPayer;
 import ec.edu.espe.cyberplaneta.model.TaxProcess;
 import java.math.BigDecimal;
@@ -19,6 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
+import ec.edu.espe.cyberplaneta.controller.I_NotificationHandle;
 
 /**
  *
@@ -122,7 +122,7 @@ public class MongoDBUtil {
         String startDate = user.getString("startDate");
         String cellNumber = user.getString("cellNumber");
         LocalDate deliveryDates = LocalDate.parse(deliveryDate, DATE_FORMATTER);
-        NotificationControlInterface notificationControl = new NotificationControl();
+        I_NotificationHandle notificationControl = new C_NotificationHandle();
         
         long remainingDays = notificationControl.getDaysBetweenDates(LocalDate.now(), deliveryDates);
         msm = notificationControl.displayNotification(nameTaxpayer, deliveryDate, remainingDays);

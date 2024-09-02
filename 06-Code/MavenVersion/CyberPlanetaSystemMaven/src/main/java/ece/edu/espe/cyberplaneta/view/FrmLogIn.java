@@ -1,13 +1,13 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.AccountController;
+import ec.edu.espe.cyberplaneta.controller.C_AccountSetting;
 
 /**
  *
  * @author Christian Bonifaz, Code Creators, DCCO-ESPE
  */
 public class FrmLogIn extends javax.swing.JFrame {
-    AccountController accountController = new AccountController();
+    C_AccountSetting accountController = new C_AccountSetting();
     /**
      * Creates new form FrmCyberPlanetaLogIn
      */

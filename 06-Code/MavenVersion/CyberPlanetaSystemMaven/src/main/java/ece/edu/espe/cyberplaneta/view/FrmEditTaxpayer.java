@@ -4,7 +4,7 @@
  */
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.EditTaxPayerController;
+import ec.edu.espe.cyberplaneta.controller.C_TaxPayerEdition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -20,7 +20,7 @@ import utils.Validation;
  */
 public class FrmEditTaxpayer extends javax.swing.JFrame {
 
-    private EditTaxPayerController controller = new EditTaxPayerController();
+    private C_TaxPayerEdition controller = new C_TaxPayerEdition();
     
     public FrmEditTaxpayer() {
         initComponents();
@@ -316,7 +316,7 @@ public class FrmEditTaxpayer extends javax.swing.JFrame {
     private void loadTaxPayer(){
         String id = txtId.getText().trim();
         if (!id.isEmpty()) {
-            controller.cargarTaxPayer(id, txtEmail, txtNombre, txtContrasenia, chkDocumentacion, dateChooserStart, dateChooserEnd, txtCelular1);
+            controller.loadTaxPayer(id, txtEmail, txtNombre, txtContrasenia, chkDocumentacion, dateChooserStart, dateChooserEnd, txtCelular1);
         } else {
             JOptionPane.showMessageDialog(this, "Por favor, ingrese un ID.");
         }

@@ -1,7 +1,7 @@
 
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.Search9DigitController;
+import ec.edu.espe.cyberplaneta.controller.C_9thDigitSearchMotor;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
@@ -22,11 +22,11 @@ import utils.MongoDBUtil;
  */
 public class FrmSearch9Digit extends javax.swing.JFrame {
 
-     private final Search9DigitController controller;
+     private final C_9thDigitSearchMotor controller;
     
     public FrmSearch9Digit() {
         initComponents();
-        controller = new Search9DigitController();
+        controller = new C_9thDigitSearchMotor();
         ChartAndTableUtils.customizeTableHeader(tblTaxPayers);
         
     }

@@ -17,7 +17,7 @@ public class CompareTwoMonthsTaxTest {
     }
 
     /**
-     * Test of calculateDifference method, of class CompareTwoMonthsTax.
+     * Test of calculateDifference method, of class C_TaxesOperation.
      */
     @Test
     public void testCalculateDifference1() {
@@ -25,7 +25,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 1200.0;
         double segundoMes = 1000.0;
         double expResult = 200.0;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -35,7 +35,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 2700.0;
         double segundoMes = 1100.0;
         double expResult = 1600.0;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -45,7 +45,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 123.7;
         double segundoMes = 23.4;
         double expResult = 100.3;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -55,7 +55,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 444.2;
         double segundoMes = 231.1;
         double expResult = 213.1;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -65,7 +65,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 32.1;
         double segundoMes = 121.4;
         double expResult = 89.3;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -75,7 +75,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 123.2;
         double segundoMes = 241.5;
         double expResult = 118.3;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
         
     }
@@ -85,7 +85,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 789.5;
         double segundoMes = 123.4;
         double expResult = 666.1;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
     }
 
@@ -95,7 +95,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 0.0;
         double segundoMes = 250.5;
         double expResult = 250.5;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
     }
 
@@ -105,7 +105,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 999.9;
         double segundoMes = 0.1;
         double expResult = 999.8;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
     }
 
@@ -115,7 +115,7 @@ public class CompareTwoMonthsTaxTest {
         double primerMes = 456.7;
         double segundoMes = 123.2;
         double expResult = 333.5;
-        double result = CompareTwoMonthsTax.calculateDifference(primerMes, segundoMes);
+        double result = C_TaxesOperation.calculateDifference(primerMes, segundoMes);
         assertEquals(expResult, result, 0.1);
     }
 }

@@ -1,11 +1,11 @@
 package ece.edu.espe.cyberplaneta.view;
 
-import ec.edu.espe.cyberplaneta.controller.CAGRController;
-import ec.edu.espe.cyberplaneta.controller.CAGRInterface;
+import ec.edu.espe.cyberplaneta.controller.C_CompoundAnualGrowth;
 import javax.swing.JOptionPane;
 import org.jfree.data.category.DefaultCategoryDataset;
 import utils.ChartAndTableUtils;
 import utils.Validation;
+import ec.edu.espe.cyberplaneta.controller.I_CompoundAnualGrowth;
 
 /**
  *
@@ -13,14 +13,14 @@ import utils.Validation;
  */
 public class FrmCalculateCAGR extends javax.swing.JFrame {
 
-    private final CAGRInterface cagrController;
+    private final I_CompoundAnualGrowth cagrController;
 
     /**
      * Creates new form FrmCalculateCAGR
      */
     public FrmCalculateCAGR() {
         initComponents();
-        cagrController = new CAGRController();
+        cagrController = new C_CompoundAnualGrowth();
     }
 
     /**

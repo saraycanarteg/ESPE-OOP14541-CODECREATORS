@@ -1,9 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package ece.edu.espe.cyberplaneta.view;
-
 
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -25,33 +20,27 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
         ChartAndTableUtils.customizeTableHeader(tblTaxPayers);
         // loadTaxPayers();
     }
-    
-    private void loadProcessData(String contributorId, String Id) {
-         DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
+
+    private void loadProcessData(String contributorId) {
+        DefaultTableModel model = (DefaultTableModel) tblTaxPayers.getModel();
         model.setRowCount(0);
-        List<Document> documents = MongoDBUtil.getAllProcess(contributorId);
+
+        List<Document> documents = MongoDBUtil.getAllProcess(contributorId+"_process");
 
         for (Document doc : documents) {
             String id = doc.getString("id");
-            if (id != null && id.equals(Id)) {
-                int processIdDoc = doc.getInteger("processId");
-                String processName = doc.getString("processName");
-                double price = doc.getDouble("price");
-                double taxRate = doc.getDouble("taxRate");
+            int processIdDoc = doc.getInteger("processId");
+            String processName = doc.getString("processName");
+            double price = doc.getDouble("price");
+            double taxRate = doc.getDouble("taxRate");
 
-                model.addRow(new Object[]{
-                    id,
-                    processIdDoc,
-                    processName,
-                    price,
-                    taxRate
-                });
-                break; 
-            }
-        }
-
-        if (model.getRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Proceso no encontrado.");
+            model.addRow(new Object[]{
+                id,
+                processIdDoc,
+                processName,
+                price,
+                taxRate
+            });
         }
     }
 
@@ -70,8 +59,6 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         txtInvalidIDocumentation = new javax.swing.JLabel();
         txtInvalidId = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblTaxPayers = new javax.swing.JTable();
@@ -88,8 +75,8 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(7, 81, 203));
-        jLabel11.setText("Búsqueda Tax Proceso");
-        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 20, 430, -1));
+        jLabel11.setText("<html>Búsqueda Procesos de Contribuyentes");
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 10, 430, 90));
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/bg2 - copia.jpg"))); // NOI18N
         jPanel5.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(-200, 0, -1, 100));
@@ -102,19 +89,6 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
 
         txtInvalidId.setForeground(new java.awt.Color(255, 0, 0));
         jPanel4.add(txtInvalidId, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 10, 250, 40));
-
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField2FocusLost(evt);
-            }
-        });
-        jPanel4.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 130, -1));
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(51, 51, 255));
-        jLabel4.setText("Id general:");
-        jPanel4.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, -1));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(51, 51, 255));
@@ -131,7 +105,7 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "ProcessId", "ProcessName", "Price", "TaxRate"
+                "ID General", "ID del Proceso", "Nombre del Proceso", "Precio", "Impuesto"
             }
         ));
         tblTaxPayers.setFocusable(false);
@@ -153,7 +127,7 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
                 btnBuscarActionActionPerformed(evt);
             }
         });
-        jPanel4.add(btnBuscarAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, 148, -1));
+        jPanel4.add(btnBuscarAction, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 30, 148, -1));
 
         jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -226,40 +200,29 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
 
     private void btnBuscarActionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionActionPerformed
         String contributorId = jTextField1.getText().trim();
-        String processIdText = jTextField2.getText().trim();
-        String Id = contributorId +"_process";
+        String collectionName = contributorId + "_process";
 
-        // Validaciones del ID del contribuyente
         if (contributorId.length() != 13) {
             JOptionPane.showMessageDialog(this, "El ID del contribuyente debe tener 13 dígitos.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         if (!contributorId.endsWith("001")) {
             JOptionPane.showMessageDialog(this, "El ID del contribuyente debe terminar en '001'.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        if (!MongoDBUtil.generalIdExists(Id, processIdText)) {
+
+        if (!MongoDBUtil.verifyCollectionExistence(contributorId)) {
             JOptionPane.showMessageDialog(this, "El contribuyente no existe.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Validación del ID del proceso
-        if (processIdText.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Por favor, ingrese el ID del proceso.");
-            return;
-        }
-
         try {
-            int processId = Integer.parseInt(processIdText);
-            loadProcessData(Id, processIdText);
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "El ID del proceso debe ser un número válido.");
+            loadProcessData(contributorId);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ocurrió un error al cargar los datos del contribuyente.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnBuscarActionActionPerformed
-
-    private void jTextField2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusLost
-        
-    }//GEN-LAST:event_jTextField2FocusLost
 
     private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
         // TODO add your handling code here:
@@ -306,7 +269,6 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelIncomeCalc;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel3;
@@ -314,7 +276,6 @@ public class FrmSearchTaxProcess extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTable tblTaxPayers;
     private javax.swing.JLabel txtInvalidIDocumentation;
     private javax.swing.JLabel txtInvalidId;

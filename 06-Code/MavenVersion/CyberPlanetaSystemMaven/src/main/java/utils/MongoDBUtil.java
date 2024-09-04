@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 import com.mongodb.client.model.Filters;
 import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.model.Updates;
@@ -292,6 +293,17 @@ public class MongoDBUtil {
         Document updateObject = new Document("$set", newDocument);
         collection.updateOne(query, updateObject);
     }
+    public static boolean verifyCollectionExistence(String contributorId) {
+        MongoDatabase database = getDatabase();
+        MongoIterable<String> collections = database.listCollectionNames();
+        for (String collectionName : collections) {
+            if (collectionName.startsWith(contributorId + "_process")) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public static boolean generalIdExists(String collectionName, String id) {
         MongoDatabase database = getDatabase();
         MongoCollection<Document> collection = database.getCollection(collectionName);

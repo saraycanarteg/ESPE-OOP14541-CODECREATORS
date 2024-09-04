@@ -24,6 +24,7 @@ public class FrmMenu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenuItem8 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -38,7 +39,11 @@ public class FrmMenu extends javax.swing.JFrame {
         itmAddTaxpayer = new javax.swing.JMenuItem();
         itmEditTaxpayer = new javax.swing.JMenuItem();
         itmDeleteTaxpayer = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
         mnuClassificationAgenda = new javax.swing.JMenu();
         itmSearch9thDigit = new javax.swing.JMenuItem();
         itmNotifications = new javax.swing.JMenuItem();
@@ -51,6 +56,8 @@ public class FrmMenu extends javax.swing.JFrame {
         itmCAGR = new javax.swing.JMenuItem();
         mnuHelp = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
+
+        jMenuItem8.setText("jMenuItem8");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -143,13 +150,41 @@ public class FrmMenu extends javax.swing.JFrame {
 
         mnuTaxpayer.add(itmTaxpayerInfo);
 
-        jMenuItem1.setText("Procesos de Contribuyentes");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenu1.setText("Procesos de Contribuyentes");
+
+        jMenuItem5.setText("Añadir Proceso");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jMenuItem5ActionPerformed(evt);
             }
         });
-        mnuTaxpayer.add(jMenuItem1);
+        jMenu1.add(jMenuItem5);
+
+        jMenuItem6.setText("Editar Proceso");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem6);
+
+        jMenuItem7.setText("Eliminar Proceso");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem7);
+
+        jMenuItem9.setText("Buscar Proceso");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem9);
+
+        mnuTaxpayer.add(jMenu1);
 
         jMenuBar1.add(mnuTaxpayer);
 
@@ -314,12 +349,6 @@ public class FrmMenu extends javax.swing.JFrame {
         frmBusqueda9noDigito.setVisible(true);
     }//GEN-LAST:event_itmSearch9thDigitActionPerformed
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        FrmAddTaxProcess frmAddTaxProcess = new FrmAddTaxProcess();
-        this.setVisible(false);
-        frmAddTaxProcess.setVisible(true);
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
-
     private void itmDeleteTaxpayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itmDeleteTaxpayerActionPerformed
         FrmDeleteTaxpayer frmDeleteTaxpayer = new FrmDeleteTaxpayer();
         this.setVisible(false);
@@ -361,6 +390,30 @@ public class FrmMenu extends javax.swing.JFrame {
        this.setVisible(false);
        frmAddUser.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        FrmDeleteTaxProcess frmDeleteTaxProcess = new FrmDeleteTaxProcess();
+        this.setVisible(false);
+        frmDeleteTaxProcess.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        FrmAddTaxProcess frmAddTaxProcess = new FrmAddTaxProcess();
+        this.setVisible(false);
+        frmAddTaxProcess.setVisible(true);
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+       FrmSearchTaxProcess frmSearchTaxProcess  = new FrmSearchTaxProcess ();
+       this.setVisible(false);
+       frmSearchTaxProcess .setVisible(true);
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+       FrmEditTaxProcess frmEditTaxProcess  = new FrmEditTaxProcess ();
+       this.setVisible(false);
+       frmEditTaxProcess .setVisible(true);
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -418,10 +471,15 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem itmTotalIcome;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JMenu mnuClassificationAgenda;
     private javax.swing.JMenu mnuCyberPlaneta;
